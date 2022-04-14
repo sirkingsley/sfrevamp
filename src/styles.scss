@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/theming";
+@import "scss/style.scss";
+
+@import "assets/css/style.css";
+@import "assets/css/animate.css";
+@import "assets/css/slick.css";
+@import "assets/css/bootstrap.min.css";
+@import "assets/css/home_furniture.css";
+@import "assets/css/magnific-popup.css";
+//@import "assets/css/slick.css";
+@import "assets/css/nice-select.css";
+@import "assets/css/slick-theme.css";
+@import "assets/css/fontawesome.css";
+@import "assets/css/nice-select.css";
+
+//@import "assets/css/jquery-ui.css";
+//@import "assets/css/style.css.map";
+
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.addclass{
+  color:red;
+}
