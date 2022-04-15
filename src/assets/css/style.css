@@ -4930,13 +4930,8 @@ button {
   padding-left: 70px !important;
   padding-bottom: 70px !important;
 }
-.home-right{
 
 
-}
-.home-right .item{
- 
-}
 .home-left button{
   padding: 5px 20px;
   border: 1px solid #39b54a;
@@ -7239,6 +7234,16 @@ button {
   overflow: hidden;
   text-align: center;
   position: relative;
+  height: 523px;
+}
+.home-left h1{
+  font-size: 3rem;
+  line-height: 3rem;
+}
+.home-right{
+  background-image: url(../../assets/images/reg_bg_02.png);
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .ecommerce_category_fullimage > img {
   width: 100%;

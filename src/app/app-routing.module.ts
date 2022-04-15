@@ -25,6 +25,7 @@ const routes: Routes = [
     ]
   },
   {path: 'view-product', component : ViewProductComponent},
+  {path: 'shop-details', component : ShopDetailsComponent},
   {path: 'sign-up', component : SignUpComponent},
   {path: 'login', component : LoginComponent},
   {path: 'shop-details', component : ShopDetailsComponent},
