@@ -1452,7 +1452,7 @@ button {
   color: #000000;
 }
 .custom_btn.bg_white:before {
-  background: #000000;
+  background: $primary-color;
 }
 .custom_btn.bg_white:hover {
   color: #ffffff;
@@ -1464,14 +1464,14 @@ button {
   background: #ebebeb;
 }
 .custom_btn.bg_black:hover {
-  color: #000000;
+  color: $primary-color
 }
 .custom_btn.bg_gray {
   color: #000000;
   background-color: #ebebeb;
 }
 .custom_btn.bg_gray:before {
-  background: #000000;
+  background: $primary-color
 }
 .custom_btn.bg_gray:hover {
   color: #ffffff;
@@ -7414,7 +7414,7 @@ button {
 }
 .ecommerce_category_fullimage .item_title > a:hover {
   color: #ffffff;
-  background-color: #212121;
+  background-color: $primary-color !important;
 }
 
 /* ecommerce category fullimage - end */
@@ -7464,7 +7464,7 @@ button {
 }
 .ecommerce_product_grid .product_action_btns a:hover {
   color: #ffffff;
-  background-color: #212121;
+  background-color: $primary-color !important;
 }
 .ecommerce_product_grid:hover .product_action_btns li {
   opacity: 1;
@@ -48660,7 +48660,7 @@ blockquote {
 	&.bg_white {
 		color: #000000;
 		&:before {
-			background: #000000;
+			background: $primary-color;
 		}
 		&:hover {
 			color: #ffffff;
@@ -48673,7 +48673,7 @@ blockquote {
 			background: #ebebeb;
 		}
 		&:hover {
-			color: #000000;
+			color: $primary-color;
 		}
 	}
 
@@ -48681,7 +48681,7 @@ blockquote {
 		color: #000000;
 		background-color: #ebebeb;
 		&:before {
-			background: #000000;
+			background: $primary-color;
 		}
 		&:hover {
 			color: #ffffff;
@@ -48691,38 +48691,38 @@ blockquote {
 	&.bg_danger {
 		box-shadow: 0px 10px 30px 0px rgba(218, 10, 44, 0.5);
 		&:before {
-			background: $default_black;
+			background: $primary-color;
 		}
 	}
 	&.bg_secondary {
 		box-shadow: 0px 10px 30px 0px rgba(135, 153, 163, 0.5);
 		&:before {
-			background: $default_black;
+			background: $primary-color;
 		}
 	}
 	&.bg_success {
 		box-shadow: 0px 10px 30px 0px rgba(57, 181, 74, 0.5);
 		&:before {
-			background: $default_black;
+			background: $primary-color;
 		}
 	}
 
 	&.bg_default_black {
 		&:before {
-			background: $primary-color-light;
+			background: $secondary-color;
 		}
 	}
 
 	&.bg_default_red {
 		&:before {
-			background: $default_black;
+			background: $primary-color;
 		}
 	}
 
 	&.bg_carparts_red {
 		background-color: #e52929;
 		&:before {
-			background: $default_black;
+			background: $primary-color;
 		}
 	}
 
