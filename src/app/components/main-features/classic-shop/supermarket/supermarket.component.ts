@@ -1,7 +1,19 @@
+
 import { customOptions,customOptions1, slides1,customOptionsHome} from './../../../../utils/constants';
 import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ViewProductComponent } from 'src/app/components/commons/view-product/view-product.component';
+//import { OrderApiCallsService } from './../../../../../../services/network-calls/order-api-calls.service';
+import { ShopApiCallsService } from 'src/app/services/network-calls/shop-api-calls.service';
+import { ProductsApiCallsService } from 'src/app/services/network-calls/products-api-calls.service';
+
+
+import { ActivatedRoute, Router } from '@angular/router';
+
+//import { SwiperOptions } from 'swiper';
+import { AuthService } from 'src/app/services/auth.service';
+
+
 
 //import Jquery
 import * as $ from 'jquery';
@@ -20,14 +32,18 @@ declare const parallaxie: any;
   styleUrls: ['./supermarket.component.scss']
 })
 export class SupermarketComponent implements OnInit {
+
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private productsService: ProductsApiCallsService,
+    private router: Router
   ) { }
 
   customOptions=customOptions;
   customOptions1=customOptions1;
   slides1=slides1;
   customOptionsHome=customOptionsHome;
+
 
   //Call JavaScript functions onload
   onload(){
@@ -38,6 +54,7 @@ export class SupermarketComponent implements OnInit {
 
 
   ngOnInit(): void {
+    console.log("Products: _->");
     $('#flip').on("click",function(){
       $("#panel").slideToggle("slow");
     });
@@ -46,6 +63,8 @@ export class SupermarketComponent implements OnInit {
       $("#search_body_collapse").slideToggle("slow");
     });
     this.onload();
+
+
   }
 
   openDialog() {
@@ -55,4 +74,11 @@ export class SupermarketComponent implements OnInit {
       },
     });
   }
+
+
+
+
+
+
 }
+

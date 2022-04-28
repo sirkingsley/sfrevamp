@@ -2,7 +2,6 @@
   "name": "storefrontnew",
   "version": "0.0.0",
   "main": "server.js",
-
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -26,6 +25,7 @@
     "express": "^4.17.3",
     "helmet": "^5.0.2",
     "jquery": "^3.6.0",
+    "ngx-indexed-db": "^10.0.0",
     "ngx-owl-carousel-o": "^7.0.2",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",

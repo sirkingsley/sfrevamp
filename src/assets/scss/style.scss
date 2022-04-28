@@ -62,10 +62,11 @@ Author 			:  jthemes (https://themeforest.net/user/jthemes)
 
 
 // @import "responsive";
-
+//@import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
 
 $primary-color: #026E08;
 $accent-color: #3D1C00;
+$secondary-color-2:#3a9643;
 $secondary-color: #00BE0A;
 $primary-color-progress: rgb(182, 240, 185);
 $primary-color-light: rgb(77, 236, 85);
@@ -99,7 +100,7 @@ $sparkle-r: .5*$sparkle-d;
 
 // default colors - start
 // ==================================================
-$primary-color-light: #ce0b2b;
+//$primary-color-light: #ce0b2b;
 $default_color: #6b6b6b;
 $default_black: #2e2e2e;
 
@@ -1279,11 +1280,11 @@ button {
 }
 
 .bg_success {
-  background-color: #39b54a;
+  background-color: $secondary-color-2 !important;
 }
 
 .bg_carparts_red {
-  background-color: #ed1d24;
+  background-color: $primary-color;
 }
 
 .bg_furniture_brown {
@@ -1291,7 +1292,7 @@ button {
 }
 
 .bg_modern_red {
-  background-color: #da0a2c;
+  background-color: $primary-color;
 }
 
 .bg_medical_blue {
@@ -1501,10 +1502,10 @@ button {
   background: #2e2e2e;
 }
 .custom_btn.bg_carparts_red {
-  background-color: #e52929;
+  background-color: $primary-color;
 }
 .custom_btn.bg_carparts_red:before {
-  background: #2e2e2e;
+  background: $secondary-color-2;
 }
 .custom_btn.bg_furniture_brown:before {
   background: #90512d;
@@ -1661,10 +1662,10 @@ button {
   line-height: 44px;
 }
 .icon_btn.bg_carparts_red {
-  background-color: #e52929;
+  background-color: $secondary-color-2;
 }
 .icon_btn.bg_carparts_red:before {
-  background: #2e2e2e;
+  background: $secondary-color-2;
 }
 .icon_btn.bg_fashion_red:before {
   background: #35567c;
@@ -2198,7 +2199,7 @@ button {
   line-height: 27px;
   position: absolute;
   border-radius: 45px;
-  background-color: #da0a2c;
+  background-color: $primary-color !important;
   box-shadow: 0px 1px 4px 0px rgba(2, 3, 3, 0.5);
 }
 
@@ -2889,7 +2890,8 @@ button {
   background-color: #ffffff;
 }
 .classic_ecommerce_header.stuck .action_btns_group button {
-  background-color: #cff9ed;
+  background-color: $primary-color-progress !important;
+  color:#ffffff !important ;
 }
 .classic_ecommerce_header .main_menu > ul > li {
   padding: 10px 0px;
@@ -3690,7 +3692,7 @@ button {
   background-color: transparent;
 }
 .fashion_minimal_header .action_btns_group button:hover {
-  color: #ff5656;
+  color: $secondary-color;
 }
 .fashion_minimal_header .action_btns_group button .btn_badge {
   height: 20px;
@@ -3701,7 +3703,7 @@ button {
   line-height: 22px;
   display: inline-block;
   transform: translateY(-2px);
-  background-color: #ff5656;
+  background-color: $primary-color !important;
 }
 
 /* fashion minimal header - end
@@ -7374,7 +7376,7 @@ button {
   overflow: hidden;
   text-align: center;
   position: relative;
-  height: 523px;
+  height: auto;
 }
 .home-left h1{
   font-size: 3rem;
@@ -15445,7 +15447,7 @@ button {
   line-height: 1;
   position: absolute;
   display: inline-block;
-  background: red;
+  background: $accent-color !important;
   width: 45px;
   height: 45px;
   border-radius: 100%;
@@ -48110,7 +48112,7 @@ blockquote {
 }
 .bg_black {
 	background-color:#808080;
-  
+
 }
 .bg_default_black {
 	background-color: $default_black;
@@ -48120,17 +48122,17 @@ blockquote {
 }
 
 .bg_danger {
-	background-color: $primary-color;
+	background-color: $secondary-color-2
 }
 .bg_secondary {
-	background-color: $primary-color;
+	background-color: $secondary-color-2
 }
 .bg_success {
-	background-color: $primary-color;
+	background-color: $secondary-color-2
 }
 
 .bg_carparts_red {
-	background-color: $carparts_red;
+	background-color: $primary-color-light
 }
 .bg_furniture_brown {
 	background-color: $furniture_brown;
@@ -48683,7 +48685,7 @@ blockquote {
 	&.bg_white {
 		color: #000000;
 		&:before {
-			background: $primary-color;
+			background: $secondary-color-2
 		}
 		&:hover {
 			color: #ffffff;
@@ -48696,7 +48698,7 @@ blockquote {
 			background: #ebebeb;
 		}
 		&:hover {
-			color: $primary-color;
+			color: $secondary-color-2
 		}
 	}
 
@@ -48704,7 +48706,7 @@ blockquote {
 		color: #000000;
 		background-color: #ebebeb;
 		&:before {
-			background: $primary-color;
+			background: $secondary-color-2
 		}
 		&:hover {
 			color: #ffffff;
@@ -48712,40 +48714,40 @@ blockquote {
 	}
 
 	&.bg_danger {
-		box-shadow: 0px 10px 30px 0px $secondary-color;
+		box-shadow: 0px 10px 30px 0px $secondary-color-2;
 		&:before {
-			background: $primary-color;
+			background: $secondary-color-2;
 		}
 	}
 	&.bg_secondary {
 		box-shadow: 0px 10px 30px 0px rgba(135, 153, 163, 0.5);
 		&:before {
-			background: $primary-color;
+			background: $secondary-color-2
 		}
 	}
 	&.bg_success {
 		box-shadow: 0px 10px 30px 0px rgba(57, 181, 74, 0.5);
 		&:before {
-			background: $primary-color;
+			background: $secondary-color-2
 		}
 	}
 
 	&.bg_default_black {
 		&:before {
-			background: $secondary-color;
+			background: $secondary-color-2;
 		}
 	}
 
 	&.bg_default_red {
 		&:before {
-			background: $primary-color;
+			background: $secondary-color-2
 		}
 	}
 
 	&.bg_carparts_red {
-		background-color: #e52929;
+		background-color: $primary-color;
 		&:before {
-			background: $primary-color;
+			background: $secondary-color-2;
 		}
 	}
 
@@ -48961,7 +48963,7 @@ blockquote {
 	}
 
 	&.bg_carparts_red {
-		background-color: #e52929;
+		background-color: $primary-color;
 		&:before {
 			background: $default_black;
 		}

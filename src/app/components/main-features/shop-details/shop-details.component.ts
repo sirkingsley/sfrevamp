@@ -1,10 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { customOptionsHome,customOptions,customOptions1, slides1 } from 'src/app/utils/constants';
+
+import { Component, Renderer2, OnInit, ElementRef, ViewChild, AfterViewInit  } from '@angular/core';
+
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { ViewProductComponent } from 'src/app/components/commons/view-product/view-product.component';
+//import { OrderApiCallsService } from './../../../../../../services/network-calls/order-api-calls.service';
+
+import { ActivatedRoute, Router } from '@angular/router';
+
+//import { PromoDialogComponent } from 'src/app/components/common/dialogs/promo-dialog/promo-dialog.component';
+
 
 //import Jquery
 import * as $ from 'jquery';
-import { customOptions } from 'src/app/utils/constants';
-import { ViewProductComponent } from '../../commons/view-product/view-product.component';
+
+export interface DialogData {
+  animal: 'panda' | 'unicorn' | 'lion';
+}
 
 //JavaScript Functions
 declare const custom:any;
@@ -15,11 +27,43 @@ declare const parallaxie: any;
   templateUrl: './shop-details.component.html',
   styleUrls: ['./shop-details.component.scss']
 })
-export class ShopDetailsComponent implements OnInit {
+export class ShopDetailsComponent implements AfterViewInit {
+  @ViewChild('mainImg', { static: false }) mainImg?: ElementRef;
+  @ViewChild('thum', { static: false }) thum: ElementRef | undefined;
 
-  constructor(public dialog: MatDialog) { }
 
-  customOptions=customOptions;
+  constructor(
+    public dialog: MatDialog,
+    private el: ElementRef,
+    private renderer:Renderer2,
+
+    private route: ActivatedRoute,
+
+    ) { }
+
+    customOptions=customOptions;
+    customOptions1=customOptions1;
+    slides1=slides1;
+    customOptionsHome=customOptionsHome;
+
+
+
+
+
+
+
+    ngAfterViewInit() {
+
+      //this.renderer.setStyle(this.divHello?.nativeElement, 'color', 'red');
+      //this.renderer.addClass(this.divHello?.nativeElement, 'active12');
+
+    }
+
+    getAttribute(){
+      this.renderer.setProperty(this.mainImg?.nativeElement,'src',`${this.thum?.nativeElement.src}`);
+      //console.log(this.thum?.nativeElement.src);
+    }
+
 
   //Call JavaScript functions onload
   onload(){
@@ -42,5 +86,6 @@ export class ShopDetailsComponent implements OnInit {
         animal: 'panda',
       },
     });
-  }
+
+}
 }
