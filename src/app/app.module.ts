@@ -1,3 +1,5 @@
+import { TopNavComponent } from './components/commons/top-nav/top-nav.component';
+
 import { ShopApiCallsService } from 'src/app/services/network-calls/shop-api-calls.service';
 import { ProductsApiCallsService } from 'src/app/services/network-calls/products-api-calls.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
@@ -21,7 +23,6 @@ import { FallComponent } from './components/main-features/classic-shop/supermark
 import { BlouseComponent } from './components/main-features/classic-shop/supermarket/blouse/blouse.component';
 import { ViewProductComponent } from './components/commons/view-product/view-product.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import { MainNavComponent } from './components/commons/main-nav/main-nav.component';
 import { Checkout2Component } from './components/main-features/checkout2/checkout2.component';
 import { Checkout3Component } from './components/main-features/checkout3/checkout3.component';
 import { CartComponent } from './components/main-features/cart/cart.component';
@@ -38,7 +39,7 @@ import { SEOService } from './services/seo.service';
 import { CustomersApiCallsService } from './services/network-calls/customers-api-calls.service';
 import { OrderApiCallsService } from './services/network-calls/order-api-calls.service';
 import { SharedDataApiCallsService } from './services/network-calls/shared-data-api-calls.service';
-
+import { FooterComponent } from './components/main-features/footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,10 +51,12 @@ import { SharedDataApiCallsService } from './services/network-calls/shared-data-
     FallComponent,
     BlouseComponent,
     ViewProductComponent,
-    MainNavComponent,
     Checkout2Component,
     Checkout3Component,
     CartComponent,
+    FooterComponent,
+    TopNavComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,8 @@ import { SharedDataApiCallsService } from './services/network-calls/shared-data-
     MatDialogModule,
   ],
   providers:
-  [AuthService,
+  [
+    AuthService,
     AppUtilsService,
     ConstantValuesService,
     DataProviderService,
