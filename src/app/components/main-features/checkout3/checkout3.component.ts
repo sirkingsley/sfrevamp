@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+//import Jquery
+import * as $ from 'jquery';
 //JavaScript Functions
 declare const custom:any;
 declare const main:any;

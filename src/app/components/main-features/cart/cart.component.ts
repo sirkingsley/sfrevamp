@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+//import Jquery
+import * as $ from 'jquery';
 //JavaScript Functions
 declare const custom:any;
 declare const main:any;
@@ -23,7 +25,7 @@ export class CartComponent implements OnInit {
     $('#flip').on("click",function(){
       $("#panel").slideToggle("slow");
     });
-    
+
     $('.search_btn').on("click",function(){
       $("#search_body_collapse").slideToggle("slow");
     });
