@@ -6,50 +6,11 @@
 // ==================================================
 
 function custom(){
-  // console.log("Silas");
-  // alert("Hello Silas");
-  // document.getElementById('myid').style.backgroundColor='red';
-  // document.getElementById('input').value='Silas';
-  // $('#myid').addClass('addclass');
-  // function toggleSearch(){
-  //   $('.search_btn').on("click",function(){
-  //     $("#search_body_collapse").slideToggle("slow");
-  //   });
-  // }
-  // toggleSearch();
+  $('.user_thumbnail').on("click",function(){
+    $('.user_content > h4').removeClass('active');
+    console.log('Click success');
 
-  $(document).ready(function () {
-    $('.close_btn, .overlay').on('click', function () {
-      $('.cart_sidebar').removeClass('active');
-      $('.overlay').removeClass('active');
-    });
-
-    $('.cart_btn').on('click', function () {
-      $('.cart_sidebar').addClass('active');
-      $('.overlay').addClass('active');
-    });
   });
-
-  // back to top - start
-  // --------------------------------------------------
-  $(window).scroll(function() {
-    if ($(this).scrollTop() > 200) {
-      $('.backtotop:hidden').stop(true, true).fadeIn();
-    } else {
-      $('.backtotop').stop(true, true).fadeOut();
-    }
-  });
-  $(function() {
-    $(".scroll").on('click', function() {
-      $("html,body").animate({
-        scrollTop: $("#thetop").offset().top
-      }, "slow");
-      return false
-    })
-  });
-  // back to top - end
-  // ------
-
   // search box - start
   // --------------------------------------------------
   $('.search_btn').on('click', function() {

@@ -6,7 +6,9 @@ import { NgxIndexedDBService } from 'ngx-indexed-db';
 })
 export class LocalStorageDataProviderService {
 
-  constructor(private dbService: NgxIndexedDBService) {
+  constructor(
+    private dbService: NgxIndexedDBService
+    ) {
   }
   /**
    * Store data in current store in indexedDB

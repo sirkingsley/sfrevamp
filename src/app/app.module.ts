@@ -5,16 +5,20 @@ import { ProductsApiCallsService } from 'src/app/services/network-calls/products
 import { NotificationsService } from 'src/app/services/notifications.service';
 import { DbaseUpdateService } from 'src/app/services/dbase-update.service';
 import { ConstantValuesService } from 'src/app/services/constant-values.service';
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { ErrorHandler, NgModule } from '@angular/core';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 
+//import { NgxIndexedDBModule } from 'ngx-indexed-db';
+//import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './classes/auth-interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SupermarketComponent } from './components/main-features/classic-shop/supermarket/supermarket.component';
 import { ShopDetailsComponent } from './components/main-features/shop-details/shop-details.component';
-
+import { HttpClientModule } from '@angular/common/http';
 
 import { SignUpComponent } from './components/commons/sign-up/sign-up.component';
 import { LoginComponent } from './components/commons/login/login.component';
@@ -40,6 +44,7 @@ import { CustomersApiCallsService } from './services/network-calls/customers-api
 import { OrderApiCallsService } from './services/network-calls/order-api-calls.service';
 import { SharedDataApiCallsService } from './services/network-calls/shared-data-api-calls.service';
 import { FooterComponent } from './components/main-features/footer/footer.component';
+import { WINDOW_PROVIDERS } from './utils/window.provider';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,6 +69,8 @@ import { FooterComponent } from './components/main-features/footer/footer.compon
     BrowserAnimationsModule,
     CarouselModule,
     MatDialogModule,
+    HttpClientModule,
+   // NgxIndexedDBModule
   ],
   providers:
   [
@@ -85,6 +92,12 @@ import { FooterComponent } from './components/main-features/footer/footer.compon
     ProductsApiCallsService,
     SharedDataApiCallsService,
     ShopApiCallsService,
+    //NgxIndexedDBService,
+    Title,
+    { provide: ErrorHandler, useClass: SentryErrorHandlerService },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    WINDOW_PROVIDERS
+
 
   ],
   bootstrap: [AppComponent]

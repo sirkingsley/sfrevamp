@@ -79,6 +79,8 @@ $transparent-grey: rgba(230, 230, 230, 0.5);
 $small-text-size: .9375rem;
 $bezier: cubic-bezier(.17,.67,.83,.67);
 $bg-color: #F4F5F8;
+$text-grey: #666;
+$text_white:#ffff;
 
 $color-chip: linear-gradient(90deg, #D0A963, #FFE6BA);
 $color-card--white: linear-gradient(45deg, #FFF, #CDCDCD);
@@ -1094,6 +1096,7 @@ hr {
   position: fixed;
   border-radius: 100%;
   box-shadow: 0px 10px 30px 1px rgba(0, 0, 0, 0.15);
+  background-color: $primary-color !important;
 }
 .backtotop .scroll {
   z-index: 1;
@@ -1451,6 +1454,7 @@ button {
 }
 .custom_btn.bg_white {
   color: #000000;
+  border: 1px solid #000000;
 }
 .custom_btn.bg_white:before {
   background: $primary-color;
@@ -2368,6 +2372,7 @@ button {
 }
 .mega_menu .home_pages a .item_image img {
   width: 100%;
+  height: 70px !important;
   display: block;
   transition: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
@@ -4099,6 +4104,7 @@ button {
 .footer_section .author_link {
   z-index: 1;
   position: relative;
+  color: $text-grey !important;
 }
 .footer_section .author_link:before {
   width: 0px;
@@ -4145,7 +4151,7 @@ button {
   font-weight: 500;
 }
 .footer_electronic_hotline span {
-  color: #ffffff;
+  color: $text-grey;
   display: block;
   line-height: 1;
   font-size: 26px;
@@ -4161,7 +4167,7 @@ button {
 }
 .footer_useful_links a {
   font-size: 18px;
-  color: #6b6b6b;
+  color: $text-grey;
 }
 
 /* footer useful links - end */
@@ -4331,7 +4337,7 @@ button {
 /* carparts footer - start
 ================================================== */
 .carparts_footer .footer_useful_links a {
-  color: #bababa;
+  color: $text-grey;
   font-size: 18px;
   font-family: "Oswald", sans-serif;
 }
@@ -4363,6 +4369,7 @@ button {
 }
 .ecommerce_footer .footer_widget_title {
   font-size: 22px;
+  color: $text-grey !important;
 }
 .ecommerce_footer .footer_useful_links li {
   font-size: 17px;
@@ -4371,7 +4378,7 @@ button {
   margin-bottom: 15px;
 }
 .ecommerce_footer .footer_useful_links a {
-  color: #ffffff;
+  color: $text-grey !important;
   font-size: 17px;
 }
 .ecommerce_footer .footer_bottom {
@@ -4389,7 +4396,7 @@ button {
   background-color: #191919;
 }
 .furniture_footer .footer_newsletter .form_item input {
-  color: #ffffff;
+  color: $text-grey;
   border-color: #252525;
   background-color: #252525;
 }
@@ -4397,14 +4404,14 @@ button {
   margin-bottom: 15px;
 }
 .furniture_footer .footer_useful_links a {
-  color: #ffffff;
+  color: $text-grey;
   font-size: 16px;
 }
 .furniture_footer .footer_useful_links a:hover {
   color: #bd896b;
 }
 .furniture_footer .footer_contact_info li {
-  color: #ffffff;
+  color: $text-grey;
 }
 .furniture_footer .footer_contact_info span {
   color: #636363;
@@ -5976,7 +5983,20 @@ button {
 .offer_fullimage:hover > img {
   transform: scale(1.07);
 }
+.owl-carousel .owl-item img {
+  display: block;
+  width: 100%;
+  height: 395px !important;
+}
 
+.sf-home{
+  background: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0)), url('../../assets/images/attractive-stylish-modern-young-african-woman-2021-08-26-17-26-19-utc.jpg');
+  //height: 90%;
+  //background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #fff !important;
+  }
 /* offer section - end */
 /* ce(classic ecommerce) offer - start */
 .ce_offer_fullimage .item_content {
@@ -5994,28 +6014,84 @@ button {
 
 .ce_offer_fullimage2 .item_content {
   top: 50%;
-  right: 0px;
+  // right: 0px;
+  left: 0 !important;
   max-width: 450px;
   padding: 30px 50px;
   position: absolute;
   transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.3);
 }
 .ce_offer_fullimage2 .item_title {
   font-size: 54px;
   font-weight: 600;
+  line-height: 1.02 !important;
 }
 .ce_offer_fullimage2 p {
   font-size: 20px;
   line-height: 1.5;
 }
 
+.category-wrapper{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  //border: 2px solid green;
+  //margin-top: 3rem;
+
+}
+.main-heading{
+  // font-size: 2.3rem !important;
+  line-height: 36px !important;
+  font-size: 1.6rem !important;
+  line-height: 2.3rem;
+  padding: 0 1rem;
+  color: $text-grey;
+  font-weight: 100;
+}
+.grid-item{
+  width: 30%;
+  margin: 10px;
+
+
+
+}
+.grid-item1{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  height: 390px !important;
+  padding-top: 10px;
+  border: 2px solid $primary-color-progress;
+  margin-top: 31px;
+  margin-left: 20px !important;
+  background-color: #b6f0b94d;
+
+}
+.grid-item img{
+  height: 100% !important;
+}
+
+  .create-btn {
+    margin-top: 20px;
+    padding: 10px 5px;
+    width: 80%;
+    margin: 10px auto;
+    background-color: $secondary-color;
+}
+
+.create-btn:hover{
+  background-color: $primary-color-light;
+}
 /* ce(classic ecommerce) offer - end */
 /* modern advertisement - start */
 .modern_advertisement {
   display: flex;
   min-height: 350px;
 }
-.modern_advertisement .item_content {
+.modern_advertisement .item_content{
   padding: 50px;
   max-width: 430px;
 }
@@ -6354,7 +6430,7 @@ button {
 }
 .home_carparts .carousel_nav button:hover {
   color: #ffffff;
-  background-color: #ed1d24;
+  background-color: $secondary-color-2 !important;
 }
 
 .carparts_block_tabs {
@@ -7364,7 +7440,7 @@ button {
 }
 .ce_offer_carousel .carousel_nav button:hover {
   color: #ffffff;
-  background-color: #212121;
+  background-color: $secondary-color-2 !important;
 }
 .ce_offer_carousel .carousel_nav button:not(:last-child) {
   border-right: 1px solid #e8e8e8;
@@ -15558,12 +15634,17 @@ button {
 }
 .filters-button-group button {
   display: block;
-  color: #000000;
+  color: $text-grey !important;
   font-size: 17px;
   font-weight: 600;
   position: relative;
   padding-bottom: 2px;
 }
+
+// .filters-button-group .active{
+//   color: #fff !important;
+//   background-color: $primary-color;
+// }
 .filters-button-group button:before {
   width: 0px;
   left: auto;
@@ -15580,6 +15661,13 @@ button {
   left: 0px;
   width: 100%;
   right: auto;
+}
+.create-shop-wrapper{
+  width: 70% !important;
+  align-self: center !important;
+  justify-self: center;
+  margin: auto;
+
 }
 
 /* products tabs nav - start */
@@ -24924,6 +25012,11 @@ blockquote .blockquote_title {
 
   .classic_ecommerce_slider .slider_content {
     max-width: 400px;
+  }
+
+  .ecommerce_category_masonry .grid{
+    height: 500px !important;
+    border: 2px solid red !important;
   }
 
   .ecommerce_category_masonry .grid-item,
@@ -42159,6 +42252,9 @@ button {
 		padding: 50px 0px;
 		box-shadow: -1px 2px 20px 3px rgba(14, 0, 40, 0.1);
 	}
+  h3{
+    cursor: pointer;
+  }
 }
 .menu_item_has_child {
 	&:hover {
@@ -44302,6 +44398,8 @@ button {
 /* footer section - start
 ================================================== */
 .footer_section {
+  bottom: 0;
+  margin-bottom: 0;
 	.author_link {
 		z-index: 1;
 		position: relative;
@@ -48106,12 +48204,19 @@ blockquote {
 /* default colors - start
 ==================================================================================================== */
 
+.bg_black_subscribe{
+  background-color: $accent-color;
+}
+
+.footer-text{
+  color: $text-grey;
+}
 /* bg color - start */
 .bg_white {
 	background-color: #ffffff;
 }
 .bg_black {
-	background-color:#808080;
+	background-color:#dcdcdc;
 
 }
 .bg_default_black {

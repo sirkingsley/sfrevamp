@@ -21,12 +21,316 @@
 		<!-- preloader - end -->
 
 
-		<!-- header_section - start
+	<!-- header_section - start
 		================================================== -->
-      <app-top-nav></app-top-nav>
+		<header class="header_section classic_ecommerce_header sticky_header clearfix">
+
+
+			<div class="header_bottom clearfix">
+				<div class="container">
+					<div class="row align-items-center">
+						<div class="col-lg-3">
+							<div class="brand_logo">
+								<a class="brand_link" href="#!">
+									<img src="assets/images/logo-main.png" srcset="assets/images/logo-main.png 2x" alt="logo_not_found">
+								</a>
+
+								<ul class="mh_action_btns ul_li clearfix">
+									<li>
+										<button type="button" class="search_btn" data-toggle="collapse" data-target="#search_body_collapse" aria-expanded="false" aria-controls="search_body_collapse">
+											<i class="fal fa-search"></i>
+										</button>
+									</li>
+									<li>
+										<button type="button" class="cart_btn">
+											<i class="fal fa-shopping-cart"></i>
+											<span class="btn_badge">2</span>
+										</button>
+									</li>
+									<li><button type="button" class="mobile_menu_btn"><i class="far fa-bars"></i></button></li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="col-lg-6">
+							<nav class="main_menu clearfix">
+								<ul class="ul_li_center clearfix">
+									<li class="menu_item_has_child">
+										<a>Shops</a>
+										<div class="mega_menu text-center">
+											<div class="background" data-bg-color="#ffffff">
+												<div class="container">
+													<ul class="home_pages ul_li clearfix" >
+														<li *ngFor="let shop of featuredShops">
+															<a>
+																<span class="item_image">
+																	<img src="{{shop.featured_image}}" onerror="this.src='../../assets/images/black-women-shopping.jpg'" alt="image_not_found">
+																</span>
+																<span class="item_title">{{shop.business_name}}</span>
+															</a>
+														</li>
+														<!-- <li>
+															<a routerLink="/supermarket">
+																<span class="item_image">
+																	<img src="assets/images/home_pages/classic_ecommarce.png" alt="image_not_found">
+																</span>
+																<span class="item_title">Classic Ecommerce</span>
+															</a>
+														</li>
+														<li>
+															<a href="home_creative_onelook.html">
+																<span class="item_image">
+																	<img src="assets/images/home_pages/creative_onelook.png" alt="image_not_found">
+																</span>
+																<span class="item_title">Creative Onelook</span>
+															</a>
+														</li>
+														<li>
+															<a href="home_electronic.html">
+																<span class="item_image">
+																	<img src="assets/images/home_pages/electronic.png" alt="image_not_found">
+																</span>
+																<span class="item_title">Electronic</span>
+															</a>
+														</li>
+														<li>
+															<a href="home_fashion.html">
+																<span class="item_image">
+																	<img src="assets/images/home_pages/fashion.png" alt="image_not_found">
+																</span>
+																<span class="item_title">Fashion</span>
+															</a>
+														</li>
+														<li>
+															<a href="home_fashion_minimal.html">
+																<span class="item_image">
+																	<img src="assets/images/home_pages/fashion_minimal.png" alt="image_not_found">
+																</span>
+																<span class="item_title">Fashion Minimal</span>
+															</a>
+														</li>
+														<li>
+															<a href="home_furniture.html">
+																<span class="item_image">
+																	<img src="assets/images/home_pages/furniture.png" alt="image_not_found">
+																</span>
+																<span class="item_title">Furniture</span>
+															</a>
+														</li>
+														<li>
+															<a href="home_gadget.html">
+																<span class="item_image">
+																	<img src="assets/images/home_pages/gadget.png" alt="image_not_found">
+																</span>
+																<span class="item_title">Gadget</span>
+															</a>
+														</li>
+														<li>
+															<a href="home_lookbook_creative.html">
+																<span class="item_image">
+																	<img src="assets/images/home_pages/lookbook_creative.png" alt="image_not_found">
+																</span>
+																<span class="item_title">Lookbook Creative</span>
+															</a>
+														</li>
+														<li>
+															<a href="home_lookbook_slide.html">
+																<span class="item_image">
+																	<img src="assets/images/home_pages/lookbook_slide.png" alt="image_not_found">
+																</span>
+																<span class="item_title">Lookbook Slide</span>
+															</a>
+														</li>
+														<li>
+															<a href="home_medical.html">
+																<span class="item_image">
+																	<img src="assets/images/home_pages/medical.png" alt="image_not_found">
+																</span>
+																<span class="item_title">Medical</span>
+															</a>
+														</li>
+														<li>
+															<a href="home_modern.html">
+																<span class="item_image">
+																	<img src="assets/images/home_pages/modern.png" alt="image_not_found">
+																</span>
+																<span class="item_title">Modern</span>
+															</a>
+														</li>
+														<li>
+															<a href="home_modern_minimal.html">
+																<span class="item_image">
+																	<img src="assets/images/home_pages/modern_minimal.png" alt="image_not_found">
+																</span>
+																<span class="item_title">Modern Minimal</span>
+															</a>
+														</li>
+														<li>
+															<a href="home_motorcycle.html">
+																<span class="item_image">
+																	<img src="assets/images/home_pages/motorcycle.png" alt="image_not_found">
+																</span>
+																<span class="item_title">Motorcycle</span>
+															</a>
+														</li>
+														<li>
+															<a href="home_parallax_shop.html">
+																<span class="item_image">
+																	<img src="assets/images/home_pages/parallax_shop.png" alt="image_not_found">
+																</span>
+																<span class="item_title">Parallax Shop</span>
+															</a>
+														</li>
+														<li>
+															<a href="home_simple_shop.html">
+																<span class="item_image">
+																	<img src="assets/images/home_pages/simple_shop.png" alt="image_not_found">
+																</span>
+																<span class="item_title">Simple Shop</span>
+															</a>
+														</li>
+														<li>
+															<a href="home_single_story_black.html">
+																<span class="item_image">
+																	<img src="assets/images/home_pages/single_story_black.png" alt="image_not_found">
+																</span>
+																<span class="item_title">Single Story Black</span>
+															</a>
+														</li>
+														<li>
+															<a href="home_single_story_white.html">
+																<span class="item_image">
+																	<img src="assets/images/home_pages/single_story_white.png" alt="image_not_found">
+																</span>
+																<span class="item_title">Single Story White</span>
+															</a>
+														</li>
+														<li>
+															<a href="home_sports.html">
+																<span class="item_image">
+																	<img src="assets/images/home_pages/sports.png" alt="image_not_found">
+																</span>
+																<span class="item_title">Sports Shop</span>
+															</a>
+														</li>
+														<li>
+															<a href="home_supermarket.html">
+																<span class="item_image">
+																	<img src="assets/images/home_pages/supermarket.png" alt="image_not_found">
+																</span>
+																<span class="item_title">Supermarket</span>
+															</a>
+														</li>
+														<li>
+															<a href="home_watch.html">
+																<span class="item_image">
+																	<img src="assets/images/home_pages/watch.png" alt="image_not_found">
+																</span>
+																<span class="item_title">Watch</span>
+															</a>
+														</li> -->
+													</ul>
+												</div>
+											</div>
+										</div>
+									</li>
+									<li class="menu_item_has_child">
+										<a href="#!">Categories</a>
+										<div class="mega_menu">
+											<div class="background" data-bg-color="#ffffff">
+												<div class="container">
+													<div class="row mt__30">
+														<div class="col-lg-3" *ngFor="let category of industries">
+
+                              <!-- <div class="page_links" >
+																<h3 class="title_text">All</h3>
+
+															</div> -->
+
+															<div class="page_links" >
+																<h3 class="title_text" (click)="filterCategory(target)">{{category.name}}</h3>
+																<!-- <ul class="ul_li_block">
+																	<li><a href="carparts_shop.html">Shop Page</a></li>
+																	<li><a href="carparts_shop_grid.html">Shop Grid</a></li>
+																	<li><a href="carparts_shop_list.html">Shop List</a></li>
+																	<li><a href="carparts_shop_details.html">Shop Details</a></li>
+																</ul> -->
+															</div>
+
+
+
+
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</li>
+
+									<li><a href="https://www.kudigo.com/" target="_blank" >About us</a></li>
+									<!-- <li><a >Contact us</a></li> -->
+								</ul>
+							</nav>
+						</div>
+
+						<div class="col-lg-3">
+							<ul class="action_btns_group ul_li_right clearfix">
+								<li>
+									<button type="button" class="search_btn" data-toggle="collapse" data-target="#search_body_collapse" aria-expanded="false" aria-controls="search_body_collapse">
+										<i class="fal fa-search"></i>
+									</button>
+								</li>
+                <li>
+									<button id="flip" type="button" class="user_btn" data-toggle="collapse" data-target="#use_deropdown" aria-expanded="false" aria-controls="use_deropdown">
+										<i class="fal fa-user"></i>
+									</button>
+									<!-- <div id="use_deropdown" class="collapse_dropdown collapse"> -->
+                    <div id="panel" class="collapse_dropdown collapse">
+										<div class="dropdown_content">
+											<div class="profile_info clearfix">
+												<div class="user_thumbnail">
+													<img src="assets/images/reg_bg_02.png" alt="thumbnail_not_found">
+												</div>
+												<div class="user_content">
+													<h4 class="user_name active">Jone Doe</h4>
+													<span class="user_title">Seller</span>
+												</div>
+											</div>
+											<ul class="settings_options ul_li_block clearfix">
+												<li><a href="#!"><i class="fal fa-user-circle"></i> Profile</a></li>
+												<!-- <li><a href="#!"><i class="fal fa-user-cog"></i> Settings</a></li> -->
+												<li><a routerLink="login"><i class="fal fa-sign-out-alt"></i> Logout</a></li>
+											</ul>
+										</div>
+									</div>
+								</li>
+								<li>
+									<button type="button" class="cart_btn">
+										<i class="fal fa-shopping-cart"></i>
+										<span class="btn_badge">2</span>
+									</button>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="search_body_collapse" class="search_body_collapse collapse">
+				<div class="search_body">
+					<div class="container">
+						<form action="#">
+							<div class="form_item mb-0">
+								<input type="search" name="search" placeholder="Type here...">
+								<button type="submit"><i class="fal fa-search"></i></button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</header>
 		<!-- header_section - end
 		================================================== -->
-
 
 		<!-- main body - start
 		================================================== -->
@@ -329,7 +633,8 @@
 				<div class="main_slider clearfix">
 
 
-              <div class="item d-flex align-items-center clearfix" data-background="../../assets/images/bg_01.jpg">
+              <!-- <div class="item d-flex align-items-center clearfix" data-background="../../assets/images/african-shopping-time-2022-02-12-05-06-41-utc.jpg"> -->
+              <div class="item d-flex align-items-center clearfix sf-home">
                 <div class="container">
                   <div class="slider_content">
                     <h3 data-animation="fadeInUp" data-delay=".6s">Sweet Home Collections.</h3>
@@ -429,31 +734,23 @@
 				<div class="container">
 					<div class="ecommerce_category_masonry grid">
 						<div class="grid-sizer"></div>
+            <h3 class="main-heading">Shop for your everyday essentials with ease. Support local retailers</h3>
 						<div class="grid-item w_66">
+
 							<div class="ce_offer_carousel position-relative clearfix">
 								<div class="slideshow1_slider">
-                  <!-- <div class="item">
-                    <div class="ce_offer_fullimage2 offer_fullimage offer_fullimage22 text-white">
-                  <img src="assets/images/banner.jpg" alt="image_not_found">
-                  <div class="item_content">
-                    <h3 class="item_title text-white">Special Offers</h3>
-                    <p>
-                      Lorem ipsum dolor sit amet domin Quaequ e an mea
-                    </p>
-                    <a class="custom_btn bg_white text-uppercase" routerLink="/shop-details">View Shop</a>
-                  </div>
-                </div>
-              </div> -->
                   <owl-carousel-o [options]="customOptions" class="slideshow1_slider">
-                    <ng-container *ngFor="let slide of slides1">
+                    <ng-container *ngFor="let shop of featuredShops">
                     <ng-template carouselSlide class="item">
 									    <div class="item">
 										    <div class="ce_offer_fullimage2 offer_fullimage text-white">
-											<img src="../../assets/images/banner.jpg" alt="image_not_found">
+
+											<img src="{{shop.featured_image}}" onerror="this.src='../../assets/images/black-women-shopping.jpg'"  alt="alternative" />
 											<div class="item_content">
-												<h3 class="item_title text-white">Special Offers</h3>
+												<!-- <h3 class="item_title text-white">Special Offers</h3> -->
+                        <h3 class="item_title text-white">{{shop.business_name}}</h3>
 												<p>
-													Lorem ipsum dolor sit amet domin Quaequ e an mea
+													{{shop.location}}
 												</p>
 												<a class="custom_btn bg_white text-uppercase" routerLink="/shop-details">View Shop</a>
 											</div>
@@ -471,44 +768,52 @@
 							</div>
 						</div>
 
-						<div class="grid-item">
-							<div class="ecommerce_category_fullimage">
-								<img src="assets/images/img_10_lwmtes.png" alt="image_not_found">
-								<h3 class="item_title">
-									<a href="#!">Cropped Pointelle</a>
-								</h3>
-							</div>
-						</div>
+            <div class="grid-item1">
+              <div class="ecommerce_category_fullimage">
+                <img class="create-shop-wrapper" src="assets/images/undraw_web_shopping_re_owap.svg" alt="image_not_found">
 
-						<div class="grid-item">
-							<div class="ecommerce_category_fullimage">
-								<img src="assets/images/P00481005_pxpeqn.webp" alt="image_not_found">
-								<h3 class="item_title">
-									<a href="#!">Pouch Pocket Jacket</a>
-								</h3>
-							</div>
-						</div>
-
-						<div class="grid-item">
-							<div class="ecommerce_category_fullimage">
-								<img src="assets/images/img_09.png" alt="image_not_found">
-								<h3 class="item_title">
-									<a href="#!">Lightweight Quilted</a>
-								</h3>
-							</div>
-						</div>
-
-						<div class="grid-item">
-							<div class="ecommerce_category_fullimage">
-								<img src="assets/images/img_09.png" alt="image_not_found">
-								<h3 class="item_title">
-									<a href="#!">Faux Leather Biker</a>
-								</h3>
-							</div>
-						</div>
+              </div>
+              <button type="button" onclick="window.open('https://storefront.kudigo.com/');" class="create-btn">CREATE SHOP</button>
+            </div>
 					</div>
 				</div>
+        <div class="container category-heading-wrapper mt-5">
+          <h3 class="main-heading">
+            Popular Categories
+          </h3>
+        </div>
 			</section>
+
+      <div class="category-wrapper" >
+        <div class="grid-item">
+          <div class="ecommerce_category_fullimage">
+            <img src="assets/images/img_10_lwmtes.png" alt="image_not_found">
+            <h3 class="item_title">
+              <a href="#!">{{industries[0]?.name}}</a>
+            </h3>
+          </div>
+        </div>
+
+        <div class="grid-item">
+          <div class="ecommerce_category_fullimage">
+            <img src="assets/images/P00481005_pxpeqn.webp" alt="image_not_found">
+            <h3 class="item_title">
+              <a href="#!">{{industries[1]?.name}}</a>
+            </h3>
+          </div>
+        </div>
+
+        <div class="grid-item">
+          <div class="ecommerce_category_fullimage">
+            <img src="assets/images/img_09.png" alt="image_not_found">
+            <h3 class="item_title">
+              <a href="#!">{{industries[2]?.name}}</a>
+            </h3>
+          </div>
+        </div>
+
+
+      </div>
 			<!-- category_section - end
 			================================================== -->
 
@@ -520,21 +825,29 @@
 					<div class="row mb_30 align-items-center justify-content-lg-between">
 						<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
 							<div class="ecommerce_section_title">
-								<h2 class="title_text mb-0">Popular Products</h2>
+								<h2 class="title_text mb-0" #target>Popular Products</h2>
 							</div>
 						</div>
+            <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+							<ul class="button-group filters-button-group ul_li_right clearfix" >
 
-						<div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-							<ul class="button-group filters-button-group ul_li_right clearfix">
-								<li><button class="active" data-filter="*" routerLink="dresses">All</button></li>
-								<li><button data-filter=".fall" routerLink="fall">Fall</button></li>
-								<li><button data-filter=".blouse" routerLink="blouse">Blouse</button></li>
-								<li><button data-filter=".dresses" routerLink="dresses">Dresses</button></li>
-								<li><button data-filter=".tops">Tops</button></li>
-								<li><button data-filter=".bodysuits">Bodysuits</button></li>
+
 								<li><span class="filter_sidebar_btn" data-bg-color="#f9f9f9"><i class="far fa-bars"></i> FILTER</span></li>
 							</ul>
 						</div>
+
+						<!-- <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+							<ul class="button-group filters-button-group ul_li_right clearfix">
+								<li><button class="active" routerLink="dresses">All</button></li>
+								<li><button  routerLink="fall">Fall</button></li>
+								<li><button  routerLink="blouse">Blouse</button></li>
+								<li ><button  routerLink="dresses">Dresses</button></li>
+
+								<li><button >Tops</button></li>
+								<li><button >Bodysuits</button></li>
+								<li><span class="filter_sidebar_btn" data-bg-color="#f9f9f9"><i class="far fa-bars"></i> FILTER</span></li>
+							</ul>
+						</div> -->
 					</div>
           <router-outlet></router-outlet>
 
@@ -593,7 +906,11 @@
 					<button type="button" class="close_btn mb_50"><i class="fal fa-times"></i></button>
 					<div class="fs_widget fs_category_list">
 						<h3 class="fs_widget_title text-uppercase">Top Categories</h3>
-						<ul class="ul_li_block clearfix">
+            <ul class="ul_li_block clearfix">
+							<li *ngFor="let category of industries"><a href="#!">{{category.name}}</a></li>
+
+						</ul>
+						<!-- <ul class="ul_li_block clearfix">
 							<li><a href="#!"><span><i class="fab fa-black-tie"></i></span>Andy</a></li>
 							<li><a href="#!"><span><i class="fal fa-tshirt"></i></span>Ariadne’s Thread</a></li>
 							<li><a href="#!"><span><i class="fal fa-watch"></i></span>Black Swan</a></li>
@@ -604,7 +921,7 @@
 							<li><a href="#!"><span><i class="fas fa-mobile-alt"></i></span>Helen of Troy</a></li>
 							<li><a href="#!"><span><i class="fab fa-black-tie"></i></span>Hi-Tech</a></li>
 							<li><a href="#!"><span><i class="fab fa-black-tie"></i></span>Yokoso</a></li>
-						</ul>
+						</ul> -->
 					</div>
 
 					<div class="fs_widget fs_price_list">
@@ -735,11 +1052,11 @@
 			<!-- offer_section - start
 			================================================== -->
 			<section class="offer_section clearfix">
-				<div class="container-fluid p-0">
+				<div class="container">
 					<div class="row no-gutters justify-content-lg-between">
-						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 my-2">
+						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 my-3">
 							<div class="ce_offer_fullimage offer_fullimage text-white text-center">
-								<img src="assets/images/banner1.png" alt="image_not_found">
+								<img src="assets/images/young_black.JPG" alt="image_not_found">
 								<div class="item_content">
 									<h3 class="item_title text-white mb_15">Read the Blog</h3>
 									<a class="text_btn text-uppercase" href="#!"><span>View all Posts</span></a>
@@ -747,9 +1064,9 @@
 							</div>
 						</div>
 
-						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 my-">
+						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 my-3">
 							<div class="ce_offer_fullimage offer_fullimage text-white text-center">
-								<img src="assets/images/banner1.png" alt="image_not_found">
+								<img src="assets/images/portrait-of-happy-black-couple-using-phone-with-sh-2022-02-17-19-50-55-utc.jpg" alt="image_not_found">
 								<div class="item_content">
 									<h3 class="item_title text-white mb_15">Follow Us On Instagram</h3>
 									<a class="text_btn text-uppercase" href="#!"><span>@Kudigo_inc</span></a>
@@ -772,7 +1089,7 @@
 							<h2>Start of Summer Up to 35% off on all items</h2>
 							<div class="form_item">
 								<input type="email" name="email" placeholder="Your email address">
-								<button type="submit" class="bg_black">Subcribe</button>
+								<button type="submit" class="bg_black_subscribe">Subcribe</button>
 							</div>
 							<p class="mb-0">
 								Sign up to our Newsletter and get the discount code
