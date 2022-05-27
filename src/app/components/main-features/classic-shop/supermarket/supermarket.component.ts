@@ -46,6 +46,7 @@ declare const $;
 })
 export class SupermarketComponent implements OnInit {
 
+
   constructor(
     public dialog: MatDialog,
     private productsService: ProductsApiCallsService,
@@ -57,6 +58,7 @@ export class SupermarketComponent implements OnInit {
     private shopsApiCalls: ShopApiCallsService,
   ) { }
 
+  ProductsTitle="Popular Products";
   products = [];
   filterParams = {};
   country = '';
@@ -116,7 +118,7 @@ export class SupermarketComponent implements OnInit {
     this.subdomain = this.getHostname.subDomain;
     this.gtpSubdomain = this.constantValues.GTP_SUBDOMAIN;
     this.woodinSubdomain = this.constantValues.WOODIN_SUBDOMAIN;
-    this.getProducts({ tag: this.tag, storefrontmall_name: this.subdomain });
+    this.getProducts({});
     this.getShopInfo();
     this.getIndustries()
     this.getFeaturedShops({});
@@ -167,7 +169,7 @@ export class SupermarketComponent implements OnInit {
       this.totalPage = result.count;
       this.product_groups = result.product_groups;
       this.constantValues.COUNTRY = this.country;
-      console.log(this.products);
+      console.log("this.products-->"+JSON.stringify(this.products));
       console.log(this.country);
       console.log(this.product_groups);
     }
@@ -204,9 +206,20 @@ getShopInfo() {
   });
 }
 
-filterCategory(el: HTMLElement) {
+filterCategory(category,el: HTMLElement) {
+  this.selectedCategory = category;
+    // tslint:disable-next-line: max-line-length
+  this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
 
       el.scrollIntoView({behavior: 'smooth'});
+  }
+
+filterByCategory(category) {
+    this.isSearching=true;
+    this.ProductsTitle="Searched Results";
+    this.selectedCategory = category;
+    // tslint:disable-next-line: max-line-length
+    this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
   }
 
 }

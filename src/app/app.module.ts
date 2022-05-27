@@ -45,6 +45,7 @@ import { OrderApiCallsService } from './services/network-calls/order-api-calls.s
 import { SharedDataApiCallsService } from './services/network-calls/shared-data-api-calls.service';
 import { FooterComponent } from './components/main-features/footer/footer.component';
 import { WINDOW_PROVIDERS } from './utils/window.provider';
+import { EmptyRecordComponent } from './components/commons/empty-record/empty-record.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +62,7 @@ import { WINDOW_PROVIDERS } from './utils/window.provider';
     CartComponent,
     FooterComponent,
     TopNavComponent,
+    EmptyRecordComponent,
 
   ],
   imports: [
