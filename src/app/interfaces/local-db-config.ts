@@ -1,7 +1,8 @@
 import { recentlyViewedStoreSchema } from './../utils/data-warehouse/dbase-schemas/recently-viewed-schema';
 import { localStoreNames } from '../utils/data-warehouse/localStoreNames';
-import { DBConfig } from 'ngx-indexed-db';
+import { NgxIndexedDBModule,DBConfig } from 'ngx-indexed-db';
 import { orderStoreSchema } from '../utils/data-warehouse/order-schema';
+
 
 export const dbName = 'StoreFrontMall';
 export const dbConfig: DBConfig = {

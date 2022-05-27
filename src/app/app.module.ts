@@ -46,6 +46,10 @@ import { SharedDataApiCallsService } from './services/network-calls/shared-data-
 import { FooterComponent } from './components/main-features/footer/footer.component';
 import { WINDOW_PROVIDERS } from './utils/window.provider';
 import { EmptyRecordComponent } from './components/commons/empty-record/empty-record.component';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { NgxIndexedDBModule } from 'ngx-indexed-db';
+import { dbConfig } from './interfaces/local-db-config';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,7 +76,8 @@ import { EmptyRecordComponent } from './components/commons/empty-record/empty-re
     CarouselModule,
     MatDialogModule,
     HttpClientModule,
-   // NgxIndexedDBModule
+    NgxIndexedDBModule.forRoot(dbConfig)
+
   ],
   providers:
   [
@@ -94,7 +99,7 @@ import { EmptyRecordComponent } from './components/commons/empty-record/empty-re
     ProductsApiCallsService,
     SharedDataApiCallsService,
     ShopApiCallsService,
-    //NgxIndexedDBService,
+    NgxIndexedDBService,
     Title,
     { provide: ErrorHandler, useClass: SentryErrorHandlerService },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

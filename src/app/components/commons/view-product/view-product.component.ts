@@ -11,9 +11,7 @@ import { NotificationsService } from 'src/app/services/notifications.service';
 import { SEOService } from 'src/app/services/seo.service';
 import { CountryEnum } from 'src/app/utils/enums';
 
-export interface DialogData {
-  animal: 'panda' | 'unicorn' | 'lion';
-}
+
 
 /**
  * @title Injecting data when opening a dialog
@@ -24,7 +22,7 @@ export interface DialogData {
 })
 export class ViewProductComponent implements OnInit {
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public data: {item: any},
     private productsApiCalls: ProductsApiCallsService,
     private route: ActivatedRoute,
     private constantValues: ConstantValuesService,
@@ -61,13 +59,14 @@ export class ViewProductComponent implements OnInit {
     this.protocol = this.constantValues.STOREFRONT_MALL_URL_PROTOCOL;
     this.url = this.constantValues.STOREFRONT_MALL_URL;
 
-    this.route.params.subscribe(param => {
-      this.currentUrl = this.getHostname.url;
-      this.slug = param['slug'];
-      // this.getProductBySlug(this.slug);
-      // this.getRelatedProducts(this.slug, '');
-    });
-    throw new Error('Method not implemented.');
+    // this.route.params.subscribe(param => {
+    //   this.currentUrl = this.getHostname.url;
+    //   this.slug = param['slug'];
+    //   // this.getProductBySlug(this.slug);
+    //   // this.getRelatedProducts(this.slug, '');
+    // });
+    this.getProductBySlug(this.data.item.slug);
+
   }
 
    /**

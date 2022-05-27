@@ -17,7 +17,7 @@ export class ProductsApiCallsService {
     private constantValues: ConstantValuesService,
     private dataProvider: DataProviderService,
     private notificationService: NotificationsService,
-    //private localStorageDataProvider: LocalStorageDataProviderService
+    private localStorageDataProvider: LocalStorageDataProviderService
   ) { }
   /**
    * Get products based on filter params
@@ -65,140 +65,140 @@ export class ProductsApiCallsService {
    * @param data product data
    * @param callback ICallback function that returns an error or result
    */
-  // async addProductToCart(data, callback: ICallback) {
-  //   await this.getCartItems(async (error, result) => {
-  //     if (result !== null) {
-  //       const itm: any[] = result;
-  //       const exists = itm.find(el => el.item.id === data.item.id);
-  //       if (exists !== null && exists !== undefined && exists !== '') {
-  //         const newQuantity = +exists.quantity + +data.quantity;
-  //         const newSubtotal = +exists.total_amount + +data.total_amount;
-  //         data.total_amount = newSubtotal;
-  //         data.quantity = newQuantity;
-  //         if (newQuantity > data.item.new_quantity) {
-  //           // tslint:disable-next-line: max-line-length
-  //           this.notificationService.info(this.constantValues.APP_NAME, 'Cannot purchase ' + data.item.name + ' more than ' + data.item.new_quantity);
-  //           return;
-  //         }
-  //         await this.removeCartItem(exists.id, async (_error, _result) => {
-  //           if (_result !== null) {
-  //             await this._addProductToCart(data, callback);
-  //           }
-  //         });
-  //       } else {
-  //         await this._addProductToCart(data, callback);
-  //       }
-  //     }
+  async addProductToCart(data, callback: ICallback) {
+    await this.getCartItems(async (error, result) => {
+      if (result !== null) {
+        const itm: any[] = result;
+        const exists = itm.find(el => el.item.id === data.item.id);
+        if (exists !== null && exists !== undefined && exists !== '') {
+          const newQuantity = +exists.quantity + +data.quantity;
+          const newSubtotal = +exists.total_amount + +data.total_amount;
+          data.total_amount = newSubtotal;
+          data.quantity = newQuantity;
+          if (newQuantity > data.item.new_quantity) {
+            // tslint:disable-next-line: max-line-length
+            this.notificationService.info(this.constantValues.APP_NAME, 'Cannot purchase ' + data.item.name + ' more than ' + data.item.new_quantity);
+            return;
+          }
+          await this.removeCartItem(exists.id, async (_error, _result) => {
+            if (_result !== null) {
+              await this._addProductToCart(data, callback);
+            }
+          });
+        } else {
+          await this._addProductToCart(data, callback);
+        }
+      }
 
-  //   });
-  // }
+    });
+  }
   /**
    * Add product to cart in local storage
    * @param data product data
    * @param callback ICallback function that returns an error or result
    */
-  // async removeAndAddProductToCart(data, callback: ICallback) {
-  //   if (+data.quantity > +data.item.new_quantity) {
-  //     // tslint:disable-next-line: max-line-length
-  //     this.notificationService.info(this.constantValues.APP_NAME, 'Cannot purchase ' + data.item.name + ' more than ' + data.item.new_quantity);
-  //     return;
-  //   }
-  //   await this.getCartItems(async (error, result) => {
-  //     if (result !== null) {
-  //       const itm: any[] = result;
-  //       const exists = itm.find(el => el.item.id === data.item.id);
-  //       if (exists !== null && exists !== undefined && exists !== '') {
-  //         await this.removeCartItem(exists.id, async (_error, _result) => {
-  //           if (_result !== null) {
-  //             await this._addProductToCart(data, callback);
-  //           }
-  //         });
-  //       }
-  //     }
+  async removeAndAddProductToCart(data, callback: ICallback) {
+    if (+data.quantity > +data.item.new_quantity) {
+      // tslint:disable-next-line: max-line-length
+      this.notificationService.info(this.constantValues.APP_NAME, 'Cannot purchase ' + data.item.name + ' more than ' + data.item.new_quantity);
+      return;
+    }
+    await this.getCartItems(async (error, result) => {
+      if (result !== null) {
+        const itm: any[] = result;
+        const exists = itm.find(el => el.item.id === data.item.id);
+        if (exists !== null && exists !== undefined && exists !== '') {
+          await this.removeCartItem(exists.id, async (_error, _result) => {
+            if (_result !== null) {
+              await this._addProductToCart(data, callback);
+            }
+          });
+        }
+      }
 
-  //   });
-  // }
-  // private async _addProductToCart(data, callback: ICallback) {
-  //   await this.localStorageDataProvider.create(localStoreNames.order, data).subscribe(id => {
-  //     callback(null, id);
-  //   // tslint:disable-next-line: variable-name
-  //   }, _error => {
-  //     callback(_error, null);
-  //   });
-  // }
+    });
+  }
+  private async _addProductToCart(data, callback: ICallback) {
+    await this.localStorageDataProvider.create(localStoreNames.order, data).subscribe(id => {
+      callback(null, id);
+    // tslint:disable-next-line: variable-name
+    }, _error => {
+      callback(_error, null);
+    });
+  }
   /**
    * Upate existing item in cart in local storage
    * @param data product data
    * @param callback ICallback function that returns an error or result
    */
-  // private async _updateCartItems(id, data, callback: ICallback) {
-  //   await this.localStorageDataProvider.update(localStoreNames.order, id, data).subscribe(resultId => {
-  //     callback(null, resultId);
-  //   }, error => {
-  //     callback(error, null);
-  //   });
-  // }
+  private async _updateCartItems(id, data, callback: ICallback) {
+    await this.localStorageDataProvider.update(localStoreNames.order, id, data).subscribe(resultId => {
+      callback(null, resultId);
+    }, error => {
+      callback(error, null);
+    });
+  }
   /**
    * Add product to cart in local storage
    * @param data product data
    * @param callback ICallback function that returns an error or result
    */
-  // async getCartItems(callback: ICallback) {
-  //   await this.localStorageDataProvider.getAll(localStoreNames.order).subscribe(items => {
-  //     callback(null, items);
-  //   }, error => {
-  //     callback(error, null);
-  //   });
-  // }
+  async getCartItems(callback: ICallback) {
+    await this.localStorageDataProvider.getAll(localStoreNames.order).subscribe(items => {
+      callback(null, items);
+    }, error => {
+      callback(error, null);
+    });
+  }
 
   /**
    * Rec product to cart in local storage
    * @param data product data
    * @param callback ICallback function that returns an error or result
    */
-  // async removeCartItem(id, callback: ICallback) {
-  //   await this.localStorageDataProvider.delete(localStoreNames.order, id).subscribe(_id => {
-  //     callback(null, _id);
-  //   }, error => {
-  //     callback(error, null);
-  //   });
-  // }
+  async removeCartItem(id, callback: ICallback) {
+    await this.localStorageDataProvider.delete(localStoreNames.order, id).subscribe(_id => {
+      callback(null, _id);
+    }, error => {
+      callback(error, null);
+    });
+  }
   /**
    * Clear cart in local storage
    * @param data product data
    * @param callback ICallback function that returns an error or result
    */
-  // async clearCartItem(callback: ICallback) {
-  //   await this.localStorageDataProvider.clear(localStoreNames.order).subscribe(id => {
-  //     callback(null, id);
-  //   }, error => {
-  //     callback(error, null);
-  //   });
-  // }
+  async clearCartItem(callback: ICallback) {
+    await this.localStorageDataProvider.clear(localStoreNames.order).subscribe(id => {
+      callback(null, id);
+    }, error => {
+      callback(error, null);
+    });
+  }
   /**
    * Add recently product to cart in local storage
    * @param data product data
    * @param callback ICallback function that returns an error or result
    */
-  // async addRecentlyViewedItmes(data, callback: ICallback) {
-  //   await this.localStorageDataProvider.create(localStoreNames.recently_viewed, data).subscribe(id => {
-  //     callback(null, id);
-  //   }, error => {
-  //     callback(error, null);
-  //   });
-  // }
+  async addRecentlyViewedItmes(data, callback: ICallback) {
+    await this.localStorageDataProvider.create(localStoreNames.recently_viewed, data).subscribe(id => {
+      callback(null, id);
+    }, error => {
+      callback(error, null);
+    });
+  }
   /**
    * Get recently viewed items in local storage
    * @param data product data
    * @param callback ICallback function that returns an error or result
    */
-  // async getRecentlyViewedItems(callback: ICallback) {
-  //   await this.localStorageDataProvider.getAll(localStoreNames.order).subscribe(id => {
-  //     callback(null, id);
-  //   }, error => {
-  //     callback(error, null);
-  //   });
-  // }
+  async getRecentlyViewedItems(callback: ICallback) {
+    await this.localStorageDataProvider.getAll(localStoreNames.order).subscribe(id => {
+      callback(null, id);
+    }, error => {
+      callback(error, null);
+    });
+  }
 
 
   /**

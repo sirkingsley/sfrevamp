@@ -102,7 +102,7 @@
 
 					<div class="msb_widget brand_logo text-center">
 						<a href="index.html">
-							<img src="assets/images/logo-main.png" srcset="assets/images/logo/logo-main.png 2x" alt="logo_not_found">
+							<img src="assets/images/logo-main.png" srcset="assets/images/logo-main.png 2x" alt="logo_not_found">
 						</a>
 					</div>
 
@@ -351,34 +351,42 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>
+								<tr *ngFor="let item of cartItems; let i=index">
+									<td >
 										<div class="cart_product">
 											<div class="item_image">
-												<img src="assets/images/reg_bg_02.png" alt="image_not_found">
+                        <img src="{{item.image}}" onerror="this.src='../../assets/images/reg_bg_02.png'" alt="image_not_found">
 											</div>
 											<div class="item_content">
-												<h4 class="item_title">Men's Polo T-shirt</h4>
-												<span class="item_type">Clothes</span>
+												<h4 class="item_title">{{item.item.name}}</h4>
+												<span class="item_type" routerLink="/shop-details">{{item.item.myshop.business_name}}</span>
 											</div>
-											<button type="button" class="remove_btn">
+											<button type="button" class="remove_btn" (click)="removeItemFromCart(item.id)">
 												<i class="fal fa-times"></i>
 											</button>
 										</div>
 									</td>
 									<td>
-										<span class="price_text">$69.00</span>
+										<span class="price_text"*ngIf="item?.country === countriesEnum?.GH || item?.country === item?.countriesEnum?.NG || item?.country === '' || item?.country === undefined">
+                      {{item?.item?.currency}} {{item?.item?.selling_price }}</span>
+                      <span class="price_text"*ngIf="item?.country === countriesEnum?.GH || item?.country === item?.countriesEnum?.NG || item?.country === '' || item?.country === undefined">
+                        {{item?.item?.currency}} {{item?.item?.selling_price }}
+                      </span>
+
+                      <span class="price_text"  *ngIf="item?.country !== countriesEnum?.GH && item?.country !== item?.countriesEnum?.NG && item?.country !== '' && item?.country !== undefined">
+                      $ {{item?.item?.selling_price_usd }}
+                    </span>
 									</td>
 									<td>
 										<div class="quantity_input">
 											<form action="#">
-												<span class="input_number_decrement">–</span>
-												<input class="input_number" type="text" value="2">
-												<span class="input_number_increment">+</span>
+												<span class="input_number_decrement" (click)="reduceQty(item)">–</span>
+												<input class="input_number" type="text" value="{{item.quantity}}">
+												<span class="input_number_increment" (click)="addQty(item)">+</span>
 											</form>
 										</div>
 									</td>
-									<td><span class="total_price">$138.00</span></td>
+									<td><span class="total_price">{{subTotal}}</span></td>
 								</tr>
 
 								<tr>
@@ -468,8 +476,8 @@
 							<div class="cart_pricing_table pt-0 text-uppercase" data-bg-color="#f2f3f5">
 								<h3 class="table_title text-center" data-bg-color="#ededed">Cart Total</h3>
 								<ul class="ul_li_block clearfix">
-									<li><span>Subtotal</span> <span>$197.99</span></li>
-									<li><span>Total</span> <span>$197.99</span></li>
+									<li><span>Subtotal</span> <span>{{currency}} {{subTotal | number: '1.2-2'}}</span></li>
+									<li><span>Total</span> <span>{{currency}} {{subTotal | number: '1.2-2'}}</span></li>
 								</ul>
 								<a routerLink="/checkout2" class="custom_btn bg_success">Proceed to Checkout</a>
 							</div>

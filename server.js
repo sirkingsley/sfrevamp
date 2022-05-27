@@ -5,7 +5,9 @@ const app = express();
 app.use(compression());
 app.use(helmet({
   contentSecurityPolicy: false,
+  crossOriginEmbedderPolicy: false,
 }));
+
 app.use(express.static(__dirname + '/dist'));
 app.listen(process.env.PORT || 8080);
 const forceSSL = function() {

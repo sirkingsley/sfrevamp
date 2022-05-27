@@ -44,7 +44,7 @@
 									<li>
 										<button type="button" class="cart_btn">
 											<i class="fal fa-shopping-cart"></i>
-											<span class="btn_badge">2</span>
+											<span class="btn_badge">{{cartItems?.length}}</span>
 										</button>
 									</li>
 									<li><button type="button" class="mobile_menu_btn"><i class="far fa-bars"></i></button></li>
@@ -248,7 +248,7 @@
 															</div> -->
 
 															<div class="page_links" >
-																<h3 class="title_text" (click)="filterCategory(category.name,target)" (click)="filterByCategory(category.name)">{{category.name}}</h3>
+																<h3 class="title_text" (click)="filterCategory(category.name,target)" (click)="filterByCategory(category.name,target)">{{category.name}}</h3>
 																<!-- <ul class="ul_li_block">
 																	<li><a href="carparts_shop.html">Shop Page</a></li>
 																	<li><a href="carparts_shop_grid.html">Shop Grid</a></li>
@@ -307,7 +307,7 @@
 								<li>
 									<button type="button" class="cart_btn">
 										<i class="fal fa-shopping-cart"></i>
-										<span class="btn_badge">2</span>
+										<span class="btn_badge">{{cartItems?.length}}</span>
 									</button>
 								</li>
 							</ul>
@@ -344,7 +344,22 @@
 					<button type="button" class="close_btn"><i class="fal fa-times"></i></button>
 
 					<ul class="cart_items_list ul_li_block mb_30 clearfix">
-						<li>
+						<li *ngFor="let item of cartItems; let i =index">
+							<div class="item_image">
+                <img src="{{item.image}}" onerror="this.src='assets/images/reg_bg_02.png'" alt="image_not_found">
+							</div>
+							<div class="item_content">
+								<h4 class="item_title">{{item?.item?.name}}</h4>
+								<span class="item_price" *ngIf="item?.country === countriesEnum?.GH || item?.country === item?.countriesEnum?.NG || item?.country === '' || item?.country === undefined">
+                  {{item?.item?.currency}} {{item?.item?.selling_price }}
+                </span>
+                <span class="item_price" *ngIf="item?.country !== countriesEnum?.GH && item?.country !== item?.countriesEnum?.NG && item?.country !== '' && item?.country !== undefined">
+                        $ {{item?.item?.selling_price_usd }}
+                </span>
+							</div>
+							<button type="button" class="remove_btn" (click)="removeItemFromCart(item.id)"><i class="fal fa-trash-alt"></i></button>
+						</li>
+						<!-- <li>
 							<div class="item_image">
 								<img src="assets/images/reg_bg_02.png" alt="image_not_found">
 							</div>
@@ -363,17 +378,7 @@
 								<span class="item_price">$30.00</span>
 							</div>
 							<button type="button" class="remove_btn"><i class="fal fa-trash-alt"></i></button>
-						</li>
-						<li>
-							<div class="item_image">
-								<img src="assets/images/reg_bg_02.png" alt="image_not_found">
-							</div>
-							<div class="item_content">
-								<h4 class="item_title">Yellow Blouse</h4>
-								<span class="item_price">$30.00</span>
-							</div>
-							<button type="button" class="remove_btn"><i class="fal fa-trash-alt"></i></button>
-						</li>
+						</li> -->
 					</ul>
 
 					<ul class="total_price ul_li_block mb_30 clearfix">
@@ -391,7 +396,9 @@
 						</li>
 						<li>
 							<span>Total:</span>
-							<span>$75.6</span>
+							<span *ngIf="country==='GH'">GHS {{subTotal}}</span>
+              <span *ngIf="country==='NG'">NGN {{subTotal}}</span>
+              <span *ngIf="country===''">$ {{subTotal}}</span>
 						</li>
 					</ul>
 
@@ -406,7 +413,7 @@
 
 					<div class="msb_widget brand_logo text-center">
 						<a href="index.html">
-							<img src="assets/images/logo-main.png" srcset="assets/images/logo/logo-main.png 2x" alt="logo_not_found">
+							<img src="assets/images/logo-main.png" srcset="assets/images/logo-main.png 2x" alt="logo_not_found">
 						</a>
 					</div>
 
@@ -789,7 +796,7 @@
           <div class="ecommerce_category_fullimage">
             <img src="assets/images/img_10_lwmtes.png" alt="image_not_found">
             <h3 class="item_title">
-              <a href="#!">{{industries[0]?.name}}</a>
+              <a (click)="filterByCategory(industries[0]?.name,target)">{{industries[0]?.name}}</a>
             </h3>
           </div>
         </div>
@@ -798,7 +805,7 @@
           <div class="ecommerce_category_fullimage">
             <img src="assets/images/P00481005_pxpeqn.webp" alt="image_not_found">
             <h3 class="item_title">
-              <a href="#!">{{industries[1]?.name}}</a>
+              <a (click)="filterByCategory(industries[1]?.name,target)">{{industries[1]?.name}}</a>
             </h3>
           </div>
         </div>
@@ -807,7 +814,7 @@
           <div class="ecommerce_category_fullimage">
             <img src="assets/images/img_09.png" alt="image_not_found">
             <h3 class="item_title">
-              <a href="#!">{{industries[2]?.name}}</a>
+              <a (click)="filterByCategory(industries[2]?.name,target)">{{industries[2]?.name}}</a>
             </h3>
           </div>
         </div>
@@ -857,9 +864,9 @@
 
             <div class="element-item fall" >
               <div class="ecommerce_product_grid">
-                <ul class="product_label ul_li clearfix">
+                <!-- <ul class="product_label ul_li clearfix">
                   <li data-bg-color="#93be2b">New</li>
-                </ul>
+                </ul> -->
                 <div class="tab-content">
                   <div id="ptab1_1" class="tab-pane fade active">
                     <div class="item_image">
@@ -877,9 +884,9 @@
                     </div>
                   </div>
                   <ul class="product_action_btns ul_li_center clearfix">
-                    <li><a class="tooltips" data-placement="top" title="Add To Wishlist" href="#!"><i class="fal fa-heart"></i></a></li>
-                    <li><a class="tooltips" data-placement="top" title="Add To Cart" href="#!"><i class="fal fa-shopping-basket"></i></a></li>
-                    <li><a class="tooltips" data-placement="top" title="Quick View" (click)="openDialog()" data-toggle="modal" data-target="#quickview_modal" ><i class="fal fa-search"></i></a></li>
+                    <!-- <li><a class="tooltips" data-placement="top" title="Add To Wishlist" href="#!"><i class="fal fa-heart"></i></a></li> -->
+                    <li><a class="tooltips" data-placement="top" title="Add To Cart" (click)="addProductToCart(item)"><i class="fal fa-shopping-basket"></i></a></li>
+                    <li><a class="tooltips" data-placement="top" title="Quick View" (click)="openDialog(item)" ><i class="fal fa-search"></i></a></li>
                   </ul>
                 </div>
                 <div class="item_content">
@@ -891,7 +898,7 @@
                     <li><a class="pbg_olivegreen" data-toggle="tab" href="#ptab1_2"></a></li>
                     <li><a class="pbg_gray" data-toggle="tab" href="#ptab1_3"></a></li>
                   </ul>
-                  <span class="item_price"><strong>{{item.currency}} {{item.selling_price}} </strong> <del>{{item.currency}} {{item.selling_price*2}}</del></span>
+                  <span class="item_price"><strong>{{item.currency}} {{item.price_list[0]?.selling_price}} </strong> <del>{{item.currency}} {{item.price_list[0]?.selling_price*2}}</del></span>
                 </div>
               </div>
             </div>
@@ -911,7 +918,7 @@
 					<div class="fs_widget fs_category_list">
 						<h3 class="fs_widget_title text-uppercase">Top Categories</h3>
             <ul class="ul_li_block clearfix">
-							<li *ngFor="let category of industries"><a (click)="filterCategory(category.name,target)" (click)="filterByCategory(category.name)">{{category.name}}</a></li>
+							<li *ngFor="let category of industries"><a (click)="filterCategory(category.name,target)" (click)="filterByCategory(category.name,target)">{{category.name}}</a></li>
 
 						</ul>
 						<!-- <ul class="ul_li_block clearfix">
@@ -1007,7 +1014,7 @@
 						<h3 class="fs_widget_title text-uppercase">Your may also like</h3>
 						<div class="small_blog">
 							<a href="blog_details.html" class="item_image">
-								<img src="assets/images/recent_post/img_01.jpg" alt="image_not_found">
+								<img src="assets/images/reg_bg_02.png" alt="image_not_found">
 							</a>
 							<div class="item_content">
 								<h3 class="item_title">
@@ -1021,7 +1028,7 @@
 
 						<div class="small_blog">
 							<a href="blog_details.html" class="item_image">
-								<img src="assets/images/recent_post/img_01.jpg" alt="image_not_found">
+								<img src="assets/images/reg_bg_02.png" alt="image_not_found">
 							</a>
 							<div class="item_content">
 								<h3 class="item_title">
@@ -1035,7 +1042,7 @@
 
 						<div class="small_blog">
 							<a href="blog_details.html" class="item_image">
-								<img src="assets/images/recent_post/img_01.jpg" alt="image_not_found">
+								<img src="assets/images/reg_bg_02.png" alt="image_not_found">
 							</a>
 							<div class="item_content">
 								<h3 class="item_title">
@@ -1166,7 +1173,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 					<div class="item_image">
-						<img src="../../assets/images/shop/fashion_minimal/reg_bg_02.png" alt="image_not_found">
+						<img src="assets/images/reg_bg_02.png" alt="image_not_found">
 					</div>
 					<div class="item_content">
 						<h2 class="item_title mb_15">Digital Infrared Thermometer</h2>

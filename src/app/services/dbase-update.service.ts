@@ -15,20 +15,20 @@ export class DbaseUpdateService {
     private authService: AuthService
   ) { }
 
-//   dbaseUpdated(isUpdated: boolean) {
-//     this.subject.next(isUpdated);
-//     if (this.authService.isLogedIn) {
-//       this.productService.getCartItems((error, result) => {
-//         const items: any[] = result.map((data:any) => "" + data.item.id + ":" + data.quantity + ":" + data.total_amount);
-//         if (items.length > 0) {
-//           this.productService.syncCartItems({items: items.join(',')}, (er, res) => {
+  dbaseUpdated(isUpdated: boolean) {
+    this.subject.next(isUpdated);
+    if (this.authService.isLogedIn) {
+      this.productService.getCartItems((error, result) => {
+        const items: any[] = result.map((data:any) => "" + data.item.id + ":" + data.quantity + ":" + data.total_amount);
+        if (items.length > 0) {
+          this.productService.syncCartItems({items: items.join(',')}, (er, res) => {
 
-//           });
-//         }
-//       });
-//     }
+          });
+        }
+      });
+    }
 
-// }
+}
 
 updateStatus(): Observable<boolean> {
   return this.subject.asObservable();
