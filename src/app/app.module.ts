@@ -49,6 +49,7 @@ import { EmptyRecordComponent } from './components/commons/empty-record/empty-re
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { NgxIndexedDBModule } from 'ngx-indexed-db';
 import { dbConfig } from './interfaces/local-db-config';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { dbConfig } from './interfaces/local-db-config';
     CarouselModule,
     MatDialogModule,
     HttpClientModule,
-    NgxIndexedDBModule.forRoot(dbConfig)
+    NgxIndexedDBModule.forRoot(dbConfig),
+    ToastrModule.forRoot(),
 
   ],
   providers:

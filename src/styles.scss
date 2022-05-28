@@ -1,6 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/theming";
 @import "assets/scss/style.scss";
+// regular style toast
+@import '~ngx-toastr/toastr';
 
 //@import "assets/css/style.css";
 @import "assets/css/animate.css";

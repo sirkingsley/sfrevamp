@@ -7,7 +7,7 @@ import { orderStoreSchema } from '../utils/data-warehouse/order-schema';
 export const dbName = 'StoreFrontMall';
 export const dbConfig: DBConfig = {
   name: dbName,
-  version: 4,
+  version: 7,
   objectStoresMeta: [{
     store: localStoreNames.order,
     storeConfig: { keyPath: 'id', autoIncrement: true },

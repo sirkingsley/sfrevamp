@@ -10,7 +10,7 @@ import { ProductsApiCallsService } from 'src/app/services/network-calls/products
 import { DataProviderService } from 'src/app/services/data-provider.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
 
-
+import { ToastrService } from 'ngx-toastr';
 
 
 import { ActivatedRoute, Router } from '@angular/router';
@@ -60,6 +60,7 @@ export class SupermarketComponent implements OnInit {
     private shopsApiCalls: ShopApiCallsService,
     private dbaseUpdate: DbaseUpdateService,
     private productsApiCalls: ProductsApiCallsService,
+    private toastr: ToastrService,
   ) { }
 
   slug: any;
@@ -135,7 +136,7 @@ export class SupermarketComponent implements OnInit {
     this.getShopInfo();
     this.getIndustries()
     this.getFeaturedShops({});
-
+    this.getCartItems();
     this.dbaseUpdate.updateStatus().subscribe(async isUpdated => {
       if (isUpdated) {
         await this.getCartItems();
@@ -203,7 +204,7 @@ getFeaturedShops({ }) {
     this.isProcessingFeaturedShops = false;
     if (result !== null) {
       this.featuredShops = result.results;
-      console.log("this.featuredShops-->"+ JSON.stringify(this.featuredShops));
+      //console.log("this.featuredShops-->"+ JSON.stringify(this.featuredShops));
     }
   });
 }
@@ -211,7 +212,7 @@ getFeaturedShops({ }) {
 getIndustries() {
   this.shopsApiCalls.getIndustries((error, result) => {
     this.industries = result;
-    console.log("this.industries "+ JSON.stringify(this.industries) );
+    //console.log("this.industries "+ JSON.stringify(this.industries) );
   });
 }
 
@@ -249,8 +250,9 @@ filterByCategory(category,el: HTMLElement) {
   async addProductToCart(product) {
     const stockQty = +product.new_quantity;
     if (stockQty <= 0) {
-      //this.notificationService.info(this.constantValues.APP_NAME, product.name + ' has run out of stock');
-      console.log('Out of stock');
+      //this.toastr.error('Out of Stock!');
+      this.notificationService.error(this.constantValues.APP_NAME, product.name + ' has run out of stock');
+
       return;
     }
     const selling_price = +product.selling_price;
@@ -263,8 +265,9 @@ filterByCategory(category,el: HTMLElement) {
     await this.productsService.addProductToCart(data, (error, result) => {
       if (result !== null) {
         this.dbaseUpdate.dbaseUpdated(true);
-        //this.notificationService.success(this.constantValues.APP_NAME, product.name + ' has been successfully added to cart');
-        console.log("added to cart");
+        //this.toastr.success(product.name + ' has been successfully added to cart');
+        this.notificationService.success(this.constantValues.APP_NAME, product.name + ' has been successfully added to cart');
+
       }
     });
   }
@@ -273,6 +276,7 @@ filterByCategory(category,el: HTMLElement) {
     await this.productsApiCalls.getCartItems((error, result) => {
       if (result !== null) {
         this.cartItems = result;
+        console.log("Cart length-->"+this.cartItems.length);
         console.log("Cart-->"+ JSON.stringify(this.cartItems,null,2));
         if (this.cartItems.length > 0) {
           this.currency = this.cartItems[0].item.currency;
