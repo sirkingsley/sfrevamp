@@ -8,6 +8,8 @@ import { ConstantValuesService } from 'src/app/services/constant-values.service'
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import {MatStepperModule} from '@angular/material/stepper';
+import { ReactiveFormsModule } from '@angular/forms';
 
 //import { NgxIndexedDBModule } from 'ngx-indexed-db';
 //import { NgxIndexedDBService } from 'ngx-indexed-db';
@@ -19,6 +21,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SupermarketComponent } from './components/main-features/classic-shop/supermarket/supermarket.component';
 import { ShopDetailsComponent } from './components/main-features/shop-details/shop-details.component';
 import { HttpClientModule } from '@angular/common/http';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 import { SignUpComponent } from './components/commons/sign-up/sign-up.component';
 import { LoginComponent } from './components/commons/login/login.component';
@@ -50,6 +54,9 @@ import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { NgxIndexedDBModule } from 'ngx-indexed-db';
 import { dbConfig } from './interfaces/local-db-config';
 import { ToastrModule } from 'ngx-toastr';
+import { ConfirmOrderPaymentDialogComponent } from './components/commons/confirm-order-payment-dialog/confirm-order-payment-dialog.component';
+import { OrderCompletedDialogComponent } from './components/commons/order-completed-dialog/order-completed-dialog.component';
+import { ConfirmPhoneNumberComponent } from './components/commons/confirm-phone-number/confirm-phone-number.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +75,9 @@ import { ToastrModule } from 'ngx-toastr';
     FooterComponent,
     TopNavComponent,
     EmptyRecordComponent,
+    ConfirmOrderPaymentDialogComponent,
+    OrderCompletedDialogComponent,
+    ConfirmPhoneNumberComponent,
 
   ],
   imports: [
@@ -79,6 +89,10 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     NgxIndexedDBModule.forRoot(dbConfig),
     ToastrModule.forRoot(),
+    MatStepperModule,
+    MatProgressBarModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
 
   ],
   providers:

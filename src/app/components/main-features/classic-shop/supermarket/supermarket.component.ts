@@ -276,7 +276,8 @@ filterByCategory(category,el: HTMLElement) {
     await this.productsApiCalls.getCartItems((error, result) => {
       if (result !== null) {
         this.cartItems = result;
-        console.log("Cart length-->"+this.cartItems.length);
+        this.cartItems = result.sort(this.compare);
+        //console.log("Cart length-->"+this.cartItems.length);
         console.log("Cart-->"+ JSON.stringify(this.cartItems,null,2));
         if (this.cartItems.length > 0) {
           this.currency = this.cartItems[0].item.currency;
@@ -338,6 +339,19 @@ filterByCategory(category,el: HTMLElement) {
       this.isSearching = true;
     }
   }
+
+   //sort cart items
+
+   compare( a:any, b:any ) {
+    if ( a.item.name < b.item.name ){
+      return -1;
+    }
+    if ( a.item.name > b.item.name ){
+      return 1;
+    }
+    return 0;
+  }
+
 
 }
 

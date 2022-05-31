@@ -6074,6 +6074,8 @@ button {
   height: 100% !important;
 }
 
+
+
   .create-btn {
     margin-top: 20px;
     padding: 10px 5px;
@@ -7541,7 +7543,8 @@ button {
   background-color: #f9f9f9;
 }
 .ecommerce_product_grid .item_image img {
-  height: 270px;
+  height: 200px;
+  width: auto;
 }
 .ecommerce_product_grid .tab-content {
   position: relative;
@@ -15534,8 +15537,13 @@ button {
   width: 430px;
 }
 .quickview_modal .item_image > img {
-  width: 100%;
-  display: block;
+  width: 80% !important;
+  height: auto !important;
+
+  //display: block;
+}
+.mat-dialog-container{
+  height: auto !important;
 }
 .quickview_modal .item_content {
   padding: 35px;
@@ -24634,6 +24642,9 @@ blockquote .blockquote_title {
   .carparts_product_grid.column_3 .item_image {
     height: 250px;
   }
+  .category-item{
+    width: 40% !important;
+  }
   .carparts_product_grid.column_3 .item_image > img {
     max-width: 200px;
   }
@@ -28802,6 +28813,92 @@ $default_transition: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 			}
 		}
 	}
+}
+
+
+/*=======================================================
+                    BEGINNING ORDER HISTORY
+=========================================================*/
+.order-detail-container {
+  padding-bottom: 2.5rem;
+}
+.payment-method-img {
+  width: 100px;
+  height: 100px;
+}
+.payment-method-img-card {
+  width: 166px;
+}
+
+.payment-method-item-wrapper input[type="radio"] {
+  position: absolute;
+  visibility: hidden;
+}
+.payment-method-item-wrapper
+  input[type="radio"]:checked
+  +  .payment-method-grid-list-item .payment-method-selected-icon {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+.payment-method-grid-list-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+  border: 1px solid $secondary-color;
+  border-radius: 9px;
+  margin-bottom: 1rem;
+  position: relative;
+}
+.payment-method-grid-list-item .payment-method-grid-list-item-media {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+.payment-method-item-wrapper
+  input[type="radio"]:checked
+  +  .payment-method-grid-list-item  {
+    background-color: #026E0820 !important;
+  }
+
+  .payment-method-grid-list-item:hover {
+    cursor: pointer;
+    border: 1px solid $primary-color;
+  }
+  .payment-method-grid-list-item .payment-method-grid-list-item-description {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  .delivery-icon-image {
+    border-radius: unset !important;
+  }
+
+  .payment-method-item-wrapper input[type="radio"] {
+    position: absolute;
+    visibility: hidden;
+  }
+
+
+  .payment-method-grid-list-item .payment-method-selected-icon {
+    width: 30px;
+    position: absolute;
+    top: -10px;
+    right: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.4s $bezier, opacity 0.4s $bezier;
+  }
+  img, svg {
+    vertical-align: middle;
+}
+
+.mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
+  background-color: #2e7d32;
+  color: #fff;
 }
 /* sports sidebar - end */
 

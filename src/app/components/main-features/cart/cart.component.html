@@ -339,9 +339,10 @@
 			================================================== -->
 			<section class="cart_section sec_ptb_140 clearfix">
 				<div class="container">
+          <app-empty-record *ngIf="cartItems?.length <= 0"></app-empty-record>
 
 					<div class="cart_table mb_50">
-						<table class="table">
+						<table class="table" *ngIf="cartItems.length>0">
 							<thead class="text-uppercase">
 								<tr>
 									<th>Product Name</th>
@@ -355,7 +356,7 @@
 									<td >
 										<div class="cart_product">
 											<div class="item_image">
-                        <img src="{{item.image}}" onerror="this.src='../../assets/images/reg_bg_02.png'" alt="image_not_found">
+                        <img src="{{item.item.image}}" onerror="this.src='../../assets/images/reg_bg_02.png'" alt="image_not_found">
 											</div>
 											<div class="item_content">
 												<h4 class="item_title">{{item.item.name}}</h4>
@@ -368,12 +369,9 @@
 									</td>
 									<td>
 										<span class="price_text"*ngIf="item?.country === countriesEnum?.GH || item?.country === item?.countriesEnum?.NG || item?.country === '' || item?.country === undefined">
-                      {{item?.item?.currency}} {{item?.item?.selling_price }}</span>
-                      <span class="price_text"*ngIf="item?.country === countriesEnum?.GH || item?.country === item?.countriesEnum?.NG || item?.country === '' || item?.country === undefined">
-                        {{item?.item?.currency}} {{item?.item?.selling_price }}
-                      </span>
-
-                      <span class="price_text"  *ngIf="item?.country !== countriesEnum?.GH && item?.country !== item?.countriesEnum?.NG && item?.country !== '' && item?.country !== undefined">
+                      {{item?.item?.currency}} {{item?.item?.selling_price }}
+                    </span>
+                        <span class="price_text"  *ngIf="item?.country !== countriesEnum?.GH && item?.country !== item?.countriesEnum?.NG && item?.country !== '' && item?.country !== undefined">
                       $ {{item?.item?.selling_price_usd }}
                     </span>
 									</td>
@@ -389,7 +387,7 @@
 									<td><span class="total_price">{{subTotal}}</span></td>
 								</tr>
 
-								<tr>
+								<!-- <tr>
 									<td>
 										<div class="cart_product">
 											<div class="item_image">
@@ -447,7 +445,7 @@
 										</div>
 									</td>
 									<td><span class="total_price">$36.00</span></td>
-								</tr>
+								</tr> -->
 							</tbody>
 						</table>
 					</div>
@@ -465,7 +463,7 @@
 
 							<div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
 								<div class="cart_update_btn">
-									<button type="button" class="custom_btn bg_secondary text-uppercase">Update Cart</button>
+									<button type="button" class="custom_btn bg_secondary text-uppercase" routerLink="/supermarket" >Update Cart</button>
 								</div>
 							</div>
 						</div>

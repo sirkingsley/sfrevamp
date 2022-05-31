@@ -8,12 +8,12 @@
 
 
 		<!-- backtotop - start -->
-		<div id="thetop"></div>
+		<!-- <div id="thetop"></div>
 		<div class="backtotop" data-bg-color="#000000">
 			<a href="#" class="scroll">
 				<i class="far fa-arrow-up"></i>
 			</a>
-		</div>
+		</div> -->
 		<!-- backtotop - end -->
 
 		<!-- preloader - start -->
@@ -62,7 +62,7 @@
 												<div class="container">
 													<ul class="home_pages ul_li clearfix" >
 														<li *ngFor="let shop of featuredShops">
-															<a>
+															<a [routerLink]="['/shop-details']">
 																<span class="item_image">
 																	<img src="{{shop.featured_image}}" onerror="this.src='../../assets/images/black-women-shopping.jpg'" alt="image_not_found">
 																</span>
@@ -346,7 +346,7 @@
 					<ul class="cart_items_list ul_li_block mb_30 clearfix">
 						<li *ngFor="let item of cartItems; let i =index">
 							<div class="item_image">
-                <img src="{{item.image}}" onerror="this.src='assets/images/reg_bg_02.png'" alt="image_not_found">
+                <img src="{{item.item.image}}" onerror="this.src='assets/images/reg_bg_02.png'" alt="image_not_found">
 							</div>
 							<div class="item_content">
 								<h4 class="item_title">{{item?.item?.name}}</h4>
@@ -792,7 +792,7 @@
 			</section>
 
       <div class="category-wrapper" >
-        <div class="grid-item">
+        <div class="grid-item category-item ">
           <div class="ecommerce_category_fullimage">
             <img src="assets/images/img_10_lwmtes.png" alt="image_not_found">
             <h3 class="item_title">
@@ -801,7 +801,7 @@
           </div>
         </div>
 
-        <div class="grid-item">
+        <div class="grid-item category-item">
           <div class="ecommerce_category_fullimage">
             <img src="assets/images/P00481005_pxpeqn.webp" alt="image_not_found">
             <h3 class="item_title">
@@ -810,7 +810,7 @@
           </div>
         </div>
 
-        <div class="grid-item">
+        <div class="grid-item category-item">
           <div class="ecommerce_category_fullimage">
             <img src="assets/images/img_09.png" alt="image_not_found">
             <h3 class="item_title">

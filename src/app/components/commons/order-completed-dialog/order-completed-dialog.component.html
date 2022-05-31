@@ -1,0 +1,31 @@
+<div mat-dialog-title class="text-center mb-2"><img class="spinner-img " src="assets/images/agreement.svg"></div>
+<div mat-dialog-content>
+  <p class="confirm-order-payment-heading">
+    Thank You
+  </p>
+  <p class="confirm-order-payment-heading text-primary mb-2">
+    Order #: {{transId}}
+  </p>
+  <p class="confirm-order-payment-heading-desc">NEXT STEPS</p>
+  <div>
+    <div class="alert alert-danger mb-1" *ngIf="!transactionSuccessful">
+      We were unable to process your payment.
+    </div>
+
+    <h3>1. CONFIRMATION</h3>
+    <p class="order-payment-instruction-desc">
+      Your order has been successfully submitted, our customer service agents might contact you for verification.</p>
+
+      <h3>2. DELIVERY</h3>
+      <p class="order-payment-instruction-desc">
+        Your order will be prepared for delivery after confirmation, you will receive delivery updates soon</p>
+
+        <h3>3. MY ACCOUNT</h3>
+        <p class="order-payment-instruction-desc">
+          You can follow up on the status of your order by clicking "My Orders" on your account page</p>
+  </div>
+</div>
+
+<div class="text-center" mat-dialog-actions>
+  <button class="bt-link bt-yellow bt-style5 mt-0 full-width" mat-dialog-close (click)="viewMyOrders()">VIEW MY ORDERS</button>
+</div>

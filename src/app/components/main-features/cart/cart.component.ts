@@ -71,7 +71,8 @@ export class CartComponent implements OnInit {
     await this.productsApiCalls.getCartItems((error, result) => {
       if (result !== null) {
         this.cartItems = result;
-        console.log("Cart-->"+ JSON.stringify(this.cartItems,null,2));
+        this.cartItems = result.sort(this.compare);
+        //console.log("Cart-->"+ JSON.stringify(this.cartItems,null,2));
         if (this.cartItems.length > 0) {
           this.currency = this.cartItems[0].item.currency;
           this.country = this.cartItems[0].country;
@@ -216,5 +217,18 @@ async reduceQty(product: any) {
     }
 
 }
+
+ //sort cart items
+
+ compare( a:any, b:any ) {
+  if ( a.item.name < b.item.name ){
+    return -1;
+  }
+  if ( a.item.name > b.item.name ){
+    return 1;
+  }
+  return 0;
+}
+
 
 }
