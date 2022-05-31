@@ -22,6 +22,7 @@ import { NotificationsService } from 'src/app/services/notifications.service';
 import { DeliveryOptions, DeliveryModeEnum, CurrencyEnums, CountryEnum, CheckoutSourceEnums, PaymentMethods, PromoCodeRateTypeEnum } from 'src/app/utils/enums';
 import { OrderCompletedDialogComponent } from '../../commons/order-completed-dialog/order-completed-dialog.component';
 import { ConfirmPhoneNumberComponent } from '../../commons/confirm-phone-number/confirm-phone-number.component';
+import { GuestUserComponent } from '../../commons/guest-user/guest-user.component';
 //import Jquery
 //import * as $ from 'jquery';
 //JavaScript Functions
@@ -122,7 +123,86 @@ export class Checkout2Component implements OnInit {
     parallaxie();
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.getCartItems();
+    this.title.setTitle(this.constantValues.APP_NAME + ' Checkout Payment');
+    this.subdomain = this.getHostname.subDomain;
+    this.currentUser = this.authService.currentUser;
+    this.addressFormGroup = this.formBuilder.group({
+      address: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      location: ['', Validators.required],
+      // name: ['',Validators.required],
+      order_notes: [''],
+      delivery_option: [''],
+      delivery_mode: [DeliveryModeEnum.INSTANT],
+      latitude: [''],
+      longitude: [''],
+      order_items: [[]],
+      shops: [[]]
+    });
+    this.giftRecipientAddressFormGroup = this.formBuilder.group({
+      gift_recipient_name: ['', Validators.required],
+      gift_recipient_email: ['', [Validators.required, Validators.email]],
+      gift_recipient_phone_number: ['', Validators.required],
+      gift_recipient_address: ['', Validators.required],
+      order_note: [''],
+      gift_recipient_latitude: [''],
+      gift_recipient_longitude: ['']
+    });
+    this.deliveryMethod = this.formBuilder.group({
+      bolt_delivery: ['', [Validators.required]]
+    });
+    this.paymentFormGroup = this.formBuilder.group({
+      payment_method: ['', Validators.required],
+      checkout_origin: [this.checkoutSoure],
+      delivery_option: [''],
+      payment_network: [''],
+      discount: [''],
+      payment_voucher_code: [''],
+      sender_wallet_number: [''],
+      total_amount: [''],
+      delivery_fee: [''],
+      promo_code: [''],
+      order_items: [[]]
+    });
+
+
+    if (!this.authService.isLogedIn) {
+      this.dialog.open(GuestUserComponent).afterClosed().subscribe(async (isSuccess: boolean) => {
+        if (isSuccess) {
+          this.address_ctrl.setValue(this.authService.currentUser.address);
+          this.city_ctrl.setValue(this.authService.currentUser.city);
+          this.state_ctrl.setValue(this.authService.currentUser.brief);
+          await this.getCartItems();
+          // this.getPromoCodeValue('', true);
+        }
+      });
+    } else {
+      this.address_ctrl.setValue(this.authService.currentUser.address);
+      this.city_ctrl.setValue(this.authService.currentUser.city);
+      this.state_ctrl.setValue(this.authService.currentUser.brief);
+      await this.getCartItems();
+      // this.getPromoCodeValue('', true);
+    }
+    if (this.getHostname.isShopMall) {
+      this.getActivePromo(this.getHostname.subDomain);
+    }
+    // this.getActivePromo('lgenterprise');
+    this.route.queryParams.subscribe(param => {
+      const promoCode = param['promoCode'];
+      if (promoCode !== null && promoCode !== undefined && promoCode !== '') {
+        this.authService.setPromoCode(promoCode);
+        if (this.getHostname.isShopMall) {
+          this.getActivePromo(this.getHostname.subDomain);
+        }
+        // this.getActivePromo('lgenterprise');
+      }
+    });
+    if (this.constantValues.YOUNG_TEMPLATE_SUBDOMAIN.includes(this.getHostname.subDomain)) {
+      this.getShopInfo();
+    }
 
 
       $('#flip').on("click",function(){
@@ -143,7 +223,9 @@ export class Checkout2Component implements OnInit {
   }
 
 
-
+  getDeliveryOption(){
+    console.log(this.deliveryOptionsFormCtrl.value);
+  }
   // ngAfterViewInit() {
   //   this.setCurrentLocation();
   //   this.mapsAPILoader.load().then(() => {
@@ -280,13 +362,18 @@ export class Checkout2Component implements OnInit {
    * @param data request payload
    */
   updateDeliveryAddress(data) {
+    console.log("updateDeliveryAddress");
     if (this.cartItems.length <= 0) {
+
       this.notificationsService.info(this.constantValues.APP_NAME, 'Please add item to cart to continue');
       return;
     }
     this.isProcessing = true;
+    console.log("Items in Cart");
     this.orderService.updateDeliveryAddress(data, (error, result) => {
+      console.log("orderService.updateDeliveryAddress---");
       if (result !== null) {
+        console.log("orderService.updateDeliveryAddress not null");
         this.authService.saveUser(result.results);
         this.getDeliveryCharge(data);
       }
@@ -322,6 +409,7 @@ export class Checkout2Component implements OnInit {
         this.serviceCharge = +serviceCharge.toFixed(2);
         this.transactionFee = +transactionFee.toFixed(2);
         this.grandTotal = +this.subTotal + this.deliveryChargeAmount + this.serviceCharge + this.transactionFee;
+        console.log("this.delieryCharge"+this.delieryCharge);
         this.stepper.next();
       }
     });
@@ -354,6 +442,7 @@ export class Checkout2Component implements OnInit {
     await this.productsApiCalls.getCartItems((error, result) => {
       if (result !== null) {
         this.cartItems = result;
+        //console.log("cart-->"+JSON.stringify(this.cartItems,null,2));
         if (this.cartItems.length > 0) {
           this.currency = this.cartItems[0].item.currency;
           this.country = this.cartItems[0].country;
@@ -457,9 +546,9 @@ export class Checkout2Component implements OnInit {
               this.dialog.open(OrderCompletedDialogComponent, { data: { order_code: result.order_code, transactionSuccessful: isCompleted }, disableClose: true })
                 .afterClosed().subscribe((isSuccess: boolean) => {
                   if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
-                    this.router.navigate(['/account/orders']);
+                    //this.router.navigate(['/account/orders']);
                   } else if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
-                    this.router.navigate(['/mall/account/orders']);
+                    //this.router.navigate(['/mall/account/orders']);
                   }
                 });
             });
@@ -468,9 +557,9 @@ export class Checkout2Component implements OnInit {
             .afterClosed().subscribe((isSuccess: boolean) => {
               if (isSuccess) {
                 if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
-                  this.router.navigate(['/account/orders']);
+                  //this.router.navigate(['/account/orders']);
                 } else if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
-                  this.router.navigate(['/mall/account/orders']);
+                  //this.router.navigate(['/mall/account/orders']);
                 }
               }
             });
@@ -568,6 +657,10 @@ export class Checkout2Component implements OnInit {
     });
   }
 
+  getDaddress(){
+    console.log(this.addressFormGroup.value);
+  }
+
   get location() { return this.addressFormGroup.get('location'); }
   get latitude_ctrl() { return this.addressFormGroup.get('latitude'); }
   get longitude_ctrl() { return this.addressFormGroup.get('longitude'); }
@@ -575,6 +668,7 @@ export class Checkout2Component implements OnInit {
   get state_ctrl() { return this.addressFormGroup.get('state'); }
   get city_ctrl() { return this.addressFormGroup.get('city'); }
   get delivery_mode() { return this.addressFormGroup.get('delivery_mode'); }
+  get order_notes(){return this.addressFormGroup.get('order_notes'); }
 
   get gift_recipient_name() { return this.giftRecipientAddressFormGroup.get('gift_recipient_name'); }
   get gift_recipient_email() { return this.giftRecipientAddressFormGroup.get('gift_recipient_email'); }

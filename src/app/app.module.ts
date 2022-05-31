@@ -23,6 +23,7 @@ import { ShopDetailsComponent } from './components/main-features/shop-details/sh
 import { HttpClientModule } from '@angular/common/http';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButtonModule} from '@angular/material/button';
 
 import { SignUpComponent } from './components/commons/sign-up/sign-up.component';
 import { LoginComponent } from './components/commons/login/login.component';
@@ -57,6 +58,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ConfirmOrderPaymentDialogComponent } from './components/commons/confirm-order-payment-dialog/confirm-order-payment-dialog.component';
 import { OrderCompletedDialogComponent } from './components/commons/order-completed-dialog/order-completed-dialog.component';
 import { ConfirmPhoneNumberComponent } from './components/commons/confirm-phone-number/confirm-phone-number.component';
+import { GuestUserComponent } from './components/commons/guest-user/guest-user.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +80,7 @@ import { ConfirmPhoneNumberComponent } from './components/commons/confirm-phone-
     ConfirmOrderPaymentDialogComponent,
     OrderCompletedDialogComponent,
     ConfirmPhoneNumberComponent,
+    GuestUserComponent,
 
   ],
   imports: [
@@ -93,6 +96,7 @@ import { ConfirmPhoneNumberComponent } from './components/commons/confirm-phone-
     MatProgressBarModule,
     ReactiveFormsModule,
     MatFormFieldModule,
+    MatButtonModule,
 
   ],
   providers:

@@ -354,7 +354,7 @@
 			<!-- checkout_section - start
 			================================================== -->
 			<section class="checkout_section sec_ptb_140 clearfix">
-				<div class="container">
+				<div class="row ">
 
 
 					<!-- <ul class="checkout_step ul_li clearfix">
@@ -363,7 +363,7 @@
 						<li routerLink="/checkout3"><a routerLink="/checkout3" ><span>03.</span> Order Completed</a></li>
 					</ul> -->
 
-					<div class="row">
+					<!-- <div class="row">
 						<!-- <div class="col-lg-6">
 							<div class="checkout_collapse_content">
 								<div class="wrap_heade">
@@ -418,8 +418,8 @@
 								</div>
 							</div>
 						</div> -->
-					</div>
-
+					<!--</div> -->
+          <div class="col-sm-8">
 
           <mat-stepper #stepper  orientation="vertical" class="checkout-stepper">
             <mat-step  [stepControl]="deliveryOptionsFormCtrl" class="border-1">
@@ -427,13 +427,10 @@
               <div class="alert alert-info">Select a Delivery Option and click <b>CONTINUE</b></div>
               <ng-template matStepContent>
                 <div class="row">
-                  <div class="col-sm-3 payment-method-item-wrapper"
-                    >
-
+                  <div class="col-sm-3 payment-method-item-wrapper">
                     <input type="radio" [formControl]="deliveryOptionsFormCtrl" [value]="deliveryOptions?.DHL_DELIVERY"
                       name="deliverOption" id="dhl">
                     <label class="payment-method-grid-list-item" for="dhl" aria-label="DHL">
-
                       <img src="./assets/icons/check.svg" class="payment-method-selected-icon" />
                       <img src="./assets/icons/dhl-logo.png" alt="" class="payment-method-grid-list-item-media delivery-icon-image">
                       <p class="mb-0 payment-method-grid-list-item-description">DHL DELIVERY</p>
@@ -508,33 +505,38 @@
                     </label>
                   </div>
                 </div>
-                <button mat-button matStepperNext>Conitinue</button>
+                <div class="">
+                  <button class="bt-link bt-yellow bt-style5 pull-right checkout-button mb-3" matStepperNext type="button"
+                    [disabled]="deliveryOptionsFormCtrl?.invalid">CONTINUE TO DELIVERY ADDRESS</button>
+                </div>
               </ng-template>
             </mat-step>
             <mat-step>
+
               <ng-template matStepLabel>Address</ng-template>
               <ng-template matStepContent>
+                <form [formGroup]="addressFormGroup" (ngSubmit)="updateDeliveryAddress(addressFormGroup?.value)">
                 <div class="alert alert-info">Kindly provide all the information below for effective order delivery
                 </div>
                 <div class="billing_form mb_50">
                   <h3 class="form_title mb_30">Billing details</h3>
-                  <form action="#">
+
                     <div class="form_wrap">
 
                       <div class="row">
                         <div class="col-lg-6">
-                          <div class="form_item">
-                            <span class="input_title">First Name<sup>*</sup></span>
-                            <input type="text" name="firstname">
-                          </div>
+                          <!-- <div class="form_item">
+                            <span class="input_title">Name<sup>*</sup></span>
+                            <input type="text" formControlName="name">
+                          </div> -->
                         </div>
 
-                        <div class="col-lg-6">
+                        <!-- <div class="col-lg-6">
                           <div class="form_item">
                             <span class="input_title">Last Name<sup>*</sup></span>
                             <input type="text" name="lastname">
                           </div>
-                        </div>
+                        </div> -->
                       </div>
 
                       <!-- <div class="form_item">
@@ -551,37 +553,49 @@
                           <option value="tema">Tema</option>
                         </select>
                       </div> -->
-                      <div class="form_item">
+                      <!-- <div class="form_item">
                         <span class="input_title">Country<sup>*</sup></span>
-                        <input type="text" name="country">
-                      </div>
+                        <input type="text" formControlName="country">
+                      </div> -->
 
 
                       <div class="form_item">
                         <span class="input_title">Address<sup>*</sup></span>
-                        <input type="text" name="address" placeholder="House number and street name">
+                        <input type="text" formControlName="address" placeholder="House number and street name">
+                        <mat-error *ngIf="address_ctrl?.invalid && address_ctrl?.touched">
+                          Please enter a valid address
+                        </mat-error>
                       </div>
 
                       <div class="form_item">
                         <span class="input_title">Town/City<sup>*</sup></span>
-                        <input type="text" name="city">
+                        <input type="text" formControlName="city">
+                        <mat-error *ngIf="city_ctrl?.invalid && city_ctrl?.touched">
+                          Please enter City
+                        </mat-error>
                       </div>
 
 
                       <div class="form_item">
-                        <span class="input_title">Postcode / Zip<sup>*</sup></span>
-                        <input type="text" name="postcode">
+                        <span class="input_title">Region/State<sup>*</sup></span>
+                        <input type="text" formControlName="state">
+                        <mat-error *ngIf="state_ctrl?.invalid && state_ctrl?.touched">
+                          Please enter State/Region
+                        </mat-error>
                       </div>
 
                       <div class="form_item">
-                        <span class="input_title">Phone<sup>*</sup></span>
-                        <input type="tel" name="phone">
+                        <span class="input_title">Location<sup>*</sup></span>
+                        <input type="tel" formControlName="location" placeholder="Location">
+                        <mat-error *ngIf="location?.invalid && location?.touched">
+                          Please enter location
+                        </mat-error>
                       </div>
 
-                      <div class="form_item">
+                      <!-- <div class="form_item">
                         <span class="input_title">Email Address<sup>*</sup></span>
-                        <input type="email" name="email">
-                      </div>
+                        <input type="email" formControlName="email" >
+                      </div> -->
 
                       <!-- <div class="checkbox_item">
                         <label for="account_create_checkbox"><input id="account_create_checkbox" type="checkbox"> Create an account?</label>
@@ -589,27 +603,35 @@
 
                       <hr>
 
-                      <div class="checkbox_item mb_30">
+                      <!-- <div class="checkbox_item mb_30">
                         <label for="ship_address_checkbox"><input id="ship_address_checkbox" type="checkbox"> Ship to a different address?</label>
-                      </div>
+                      </div> -->
 
                       <div class="form_item mb-0">
                         <span class="input_title">Order notes<sup>*</sup></span>
-                        <textarea name="note" placeholder="Note about your order, eg. special notes fordelivery."></textarea>
+                        <textarea formControlName="order_notes" placeholder="Note about your order, eg. special notes fordelivery."></textarea>
                       </div>
 
                     </div>
-                  </form>
+
                 </div>
                 <!-- <button mat-button matStepperPrevious>Back</button> -->
-                <button mat-button matStepperNext>Continue to Payment</button>
+                <!-- <button mat-button matStepperNext>Continue to Payment</button> -->
+                <button class="bt-link bt-white bt-style7 checkout-back-button" matStepperPrevious
+                      type="button">BACK TO DELIVERY OPTIONS</button>
+                    <button class="bt-link bt-yellow bt-style5 pull-right checkout-button "
+                      [disabled]="addressFormGroup?.invalid || isProcessing " type="submit" matStepperNext>CONTINUE TO PAYMENTS </button>
+               </form>
               </ng-template>
+
+
             </mat-step>
+
             <mat-step>
               <ng-template matStepLabel>Payemnt</ng-template>
               <div class="billing_form">
                 <h3 class="form_title mb_30">Payment</h3>
-                <form action="#">
+                <form [formGroup]="paymentFormGroup" (ngSubmit)="placeOrder(paymentFormGroup?.value)">
                   <div class="form_wrap">
 
                     <!-- <div class="checkout_table">
@@ -754,7 +776,7 @@
                         </li>
                       </ul> -->
 
-                      <form [formGroup]="paymentFormGroup" (ngSubmit)="placeOrder(paymentFormGroup?.value)">
+
                         <div class="row mlr-0 mt-4">
                           <div class="col-md-3 col-sm-4 payment-method-item-wrapper" >
 
@@ -824,22 +846,67 @@
                         <div class="">
                           <button class="bt-link bt-white bt-style7 checkout-back-button" matStepperPrevious
                             type="button">BACK TO DELIVERY ADDRESS</button>
-                          <button class="bt-link bt-yellow bt-style5 pull-right checkout-button " [disabled]="isProcessing"
-                            type="submit">COMPLETE ORDER PAYMENT</button>
+                          <!-- <button class="bt-link bt-yellow bt-style5 pull-right checkout-button " [disabled]="isProcessing"
+                            type="submit">COMPLETE ORDER PAYMENT</button> -->
                         </div>
-                      </form>
-                      <button [routerLink]="['/checkout3']" class="custom_btn bg_default_red">PLACE ORDER</button>
+
+
+                      <button type="submit" class="custom_btn bg_default_red" [disabled]="isProcessing">PLACE ORDER</button>
                     </div>
 
                   </div>
                 </form>
               </div>
-              <button mat-button matStepperPrevious>Back</button>
+
             </mat-step>
           </mat-stepper>
 
+          </div>
 
+
+          <div class="col-sm-4">
+            <div class="cart-checkout-sidebar">
+              <h3 class="checkout-title">Order Summary</h3>
+              <ul class="checkout-detail-list">
+                <li>
+                  <p>Items</p>
+                  <p><b>{{cartItems?.length}}</b></p>
+                </li>
+                <li>
+                  <p>Sub Total</p>
+                  <p><b>{{currency}} {{subTotal | number:'1.2-2'}}</b></p>
+                </li>
+                <li>
+                  <p>Discount</p>
+                  <p><b *ngIf="shopHasActivePromo">{{currency}} {{discountAmount | number:'1.2-2'}}</b></p>
+                </li>
+                <li>
+                  <p>Delivery Charge</p>
+                  <p><b *ngIf="deliveryOptionsFormCtrl?.value !== deliveryOptions?.PICKUP">{{currency}}
+                      {{deliveryChargeAmount | number:'1.2-2'}}</b></p>
+                </li>
+                <li>
+                  <p>Service Charge</p>
+                  <p><b *ngIf="deliveryOptionsFormCtrl?.value !== deliveryOptions?.PICKUP">{{currency}}
+                      {{serviceCharge | number:'1.2-2'}}</b></p>
+                </li>
+                <li>
+                  <p>Transaction Fee</p>
+                  <p><b *ngIf="deliveryOptionsFormCtrl?.value !== deliveryOptions?.PICKUP">{{currency}}
+                      {{transactionFee | number:'1.2-2'}}</b></p>
+                </li>
+                <li>
+                  <p>Grand Total</p>
+                  <p><b>{{currency}} {{(grandTotal - discountAmount) | number:'1.2-2'}}</b></p>
+                </li>
+              </ul>
+              <button type="button" mat-raised-button class=" full-width" (click)="shopNow()">
+                CONTINUE SHOPPING
+              </button>
+            </div>
+          </div>
 				</div>
+
 			</section>
 			<!-- checkout_section - end
 			================================================== -->
