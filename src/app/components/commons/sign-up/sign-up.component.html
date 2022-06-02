@@ -61,36 +61,61 @@
 			<section class="register_section sec_ptb_140 parallaxie clearfix" data-background="assets/images/backgrounds/bg_23.jpg">
 				<div class="container">
 					<div class="reg_form_wrap signup_form" data-background="assets/images/reg_bg_02.png">
-						<form action="#">
+						<form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup?.value)">
 							<div class="reg_form">
 								<h2 class="form_title text-uppercase">Register</h2>
 								<div class="form_item">
-									<input type="text" name="firstname" placeholder="First Name">
+                  <input type="text" placeholder="First Name"
+                  formControlName="first_name"/>
+                  <mat-error *ngIf="first_name?.invalid && first_name?.touched" >
+                    Please enter your first name
+                  </mat-error>
 								</div>
 								<div class="form_item">
-									<input type="text" name="lastname" placeholder="Last Name">
+									<input type="text" placeholder="Last Name" formControlName="last_name"/>
+                      <mat-error *ngIf="last_name?.invalid && last_name?.touched" >
+                        Please enter your last name
+                      </mat-error>
 								</div>
-								<div class="form_item">
+								<!-- <div class="form_item">
 									<input type="text" name="company" placeholder="Company Name">
+								</div> -->
+								<div class="form_item">
+                  <input placeholder="Email" formControlName="email"/>
+                  <mat-error *ngIf="email?.invalid && email?.touched" >
+                    Please enter a valid email
+                  </mat-error>
 								</div>
 								<div class="form_item">
-									<input type="email" name="email" placeholder="Email">
+									<!-- <input type="tel" name="phone" placeholder="phone"> -->
+                  <lac-mat-country-selector
+                  matPrefix [selectorFor]="input1"
+                  [preferredCountries]="['gh', 'ng']"
+                  ></lac-mat-country-selector>
+                 <lac-mat-tel-input  #input1 formControlName="phone_number"></lac-mat-tel-input>
+                  <mat-error *ngIf="phone_number?.invalid && phone_number?.touched" >
+                    Please enter a valid phone number
+                  </mat-error>
 								</div>
 								<div class="form_item">
-									<input type="tel" name="phone" placeholder="phone">
+                  <input type="password" placeholder="Password" formControlName="password"/>
+                  <mat-error *ngIf="password?.invalid && password?.touched" >
+                    Please enter a valid password
+                  </mat-error>
 								</div>
 								<div class="form_item">
-									<input type="password" name="password" placeholder="Password">
+                  <input type="password" placeholder="Repeat your password" formControlName="retype_password"/>
+                  <mat-error *ngIf="retype_password?.invalid && retype_password?.touched" >
+                    Passwords do not match
+                  </mat-error>
 								</div>
-								<div class="form_item">
-									<input type="password" name="password" placeholder="Confirm Password">
-								</div>
-								<div class="checkbox_item mb_30">
+								<!-- <div class="checkbox_item mb_30">
 									<label for="agree_checkbox"><input id="agree_checkbox" type="checkbox"> I agree to the Terms of User</label>
-								</div>
-								<button type="submit" class="custom_btn bg_default_red text-uppercase mb_50">Create Account</button>
+								</div> -->
+                <mat-progress-bar *ngIf="isProcessing"  class="mb-0" mode="indeterminate"></mat-progress-bar>
+								<button type="submit" class="bt-link bt-yellow bt-style5 mt-0 full-width" [disabled]="formGroup?.invalid || isProcessing">Create Account</button>
 
-								<div class="create_account text-center">
+								<div class="create_account text-center mt-4">
 									<h4 class="small_title_text text-center text-uppercase">Have an account?</h4>
 									<a class="create_account_btn text-uppercase" routerLink="/login">Login</a>
 								</div>

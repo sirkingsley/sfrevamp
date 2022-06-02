@@ -287,8 +287,8 @@
 									<!-- <div id="use_deropdown" class="collapse_dropdown collapse"> -->
                     <div id="panel" class="collapse_dropdown collapse">
 										<div class="dropdown_content">
-											<div class="profile_info clearfix">
-												<div class="user_thumbnail">
+											<div *ngIf="isLoggedIn" class="profile_info clearfix">
+												<div  class="user_thumbnail">
 													<img src="assets/images/reg_bg_02.png" alt="thumbnail_not_found">
 												</div>
 												<div class="user_content">
@@ -297,9 +297,16 @@
 												</div>
 											</div>
 											<ul class="settings_options ul_li_block clearfix">
-												<li><a href="#!"><i class="fal fa-user-circle"></i> Profile</a></li>
+												<li *ngIf="isLoggedIn"><a><i class="fal fa-user-circle"></i> Profile</a></li>
 												<!-- <li><a href="#!"><i class="fal fa-user-cog"></i> Settings</a></li> -->
-												<li><a routerLink="login"><i class="fal fa-sign-out-alt"></i> Logout</a></li>
+                        <li *ngIf="isLoggedIn"><a class="cursor-pointer" [routerLink]="['/']"><span
+                          class="lnr lnr-user"></span>My Orders</a></li>
+                    <li *ngIf="isLoggedIn">
+												<li *ngIf="isLoggedIn"><a (click)="onSignOut()" [routerLink]="['/']"><i class="fal fa-sign-out-alt"></i> Logout</a></li>
+                        <li *ngIf="!isLoggedIn"><a class="cursor-pointer" (click)="onSignIn()"><span
+                          class="lnr lnr-lock"></span> Login</a></li>
+                    <li *ngIf="!isLoggedIn"><a (click)="onSignup()" class="cursor-pointer"><span
+                          class="lnr lnr-sync"></span>Register</a></li>
 											</ul>
 										</div>
 									</div>

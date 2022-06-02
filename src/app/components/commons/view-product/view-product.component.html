@@ -19,22 +19,24 @@
               <li class="active"><i class="las la-star"></i></li>
               <li><i class="las la-star"></i></li>
             </ul>
-            <span class="review_text">(12 Reviews)</span>
+            <!-- <span class="review_text">(12 Reviews)</span> -->
           </div>
-          <span class="item_price mb_15">{{data.item.currency}} {{data.item.price_list[0]?.selling_price}}</span>
+          <span class="item_price mb_15">{{data.item.currency}} {{data.item?.selling_price | number: '1.2-2'}}</span>
           <p class="mb_30">
             Best Electronic Digital Thermometer adipiscing elit, sed do eiusmod teincididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse us ultrices gravidaes.
           </p>
-          <div class="quantity_form mb_30 clearfix">
+          <!-- <div class="quantity_form mb_30 clearfix">
             <strong class="list_title">Quantity:</strong>
-            <div class="quantity_input">
+            <!-- <div class="quantity_input">
               <form action="#">
-                <span class="input_number_decrement">–</span>
-                <input class="input_number" type="text" value="1">
-                <span class="input_number_increment">+</span>
+
+                <span class="input_number_decrement" (click)="reduceQty(data.item)">–</span>
+                <!-- <input class="input_number" type="text" value="1"> -->
+                <!-- <span>{{this.item.quantity}}</span>
+                <span class="input_number_increment" (click)="addQty(data.item)">+</span>
               </form>
             </div>
-          </div>
+          </div> -->
           <ul class="btns_group ul_li mb_30 clearfix">
             <li><a class="custom_btn bg_carparts_red" (click)="addProductToCart(data.item)" >Add to Cart</a></li>
             <li><a href="#!" data-toggle="tooltip" data-placement="top" title="" data-original-title="Compare Product"><i class="fal fa-sync"></i></a></li>

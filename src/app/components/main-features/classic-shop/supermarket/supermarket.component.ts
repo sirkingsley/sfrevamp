@@ -1,7 +1,7 @@
 import { ConstantValuesService } from 'src/app/services/constant-values.service';
 import { DbaseUpdateService } from 'src/app/services/dbase-update.service';
 import { customOptions,customOptions1, slides1,customOptionsHome} from './../../../../utils/constants';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ViewProductComponent } from 'src/app/components/commons/view-product/view-product.component';
 //import { OrderApiCallsService } from './../../../../../../services/network-calls/order-api-calls.service';
@@ -24,6 +24,9 @@ import { CountryEnum, PriceSortingEnums, PromosEnum } from 'src/app/utils/enums'
 import { ProductsFilterParams } from 'src/app/interfaces/products-filter-params';
 import { GetHostnameService } from 'src/app/services/get-hostname.service';
 import { JsonpClientBackend } from '@angular/common/http';
+import { User } from 'src/app/modules/user';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { LoginComponent } from 'src/app/components/commons/login/login.component';
 
 
 
@@ -45,8 +48,88 @@ declare const $;
   templateUrl: './supermarket.component.html',
   styleUrls: ['./supermarket.component.scss']
 })
+
+
+
 export class SupermarketComponent implements OnInit {
 
+  @Input() shopName = 'StoreFront Mall';
+  shopInfo;
+  cartItems = [];
+  @Input() productGroups = [];
+  pGroups = [];
+  isLoggedIn = false;
+  currentUser: User;
+  subTotal = 0;
+  currency: any;
+  products = [];
+  isProcessing = false;
+  totalPage = 0;
+  productSearchFormControl = new FormControl('');
+  // tslint:disable-next-line: no-output-on-prefix
+  @Output() categoryChange = new EventEmitter();
+  // tslint:disable-next-line: no-output-on-prefix
+  @Output() onSearch = new EventEmitter();
+  // tslint:disable-next-line: no-output-on-prefix
+  @Output() onProductGroupSelected = new EventEmitter();
+
+  countriesEnum = CountryEnum;
+  country = '';
+  selectedCategory = '';
+  isSearching = false;
+  searchControl: FormControl = new FormControl('');
+  subdomain = '';
+  gtpSubdomin = '';
+  toggleYoungSideBar = false;
+  toggleYoungCart = false;
+  toggleYoungSearch = false;
+
+  slug: any;
+
+  ProductsTitle="Popular Products";
+
+ filterParams = {};
+
+
+ featuredShops = [];
+
+ isProcessingShopInfo = false;
+ hasTopTrendingProducts = false;
+ isProcessingFeaturedShops: boolean;
+
+ protocol = '';
+ url = '';
+ totalAmount = '';
+
+ nextPage = '';
+ prevPage = '';
+ product_groups = [];
+ industries = [];
+
+ tag = '';
+
+ sliders = [];
+ servicesSliderConfig = servicesCarouselConfig;
+ selectedCategoryId = '';
+
+ priceSorting = PriceSortingEnums;
+ selectedPriceSorting = '';
+ searchQuery = '';
+ productListTitle: string;
+
+
+ gtpSubdomain = '';
+ woodinSubdomain = '';
+
+ shopHasActivePromo = false;
+ promoCodes = [];
+ exchangeRate = 0;
+
+
+ customOptions=customOptions;
+ customOptions1=customOptions1;
+ slides1=slides1;
+ customOptionsHome=customOptionsHome;
 
 
   constructor(
@@ -61,61 +144,10 @@ export class SupermarketComponent implements OnInit {
     private dbaseUpdate: DbaseUpdateService,
     private productsApiCalls: ProductsApiCallsService,
     private toastr: ToastrService,
+    private authService: AuthService,
+    private route: ActivatedRoute,
+
   ) { }
-
-  slug: any;
-  cartItems: any;
-  currency: any;
-  countriesEnum = CountryEnum;
-  subTotal: any;
-  onProductGroupSelected: any;
-  pGroups: any;
-  searchControl: any;
-
-  ProductsTitle="Popular Products";
-  products = [];
-  filterParams = {};
-  country = '';
-  productSearchFormControl = new FormControl();
-  featuredShops = [];
-  isProcessing = false;
-  isProcessingShopInfo = false;
-  hasTopTrendingProducts = false;
-  isProcessingFeaturedShops: boolean;
-
-  protocol = '';
-  url = '';
-  totalAmount = '';
-  totalPage = 0;
-  nextPage = '';
-  prevPage = '';
-  product_groups = [];
-  industries = [];
-  shopInfo;
-  tag = '';
-
-  sliders = [];
-  servicesSliderConfig = servicesCarouselConfig;
-  selectedCategoryId = '';
-  selectedCategory = '';
-  priceSorting = PriceSortingEnums;
-  selectedPriceSorting = '';
-  searchQuery = '';
-  productListTitle: string;
-  isSearching: boolean;
-  subdomain = '';
-  gtpSubdomain = '';
-  woodinSubdomain = '';
-
-  shopHasActivePromo = false;
-  promoCodes = [];
-  exchangeRate = 0;
-
-
-  customOptions=customOptions;
-  customOptions1=customOptions1;
-  slides1=slides1;
-  customOptionsHome=customOptionsHome;
 
 
   //Call JavaScript functions onload
@@ -127,6 +159,32 @@ export class SupermarketComponent implements OnInit {
 
 
   async ngOnInit(): Promise<void> {
+    this.subdomain = this.getHostname.subDomain;
+    // this.subdomain = this.constantValues.GTP_SUBDOMAIN;
+    this.gtpSubdomin = this.constantValues.GTP_SUBDOMAIN;
+    // console.log(this.suddomain);
+    this.isLoggedIn = this.authService.isLogedIn;
+    this.currentUser = this.authService.currentUser;
+    this.authService.setPromoCode(this.route.snapshot.queryParams['promoCode']);
+    this.dbaseUpdate.updateStatus().subscribe(async isUpdated => {
+      if (isUpdated) {
+        await this.getCartItems();
+      }
+    });
+    await this.getCartItems();
+
+    this.searchControl.valueChanges.pipe(
+      debounceTime(500),
+      distinctUntilChanged()
+    ).subscribe((searchTerm: string) => {
+      if (searchTerm !== null && searchTerm !== undefined && searchTerm !== '' && searchTerm.length >= 2) {
+        this.isSearching = true;
+        // TODO:  this.getProducts({ storefrontmall_name: this.getHostname.subDomain, search_text: searchTerm });
+        this.getProducts({ storefrontmall_name: this.subdomain, search_text: searchTerm });
+      }
+    });
+    this.getShopInfo();
+    this.getProductGroups();
     this.protocol = this.constantValues.STOREFRONT_MALL_URL_PROTOCOL;
     this.url = this.constantValues.STOREFRONT_MALL_URL;
     this.subdomain = this.getHostname.subDomain;
@@ -172,6 +230,23 @@ export class SupermarketComponent implements OnInit {
     });
   }
 
+  onSignup() {
+    // this.dialog.open(SignupComponent);
+    this.router.navigate(['/sign-up']);
+  }
+  onSignOut() {
+    this.authService.logOut();
+    this.isLoggedIn = this.authService.isLogedIn;
+    this.currentUser = this.authService.currentUser;
+  }
+  onSignIn() {
+    this.dialog.open(LoginComponent).afterClosed().subscribe((isSuccefull: boolean) => {
+      if (isSuccefull) {
+        this.isLoggedIn = this.authService.isLogedIn;
+        this.currentUser = this.authService.currentUser;
+      }
+    });
+  }
 
 /**
    * Get products by filter parameters
@@ -258,10 +333,17 @@ filterByCategory(category,el: HTMLElement) {
     const selling_price = +product.selling_price;
     const selling_price_usd = +product.selling_price_usd;
     // tslint:disable-next-line: variable-name
-    const total_amount = selling_price * 1;
-    const total_amount_usd = selling_price_usd * 1;
+    const total_amount = selling_price;
+    const total_amount_usd = selling_price_usd;
     // tslint:disable-next-line: max-line-length
-    const data = { item: product, quantity: 1, total_amount, total_amount_usd, date_added: new Date(), country: this.country };
+    const data = {
+      item: product,
+      quantity: 1,
+      total_amount,
+      total_amount_usd,
+      date_added: new Date(),
+      country: this.country
+      };
     await this.productsService.addProductToCart(data, (error, result) => {
       if (result !== null) {
         this.dbaseUpdate.dbaseUpdated(true);

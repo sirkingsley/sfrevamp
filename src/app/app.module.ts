@@ -24,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
 
 import { SignUpComponent } from './components/commons/sign-up/sign-up.component';
 import { LoginComponent } from './components/commons/login/login.component';
@@ -59,6 +60,7 @@ import { ConfirmOrderPaymentDialogComponent } from './components/commons/confirm
 import { OrderCompletedDialogComponent } from './components/commons/order-completed-dialog/order-completed-dialog.component';
 import { ConfirmPhoneNumberComponent } from './components/commons/confirm-phone-number/confirm-phone-number.component';
 import { GuestUserComponent } from './components/commons/guest-user/guest-user.component';
+import { LacMatTelInputModule } from 'lac-mat-tel-input';
 
 @NgModule({
   declarations: [
@@ -97,6 +99,8 @@ import { GuestUserComponent } from './components/commons/guest-user/guest-user.c
     ReactiveFormsModule,
     MatFormFieldModule,
     MatButtonModule,
+    FormsModule,
+    LacMatTelInputModule,
 
   ],
   providers:

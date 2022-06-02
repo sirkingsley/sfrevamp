@@ -1,3 +1,4 @@
+import { get } from 'jquery';
 
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray } from '@angular/forms';
@@ -54,17 +55,25 @@ export class ViewProductComponent implements OnInit {
     relatedProducts = [];
     extraImages = [];
     quantities = [];
+    item:any;
 
     isProcessingRelatedProducts: boolean;
     country = '';
     countriesEnum = CountryEnum;
     currentUrl = '';
     quantityRemaining = 1;
+
   ngOnInit() {
+
     this.title.setTitle(this.constantValues.APP_NAME + ' Product Detail');
     this.country = this.constantValues.COUNTRY;
     this.protocol = this.constantValues.STOREFRONT_MALL_URL_PROTOCOL;
     this.url = this.constantValues.STOREFRONT_MALL_URL;
+    this.getCartItems();
+
+
+
+
 
     // this.route.params.subscribe(param => {
     //   this.currentUrl = this.getHostname.url;
@@ -147,15 +156,69 @@ export class ViewProductComponent implements OnInit {
       await this.productsApiCalls.getCartItems((error, result) => {
         if (result !== null) {
           this.cartItems = result;
-          //console.log("Cart-->"+ JSON.stringify(this.cartItems,null,2));
+          this.cartItems = result.sort(this.compare);
+         //console.log("Cart-->"+ JSON.stringify(this.cartItems,null,2));
           if (this.cartItems.length > 0) {
             this.currency = this.cartItems[0].item.currency;
             this.country = this.cartItems[0].country;
+              console.log('Greauer');
+              const exists = this.cartItems.find(
+              (element: any) => element.item.id ===this.data.item.id
+              );
+              if (exists !== null && exists !== undefined && exists !== '') {
+                console.log('Exists');
+                const data = {
+                  item: this.data.item,
+                  quantity: exists.quantity,
+                  country: this.country,
+                  total_amount: exists.total_amount,
+                  total_amount_usd: exists.total_amount_usd,
+                  date_added: exists.product.date_added
+                };
+              //console.log(this.cartItems[0].item.id);
+              const newQuantity = +exists.quantity + 1;
+              const newSubtotal = +exists.total_amount + +this.data.item.selling_price;
+              data.total_amount = newSubtotal;
+              data.quantity = newQuantity;
+              this.productsApiCalls.removeAndAddProductToCart(
+                data,
+                async (error: any, result: any) => {
+                  if (result !== null) {
+                    this.dbaseUpdate.dbaseUpdated(true);
+
+
+                    await this.getSubTotal();
+                    this.item=exists;
+                  }
+                }
+              );
+
+              }else{
+                console.log('Not Exists');
+                const data = {
+                  item: this.data.item,
+                  quantity: 1,
+                  country: this.country,
+                  total_amount: this.data.item.selling_price,
+                  total_amount_usd: this.data.item.total_amount_usd,
+                  date_added: Date(),
+                };
+
+               this.item=data;
+               console.log('This.item-->'+JSON.stringify(this.item,null,2));
+               console.log('This.q-->'+ this.item.quantity);
+
+              }
+
           }
           this.getSubTotal();
         }
       });
     }
+
+
+
+
     /**
      * Remove item from cart
      * @param id item id
@@ -202,24 +265,25 @@ export class ViewProductComponent implements OnInit {
     }
     get stagesFormArray() { return this.formGroup.get('data') as FormArray;
    }
+
+
    async addQty(product: any) {
     const stockQty = +product.item.new_quantity;
-    // if (stockQty <= 0) {
-    //   this.notificationsService.snackBarErrorMessage(
-    //     product.item.name + ' Cannot further reduced'
-    //   );
-      //return;
-    //}
+    if (stockQty <= 0) {
+      this.notificationsService.error(this.constantValues.APP_NAME, product.item.name + ' Cannot further reduced');
+      return;
+    }
     // tslint:disable-next-line: variable-name
     const selling_price = +product.item.selling_price;
     const selling_price_usd = +product.item.selling_price_usd;
     // tslint:disable-next-line: variable-name
-    const total_amount = selling_price * 1;
-    const total_amount_usd = selling_price_usd * 1;
+    const total_amount = +product.total_amount;
+    const total_amount_usd = +product.total_amount_usd;
+    const quantity= +product.quantity;
     // tslint:disable-next-line: max-line-length
     const data = {
       item: product.item,
-      quantity: product.quantity,
+      quantity: quantity,
       country: this.country,
       total_amount: total_amount,
       total_amount_usd: total_amount_usd,
@@ -231,7 +295,7 @@ export class ViewProductComponent implements OnInit {
       if (exists !== null && exists !== undefined && exists !== '') {
         //console.log(this.cartItems[0].item.id);
         const newQuantity = +exists.quantity + 1;
-        const newSubtotal = +exists.total_amount + +data.total_amount;
+        const newSubtotal = +exists.total_amount + +selling_price;
         data.total_amount = newSubtotal;
         data.quantity = newQuantity;
         this.productsApiCalls.removeAndAddProductToCart(
@@ -251,9 +315,9 @@ export class ViewProductComponent implements OnInit {
   async reduceQty(product: any) {
     const stockQty = +product.quantity;
     if (stockQty <= 1) {
-      // this.notificationsService.snackBarErrorMessage(
-      //   product.item.name + ' Cannot further be reduced'
-      // );
+      this.notificationsService.error( "",
+        product.item.name + ' Cannot further be reduced'
+      );
       return;
     }
     // tslint:disable-next-line: variable-name
@@ -261,11 +325,12 @@ export class ViewProductComponent implements OnInit {
     const selling_price_usd = +product.item.selling_price_usd;
     // tslint:disable-next-line: variable-name
     const total_amount = selling_price * 1;
-    const total_amount_usd = selling_price_usd * 1;
+    const total_amount_usd =selling_price_usd * 1;
+    const quantity= +product.quantity;
     // tslint:disable-next-line: max-line-length
     const data = {
       item: product.item,
-      quantity: product.quantity,
+      quantity: quantity,
       country: this.country,
       total_amount: total_amount,
       total_amount_usd: total_amount_usd,
@@ -276,7 +341,7 @@ export class ViewProductComponent implements OnInit {
         );
       if (exists !== null && exists !== undefined && exists !== '') {
         const newQuantity = +exists.quantity - 1;
-        const newSubtotal = +exists.total_amount - +data.total_amount;
+        const newSubtotal = +exists.total_amount - data.total_amount;
         data.total_amount = newSubtotal;
         data.quantity = newQuantity;
         this.productsApiCalls.removeAndAddProductToCart(
@@ -291,6 +356,22 @@ export class ViewProductComponent implements OnInit {
         );
       }
 
+  }
+
+   //sort cart items
+
+   compare( a:any, b:any ) {
+    if ( a.item.name < b.item.name ){
+      return -1;
+    }
+    if ( a.item.name > b.item.name ){
+      return 1;
+    }
+    return 0;
+  }
+
+  get Qty(){
+    return this.formGroup.get('qty');
   }
 
     // async addRelatedProductToCart(product) {
