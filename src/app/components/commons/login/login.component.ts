@@ -66,6 +66,7 @@ export class LoginComponent implements OnInit {
             this.authService.saveUser(result);
             this.authService.saveToken(result.auth_token);
             this.loginUpdate.isUpdated(true);
+            console.log("Data-->"+JSON.stringify(data,null,2));
             this.router.navigate(['/supermarket']);
 
           } else {

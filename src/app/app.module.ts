@@ -60,7 +60,7 @@ import { ConfirmOrderPaymentDialogComponent } from './components/commons/confirm
 import { OrderCompletedDialogComponent } from './components/commons/order-completed-dialog/order-completed-dialog.component';
 import { ConfirmPhoneNumberComponent } from './components/commons/confirm-phone-number/confirm-phone-number.component';
 import { GuestUserComponent } from './components/commons/guest-user/guest-user.component';
-import { LacMatTelInputModule } from 'lac-mat-tel-input';
+//import { LacMatTelInputModule } from 'lac-mat-tel-input';
 
 @NgModule({
   declarations: [
@@ -100,7 +100,7 @@ import { LacMatTelInputModule } from 'lac-mat-tel-input';
     MatFormFieldModule,
     MatButtonModule,
     FormsModule,
-    LacMatTelInputModule,
+    //LacMatTelInputModule,
 
   ],
   providers:

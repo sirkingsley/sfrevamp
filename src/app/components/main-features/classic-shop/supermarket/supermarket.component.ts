@@ -266,7 +266,7 @@ export class SupermarketComponent implements OnInit {
       this.totalPage = result.count;
       this.product_groups = result.product_groups;
       this.constantValues.COUNTRY = this.country;
-      console.log("this.products-->"+JSON.stringify(this.products,null,2));
+      //console.log("this.products-->"+JSON.stringify(this.products,null,2));
       console.log(this.country);
       console.log(this.product_groups);
     }
@@ -360,7 +360,7 @@ filterByCategory(category,el: HTMLElement) {
         this.cartItems = result;
         this.cartItems = result.sort(this.compare);
         //console.log("Cart length-->"+this.cartItems.length);
-        console.log("Cart-->"+ JSON.stringify(this.cartItems,null,2));
+        //console.log("Cart-->"+ JSON.stringify(this.cartItems,null,2));
         if (this.cartItems.length > 0) {
           this.currency = this.cartItems[0].item.currency;
           this.country = this.cartItems[0].country;
