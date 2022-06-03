@@ -6033,14 +6033,17 @@ button {
 }
 
 .category-wrapper{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+
+  // flex-wrap: wrap;
+  //justify-content: space-between;
   //border: 2px solid green;
   //margin-top: 3rem;
 
 }
+
 .main-heading{
   // font-size: 2.3rem !important;
   line-height: 36px !important;
@@ -7489,12 +7492,18 @@ button {
   }
 .ecommerce_category_fullimage > img {
   width: 100%;
-  height: 100%;
+  height: 300px;
   display: block;
   transition: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
 .ecommerce_category_fullimage:hover > img {
   transform: scale(1.05);
+}
+.category-item >img{
+  width: 100% !important;
+  height: 300px !important;
+  //display: block;
+  transition: 0.6s cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
 .ecommerce_category_fullimage .item_title {
   top: 50%;
@@ -24712,14 +24721,27 @@ blockquote .blockquote_title {
 
   /* quick view - end */
 }
+@media screen and (max-width: 500px) {
+  .ecommerce_category_fullimage > img{
+    height: 150px !important;
+  }
+  .category-wrapper{
+    padding: 10px 20px;
+  }
+}
+
 /* max-width: 880px - start */
 @media screen and (max-width: 880px) {
   /* home carparts - start */
+  .category-wrapper{
+    grid-template-columns: 1fr 1fr !important;
+  }
   .carparts_product_grid.column_3 .item_image {
     height: 250px;
   }
-  .category-item{
-    width: 40% !important;
+
+  .ecommerce_category_fullimage > img{
+    height: 230px;
   }
   .carparts_product_grid.column_3 .item_image > img {
     max-width: 200px;
@@ -24877,10 +24899,13 @@ blockquote .blockquote_title {
 /* ====================================================================================================
 5 - media screen and (max-width: 767px) - start
 ==================================================================================================== */
+
+
 @media screen and (max-width: 767px) {
   /* global - start */
   .sec_ptb_100 {
     padding: 80px 0px;
+
   }
 
   .sec_ptb_140 {

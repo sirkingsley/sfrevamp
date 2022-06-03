@@ -1,5 +1,5 @@
 import { isNgTemplate } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 //import Jquery
@@ -8,6 +8,7 @@ import { AppUtilsService } from 'src/app/services/app-utils.service';
 import { ConstantValuesService } from 'src/app/services/constant-values.service';
 import { DbaseUpdateService } from 'src/app/services/dbase-update.service';
 import { ProductsApiCallsService } from 'src/app/services/network-calls/products-api-calls.service';
+import { ShopApiCallsService } from 'src/app/services/network-calls/shop-api-calls.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
 import { CountryEnum } from 'src/app/utils/enums';
 import { owlCustomOptions } from 'src/app/utils/owl-config';
@@ -23,6 +24,18 @@ declare const parallaxie: any;
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
+  isProcessingFeaturedShops: boolean;
+
+  shopInfo: any;
+  exchangeRate: number;
+  selectedCategory: any;
+  ProductsTitle: string;
+  selectedPriceSorting: any;
+  searchQuery: any;
+  tag: any;
+  isSearching: boolean;
+  //target:any;
+
 
   constructor(
     private productsApiCalls: ProductsApiCallsService,
@@ -32,9 +45,13 @@ export class CartComponent implements OnInit {
     private title: Title,
     private constantValues: ConstantValuesService,
     private formBuilder: FormBuilder,
+    private shopsApiCalls: ShopApiCallsService,
   ) { }
 
-
+  productGroups = [];
+  featuredShops = [];
+  industries = [];
+  @Output() htmlTarget = new EventEmitter();
   cartItems = [];
   recentlyViewedItems = [];
   isProcessing = false;
@@ -46,6 +63,7 @@ export class CartComponent implements OnInit {
   country = '';
   qty:number;
 
+
    //Call JavaScript functions onload
    onload(){
     custom();
@@ -54,6 +72,9 @@ export class CartComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+
+    this.getIndustries()
+    this.getFeaturedShops({});
     this.formGroup=this.formBuilder.group({
       qty: ['',Validators.required],
     });
@@ -237,6 +258,60 @@ async reduceQty(product: any) {
     }
 
 }
+
+getFeaturedShops({ }) {
+  this.isProcessingFeaturedShops = true;
+  this.shopsApiCalls.getFeaturedShops({}, (error, result) => {
+    this.isProcessingFeaturedShops = false;
+    if (result !== null) {
+      this.featuredShops = result.results;
+      //console.log("this.featuredShops-->"+ JSON.stringify(this.featuredShops));
+    }
+  });
+}
+
+getIndustries() {
+  this.shopsApiCalls.getIndustries((error, result) => {
+    this.industries = result;
+    //console.log("this.industries "+ JSON.stringify(this.industries) );
+  });
+}
+
+getShopInfo() {
+  // const suddomain = (this.getHostname.subDomain === 'localhost') ? environment.pluto : this.getHostname.subDomain;
+  this.shopsApiCalls.getShopByOnlineAddress(this.subdomain, (error, result) => {
+    if (result !== null && result.response_code === '100') {
+      this.shopInfo = result.results;
+      this.exchangeRate = (result.results.exchange_rate !== '' && result.results.exchange_rate !== null && result.results.exchange_rate !== undefined) ? +result.results.exchange_rate : 0;
+
+    }
+    //console.log("this.shopInfo " +this.shopInfo);
+  });
+}
+  subdomain(subdomain: any, arg1: (error: any, result: any) => void) {
+    throw new Error('Method not implemented.');
+  }
+
+filterCategory(category,el: HTMLElement) {
+  this.selectedCategory = category;
+  this.ProductsTitle=category;
+
+  this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
+
+      el.scrollIntoView({behavior: 'smooth'});
+  }
+  getProducts(arg0: { sorting: any; industry: any; search_text: any; tag: any; }) {
+    throw new Error('Method not implemented.');
+  }
+
+filterByCategory(category,el: HTMLElement) {
+    this.isSearching=true;
+    this.ProductsTitle=category;
+    this.selectedCategory = category;
+
+    this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
+    el.scrollIntoView({behavior: 'smooth'});
+  }
 
  //sort cart items
 

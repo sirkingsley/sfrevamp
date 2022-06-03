@@ -94,6 +94,9 @@ export class Checkout2Component implements OnInit {
   cediEquivalent = 0;
   delviveryChargeUSDEquivalent = 0;
   exchangeRate = 0;
+  featuredShops = [];
+  industries = [];
+  isProcessingFeaturedShops: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -125,6 +128,8 @@ export class Checkout2Component implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.getCartItems();
+    this.getIndustries()
+    this.getFeaturedShops({});
     this.title.setTitle(this.constantValues.APP_NAME + ' Checkout Payment');
     this.subdomain = this.getHostname.subDomain;
     this.currentUser = this.authService.currentUser;
@@ -223,6 +228,23 @@ export class Checkout2Component implements OnInit {
   }
 
 
+  getFeaturedShops({ }) {
+    this.isProcessingFeaturedShops = true;
+    this.shopsApiCalls.getFeaturedShops({}, (error, result) => {
+      this.isProcessingFeaturedShops = false;
+      if (result !== null) {
+        this.featuredShops = result.results;
+        //console.log("this.featuredShops-->"+ JSON.stringify(this.featuredShops));
+      }
+    });
+  }
+
+  getIndustries() {
+    this.shopsApiCalls.getIndustries((error, result) => {
+      this.industries = result;
+      //console.log("this.industries "+ JSON.stringify(this.industries) );
+    });
+  }
   getDeliveryOption(){
     console.log(this.deliveryOptionsFormCtrl.value);
   }

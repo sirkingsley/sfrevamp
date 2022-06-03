@@ -1,7 +1,7 @@
 import { ConstantValuesService } from 'src/app/services/constant-values.service';
 import { DbaseUpdateService } from 'src/app/services/dbase-update.service';
 import { customOptions,customOptions1, slides1,customOptionsHome} from './../../../../utils/constants';
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ViewProductComponent } from 'src/app/components/commons/view-product/view-product.component';
 //import { OrderApiCallsService } from './../../../../../../services/network-calls/order-api-calls.service';
@@ -51,7 +51,7 @@ declare const $;
 
 
 
-export class SupermarketComponent implements OnInit {
+export class SupermarketComponent implements OnInit, AfterViewInit {
 
   @Input() shopName = 'StoreFront Mall';
   shopInfo;
@@ -147,6 +147,7 @@ export class SupermarketComponent implements OnInit {
     private authService: AuthService,
     private route: ActivatedRoute,
 
+
   ) { }
 
 
@@ -157,8 +158,25 @@ export class SupermarketComponent implements OnInit {
   parallaxie();
 }
 
+@ViewChild('target') target: ElementRef<HTMLElement>;
+
+
+
+// ngAfterInit (){
+//   this.route.params.subscribe(param => {
+//     alert(param['pageSec'])
+//     if(param['pageSec']){
+//       const section = this.container.nativeElement.querySelector(`#${param['pageSec']}`)
+//       console.log("section=>"+section)
+
+//       section?.scrollIntoView()
+//     }
+//   })
+// }
 
   async ngOnInit(): Promise<void> {
+
+
     this.subdomain = this.getHostname.subDomain;
     // this.subdomain = this.constantValues.GTP_SUBDOMAIN;
     this.gtpSubdomin = this.constantValues.GTP_SUBDOMAIN;
@@ -190,7 +208,16 @@ export class SupermarketComponent implements OnInit {
     this.subdomain = this.getHostname.subDomain;
     this.gtpSubdomain = this.constantValues.GTP_SUBDOMAIN;
     this.woodinSubdomain = this.constantValues.WOODIN_SUBDOMAIN;
-    this.getProducts({});
+    this.route.params.subscribe(param => {
+
+      if(param['pageSec']){
+        this.selectedCategory=param['category'];
+        this.ProductsTitle=this.selectedCategory;
+        this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
+      }else{
+      this.getProducts({});
+      }
+    });
     this.getShopInfo();
     this.getIndustries()
     this.getFeaturedShops({});
@@ -221,6 +248,19 @@ export class SupermarketComponent implements OnInit {
 
   }
 
+  ngAfterViewInit(): void {
+
+      this.route.params.subscribe(param => {
+        if(param['pageSec']){
+        let section = document.querySelector('#silas');
+        //const section = this.container.nativeElement.querySelector(`#${param.pageSec}`)
+        console.log(section)
+
+        section?.scrollIntoView()
+        }
+      })
+
+    }
   openDialog(item) {
     this.dialog.open(ViewProductComponent, {
 
@@ -303,9 +343,11 @@ getShopInfo() {
   });
 }
 
+
+
 filterCategory(category,el: HTMLElement) {
   this.selectedCategory = category;
-  this.ProductsTitle=`Filtered Category (${category})`;
+  this.ProductsTitle=category;
 
   this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
 
@@ -314,7 +356,7 @@ filterCategory(category,el: HTMLElement) {
 
 filterByCategory(category,el: HTMLElement) {
     this.isSearching=true;
-    this.ProductsTitle=`Filtered Category (${category})`;;
+    this.ProductsTitle=category;
     this.selectedCategory = category;
 
     this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });

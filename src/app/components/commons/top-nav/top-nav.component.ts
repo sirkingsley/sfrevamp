@@ -105,6 +105,7 @@ export class TopNavComponent implements OnInit {
     // console.log(this.suddomain);
     this.isLoggedIn = this.authService.isLogedIn;
     this.currentUser = this.authService.currentUser;
+    //console.log("Current User-->"+ JSON.stringify( this.currentUser,null,2));
     this.authService.setPromoCode(this.route.snapshot.queryParams['promoCode']);
     this.dbaseUpdate.updateStatus().subscribe(async isUpdated => {
       if (isUpdated) {
@@ -251,11 +252,13 @@ export class TopNavComponent implements OnInit {
     });
   }
 
-
+  scrollTo(el: HTMLElement){
+    el.scrollIntoView({behavior: 'smooth'});
+  }
   filterCategory(category,el: HTMLElement) {
     this.htmlTarget.emit(category);
     this.selectedCategory = category;
-    this.ProductsTitle=`Filtered Category (${category})`;
+    this.ProductsTitle=category;
 
     this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
 
@@ -264,7 +267,7 @@ export class TopNavComponent implements OnInit {
 
   filterByCategory(category,el: HTMLElement) {
       this.isSearching=true;
-      this.ProductsTitle=`Filtered Category (${category})`;;
+      this.ProductsTitle=category;
       this.selectedCategory = category;
 
       this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
