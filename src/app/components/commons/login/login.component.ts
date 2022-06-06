@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
             this.authService.saveUser(result);
             this.authService.saveToken(result.auth_token);
             this.loginUpdate.isUpdated(true);
-            console.log("Data-->"+JSON.stringify(data,null,2));
+            //console.log("Data-->"+JSON.stringify(data,null,2));
             this.router.navigate(['/supermarket']);
 
           } else {
@@ -76,6 +76,8 @@ export class LoginComponent implements OnInit {
             this.authService.saveUser(result.results);
             this.authService.saveToken(result.results.auth_token);
             this.loginUpdate.isUpdated(true);
+            this.router.navigate(['/supermarket']);
+
 
           }
           if (this.authService.isLogedIn) {

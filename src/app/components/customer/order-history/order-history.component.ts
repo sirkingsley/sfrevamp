@@ -3,8 +3,7 @@ import { PaymentDialogComponent } from './../../commons/payment-dialog/payment-d
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-//import Jquery
-import * as $ from 'jquery';
+
 import { AppUtilsService } from 'src/app/services/app-utils.service';
 import { ConstantValuesService } from 'src/app/services/constant-values.service';
 import { DbaseUpdateService } from 'src/app/services/dbase-update.service';
@@ -22,9 +21,10 @@ import { OrderApiCallsService } from 'src/app/services/network-calls/order-api-c
 
 
 //JavaScript Functions
-declare const custom:any;
-declare const main:any;
-declare const parallaxie: any;
+// declare const custom:any;
+// declare const main:any;
+// ///declare const parallaxie: any;
+// declare const $;
 
 @Component({
   selector: 'app-order-history',
@@ -52,6 +52,15 @@ export class OrderHistoryComponent implements OnInit {
       this.getMallOrderDetail(this.orderId);
     }
    }
+
+
+    //Call JavaScript functions onload
+  // onload(){
+  //   custom();
+  //   main();
+  //   //parallaxie();
+  // }
+
   isProcessingFeaturedShops: boolean;
 
   isProcessing = false;
@@ -85,31 +94,22 @@ export class OrderHistoryComponent implements OnInit {
   rootRoute = 'account/orders';
 
 
-   //Call JavaScript functions onload
-   onload(){
-    custom();
-    main();
-    // parallaxie();
-  }
+
 
   ngOnInit(): void {
     this.getIndustries()
     this.getFeaturedShops({});
     this.getMyOrders();
-
-
     this.title.setTitle(this.constantValues.APP_NAME + ' | Cart');
 
+    // $('#flip').on("click",function(){
+    //   $("#panel").slideToggle("slow");
+    // });
 
-
-    $('#flip').on("click",function(){
-      $("#panel").slideToggle("slow");
-    });
-
-    $('.search_btn').on("click",function(){
-      $("#search_body_collapse").slideToggle("slow");
-    });
-    this.onload();
+    // $('.search_btn').on("click",function(){
+    //   $("#search_body_collapse").slideToggle("slow");
+    // });
+    // this.onload();
   }
 
 

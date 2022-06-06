@@ -231,13 +231,7 @@ export class SupermarketComponent implements OnInit, AfterViewInit {
 
     $('#flip').on("click",function(){
       $("#panel").slideToggle("slow");
-      $(".item_content").addClass("test");
-      $('#panel').removeClass('active');
-
     });
-
-
-
 
     $('.search_btn').on("click",function(){
       $("#search_body_collapse").slideToggle("slow");

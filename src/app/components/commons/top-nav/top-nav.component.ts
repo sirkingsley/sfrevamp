@@ -138,7 +138,9 @@ export class TopNavComponent implements OnInit {
     });
   }
   onSignup() {
-    this.dialog.open(SignUpComponent);
+    // this.dialog.open(SignUpComponent);
+    this.router.navigate(['/sign-up']);
+
   }
   onSignOut() {
     this.authService.logOut();
@@ -146,12 +148,14 @@ export class TopNavComponent implements OnInit {
     this.currentUser = this.authService.currentUser;
   }
   onSignIn() {
-    this.dialog.open(LoginComponent).afterClosed().subscribe((isSuccefull: boolean) => {
-      if (isSuccefull) {
-        this.isLoggedIn = this.authService.isLogedIn;
-        this.currentUser = this.authService.currentUser;
-      }
-    });
+    this.router.navigate(['/login']);
+
+    // this.dialog.open(LoginComponent).afterClosed().subscribe((isSuccefull: boolean) => {
+    //   if (isSuccefull) {
+    //     this.isLoggedIn = this.authService.isLogedIn;
+    //     this.currentUser = this.authService.currentUser;
+    //   }
+    // });
   }
   async getCartItems() {
     await this.productsApiCalls.getCartItems((error, result) => {
@@ -248,7 +252,7 @@ export class TopNavComponent implements OnInit {
   getIndustries() {
     this.shopsApiCalls.getIndustries((error, result) => {
       this.industries = result;
-      console.log("this.industries "+ JSON.stringify(this.industries) );
+      //console.log("this.industries "+ JSON.stringify(this.industries) );
     });
   }
 

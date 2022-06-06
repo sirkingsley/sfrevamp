@@ -5,6 +5,11 @@ import { OrderApiCallsService } from 'src/app/services/network-calls/order-api-c
 import { PackageStatusHistoryComponent } from '../../commons/package-status-history/package-status-history.component';
 import { PaymentDialogComponent } from '../../commons/payment-dialog/payment-dialog.component';
 
+declare const custom:any;
+declare const main:any;
+declare const parallaxie: any;
+declare const $;
+
 @Component({
   selector: 'app-order-details',
   templateUrl: './order-details.component.html',
@@ -28,8 +33,23 @@ export class OrderDetailsComponent implements OnInit {
       this.getMallOrderDetail(this.orderId);
     }
   }
+   //Call JavaScript functions onload
+  //  onload(){
+  //   custom();
+  //   main();
+    // parallaxie();
+  //}
 
   ngOnInit(): void {
+
+    // $('#flip').on("click",function(){
+    //   $("#panel").slideToggle("slow");
+    // });
+
+    // $('.search_btn').on("click",function(){
+    //   $("#search_body_collapse").slideToggle("slow");
+    // });
+    // this.onload();
   }
   getMallOrderDetail(id) {
     this.isProcessing = true;

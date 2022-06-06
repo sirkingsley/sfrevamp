@@ -4,6 +4,7 @@
     <span class="order-history-title">Orders ({{orders.length}})</span>
   </div>
 
+  <app-empty-record *ngIf="!orders.length"></app-empty-record>
   <div *ngFor="let order of orders">
     <div class="order-items-row" >
       <div class="item-image-container">

@@ -58,9 +58,9 @@
 
 			<!-- register_section - start
 			================================================== -->
-			<section class="register_section sec_ptb_140 parallaxie clearfix" data-background="assets/images/backgrounds/bg_23.jpg">
+			<section class="register_section sec_ptb_140 parallaxie clearfix">
 				<div class="container">
-					<div class="reg_form_wrap signup_form" data-background="assets/images/reg_bg_02.png">
+					<div class="reg_form_wrap signup_form">
 						<form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup?.value)">
 							<div class="reg_form">
 								<h2 class="form_title text-uppercase">Register</h2>
@@ -91,7 +91,7 @@
                   <mat-error *ngIf="password?.invalid && password?.touched" >
                     Please enter a valid phone number
                   </mat-error>
-									<label for="username_input"><i class="fal fa-user"></i></label>
+									<!-- <label for="username_input"><i class="fal fa-user"></i></label> -->
                   <!-- <lac-mat-country-selector
                   matPrefix [selectorFor]="input1"
                   [preferredCountries]="['gh', 'ng']"
