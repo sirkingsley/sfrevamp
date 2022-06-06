@@ -1,0 +1,81 @@
+<h1 mat-dialog-title>TOTAL CHARGE: {{orderDetail?.currency}} {{orderDetail?.total_amount_with_delivery | number: '1.2-2'}}</h1>
+<mat-progress-bar mode="indeterminate" *ngIf="isProcessing"></mat-progress-bar>
+<form [formGroup]="paymentFormGroup" (ngSubmit)="placeOrder(paymentFormGroup?.value)" class="payment-dialog-wrapper" >
+  <div mat-dialog-content>
+    <div class="row mlr-0 mt-4">
+      <div class="col-md-3 col-sm-4 payment-method-item-wrapper" *ngIf="currency == currencies.GHS">
+
+        <input type="radio" id="momo" [value]="'MOMO'" name="momo">
+        <label class="payment-method-grid-list-item" for="momo"
+          (click)="selectPaymentMethod('MOMO', 'MTN', 'MTN MOMO')">
+
+          <img src="./assets/icons/check.svg" class="payment-method-selected-icon" />
+          <img src="./assets/icons/ic_mtn_money.png" alt="" class="payment-method-grid-list-item-media">
+          <p class="mb-0 payment-method-grid-list-item-description">MTN MOMO</p>
+        </label>
+      </div>
+
+
+      <div class="col-md-3 col-sm-4 payment-method-item-wrapper" *ngIf="currency == currencies.GHS">
+
+        <input type="radio" id="voda" [value]="'MOMO'" name="momo">
+        <label class="payment-method-grid-list-item" for="voda"
+          (click)="selectPaymentMethod('MOMO', 'VOD', 'VODAFONE CASH')">
+
+          <img src="./assets/icons/check.svg" class="payment-method-selected-icon" />
+          <img src="./assets/icons/ic_vodafone_cash.png" alt=""
+            class="payment-method-grid-list-item-media">
+          <p class="mb-0 payment-method-grid-list-item-description">VODAFONE CASH</p>
+        </label>
+      </div>
+      <div class="col-md-3 col-sm-4 payment-method-item-wrapper" *ngIf="currency == currencies.GHS">
+
+        <input type="radio" id="atigo" [value]="'ATG'" name="momo">
+        <label class="payment-method-grid-list-item" for="atigo"
+          (click)="selectPaymentMethod('MOMO', 'AIR', 'AIRTELTIGO CASH')">
+
+          <img src="./assets/icons/check.svg" class="payment-method-selected-icon" />
+          <img src="./assets/icons/atigo.png" alt="" class="payment-method-grid-list-item-media">
+          <p class="mb-0 payment-method-grid-list-item-description">AIRTELTIGO CASH</p>
+        </label>
+      </div>
+
+      <div class="col-md-3 col-sm-4 payment-method-item-wrapper">
+
+        <input type="radio" id="card" [value]="'CARD'" name="momo">
+        <label class="payment-method-grid-list-item" for="card" (click)="selectPaymentMethod('CARD', '', '')">
+
+          <img src="./assets/icons/check.svg" class="payment-method-selected-icon" />
+          <img src="./assets/icons/CARD-PAYMENT-01.svg" alt=""
+            class="payment-method-grid-list-item-media">
+          <p class="mb-0 payment-method-grid-list-item-description">CARD PAYMENT</p>
+        </label>
+      </div>
+
+
+
+
+
+    </div>
+    <p class="alert alert-info alert-dismissable mt-2" *ngIf="paymentMethod === 'MOMO'">Plese provide MoMo
+      Number and click <b>COMPLETE ORDER PAYMENT</b></p>
+    <p class="" *ngIf="paymentMethod == 'MOMO' && paymentNetwork === 'VOD'">
+      Dial <b>*110#</b> and select option <b>6</b> to generate your voucher code
+    </p>
+    <div class="form-group" *ngIf="paymentMethod === 'MOMO'">
+      <div class="col-md-12 col-sm-12 col-xs-12 pl-0 pr-0 payment-methods-input">
+        <input type="text" placeholder="Phone Number" numberOnly formControlName="sender_wallet_number">
+      </div>
+      <div class="col-md-12 col-sm-12 col-xs-12 mt-2 pl-0 pr-0 payment-methods-input"
+        *ngIf="paymentMethod === 'MOMO' && paymentNetwork === 'VOD'">
+        <input type="text" placeholder="Voucher Code" numberOnly formControlName="payment_voucher_code">
+      </div>
+
+    </div>
+  </div>
+  <mat-dialog-actions class="d-flex-right">
+    <button type="button" mat-raised-button (click)="onClose()">CLOSE</button>
+    <button mat-raised-button color="primary" [disabled]="paymentFormGroup?.invalid"
+      type="submit">COMPLETE ORDER PAYMENT</button>
+  </mat-dialog-actions>
+</form>

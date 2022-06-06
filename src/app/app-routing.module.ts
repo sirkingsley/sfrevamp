@@ -1,3 +1,5 @@
+import { AccountComponent } from './components/customer/account/account.component';
+import { OrderDetailsComponent } from './components/customer/order-details/order-details.component';
 import { CartComponent } from './components/main-features/cart/cart.component';
 import { Checkout3Component } from './components/main-features/checkout3/checkout3.component';
 import { Checkout2Component } from './components/main-features/checkout2/checkout2.component';
@@ -12,6 +14,7 @@ import { ShopDetailsComponent } from './components/main-features/shop-details/sh
 import { SupermarketComponent } from './components/main-features/classic-shop/supermarket/supermarket.component';
 import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { OrderHistoryComponent } from './components/customer/order-history/order-history.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'supermarket', pathMatch: 'full' },
@@ -25,6 +28,15 @@ const routes: Routes = [
     ]
   },
   {path: 'view-product', component : ViewProductComponent},
+  {path: 'account', component : AccountComponent,
+    children: [
+      {path: '', component : OrderHistoryComponent},
+      {path: 'orders/detail/:id', component : OrderDetailsComponent},
+      {path: 'orders', component : OrderHistoryComponent},
+
+    ]
+  },
+
   {path: 'shop-details', component : ShopDetailsComponent},
   {path: 'sign-up', component : SignUpComponent},
   {path: 'login', component : LoginComponent},

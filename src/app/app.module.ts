@@ -60,6 +60,13 @@ import { ConfirmOrderPaymentDialogComponent } from './components/commons/confirm
 import { OrderCompletedDialogComponent } from './components/commons/order-completed-dialog/order-completed-dialog.component';
 import { ConfirmPhoneNumberComponent } from './components/commons/confirm-phone-number/confirm-phone-number.component';
 import { GuestUserComponent } from './components/commons/guest-user/guest-user.component';
+import { OrderHistoryComponent } from './components/customer/order-history/order-history.component';
+import { ProfileSidebarComponent } from './components/customer/profile-sidebar/profile-sidebar.component';
+import { OrderDetailsComponent } from './components/customer/order-details/order-details.component';
+import {MatCardModule} from '@angular/material/card';
+import { PaymentDialogComponent } from './components/commons/payment-dialog/payment-dialog.component';
+import { PackageStatusHistoryComponent } from './components/commons/package-status-history/package-status-history.component';
+import { AccountComponent } from './components/customer/account/account.component';
 //import { LacMatTelInputModule } from 'lac-mat-tel-input';
 
 @NgModule({
@@ -83,6 +90,12 @@ import { GuestUserComponent } from './components/commons/guest-user/guest-user.c
     OrderCompletedDialogComponent,
     ConfirmPhoneNumberComponent,
     GuestUserComponent,
+    OrderHistoryComponent,
+    ProfileSidebarComponent,
+    OrderDetailsComponent,
+    PaymentDialogComponent,
+    PackageStatusHistoryComponent,
+    AccountComponent,
 
   ],
   imports: [
@@ -100,6 +113,7 @@ import { GuestUserComponent } from './components/commons/guest-user/guest-user.c
     MatFormFieldModule,
     MatButtonModule,
     FormsModule,
+    MatCardModule,
     //LacMatTelInputModule,
 
   ],

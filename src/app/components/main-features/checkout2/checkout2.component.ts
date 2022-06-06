@@ -569,8 +569,10 @@ export class Checkout2Component implements OnInit {
                 .afterClosed().subscribe((isSuccess: boolean) => {
                   if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
                     //this.router.navigate(['/account/orders']);
+                    this.router.navigate(['/account/orders']);
                   } else if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
                     //this.router.navigate(['/mall/account/orders']);
+                    this.router.navigate(['/account/orders']);
                   }
                 });
             });
@@ -579,9 +581,10 @@ export class Checkout2Component implements OnInit {
             .afterClosed().subscribe((isSuccess: boolean) => {
               if (isSuccess) {
                 if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
-                  //this.router.navigate(['/account/orders']);
+                  this.router.navigate(['/account/orders']);
                 } else if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
-                  //this.router.navigate(['/mall/account/orders']);
+                  // this.router.navigate(['/mall/account/orders']);
+                  this.router.navigate(['/account/orders']);
                 }
               }
             });

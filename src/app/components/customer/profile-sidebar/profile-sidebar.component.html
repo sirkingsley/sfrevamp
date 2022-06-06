@@ -1,0 +1,18 @@
+<div class="user-profile">
+
+  <div class="user-image-container">
+    {{currentUser?.first_name | uppercase | slice:0:1}} {{currentUser?.last_name | uppercase | slice:0:1}}
+  </div>
+  <p class="user-name">{{currentUser?.first_name}} {{currentUser?.last_name}} </p>
+  <div class="log-out-div">
+      <a class="btn-signout" (click)="logOut()" >Sign out<i class="bi bi-box-arrow-right"></i></a>
+  </div>
+
+  <nav class="user-navs">
+      <a routerLink='/user-info'>My Account</a>
+      <a [routerLink]="['/account/orders/detail']">My Orders</a>
+      <a  id="last-nav-link" routerLink='/billing-address'>Delivery Address</a>
+      <!-- <a  routerLink='/disputes'>Dispute & Refunds</a> -->
+  </nav>
+
+</div>
