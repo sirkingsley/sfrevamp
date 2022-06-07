@@ -67,6 +67,13 @@ import {MatCardModule} from '@angular/material/card';
 import { PaymentDialogComponent } from './components/commons/payment-dialog/payment-dialog.component';
 import { PackageStatusHistoryComponent } from './components/commons/package-status-history/package-status-history.component';
 import { AccountComponent } from './components/customer/account/account.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { PaginationComponent } from './components/commons/pagination/pagination.component';
 //import { LacMatTelInputModule } from 'lac-mat-tel-input';
 
 @NgModule({
@@ -96,6 +103,7 @@ import { AccountComponent } from './components/customer/account/account.componen
     PaymentDialogComponent,
     PackageStatusHistoryComponent,
     AccountComponent,
+    PaginationComponent,
 
   ],
   imports: [
@@ -114,6 +122,13 @@ import { AccountComponent } from './components/customer/account/account.componen
     MatButtonModule,
     FormsModule,
     MatCardModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatListModule,
+    MatMenuModule,
+    MatExpansionModule,
+
     //LacMatTelInputModule,
 
   ],

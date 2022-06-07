@@ -107,7 +107,8 @@
 										<div class="dropdown_content">
 											<div *ngIf="isLoggedIn" class="profile_info clearfix">
 												<div  class="user_thumbnail">
-													<img src="assets/images/reg_bg_02.png" alt="thumbnail_not_found">
+													<!-- <img src="assets/images/reg_bg_02.png" alt="thumbnail_not_found"> -->
+                          <mat-icon>person</mat-icon>
 												</div>
 												<div class="user_content">
 													<h4 class="user_name active">{{currentUser.first_name}} {{currentUser.last_name}}</h4>
@@ -239,8 +240,8 @@
 					<div class="msb_widget mobile_menu_list clearfix">
 						<h3 class="title_text mb_15 text-uppercase"><i class="far fa-bars me-2"></i> Menu List</h3>
 						<ul class="ul_li_block clearfix">
-							<li class="active dropdown">
-								<a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shops</a>
+							<!-- <li class="active dropdown">
+								<a aria-haspopup="true" aria-expanded="false">Shops</a>
 								<ul class="ul_li_block dropdown-menu">
 									<li><a href="home_carparts.html">Carparts</a></li>
 									<li><a routerLink="/supermarket" >Classic Ecommerce</a></li>
@@ -264,136 +265,47 @@
 									<li><a href="home_supermarket.html">Supermarket</a></li>
 									<li><a href="home_watch.html">Watch</a></li>
 								</ul>
-							</li>
-							<li class="dropdown">
-								<a href="#!" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
-								<ul class="dropdown-menu">
-                  <li class="dropdown">
-										<a href="#!" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All</a>
+							</li> -->
+              <li>
+                <mat-expansion-panel [class.mat-elevation-z0]="true" dense>
+                  <mat-expansion-panel-header>
+                      Profile
+                  </mat-expansion-panel-header>
+                  <mat-nav-list dense  *ngIf="isLoggedIn">
+                      <a mat-list-item [routerLink]="['/account/orders']" ><mat-icon>person</mat-icon>Profile</a>
+                      <a mat-list-item [routerLink]="['/account/orders']"><mat-icon>shop</mat-icon>My Orders</a>
+                      <a mat-list-item (click)="onSignOut()" [routerLink]="['/']"><mat-icon>logout</mat-icon>Logout</a>
+                  </mat-nav-list>
+                  <mat-nav-list dense  *ngIf="!isLoggedIn">
+                    <a mat-list-item (click)="onSignIn()" ><mat-icon>login</mat-icon>Login</a>
+                    <a mat-list-item (click)="onSignup()"><mat-icon>person</mat-icon>Register</a>
+                </mat-nav-list>
+              </mat-expansion-panel>
+              <mat-expansion-panel [class.mat-elevation-z0]="true" dense>
+                <mat-expansion-panel-header>
+                    Shops
+                </mat-expansion-panel-header>
+                <mat-nav-list dense  *ngFor="let shop of featuredShops">
+                    <a mat-list-item routerLink="['/shop-details']" > {{shop?.business_name}} </a>
+                </mat-nav-list>
+            </mat-expansion-panel>
+            <mat-expansion-panel [class.mat-elevation-z0]="true" dense>
+              <mat-expansion-panel-header>
+                Categories
+              </mat-expansion-panel-header>
+              <mat-nav-list dense *ngFor="let category of industries">
+                  <a mat-list-item  [routerLink] = "['/supermarket', {pageSec: 'section2', category: category.name}]" >{{category.name}}</a>
+              </mat-nav-list>
+          </mat-expansion-panel>
 
-									</li>
-									<li class="dropdown ul_li_block">
-										<a href="#!" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Books & Stationary</a>
-										<!-- <ul class="dropdown-menu ul_li_block">
-											<li><a href="carparts_shop.html">Shop Page</a></li>
-											<li><a href="carparts_shop_grid.html">Shop Grid</a></li>
-											<li><a href="carparts_shop_list.html">Shop List</a></li>
-											<li><a href="carparts_shop_details.html">Shop Details</a></li>
-										</ul> -->
-									</li>
+          </li>
 
-									<li class="dropdown">
-										<a routerLink="supermarket" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Beauty & Cosmetics</a>
-										<!-- <ul class="dropdown-menu ul_li_block">
-											<li routerLink="supermarket"><a routerLink="/supermarket">Shop Page</a></li>
-											<li routerLink="/shop-details"><a routerLink="/shop-details">Shop Details</a></li>
-										</ul> -->
-									</li>
 
-									<li class="dropdown">
-										<a href="#!" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Beverages & Liquor</a>
-										<!-- <ul class="dropdown-menu ul_li_block">
-											<li><a href="electronic_shop.html">Shop Page</a></li>
-											<li><a href="electronic_shop_details.html">Shop Details</a></li>
-										</ul> -->
-									</li>
-
-									<li class="dropdown">
-										<a href="#!" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Building Materials</a>
-										<!-- <ul class="dropdown-menu ul_li_block">
-											<li><a href="fashion_shop.html">Shop Page</a></li>
-											<li><a href="fashion_shop_details.html">Shop Details</a></li>
-										</ul> -->
-									</li>
-
-									<li class="dropdown">
-										<a href="#!" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cafe, Bars & Restaurants</a>
-										<!-- <ul class="dropdown-menu ul_li_block">
-											<li><a href="fashion_minimal_shop.html">Shop Page</a></li>
-											<li><a href="fashion_minimal_shop_details.html">Shop Details</a></li>
-										</ul> -->
-									</li>
-
-									<li class="dropdown">
-										<a href="#!" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Provision Store</a>
-										<!-- <ul class="dropdown-menu ul_li_block">
-											<li><a href="fashion_minimal_shop.html">Shop Page</a></li>
-											<li><a href="fashion_minimal_shop_details.html">Shop Details</a></li>
-										</ul> -->
-									</li>
-
-									<li class="dropdown">
-										<a href="#!" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Fashion & Clothing</a>
-										<!-- <ul class="dropdown-menu ul_li_block">
-											<li><a href="furniture_shop.html">Shop Page</a></li>
-											<li><a href="furniture_shop_details.html">Shop Details</a></li>
-										</ul> -->
-									</li>
-
-									<li class="dropdown">
-										<a href="#!" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Supermarket</a>
-										<!-- <ul class="dropdown-menu ul_li_block">
-											<li><a href="gadget_shop.html">Shop Page</a></li>
-											<li><a href="gadget_shop_details.html">Shop Details</a></li>
-										</ul> -->
-									</li>
-
-									<li class="dropdown">
-										<a href="#!" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Travel & Holiday</a>
-										<!-- <ul class="dropdown-menu ul_li_block">
-											<li><a href="medical_shop.html">Shop Page</a></li>
-											<li><a href="medical_shop_details.html">Shop Details</a></li>
-										</ul> -->
-									</li>
-
-									<li class="dropdown">
-										<a href="#!" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Furniture & Accessories</a>
-										<!-- <ul class="dropdown-menu ul_li_block">
-											<li><a href="modern_minimal_shop.html">Shop Page</a></li>
-											<li><a href="modern_minimal_shop_details.html">Shop Details</a></li>
-										</ul> -->
-									</li>
-
-									<li class="dropdown">
-										<a href="#!" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Frozen Foods</a>
-										<!-- <ul class="dropdown-menu ul_li_block">
-											<li><a href="modern_shop.html">Shop Page</a></li>
-											<li><a href="modern_shop_details.html">Shop Details</a></li>
-										</ul> -->
-									</li>
-
-									<li class="dropdown">
-										<a href="#!" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Media & Printing</a>
-										<!-- <ul class="dropdown-menu ul_li_block">
-											<li><a href="motorcycle_shop_grid.html">Shop Grid</a></li>
-											<li><a href="motorcycle_shop_list.html">Shop List</a></li>
-											<li><a href="motorcycle_shop_details.html">Shop Details</a></li>
-										</ul> -->
-									</li>
-
-									<li class="dropdown">
-										<a href="#!" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Simple Shop</a>
-										<!-- <ul class="dropdown-menu ul_li_block">
-											<li><a href="simple_shop.html">Shop Page</a></li>
-											<li><a href="simple_shop_details.html">Shop Details</a></li>
-										</ul> -->
-									</li>
-
-									<li class="dropdown">
-										<a href="#!" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Other</a>
-										<!-- <ul class="dropdown-menu ul_li_block">
-											<li><a href="#!"><del>Shop Page</del></a></li>
-											<li><a href="shop_details.html">Shop Details</a></li>
-										</ul> -->
-									</li>
-								</ul>
-							</li>
-
-							<li><a href="contact.html">Conatct</a></li>
+							<li><a href="contact.html">Conatct Us</a></li>
 						</ul>
 					</div>
 
-					<div class="user_info">
+					<!-- <div class="user_info">
 						<h3 class="title_text mb_30 text-uppercase"><i class="fas fa-user me-2"></i> User Info</h3>
 						<div class="profile_info clearfix">
 							<div class="user_thumbnail">
@@ -407,9 +319,9 @@
 						<ul class="settings_options ul_li_block clearfix">
 							<li><a href="#!"><i class="fal fa-user-circle"></i> Profile</a></li>
 							<!-- <li><a href="#!"><i class="fal fa-user-cog"></i> Settings</a></li> -->
-							<li><a routerLink="/login" ><i class="fal fa-sign-out-alt"></i> Logout</a></li>
+							<!--<li><a routerLink="/login" ><i class="fal fa-sign-out-alt"></i> Logout</a></li>
 						</ul>
-					</div>
+					</div> -->
 				</div>
 
 				<div class="overlay"></div>

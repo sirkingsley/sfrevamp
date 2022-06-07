@@ -248,9 +248,9 @@ export class SupermarketComponent implements OnInit, AfterViewInit {
         if(param['pageSec']){
         let section = document.querySelector('#silas');
         //const section = this.container.nativeElement.querySelector(`#${param.pageSec}`)
-        console.log(section)
+        //console.log(section)
 
-        section?.scrollIntoView()
+        section?.scrollIntoView();
         }
       })
 
@@ -301,12 +301,22 @@ export class SupermarketComponent implements OnInit, AfterViewInit {
       this.product_groups = result.product_groups;
       this.constantValues.COUNTRY = this.country;
       //console.log("this.products-->"+JSON.stringify(this.products,null,2));
-      console.log(this.country);
-      console.log(this.product_groups);
+      //console.log(this.country);
+      //console.log(this.product_groups);
     }
   });
 }
 
+/**
+   * On page changed
+   * @param result result after page changed
+   */
+ onPageChanged(result) {
+  this.products = result.results;
+  this.prevPage = result.previous;
+  this.nextPage = result.next;
+  this.totalPage = result.count;
+}
 getFeaturedShops({ }) {
   this.isProcessingFeaturedShops = true;
   this.shopsApiCalls.getFeaturedShops({}, (error, result) => {
