@@ -148,10 +148,10 @@
                   </owl-carousel-o>
 								</div>
 
-								<div class="carousel_nav clearfix">
+								<!-- <div class="carousel_nav clearfix">
 									<button type="button" class="left_arrow"><i class="fal fa-angle-left"></i></button>
 									<button type="button" class="right_arrow"><i class="fal fa-angle-right"></i></button>
-								</div>
+								</div> -->
 							</div>
 						</div>
 
@@ -164,14 +164,14 @@
             </div>
 					</div>
 				</div>
-        <div class="container category-heading-wrapper mt-5">
-          <h3 class="main-heading">
-            Popular Categories
-          </h3>
-        </div>
 			</section>
 
-      <div class="category-wrapper" >
+      <div class="container category-heading-wrapper mt-2">
+        <h3 class="main-heading">
+          Popular Categories
+        </h3>
+      </div>
+      <div class="container category-wrapper" >
         <div class=" category-item ">
           <div class="ecommerce_category_fullimage ">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMEpzuK5beL9iJ31-n-2GIijS8pAsNEZC-o37dvU0eM6JZYLJO2LGfkmgjdy9DIn4HeUQ&usqp=CAU" alt="image_not_found">
@@ -240,9 +240,9 @@
 
           <app-empty-record *ngIf="products?.length <= 0 && !isProcessing"></app-empty-record>
 
-          <div  class="element-grid column4_element_grid mb_50" *ngFor="let item of products">
+          <div  class="element-grid column4_element_grid mb_50" >
 
-            <div class="element-item fall" >
+            <div class="element-item " *ngFor="let item of products" >
               <div class="ecommerce_product_grid">
                 <!-- <ul class="product_label ul_li clearfix">
                   <li data-bg-color="#93be2b">New</li>

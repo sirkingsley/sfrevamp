@@ -11,7 +11,9 @@
   autoplayHoverPause:true,
   autoplaySpeed: 4000,
   navSpeed: 400,
-  navText: ['<button type="button" class="left_arrow"><i class="fal fa-angle-left"></i></button>', '<button type="button" class="right_arrow"><i class="fal fa-angle-right"></i></button>'],
+  navText: [
+    '<button type="button" class="left_arrow"><i class="fal fa-angle-left"></i></button>', '<button type="button" class="right_arrow"><i class="fal fa-angle-right"></i></button>'
+  ],
   responsive: {
     0: {
       items: 1
@@ -26,7 +28,7 @@
       items: 1
     }
   },
-  nav: false
+  nav: true
 }
 
 export const customOptionsHome: OwlOptions = {
