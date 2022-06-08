@@ -7596,6 +7596,9 @@ button {
   .home-right{
     display: none !important;
   }
+  .large-screen-cat-nav{
+    display: none !important;
+  }
 
   .home-left{
     background-image: url(../../assets/images/reg_bg_02.png);
@@ -22554,6 +22557,11 @@ blockquote .blockquote_title {
 4 - media screen and (max-width: 991px) - start
 ==================================================================================================== */
 @media screen and (max-width: 991px) {
+  .ecommerce_product_grid .product_action_btns li {
+    opacity: 1 !important;
+    transform: translateY(0px);
+    transition: 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  }
   /* global - start */
   .sec_ptb_140 {
     padding: 100px 0px;
@@ -59258,4 +59266,8 @@ border: 0;
 }
 .owl-theme .owl-nav [class*=owl-]:hover{
   background: $secondary-color-2;
+}
+
+#mobile-cat{
+  display: none;
 }

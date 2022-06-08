@@ -58,6 +58,10 @@
 											<div class="background" data-bg-color="#ffffff">
 												<div class="container">
 													<div class="row mt__30">
+                            <div class="page_links" >
+                              <h3 class="title_text" [routerLink] = "['/supermarket', {pageSec: 'section2', category: ''}]" (click)="filterCategory('',target)" (click)="filterByCategory('',target)">All</h3>
+
+                            </div>
 														<div class="col-lg-3" *ngFor="let category of industries">
 
                               <!-- <div class="page_links" >

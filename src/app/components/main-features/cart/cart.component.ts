@@ -29,7 +29,7 @@ export class CartComponent implements OnInit {
   shopInfo: any;
   exchangeRate: number;
   selectedCategory: any;
-  ProductsTitle: string;
+  ProductsTitle="Popular Products";
   selectedPriceSorting: any;
   searchQuery: any;
   tag: any;
@@ -294,7 +294,7 @@ getShopInfo() {
 
 filterCategory(category,el: HTMLElement) {
   this.selectedCategory = category;
-  this.ProductsTitle=category;
+  this.ProductsTitle=category +" Products";
 
   this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
 
@@ -306,7 +306,7 @@ filterCategory(category,el: HTMLElement) {
 
 filterByCategory(category,el: HTMLElement) {
     this.isSearching=true;
-    this.ProductsTitle=category;
+    this.ProductsTitle=category +" Products";
     this.selectedCategory = category;
 
     this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });

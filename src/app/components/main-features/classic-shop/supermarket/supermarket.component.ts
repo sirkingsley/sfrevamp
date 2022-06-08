@@ -212,7 +212,7 @@ export class SupermarketComponent implements OnInit, AfterViewInit {
 
       if(param['pageSec']){
         this.selectedCategory=param['category'];
-        this.ProductsTitle=this.selectedCategory;
+        this.ProductsTitle=this.selectedCategory +" Products";
         this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
       }else{
       this.getProducts({});
@@ -351,7 +351,7 @@ getShopInfo() {
 
 filterCategory(category,el: HTMLElement) {
   this.selectedCategory = category;
-  this.ProductsTitle=category;
+  this.ProductsTitle=category +" Products";
 
   this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
 
@@ -360,7 +360,7 @@ filterCategory(category,el: HTMLElement) {
 
 filterByCategory(category,el: HTMLElement) {
     this.isSearching=true;
-    this.ProductsTitle=category;
+    this.ProductsTitle=category +" Products";
     this.selectedCategory = category;
 
     this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
