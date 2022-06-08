@@ -236,13 +236,27 @@
 					<button type="button" class="close_btn"><i class="fal fa-times"></i></button>
 
 					<div class="msb_widget brand_logo text-center">
-						<a href="index.html">
+						<a *ngIf="!isLoggedIn" [routerLink]="['/']">
 							<img src="assets/images/logo-main.png" srcset="assets/images/logo-main.png 2x" alt="logo_not_found">
 						</a>
+            <div *ngIf="isLoggedIn" class="user_info">
+              <!-- <h3 class="title_text mb_30 text-uppercase"><i class="fas fa-user me-2"></i> User Info</h3> -->
+              <div class="profile_info clearfix">
+                <div class="user_thumbnail">
+                  <!-- <img src="assets/images/reg_bg_01.png" alt="thumbnail_not_found"> -->
+                  <mat-icon>person</mat-icon>
+                </div>
+                <div class="user_content">
+                  <h4 class="user_name">{{currentUser.first_name}} {{currentUser.last_name}}</h4>
+                  <span class="user_title">{{currentUser.email}}</span>
+                </div>
+              </div>
+
+            </div>
 					</div>
 
 					<div class="msb_widget mobile_menu_list clearfix">
-						<h3 class="title_text mb_15 text-uppercase"><i class="far fa-bars me-2"></i> Menu List</h3>
+						<h3 class="title_text mb_15 text-uppercase"> Menu List</h3>
 						<ul class="ul_li_block clearfix">
 							<!-- <li class="active dropdown">
 								<a aria-haspopup="true" aria-expanded="false">Shops</a>

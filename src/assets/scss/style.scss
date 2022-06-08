@@ -59271,3 +59271,43 @@ border: 0;
 #mobile-cat{
   display: none;
 }
+.footer {
+  background: gainsboro;
+}
+
+.footer-payment-methods {
+  display: flex;
+  margin-left: -6px;
+}
+.footer-payment-method-title {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.footer-payment-methods img {
+  width: 60px;
+}
+.footer-privacy-policy {
+  display: flex;
+  align-items: flex-end;
+}
+.height-auto {
+  height: unset;
+}
+.pb1 {
+  padding-bottom: 1rem;
+}
+
+.box-menu-footer3 a {
+  color: $text-grey;
+  position: relative;
+}
+footer a{
+  color: $text-grey;
+}
+.share-social li a i {
+ // margin-top: 23px;
+  color: #666 !important;
+}
+.copy-right a{
+  color: $text-grey;
+}

@@ -23,7 +23,10 @@
           </div>
           <span class="item_price mb_15">{{data.item.currency}} {{data.item?.selling_price | number: '1.2-2'}}</span>
           <p class="mb_30">
-            Best Electronic Digital Thermometer adipiscing elit, sed do eiusmod teincididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse us ultrices gravidaes.
+            {{data.item?.description}}
+          </p>
+          <p *ngIf="!data.item.description" class="mb_30">
+           No description!
           </p>
           <!-- <div class="quantity_form mb_30 clearfix">
             <strong class="list_title">Quantity:</strong>
