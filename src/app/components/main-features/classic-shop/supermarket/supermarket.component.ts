@@ -175,8 +175,6 @@ export class SupermarketComponent implements OnInit, AfterViewInit {
 // }
 
   async ngOnInit(): Promise<void> {
-
-
     this.subdomain = this.getHostname.subDomain;
     // this.subdomain = this.constantValues.GTP_SUBDOMAIN;
     this.gtpSubdomin = this.constantValues.GTP_SUBDOMAIN;
