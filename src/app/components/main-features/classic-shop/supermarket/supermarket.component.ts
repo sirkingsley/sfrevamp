@@ -367,6 +367,10 @@ filterByCategory(category,el: HTMLElement) {
     el.scrollIntoView({behavior: 'smooth'});
   }
 
+  scrollTo(target:HTMLElement){
+    target.scrollIntoView({behavior: 'smooth'});
+  }
+
 
   async addProductToCart(product) {
     const stockQty = +product.new_quantity;

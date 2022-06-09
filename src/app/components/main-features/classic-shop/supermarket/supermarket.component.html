@@ -50,7 +50,7 @@
                       Discover new ways to dress this spring with a selection of the best designer jackets.
                     </p>
                     <div  class="abtn_wrap clearfix" data-animation="fadeInUp" data-delay="1s">
-                      <a routerLink="/shop-details" class="custom_btn bg_white text-uppercase">SHOPS</a>
+                      <a (click)="scrollTo(shops)" class="custom_btn bg_white text-uppercase">SHOPS</a>
                     </div>
                   </div>
                 </div>
@@ -117,7 +117,7 @@
 
 			<!-- category_section - start
 			================================================== -->
-			<section class="category_section sec_ptb_100 pb-0 clearfix">
+			<section class="category_section sec_ptb_100 pb-0 clearfix" #shops>
 				<div class="container">
 					<div class="ecommerce_category_masonry grid">
 						<div class="grid-sizer"></div>
