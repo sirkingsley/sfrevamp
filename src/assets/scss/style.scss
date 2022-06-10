@@ -1386,7 +1386,7 @@ button {
 }
 
 .bg_black {
-  background-color: #000000;
+  background-color: $accent-color;
 }
 
 .bg_default_black {
@@ -9743,7 +9743,7 @@ button {
 /* home modern reset - start */
 .home_modern {
   color: #818181;
-  padding-left: 400px;
+  //padding-left: 400px;
   font-family: "Poppins", sans-serif;
 }
 .home_modern h1, .home_modern h2, .home_modern h3, .home_modern h4, .home_modern h5, .home_modern h6 {
@@ -15099,7 +15099,7 @@ button {
 }
 
 .furniture_blog_listlayout.bg_black {
-  background-color: #1b1b1b;
+  background-color: $accent-color;
 }
 .furniture_blog_listlayout .item_content {
   margin: auto;
@@ -16022,7 +16022,7 @@ button {
   line-height: 40px;
   margin-right: 20px;
   display: inline-block;
-  background-color: #000000;
+  background-color: $secondary-color-2 !important;
 }
 .modern_product_item .item_price del {
   font-size: 15px;
@@ -21183,7 +21183,7 @@ blockquote .blockquote_title {
   }
 
   .home_modern {
-    padding-left: 300px;
+   // padding-left: 300px;
   }
 
   /* home modern - end */
@@ -22576,6 +22576,10 @@ blockquote .blockquote_title {
     opacity: 1 !important;
     transform: translateY(0px);
     transition: 0.5s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  }
+  .owl-carousel .owl-item img{
+    width: 100% !important;
+    height: auto !important;
   }
   /* global - start */
   .sec_ptb_140 {
@@ -36236,7 +36240,7 @@ button {
 /* home modern reset - start */
 .home_modern {
 	color: #818181;
-	padding-left: 400px;
+	//padding-left: 400px;
 	font-family: 'Poppins', sans-serif;
 
 	h1,h2,h3,h4,h5,h6 {
@@ -38529,6 +38533,7 @@ button {
 
 /* slider section - start */
 .slider_section {
+  line-height: 2rem !important;
 	.btns_group {
 		li {
 			line-height: 1;
@@ -48598,7 +48603,7 @@ blockquote {
 	background-color: #ffffff;
 }
 .bg_black {
-	background-color:#dcdcdc;
+	background-color:$accent-color;
 
 }
 .bg_default_black {
@@ -49182,7 +49187,7 @@ blockquote {
 	&.bg_black {
 		color: #ffffff;
 		&:before {
-			background: #ebebeb;
+			background: $accent-color;
 		}
 		&:hover {
 			color: $secondary-color-2
@@ -50313,7 +50318,7 @@ blockquote {
 
 .furniture_blog_listlayout {
 	&.bg_black {
-		background-color: #1b1b1b;
+		background-color: $accent-color;
 	}
 	.item_content {
 		margin: auto;
@@ -51759,7 +51764,7 @@ blockquote {
 		margin-bottom: 100px;
 	}
 	.home_modern {
-		padding-left: 300px;
+		//padding-left: 300px;
 	}
 	/* home modern - end */
 

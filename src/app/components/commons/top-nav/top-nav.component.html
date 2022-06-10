@@ -70,7 +70,8 @@
 															</div> -->
 
 															<div class="page_links" >
-																<h3 class="title_text" [routerLink] = "['/supermarket', {pageSec: 'section2', category: category.name}]" (click)="filterCategory(category.name,target)" (click)="filterByCategory(category.name,target)">{{category.name}}</h3>
+																<!-- <h3 class="title_text" [routerLink] = "['/supermarket', {pageSec: 'section2', category: category.name}]" (click)="filterCategory(category.name,target)" (click)="filterByCategory(category.name,target)">{{category.name}}</h3> -->
+                                <h3 class="title_text" [routerLink] = "['/display-products']">{{category.name}}</h3>
 																<!-- <ul class="ul_li_block">
 																	<li><a href="carparts_shop.html">Shop Page</a></li>
 																	<li><a href="carparts_shop_grid.html">Shop Grid</a></li>
@@ -311,9 +312,20 @@
               <mat-expansion-panel-header>
                 Categories
               </mat-expansion-panel-header>
-              <mat-nav-list dense *ngFor="let category of industries">
+              <!-- <mat-nav-list dense *ngFor="let category of industries">
                   <a mat-list-item  [routerLink] = "['/supermarket', {pageSec: 'section2', category: category.name}]" >{{category.name}}</a>
-              </mat-nav-list>
+              </mat-nav-list> -->
+              <mat-nav-list dense>
+                <a mat-list-item  [routerLink] = "['/display-products']" >Clothing & Accessories</a>
+                <a mat-list-item  [routerLink] = "['/display-products']" >Electricals & Electronics</a>
+                <a mat-list-item  [routerLink] = "['/display-products']" >Drinks</a>
+                <a mat-list-item  [routerLink] = "['/display-products']" >Provisions</a>
+                <a mat-list-item  [routerLink] = "['/display-products']" >Building Materials</a>
+                <a mat-list-item  [routerLink] = "['/display-products']" >Beauty & Cosmetics</a>
+                <a mat-list-item  [routerLink] = "['/display-products']" >Books & Stationery</a>
+                <a mat-list-item  href="https://www.choppbeta.com/home-page" target="_blank" >Fastfoods & Restaurant</a>
+                <a mat-list-item  [routerLink] = "['/display-products']" >Gift Cards</a>
+            </mat-nav-list>
           </mat-expansion-panel>
 
           </li>

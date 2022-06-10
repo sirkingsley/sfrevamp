@@ -67,9 +67,12 @@ export const sectionOptions: OwlOptions = {
   pullDrag: true,
   dots: false,
   autoplay:true,
+  animateOut: true,
+  animateIn:true,
+  slideTransition: "nonlinear",
   autoplayTimeout:10000,
   autoplayHoverPause:false,
-  autoplaySpeed: 4000,
+  autoplaySpeed: 1000,
   navSpeed: 400,
   navText: [ ],
   responsive: {

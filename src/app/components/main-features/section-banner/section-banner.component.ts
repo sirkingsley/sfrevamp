@@ -14,9 +14,11 @@ export class SectionBannerComponent implements OnInit {
   subscription: Subscription;
   intervalId: number;
 
+
   banners=[
     {image:'../../assets/images/attractive-stylish-modern-young-african-woman-2021-08-26-17-26-19-utc.jpg'},
-    {image:'../../assets/images/happy-young-black-couple-with-presents-jumping-up-2022-02-22-15-54-29-utc.jpg'}
+    {image:'../../assets/images/happy-young-black-couple-with-presents-jumping-up-2022-02-22-15-54-29-utc.jpg'},
+    {image:'../../assets/images/black-millennial-couple-with-gift-box-on-pink-back-2022-02-22-15-52-54-utc.jpg'},
   ];
 sectionOptions=sectionOptions;
 OwlLandingPageOtion=OwlLandingPageOtion;
