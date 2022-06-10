@@ -1,5 +1,34 @@
  import { OwlOptions } from "ngx-owl-carousel-o";
  //categories Carousel options
+
+ export const OwlLandingPageOtion: OwlOptions = {
+  loop: true,
+  mouseDrag: true,
+  touchDrag: true,
+  pullDrag: true,
+  dots: false,
+  autoplay:true,
+  autoplayTimeout:10000,
+  autoplayHoverPause:false,
+  autoplaySpeed: 4000,
+  navSpeed: 400,
+  navText: [],
+  responsive: {
+    0: {
+      items: 1
+    },
+    400: {
+      items: 1
+    },
+    740: {
+      items: 1
+    },
+    940: {
+      items: 1
+    }
+  },
+  nav: false
+}
  export const customOptions: OwlOptions = {
   loop: true,
   mouseDrag: true,
@@ -30,6 +59,36 @@
   },
   nav: true
 }
+
+export const sectionOptions: OwlOptions = {
+  loop: true,
+  mouseDrag: true,
+  touchDrag: true,
+  pullDrag: true,
+  dots: false,
+  autoplay:true,
+  autoplayTimeout:10000,
+  autoplayHoverPause:false,
+  autoplaySpeed: 4000,
+  navSpeed: 400,
+  navText: [ ],
+  responsive: {
+    0: {
+      items: 1
+    },
+    400: {
+      items: 1
+    },
+    740: {
+      items: 1
+    },
+    940: {
+      items: 1
+    }
+  },
+  nav: false
+}
+
 
 export const customOptionsHome: OwlOptions = {
   loop: true,

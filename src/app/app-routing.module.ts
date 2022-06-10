@@ -1,3 +1,6 @@
+import { DisplayProductsComponent } from './components/main-features/display-products/display-products.component';
+import { SectionBannerComponent } from './components/main-features/section-banner/section-banner.component';
+import { LandingPageComponent } from './components/main-features/landing-page/landing-page.component';
 import { AccountComponent } from './components/customer/account/account.component';
 import { OrderDetailsComponent } from './components/customer/order-details/order-details.component';
 import { CartComponent } from './components/main-features/cart/cart.component';
@@ -37,7 +40,16 @@ const routes: Routes = [
     ]
   },
 
+  /**
+   * Testing pages
+   */
   {path: 'shop-details', component : ShopDetailsComponent},
+  {path: 'home', component : LandingPageComponent},
+  {path: 'section-banner', component : SectionBannerComponent},
+  {path: 'display-products', component : DisplayProductsComponent},
+   /**
+   * Testing pages End
+   */
   {path: 'sign-up', component : SignUpComponent},
   {path: 'login', component : LoginComponent},
   {path: 'shop-details', component : ShopDetailsComponent},

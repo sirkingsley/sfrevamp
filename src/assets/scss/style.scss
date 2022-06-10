@@ -11784,28 +11784,43 @@ button {
 /* home minimal reset - end */
 /* slider section - start */
 .medical_slider .item {
-  padding: 80px 0px;
-  min-height: 700px;
+  padding: 80px 0px !important;
+  padding-right: 20px !important;
+  min-height: 700px !important;
 }
 .medical_slider .slider_content {
-  max-width: 480px;
+  max-width: 480px !important;
 }
 .medical_slider h4 {
-  line-height: 1;
-  font-size: 82px;
-  font-weight: 300;
+  line-height: 1 !important;
+  font-size: 82px !important;
+  font-weight: 300 !important;
 }
 .medical_slider h4 strong {
-  font-weight: 800;
+  font-weight: 800 !important;
 }
 .medical_slider h3 {
-  font-size: 52px;
-  font-weight: 600;
+  font-size: 52px !important;
+  font-weight: 600 !important;
 }
 .medical_slider p {
   color: #030a0b;
   font-size: 20px;
   margin-bottom: 30px;
+}
+
+
+// .owl-item.active {
+//   opacity: 1 !important;
+// }
+// .owl-item {
+//   opacity: 0 !important;
+// }
+.owl-item.active {
+  overflow: hidden;
+}
+.owl-item {
+  overflow: hidden !important;
 }
 .medical_slider .slider_image {
   float: left;

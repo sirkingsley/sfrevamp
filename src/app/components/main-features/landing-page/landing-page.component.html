@@ -1,0 +1,49 @@
+
+
+			<!-- slider_section - start
+			================================================== -->
+      <owl-carousel-o [options]=" OwlLandingPageOtion">
+        <ng-container *ngFor="let banner of banners" >
+          <ng-template carouselSlide>
+            <section class="slider_section classic_ecommerce_slider position-relative clearfix">
+              <div class="main_slider clearfix">
+
+
+                    <!-- <div class="item d-flex align-items-center clearfix" data-background="../../assets/images/african-shopping-time-2022-02-12-05-06-41-utc.jpg"> -->
+                    <div class="item d-flex align-items-center clearfix sf-home"
+                     style="background: none;
+                            background: linear-gradient(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0)), url({{banner.image}});
+                            background-repeat: no-repeat;
+                            background-size: cover;
+                            color: #fff !important;">
+                      <div class="container">
+                        <div class="slider_content">
+                          <h3 data-animation="fadeInUp" data-delay=".6s">Sweet Home Collections.</h3>
+                          <p data-animation="fadeInUp" data-delay=".8s">
+                            Discover new ways to dress this spring with a selection of the best designer jackets.
+                          </p>
+                          <div  class="abtn_wrap clearfix" data-animation="fadeInUp" data-delay="1s">
+                            <a  class="custom_btn bg_white text-uppercase me-2">Buy</a>
+                            <a  class="custom_btn bg_white text-uppercase ms-2">Sell</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+              </div>
+
+              <!-- slider progress -->
+              <!-- <div class="slick-progress">
+                <span></span>
+              </div> -->
+            </section>
+          </ng-template>
+        </ng-container>
+
+      </owl-carousel-o>
+
+			<!-- slider_section - end
+			================================================== -->
+      <div class="basic-container">
+        <mat-progress-bar mode="determinate" [value]="progressbarValue"></mat-progress-bar>
+      </div>
+

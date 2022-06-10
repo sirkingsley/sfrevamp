@@ -74,6 +74,10 @@ import {MatListModule} from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { PaginationComponent } from './components/commons/pagination/pagination.component';
+import { LandingPageComponent } from './components/main-features/landing-page/landing-page.component';
+import { SectionBannerComponent } from './components/main-features/section-banner/section-banner.component';
+import { DisplayProductsComponent } from './components/main-features/display-products/display-products.component';
+
 //import { LacMatTelInputModule } from 'lac-mat-tel-input';
 
 @NgModule({
@@ -104,6 +108,10 @@ import { PaginationComponent } from './components/commons/pagination/pagination.
     PackageStatusHistoryComponent,
     AccountComponent,
     PaginationComponent,
+    LandingPageComponent,
+    SectionBannerComponent,
+    DisplayProductsComponent,
+
 
   ],
   imports: [

@@ -1,0 +1,53 @@
+	<main>
+  <!-- slider_section - start
+			================================================== -->
+      <section class="slider_section medical_slider clearfix">
+        <div class="main_slider clearfix" data-slick='{"arrows": false}'>
+      <owl-carousel-o [options]=" OwlLandingPageOtion">
+        <ng-container *ngFor="let banner of banners" >
+          <ng-template carouselSlide>
+            <div class="item d-flex align-items-center clearfix" data-bg-color="#b8e8fe">
+              <div class="container">
+                <div class="row align-items-center justify-content-lg-between">
+                  <div class="col-lg-6 order-last">
+                    <div class="slider_image" data-animation="fadeInUp" data-delay=".2s">
+                      <img src="assets/images/black-women-shopping.jpg" alt="image_not_found">
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="slider_content">
+                      <h4 class="text-uppercase" data-animation="fadeInUp" data-delay=".2s"><strong>10%</strong> off</h4>
+                      <h3 data-animation="fadeInUp" data-delay=".4s">
+                        On the entire range of NeonCart
+                      </h3>
+                      <p data-animation="fadeInUp" data-delay=".6s">
+                        Don’t miss the  sale  and grab all the available products
+                      </p>
+                      <div class="abtn_wrap clearfix" data-animation="fadeInUp" data-delay=".8s">
+                        <a class="custom_btn bg_medical_blue text-uppercase" href="#!">Shop Now</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </ng-container>
+
+      </owl-carousel-o>
+    </div>
+    	<!-- slider progress -->
+
+
+	</section>
+
+  <div class="basic-container">
+    <mat-progress-bar mode="determinate" [value]="progressbarValue"></mat-progress-bar>
+  </div>
+
+
+
+			<!-- slider_section - end
+			================================================== -->
+  </main>

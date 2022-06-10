@@ -9,6 +9,23 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- GetButton.io widget -->
+<script type="text/javascript">
+  (function () {
+      var options = {
+          whatsapp: "+15128437031", // WhatsApp number
+          call_to_action: "Chat With Us", // Call to action
+          position: "right", // Position may be 'right' or 'left'
+          pre_filled_message: "hello", // WhatsApp pre-filled message
+      };
+      var proto = document.location.protocol, host = "getbutton.io", url = proto + "//static." + host;
+      var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
+      s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
+      var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+  })();
+</script>
+<!-- /GetButton.io widget -->
 </head>
 <body class="mat-typography">
   <app-root></app-root>
@@ -30,26 +47,7 @@
   };
 </script> -->
 
-<script>
-  var subDomain = window.location.hostname.split('.')[0]
-  if (subDomain == "gtpstore") {
-    function initFreshChat() {
-      window.fcWidget.init({
-        token: "760a5b91-b180-4a4d-a3b7-8d1ace365db8",
-        host: "https://wchat.freshchat.com"
-      });
-    }
-    function initialize(i,t){var e;i.getElementById(t)?initFreshChat():((e=i.createElement("script")).id=t,e.async=!0,e.src="https://wchat.freshchat.com/js/widget.js",e.onload=initFreshChat,i.head.appendChild(e))}function initiateCall(){initialize(document,"freshchat-js-sdk")}window.addEventListener?window.addEventListener("load",initiateCall,!1):window.attachEvent("load",initiateCall,!1);
-  } else {
-    function initFreshChat() {
-      window.fcWidget.init({
-        token: "760a5b91-b180-4a4d-a3b7-8d1ace365db8",
-        host: "https://wchat.freshchat.com"
-      });
-    }
-    function initialize(i,t){var e;i.getElementById(t)?initFreshChat():((e=i.createElement("script")).id=t,e.async=!0,e.src="https://wchat.freshchat.com/js/widget.js",e.onload=initFreshChat,i.head.appendChild(e))}function initiateCall(){initialize(document,"freshchat-js-sdk")}window.addEventListener?window.addEventListener("load",initiateCall,!1):window.attachEvent("load",initiateCall,!1);
-  }
-</script>
+
 <script>
   ! function (f, b, e, v, n, t, s) {
     if (f.fbq) return;
@@ -72,7 +70,5 @@
   fbq('init', '2829895483794577');
   fbq('track', 'PageView');
 </script>
-<noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=2829895483794577&ev=PageView&noscript=1" /></noscript>
 
 </html>
