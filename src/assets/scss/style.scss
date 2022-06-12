@@ -19517,8 +19517,8 @@ blockquote .blockquote_title {
 }
 .checkout_step .active a {
   color: #ffffff;
-  border-color: #ce0b2b;
-  background-color: #ce0b2b;
+  border-color: $primary-color !important;
+  background-color: $primary-color !important;
 }
 .checkout_step .active a span {
   opacity: 0.39;
@@ -19526,8 +19526,8 @@ blockquote .blockquote_title {
 }
 .checkout_step .activated a {
   color: #ffffff;
-  border-color: #000000;
-  background-color: #000000;
+  border-color: $accent-color;
+  background-color: $accent-color !important;
 }
 .checkout_step .activated a span {
   opacity: 0.39;
@@ -59399,3 +59399,13 @@ footer a{
   border: 3px solid $text_white;
 }
 
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  align-items: flex-start;
+}
+
+.example-radio-button {
+  margin: 5px;
+}

@@ -38,6 +38,11 @@ declare const $;
 
 
 export class Checkout2Component implements OnInit {
+  panelOpenState = false;
+  selectedD: string;
+  selectedP: string;
+  delivery: string[] = ['Pick up', 'Bolt', 'DHL', 'Uber Delivery', 'Bike Delivery'];
+  payments:string[]=['Momo','Vodafone','AirtelTiGo', 'Card']
   isLinear = false;
   isGuest = false;
   isGiftDelivery = false;
@@ -174,23 +179,23 @@ export class Checkout2Component implements OnInit {
     });
 
 
-    if (!this.authService.isLogedIn) {
-      this.dialog.open(GuestUserComponent).afterClosed().subscribe(async (isSuccess: boolean) => {
-        if (isSuccess) {
-          this.address_ctrl.setValue(this.authService.currentUser.address);
-          this.city_ctrl.setValue(this.authService.currentUser.city);
-          this.state_ctrl.setValue(this.authService.currentUser.brief);
-          await this.getCartItems();
-          // this.getPromoCodeValue('', true);
-        }
-      });
-    } else {
-      this.address_ctrl.setValue(this.authService.currentUser.address);
-      this.city_ctrl.setValue(this.authService.currentUser.city);
-      this.state_ctrl.setValue(this.authService.currentUser.brief);
-      await this.getCartItems();
-      // this.getPromoCodeValue('', true);
-    }
+    // if (!this.authService.isLogedIn) {
+    //   this.dialog.open(GuestUserComponent).afterClosed().subscribe(async (isSuccess: boolean) => {
+    //     if (isSuccess) {
+    //       this.address_ctrl.setValue(this.authService.currentUser.address);
+    //       this.city_ctrl.setValue(this.authService.currentUser.city);
+    //       this.state_ctrl.setValue(this.authService.currentUser.brief);
+    //       await this.getCartItems();
+    //       // this.getPromoCodeValue('', true);
+    //     }
+    //   });
+    // } else {
+    //   this.address_ctrl.setValue(this.authService.currentUser.address);
+    //   this.city_ctrl.setValue(this.authService.currentUser.city);
+    //   this.state_ctrl.setValue(this.authService.currentUser.brief);
+    //   await this.getCartItems();
+    //   // this.getPromoCodeValue('', true);
+    // }
     if (this.getHostname.isShopMall) {
       this.getActivePromo(this.getHostname.subDomain);
     }

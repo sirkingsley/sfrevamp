@@ -12,8 +12,8 @@ export class CartPopUpComponent implements OnInit {
    constructor(public dialog: MatDialog) {}
   close(){
       document.getElementsByClassName("animate__animated")[0].classList.remove("animate__slideInLeft")
-      document.getElementsByClassName("animate__animated")[0].classList.add("animate__slideOutRight");
-      setTimeout(()=>{this.dialog.closeAll();}, 1000);
+      document.getElementsByClassName("animate__animated")[0].classList.add("animate__slideOutLeft");
+      setTimeout(()=>{this.dialog.closeAll();}, 2000);
   }
 
 
