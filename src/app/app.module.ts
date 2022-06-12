@@ -77,6 +77,7 @@ import { PaginationComponent } from './components/commons/pagination/pagination.
 import { LandingPageComponent } from './components/main-features/landing-page/landing-page.component';
 import { SectionBannerComponent } from './components/main-features/section-banner/section-banner.component';
 import { DisplayProductsComponent } from './components/main-features/display-products/display-products.component';
+import { CartPopUpComponent } from './components/commons/cart-pop-up/cart-pop-up.component';
 
 //import { LacMatTelInputModule } from 'lac-mat-tel-input';
 
@@ -111,6 +112,7 @@ import { DisplayProductsComponent } from './components/main-features/display-pro
     LandingPageComponent,
     SectionBannerComponent,
     DisplayProductsComponent,
+    CartPopUpComponent,
 
 
   ],

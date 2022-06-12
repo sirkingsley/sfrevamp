@@ -31,18 +31,18 @@ export class LandingPageComponent implements OnInit {
   ngOnInit(): void {
  // This visualizes the banner delay
  const source = interval(10000);
- const text = 'Your Text Here';
+
  this.subscription = source.subscribe((val) => this.startTimer(80));
 
- // Interval
- this.intervalId = setInterval(this.startTimer(80), 10000);
+//  // Interval
+//  this.intervalId = setInterval(this.startTimer(80), 10000);
 }
 
 progressbarValue = 100;
 curSec: number = 0;
 
 startTimer(seconds: number) {
- const time = seconds;
+
  const timer$ = interval(100);
 
  const sub = timer$.subscribe((sec) => {

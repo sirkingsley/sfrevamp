@@ -1,3 +1,4 @@
+import { CartPopUpComponent } from './../../../commons/cart-pop-up/cart-pop-up.component';
 import { ConstantValuesService } from 'src/app/services/constant-values.service';
 import { DbaseUpdateService } from 'src/app/services/dbase-update.service';
 import { customOptions,customOptions1, slides1,customOptionsHome} from './../../../../utils/constants';
@@ -146,7 +147,6 @@ export class SupermarketComponent implements OnInit, AfterViewInit {
     private toastr: ToastrService,
     private authService: AuthService,
     private route: ActivatedRoute,
-
 
   ) { }
 
@@ -482,6 +482,11 @@ filterByCategory(category,el: HTMLElement) {
     return 0;
   }
 
+  openCartDialog(): void {
+    this.dialog.open(CartPopUpComponent,{panelClass: ['animate__animated','animate__slideInRight']}
+
+   );
+  }
 
 }
 

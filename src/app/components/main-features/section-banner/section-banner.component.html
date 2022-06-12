@@ -4,7 +4,7 @@
   <section class="offer_section sec_ptb_100 pb-0 clearfix">
     <div class="container">
       <div class="medical_offer_carousel">
-  <owl-carousel-o [options]=" OwlLandingPageOtion">
+  <owl-carousel-o [options]="sectionOptions">
     <ng-container *ngFor="let banner of banners">
       <ng-template carouselSlide [id]="banner.image">
         <div class="item" style="background-color: rgb(235, 235, 235);">
