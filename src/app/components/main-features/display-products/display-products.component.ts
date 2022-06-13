@@ -24,6 +24,15 @@ export class DisplayProductsComponent implements OnInit {
     public dialog: MatDialog,
     private route: ActivatedRoute,
   ) { }
+
+  selectedValue: string;
+  selectedCar: string;
+
+  prices = [
+    {value: 'All-Prices', viewValue: 'All Prices'},
+    {value: 'From-Lowest-to-Highest', viewValue: 'From Lowest to Highest'},
+    {value: 'From-Highest-to-Lowest', viewValue: 'From Highest to Lowest'},
+  ];
   featuredShops = [];
   industries = [];
   isProcessingShopInfo = false;

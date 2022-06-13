@@ -38,6 +38,10 @@
 			<!-- slider_section - start
 			================================================== -->
       <app-landing-page></app-landing-page>
+      <!-- <div >
+        <mat-spinner></mat-spinner>
+
+      </div> -->
       <!-- <div>
         <mat-progress-bar mode="buffer"></mat-progress-bar>
       </div> -->
@@ -130,6 +134,7 @@
 
 							<div class="ce_offer_carousel position-relative clearfix">
 								<div class="slideshow1_slider">
+
                   <owl-carousel-o [options]="customOptions" class="slideshow1_slider">
                     <ng-container *ngFor="let shop of featuredShops">
                     <ng-template carouselSlide class="item">
@@ -224,7 +229,7 @@
                 <!--Larger screen navs-->
                 <ul class="button-group filters-button-group ul_li_right clearfix ms-0">
                   <li class="large-screen-cat-nav ms-0" ><button [class.active]="selectedCategory === ''" (click)="filterCategory('',target)">All</button></li>
-                  <li class="large-screen-cat-nav"  *ngFor="let category of industries | slice:4:10"><button (click)="filterCategory(category?.name,target)" [class.active]="selectedCategory === category?.name" >{{category?.name}}</button></li>
+                  <li class="large-screen-cat-nav"  *ngFor="let category of industries | slice:4:9"><button (click)="filterCategory(category?.name,target)" [class.active]="selectedCategory === category?.name" >{{category?.name}}</button></li>
 
                   <li><span class="filter_sidebar_btn" data-bg-color="#f9f9f9"><i class="far fa-bars"></i> FILTER</span></li>
                 </ul>
@@ -247,7 +252,10 @@
           <!-- <router-outlet></router-outlet> -->
 
           <app-empty-record *ngIf="products?.length <= 0 && !isProcessing"></app-empty-record>
+          <div *ngIf="isProcessing"  class="text-center">
+            <mat-spinner></mat-spinner>
 
+          </div>
           <div  class="element-grid column4_element_grid mb_50" >
 
             <div class="element-item " *ngFor="let item of products" >
@@ -288,7 +296,7 @@
                   </ul>
                   <span class="item_price"><strong>{{item.currency}} {{item.price_list[0]?.selling_price}} </strong> <del>{{item.currency}} {{item.price_list[0]?.selling_price*2}}</del></span>
 
-                  <button class="mat-button-wrapper mt-3" (click)="addProductToCart(item)">ADD TO CART</button>
+                  <button class="mat-button-wrapper mt-3" (click)="addProductToCart(item)" (click)="openCartDialog()">ADD TO CART</button>
                 </div>
               </div>
             </div>

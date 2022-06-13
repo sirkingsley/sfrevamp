@@ -65,9 +65,10 @@ Author 			:  jthemes (https://themeforest.net/user/jthemes)
 //@import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
 
 $primary-color: #026E08;
+$tertiary-color:#363636;
 $accent-color: #3D1C00;
-$secondary-color-2:#3a9643;
-$secondary-color: #00BE0A;
+$secondary-color-2:#228b27;
+$secondary-color: #B6F0B9;
 $primary-color-progress: rgb(182, 240, 185);
 $primary-color-light: rgb(77, 236, 85);
 $active-nav-bg: #ECFAED;
@@ -776,7 +777,7 @@ hr {
 }
 
 .ul_li_right {
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 .ul_li_block {
@@ -31989,7 +31990,7 @@ hr {
   justify-content: center;
 }
 .ul_li_right {
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 .ul_li_block {

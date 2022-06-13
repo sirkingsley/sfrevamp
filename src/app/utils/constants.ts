@@ -6,12 +6,12 @@
   mouseDrag: true,
   touchDrag: true,
   pullDrag: true,
-  dots: false,
+  dots: true,
   autoplay:true,
   autoplayTimeout:10000,
   autoplayHoverPause:false,
   autoplaySpeed: 4000,
-  navSpeed: 400,
+  navSpeed: 4000,
   navText: [],
   responsive: {
     0: {

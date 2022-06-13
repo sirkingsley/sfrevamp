@@ -226,6 +226,11 @@ export class SupermarketComponent implements OnInit, AfterViewInit {
       }
     });
     await this.getCartItems();
+    //after full window load including image src css file
+    // $(window).load(function() {
+    //   alert("hi 2");
+    // });
+    // alert("hi 2");
 
     $('#flip').on("click",function(){
       $("#panel").slideToggle("slow");
@@ -238,10 +243,12 @@ export class SupermarketComponent implements OnInit, AfterViewInit {
     this.onload();
 
 
+
   }
 
+pagefullyLoaded:Boolean=false;
   ngAfterViewInit(): void {
-
+    this.pagefullyLoaded=true;
       this.route.params.subscribe(param => {
         if(param['pageSec']){
         let section = document.querySelector('#silas');

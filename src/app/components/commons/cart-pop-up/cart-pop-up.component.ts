@@ -13,7 +13,7 @@ export class CartPopUpComponent implements OnInit {
   close(){
       document.getElementsByClassName("animate__animated")[0].classList.remove("animate__slideInLeft")
       document.getElementsByClassName("animate__animated")[0].classList.add("animate__slideOutLeft");
-      setTimeout(()=>{this.dialog.closeAll();}, 2000);
+      setTimeout(()=>{this.dialog.closeAll();}, 1000);
   }
 
 

@@ -57,6 +57,8 @@ import { NgxIndexedDBModule } from 'ngx-indexed-db';
 import { dbConfig } from './interfaces/local-db-config';
 import { ToastrModule } from 'ngx-toastr';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatSelectModule} from '@angular/material/select';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { ConfirmOrderPaymentDialogComponent } from './components/commons/confirm-order-payment-dialog/confirm-order-payment-dialog.component';
 import { OrderCompletedDialogComponent } from './components/commons/order-completed-dialog/order-completed-dialog.component';
@@ -141,6 +143,8 @@ import { CartPopUpComponent } from './components/commons/cart-pop-up/cart-pop-up
     MatMenuModule,
     MatExpansionModule,
     MatRadioModule,
+    MatSelectModule,
+    MatProgressSpinnerModule,
 
     //LacMatTelInputModule,
 

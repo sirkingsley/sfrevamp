@@ -32,7 +32,29 @@
 				================================================== -->
         <div class="container">
 				<section class="product_section sec_ptb_100 clearfix">
+          <div class="carparts_filetr_bar clearfix">
+						<div class="row align-items-center justify-content-lg-between">
+							<div class="col-lg-6 col-md-6">
+								<h4 class="result_text">Showing 1 to 10 of 243 products</h4>
+							</div>
 
+							<div class="col-lg-6 col-md-6">
+								<form action="#">
+									<div class="option_select d-flex align-items-center mb-0">
+										<!-- <span class="option_title text-uppercase">Sort by:</span> -->
+										<mat-form-field appearance="fill">
+                      <mat-label>Sort By Prices</mat-label>
+                      <mat-select [(ngModel)]="selectedValue" name="prices">
+                        <mat-option *ngFor="let choice of prices" [value]="choice.value">
+                          {{choice.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
 
 					<div class="tab-content mb_50">
 						<div id="best_tab" class="tab-pane active">

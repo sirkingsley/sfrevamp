@@ -5,13 +5,13 @@
     <div class="container">
       <div class="medical_offer_carousel">
   <owl-carousel-o [options]="sectionOptions">
-    <ng-container *ngFor="let banner of banners">
-      <ng-template carouselSlide [id]="banner.image">
+    <ng-container >
+      <ng-template carouselSlide [id]="banners[0]?.image">
         <div class="item" style="background-color: rgb(235, 235, 235);">
           <div class="row align-items-center justify-content-lg-between">
             <div class="col-lg-6 col-md-6 order-last">
               <div class="item_image">
-                <img src="{{banner.image}}" alt="image_not_found">
+                <img src="{{banners[0]?.image}}" alt="image_not_found">
               </div>
             </div>
             <div class="col-lg-6 col-md-6">
@@ -26,18 +26,58 @@
           </div>
         </div>
       </ng-template>
+      <ng-template carouselSlide [id]="banners[1]?.image">
+        <div class="item" style="background-color: #B6F0B9;">
+          <div class="row align-items-center justify-content-lg-between">
+            <div class="col-lg-6 col-md-6 order-last">
+              <div class="item_image">
+                <img src="{{banners[1]?.image}}" alt="image_not_found">
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+              <div class="item_content">
+                <strong class="offer_text">10%off</strong>
+                <h3 class="item_title mb_15">On the entire range of storefront Sales</h3>
+                <p class="mb-0">
+                  Don’t miss the  sale  and grab all the available products
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template carouselSlide [id]="banners[2]?.image">
+        <div class="item" style="background-color: #363636; color: #fff !important;">
+          <div class="row align-items-center justify-content-lg-between">
+            <div class="col-lg-6 col-md-6 order-last">
+              <div class="item_image">
+                <img src="{{banners[2]?.image}}" alt="image_not_found">
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+              <div class="item_content">
+                <strong class="offer_text" style="color: #ffffff;">10%off</strong>
+                <h3 class="item_title mb_15" style="color: #ffffff;">On the entire range of storefront Sales</h3>
+                <p class="mb-0 " style="color: #ffffff;">
+                  Don’t miss the  sale  and grab all the available products
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
     </ng-container>
 
   </owl-carousel-o>
       </div>
   </div>
-  <div class="container">
+  <!-- <div class="container">
     <mat-progress-bar
      color="Primary"
      mode="determinate"
      [value]="progressbarValue">
     </mat-progress-bar>
-  </div>
+  </div> -->
   </section>
 
 			<!-- slider_section - end
