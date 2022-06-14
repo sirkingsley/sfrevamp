@@ -39,6 +39,12 @@
 			================================================== -->
 			<section class="cart_section sec_ptb_140 clearfix">
 				<div class="container">
+          <ul class="checkout_step ul_li clearfix">
+						<li  class="active"><a><span>01.</span> Shopping Cart</a></li>
+						<li><a><span>02.</span> Checkout</a></li>
+						<li><a><span>03.</span> Order Completed</a></li>
+					</ul>
+
           <app-empty-record *ngIf="cartItems?.length <= 0"></app-empty-record>
 
 					<div class="cart_table mb_50">

@@ -28,6 +28,7 @@ import { JsonpClientBackend } from '@angular/common/http';
 import { User } from 'src/app/modules/user';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { LoginComponent } from 'src/app/components/commons/login/login.component';
+import { WINDOW } from 'src/app/utils/window.provider';
 
 
 
@@ -43,7 +44,7 @@ export interface DialogData {
 declare const custom:any;
 declare const main:any;
 declare const parallaxie: any;
-declare const $;
+declare const $: (arg0: string) => { (): any; new(): any; on: { (arg0: string, arg1: { (): void; (): void; }): void; new(): any; }; slideToggle: { (arg0: string): void; new(): any; }; };
 @Component({
   selector: 'app-supermarket',
   templateUrl: './supermarket.component.html',
@@ -55,7 +56,7 @@ declare const $;
 export class SupermarketComponent implements OnInit, AfterViewInit {
 
   @Input() shopName = 'StoreFront Mall';
-  shopInfo;
+  shopInfo: any;
   cartItems = [];
   @Input() productGroups = [];
   pGroups = [];
@@ -123,6 +124,7 @@ export class SupermarketComponent implements OnInit, AfterViewInit {
  woodinSubdomain = '';
 
  shopHasActivePromo = false;
+ windowLoaded=false;
  promoCodes = [];
  exchangeRate = 0;
 
@@ -147,6 +149,7 @@ export class SupermarketComponent implements OnInit, AfterViewInit {
     private toastr: ToastrService,
     private authService: AuthService,
     private route: ActivatedRoute,
+    @Inject(WINDOW) public window: Window,
 
   ) { }
 
@@ -157,6 +160,7 @@ export class SupermarketComponent implements OnInit, AfterViewInit {
   main();
   parallaxie();
 }
+
 
 @ViewChild('target') target: ElementRef<HTMLElement>;
 
@@ -175,6 +179,10 @@ export class SupermarketComponent implements OnInit, AfterViewInit {
 // }
 
   async ngOnInit(): Promise<void> {
+    this.window.addEventListener('load',()=>{
+      this.windowLoaded=true;
+      // alert("hi");
+    })
     this.subdomain = this.getHostname.subDomain;
     // this.subdomain = this.constantValues.GTP_SUBDOMAIN;
     this.gtpSubdomin = this.constantValues.GTP_SUBDOMAIN;
@@ -232,6 +240,7 @@ export class SupermarketComponent implements OnInit, AfterViewInit {
     // });
     // alert("hi 2");
 
+
     $('#flip').on("click",function(){
       $("#panel").slideToggle("slow");
     });
@@ -260,7 +269,7 @@ pagefullyLoaded:Boolean=false;
       })
 
     }
-  openDialog(item) {
+  openDialog(item: any) {
     this.dialog.open(ViewProductComponent, {
 
       data: {
@@ -316,7 +325,7 @@ pagefullyLoaded:Boolean=false;
    * On page changed
    * @param result result after page changed
    */
- onPageChanged(result) {
+ onPageChanged(result: { results: any[]; previous: string; next: string; count: number; }) {
   this.products = result.results;
   this.prevPage = result.previous;
   this.nextPage = result.next;
@@ -354,7 +363,7 @@ getShopInfo() {
 
 
 
-filterCategory(category,el: HTMLElement) {
+filterCategory(category: string,el: HTMLElement) {
   this.selectedCategory = category;
   this.ProductsTitle=category +" Products";
 
@@ -363,7 +372,7 @@ filterCategory(category,el: HTMLElement) {
       el.scrollIntoView({behavior: 'smooth'});
   }
 
-filterByCategory(category,el: HTMLElement) {
+filterByCategory(category: string,el: HTMLElement) {
     this.isSearching=true;
     this.ProductsTitle=category +" Products";
     this.selectedCategory = category;
@@ -377,7 +386,7 @@ filterByCategory(category,el: HTMLElement) {
   }
 
 
-  async addProductToCart(product) {
+  async addProductToCart(product: { new_quantity: string | number; name: string; selling_price: string | number; selling_price_usd: string | number; }) {
     const stockQty = +product.new_quantity;
     if (stockQty <= 0) {
       //this.toastr.error('Out of Stock!');
@@ -428,7 +437,7 @@ filterByCategory(category,el: HTMLElement) {
    * Remove item from cart
    * @param id item id
    */
-  removeItemFromCart(id) {
+  removeItemFromCart(id: any) {
     this.productsApiCalls.removeCartItem(id, (error, result) => {
       if (result !== null) {
         // this.getCartItems();
@@ -444,7 +453,7 @@ filterByCategory(category,el: HTMLElement) {
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount_usd), 0);
     }
   }
-  onProductCategorySelected(item) {
+  onProductCategorySelected(item: { name: string; id: any; }) {
     this.onProductGroupSelected.emit(item);
     this.selectedCategory = item.name;
     this.router.navigate(['/mall'], { queryParams: { cid: item.id, category: item.name }, queryParamsHandling: 'merge' });

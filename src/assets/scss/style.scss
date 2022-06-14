@@ -139,6 +139,13 @@ $sports_red: #ff3f3f;
 $watch_red: #ff3800;
 
 $leafgreen: #3A5F0B;
+
+svg .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: inherit;
+}
+.custom-spinner-color {
+  stroke: #026E08 !important;
+}
 // default colors - end
 // ==================================================
 
@@ -59409,4 +59416,11 @@ footer a{
 
 .example-radio-button {
   margin: 5px;
+}
+.spinner-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
 }
