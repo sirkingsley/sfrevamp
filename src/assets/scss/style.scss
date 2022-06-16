@@ -776,7 +776,7 @@ hr {
 }
 
 .ul_li {
-  justify-content: flex-start;
+  justify-content: flex-end !important;
 }
 
 .ul_li_center {
@@ -784,7 +784,7 @@ hr {
 }
 
 .ul_li_right {
-  justify-content: flex-start;
+  justify-content: flex-end !important;
 }
 
 .ul_li_block {
@@ -31997,7 +31997,7 @@ hr {
   justify-content: center;
 }
 .ul_li_right {
-  justify-content: flex-start;
+  justify-content: flex-end !important;
 }
 
 .ul_li_block {

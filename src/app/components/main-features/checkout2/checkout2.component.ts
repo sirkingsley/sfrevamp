@@ -1,12 +1,10 @@
-import { Component, ElementRef, Input, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, Input, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { Title } from '@angular/platform-browser';
 import { Router, ActivatedRoute } from '@angular/router';
-// import { MapsAPILoader } from '@agm/core';
-// import { data, get } from 'jquery';
-// import { async } from 'rxjs';
+
 import { ConfirmOrderPaymentDialogComponent } from '../../commons/confirm-order-payment-dialog/confirm-order-payment-dialog.component';
 import { User } from 'src/app/modules/user';
 import { AppUtilsService } from 'src/app/services/app-utils.service';
@@ -23,6 +21,7 @@ import { DeliveryOptions, DeliveryModeEnum, CurrencyEnums, CountryEnum, Checkout
 import { OrderCompletedDialogComponent } from '../../commons/order-completed-dialog/order-completed-dialog.component';
 import { ConfirmPhoneNumberComponent } from '../../commons/confirm-phone-number/confirm-phone-number.component';
 import { GuestUserComponent } from '../../commons/guest-user/guest-user.component';
+import { WINDOW } from 'src/app/utils/window.provider';
 //import Jquery
 //import * as $ from 'jquery';
 //JavaScript Functions
@@ -102,6 +101,7 @@ export class Checkout2Component implements OnInit {
   featuredShops = [];
   industries = [];
   isProcessingFeaturedShops: boolean;
+  windowLoaded=false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -122,7 +122,8 @@ export class Checkout2Component implements OnInit {
     private getHostname: GetHostnameService,
     private shopsApiCalls: ShopApiCallsService,
     private constantValues: ConstantValuesService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    @Inject(WINDOW) public window: Window,
     ){ }
    //Call JavaScript functions onload
    onload(){
@@ -132,6 +133,10 @@ export class Checkout2Component implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    this.window.addEventListener('load',()=>{
+      this.windowLoaded=true;
+      //alert("hi");
+    })
     this.getCartItems();
     this.getIndustries()
     this.getFeaturedShops({});

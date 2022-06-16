@@ -44,7 +44,8 @@ export interface DialogData {
 declare const custom:any;
 declare const main:any;
 declare const parallaxie: any;
-declare const $: (arg0: string) => { (): any; new(): any; on: { (arg0: string, arg1: { (): void; (): void; }): void; new(): any; }; slideToggle: { (arg0: string): void; new(): any; }; };
+declare const $;
+
 @Component({
   selector: 'app-supermarket',
   templateUrl: './supermarket.component.html',
@@ -53,7 +54,7 @@ declare const $: (arg0: string) => { (): any; new(): any; on: { (arg0: string, a
 
 
 
-export class SupermarketComponent implements OnInit, AfterViewInit {
+export class SupermarketComponent implements OnInit {
 
   @Input() shopName = 'StoreFront Mall';
   shopInfo: any;
@@ -155,16 +156,17 @@ export class SupermarketComponent implements OnInit, AfterViewInit {
 
 
   //Call JavaScript functions onload
-  onload(){
+ //Call JavaScript functions onload
+
+
+
+// @ViewChild('target') target: ElementRef<HTMLElement>;
+
+onload(){
   custom();
   main();
   parallaxie();
 }
-
-
-@ViewChild('target') target: ElementRef<HTMLElement>;
-
-
 
 // ngAfterInit (){
 //   this.route.params.subscribe(param => {
@@ -247,7 +249,6 @@ export class SupermarketComponent implements OnInit, AfterViewInit {
 
     $('.search_btn').on("click",function(){
       $("#search_body_collapse").slideToggle("slow");
-
     });
     this.onload();
 
@@ -256,19 +257,19 @@ export class SupermarketComponent implements OnInit, AfterViewInit {
   }
 
 pagefullyLoaded:Boolean=false;
-  ngAfterViewInit(): void {
-    this.pagefullyLoaded=true;
-      this.route.params.subscribe(param => {
-        if(param['pageSec']){
-        let section = document.querySelector('#silas');
-        //const section = this.container.nativeElement.querySelector(`#${param.pageSec}`)
-        //console.log(section)
+  // ngAfterViewInit(): void {
+  //   this.pagefullyLoaded=true;
+  //     this.route.params.subscribe(param => {
+  //       if(param['pageSec']){
+  //       let section = document.querySelector('#silas');
+  //       //const section = this.container.nativeElement.querySelector(`#${param.pageSec}`)
+  //       //console.log(section)
 
-        section?.scrollIntoView();
-        }
-      })
+  //       section?.scrollIntoView();
+  //       }
+  //     })
 
-    }
+  //   }
   openDialog(item: any) {
     this.dialog.open(ViewProductComponent, {
 

@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
   <div *ngIf="!windowLoaded"  class="container spinner-wrapper">
     <mat-spinner class="custom-spinner-color"></mat-spinner>
 
   </div>
 
-	<body class="home_classic_ecommerce" *ngIf="windowLoaded">
+	<body class="home_classic_ecommerce" >
 
 
 
@@ -28,7 +27,7 @@
 
 	<!-- header_section - start
 		================================================== -->
-	<app-top-nav *ngIf="windowLoaded"  [featuredShops]="featuredShops" [industries]="industries" [target]="target" (htmlTarget)="filterByCategory($event,target)"></app-top-nav>
+	<app-top-nav  [featuredShops]="featuredShops" [industries]="industries" [target]="target" (htmlTarget)="filterByCategory($event,target)"></app-top-nav>
 		<!-- header_section - end
 		================================================== -->
 
@@ -37,15 +36,15 @@
 		<main >
 
 
-
-      <!-- <div *ngIf="!windowLoaded"  class="container spinner-wrapper">
+<!--
+      <div *ngIf="!windowLoaded"  class="container spinner-wrapper">
         <mat-spinner class="custom-spinner-color"></mat-spinner>
 
       </div> -->
 
 			<!-- slider_section - start
 			================================================== -->
-      <app-landing-page *ngIf="windowLoaded"></app-landing-page>
+      <app-landing-page ></app-landing-page>
       <!-- <div >
         <mat-spinner></mat-spinner>
 
