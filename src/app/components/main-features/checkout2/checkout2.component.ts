@@ -38,8 +38,8 @@ declare const $;
 
 export class Checkout2Component implements OnInit {
   panelOpenState = false;
-  selectedD: string;
-  selectedP: string;
+  selectedDelivery: string;
+  selectedPayment: string;
   delivery: string[] = ['Pick up', 'Bolt', 'DHL', 'Uber Delivery', 'Bike Delivery'];
   payments:string[]=['Momo','Vodafone','AirtelTiGo', 'Card']
   isLinear = false;
@@ -53,6 +53,7 @@ export class Checkout2Component implements OnInit {
   promoCodeFormCtrl = new FormControl('', [Validators.required]);
   deliveryMethod: FormGroup;
   addressFormGroup: FormGroup;
+  deliveryAddressFormGroup: FormGroup;
   giftRecipientAddressFormGroup: FormGroup;
   paymentFormGroup: FormGroup;
   latitude: number;
@@ -155,8 +156,23 @@ export class Checkout2Component implements OnInit {
       latitude: [''],
       longitude: [''],
       order_items: [[]],
-      shops: [[]]
+      shops: [[]],
+
     });
+    this.deliveryAddressFormGroup=this.formBuilder.group({
+      address: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+     // location: ['', Validators.required],
+      order_notes: [''],
+      order_items: [this.cartItems],
+      shops: [[]],
+      location: ['my location', Validators.required],
+      delivery_option: [''],
+      delivery_mode: [DeliveryModeEnum.INSTANT],
+      latitude: [''],
+      longitude: [''],
+    })
     this.giftRecipientAddressFormGroup = this.formBuilder.group({
       gift_recipient_name: ['', Validators.required],
       gift_recipient_email: ['', [Validators.required, Validators.email]],
@@ -408,9 +424,16 @@ export class Checkout2Component implements OnInit {
         console.log("orderService.updateDeliveryAddress not null");
         this.authService.saveUser(result.results);
         this.getDeliveryCharge(data);
+        this.notificationsService.success("","Address saved");
       }
     });
   }
+  updateDeliveryAddressTest(data){
+    console.log(data);
+
+
+  }
+
   /**
    * Get delivery charge basd on the location provided
    * @param data request payload
@@ -703,7 +726,13 @@ export class Checkout2Component implements OnInit {
   get state_ctrl() { return this.addressFormGroup.get('state'); }
   get city_ctrl() { return this.addressFormGroup.get('city'); }
   get delivery_mode() { return this.addressFormGroup.get('delivery_mode'); }
-  get order_notes(){return this.addressFormGroup.get('order_notes'); }
+  get order_notes_ctrl(){return this.addressFormGroup.get('order_notes'); }
+
+  get address_ctr() { return this.deliveryAddressFormGroup.get('address'); }
+  get state() { return this.deliveryAddressFormGroup.get('state'); }
+  get city() { return this.deliveryAddressFormGroup.get('city'); }
+  get order_notes(){return this.deliveryAddressFormGroup.get('order_notes'); }
+  get order_items(){ return this.cartItems;}
 
   get gift_recipient_name() { return this.giftRecipientAddressFormGroup.get('gift_recipient_name'); }
   get gift_recipient_email() { return this.giftRecipientAddressFormGroup.get('gift_recipient_email'); }

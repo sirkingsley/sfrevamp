@@ -20,8 +20,10 @@ const forceSSL = function() {
     next();
   }
 }
+
 app.use(forceSSL());
 const path = require('path');
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname + '/dist/index.html'));
 });
+
