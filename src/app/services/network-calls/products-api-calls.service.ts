@@ -94,6 +94,7 @@ export class ProductsApiCallsService {
         }
       }else{
         console.log("Cart is null");
+        await this._addProductToCart(data, callback);
       }
 
     });
