@@ -28,7 +28,7 @@ import { JsonpClientBackend } from '@angular/common/http';
 import { User } from 'src/app/modules/user';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { LoginComponent } from 'src/app/components/commons/login/login.component';
-import { WINDOW } from 'src/app/utils/window.provider';
+//import { WINDOW } from 'src/app/utils/window.provider';
 
 
 
@@ -150,7 +150,7 @@ export class SupermarketComponent implements OnInit {
     private toastr: ToastrService,
     private authService: AuthService,
     private route: ActivatedRoute,
-    @Inject(WINDOW) public window: Window,
+    //@Inject(WINDOW) public window: Window,
 
   ) { }
 
@@ -181,10 +181,10 @@ onload(){
 // }
 
   async ngOnInit(): Promise<void> {
-    this.window.addEventListener('load',()=>{
-      this.windowLoaded=true;
-      // alert("hi");
-    })
+    // this.window.addEventListener('load',()=>{
+    //   this.windowLoaded=true;
+    //   // alert("hi");
+    // })
     this.subdomain = this.getHostname.subDomain;
     // this.subdomain = this.constantValues.GTP_SUBDOMAIN;
     this.gtpSubdomin = this.constantValues.GTP_SUBDOMAIN;
@@ -503,7 +503,7 @@ filterByCategory(category: string,el: HTMLElement) {
   }
 
   openCartDialog(): void {
-    this.dialog.open(CartPopUpComponent,{panelClass: ['animate__animated','animate__slideInRight']}
+    this.dialog.open(CartPopUpComponent
 
    );
   }
