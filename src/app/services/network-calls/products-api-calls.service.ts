@@ -92,6 +92,8 @@ export class ProductsApiCallsService {
           console.log('service calling private add to cart method');
           await this._addProductToCart(data, callback);
         }
+      }else{
+        console.log("Cart is null");
       }
 
     });
