@@ -69,6 +69,7 @@ export class ProductsApiCallsService {
     console.log('service add to cart starting');
     await this.getCartItems(async (error, result) => {
       if (result !== null) {
+        console.log('service get cart worked');
         const itm: any[] = result;
         const exists = itm.find(el => el.item.id === data.item.id);
         if (exists !== null && exists !== undefined && exists !== '') {
@@ -88,6 +89,7 @@ export class ProductsApiCallsService {
             }
           });
         } else {
+          console.log('service calling private add to cart method');
           await this._addProductToCart(data, callback);
         }
       }
@@ -122,6 +124,7 @@ export class ProductsApiCallsService {
   }
   private async _addProductToCart(data, callback: ICallback) {
     await this.localStorageDataProvider.create(localStoreNames.order, data).subscribe(id => {
+      console.log('service added to local storage');
       callback(null, id);
       console.log('service id--'+JSON.stringify(id,null,2));
     // tslint:disable-next-line: variable-name
