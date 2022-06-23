@@ -31,7 +31,7 @@
     </div>
   </div>
   <div mat-dialog-actions class="text-right" style="justify-content: flex-end;" *ngIf="isTransactionStatusDelayed || isFailed">
-    <button mat-raised-button [disabled]="isProcessing" class="mr-2" (click)="close()">CLOSE</button>
+    <button mat-raised-button [disabled]="isProcessing" class="mr-2" (click)="close()" >CLOSE</button>
     <button mat-raised-button color="primary" [disabled]="isProcessing" (click)="checkMoMoStatus(transactionId)">TRY
       AGAIN</button>
   </div>

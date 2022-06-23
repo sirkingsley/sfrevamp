@@ -705,9 +705,9 @@
                     </mat-expansion-panel-header>
                     <div id="coupon_collapse" class="collapse_form_wrap">
                       <div class="card-body">
-                        <form action="#">
+                        <form [formGroup]="promoCodeFormGroup" (ngSubmit)="getPromoCodeValue(promoCodeFormGroup?.value)" >
                           <div class="form_item">
-                            <input type="text" name="coupon" placeholder="Coupon Code">
+                            <input type="text" name="coupon" placeholder="Coupon Code" >
                           </div>
                           <button type="submit" class="custom_btn bg_default_red">Apply coupon</button>
                         </form>
@@ -731,16 +731,36 @@
               aria-labelledby="example-radio-group-label"
               class="example-radio-group"
               [(ngModel)]="selectedDelivery">
-              <mat-radio-button class="example-radio-button" *ngFor="let option of delivery" [value]="option">
-                {{option}}
+              <mat-radio-button class="example-radio-button"  [value]="deliveryOptions?.DHL_DELIVERY">
+                DHL DELIVERY
               </mat-radio-button>
+              <mat-radio-button class="example-radio-button"  [value]="deliveryOptions?.GH_BIKE_DELIVERY">
+                GH BIKE DELIVERY
+              </mat-radio-button>
+              <mat-radio-button class="example-radio-button"  [value]="deliveryOptions?.NG_BIKE_DELIVERY">
+                NG BIKE DELIVERY
+              </mat-radio-button>
+              <mat-radio-button class="example-radio-button"  [value]="deliveryOptions?.BOLT_DELIVERY">
+                BOLT DELIVERY
+              </mat-radio-button>
+              <mat-radio-button class="example-radio-button"  [value]="deliveryOptions?.UBER_DELIVERY">
+                UBER DELIVERY
+              </mat-radio-button>
+              <mat-radio-button class="example-radio-button"  [value]="deliveryOptions?.PICKUP">
+                PICKUP
+              </mat-radio-button>
+              <mat-radio-button class="example-radio-button"   [value]="deliveryOptions?.GIFT">
+                FATHER'S DAY GIFT
+              </mat-radio-button>
+
+
             </mat-radio-group>
           </div>
-        <div>Your Selected option is: {{selectedDelivery}} </div>
+        <!-- <div>Your Selected option is: {{selectedDelivery}} </div> -->
 
-					<div class="billing_form mb_50" *ngIf="selectedDelivery!=='Pick up'">
+					<div class="billing_form mb_50" *ngIf="selectedDelivery!==deliveryOptions?.PICKUP">
 						<h3 class="form_title mb_30">Delivery details</h3>
-						<form [formGroup]="deliveryAddressFormGroup" (ngSubmit)="updateDeliveryAddress(deliveryAddressFormGroup?.value)" >
+						<form [formGroup]="addressFormGroup" (ngSubmit)="updateDeliveryAddress(addressFormGroup?.value)" >
 							<div class="form_wrap">
 
 								<!-- <div class="row">
@@ -814,10 +834,17 @@
 								<!-- <div class="checkbox_item mb_30">
 									<label for="ship_address_checkbox"><input id="ship_address_checkbox" type="checkbox"> Ship to a different address?</label>
 								</div> -->
+                <div class="form_item">
+									<span class="input_title">Location<sup>*</sup></span>
+                  <input type="text" placeholder="Location" formControlName="location">
+                  <mat-error *ngIf="location?.invalid && location?.touched">
+                    Please enter location
+                  </mat-error>
+								</div>
 
 								<div class="form_item mb-0">
 									<span class="input_title">Order notes<sup>*</sup></span>
-									<textarea formControlName="order_notes" placeholder="Note about your order, eg. special notes fordelivery."></textarea>
+									<textarea formControlName="order_note" placeholder="Note about your order, eg. special notes fordelivery."></textarea>
 								</div>
 
                 <div class="" style="display: flex;
@@ -830,7 +857,7 @@
                                             color: #fff;
                                             padding: 2px 5px;
                                             border-radius: 2px;"
-                                            [disabled]="!deliveryAddressFormGroup.valid"
+                                            [disabled]="!addressFormGroup.valid"
                                             >Save Address</button>
 								</div>
 
@@ -841,11 +868,12 @@
 					</div>
 
 					<div class="billing_form">
+            <form [formGroup]="paymentFormGroup" (ngSubmit)="placeOrder(paymentFormGroup?.value)">
 						<h3 class="form_title mb_30">Your order</h3>
-
+            <app-empty-record *ngIf="cartItems?.length <= 0 && !isProcessing"></app-empty-record>
 							<div class="form_wrap">
 
-								<div class="checkout_table">
+								<div class="checkout_table" *ngIf="cartItems.length>0">
 									<table class="table text-center mb_50">
 										<thead class="text-uppercase text-uppercase">
 											<tr>
@@ -856,73 +884,41 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
+											<tr *ngFor="let item of cartItems; let i=index">
 												<td>
 													<div class="cart_product">
 														<div class="item_image">
-															<img src="../../assets/images/reg_bg_02.png" alt="image_not_found">
+															<img src="{{item.item.image}}" onerror="this.src='../../assets/images/reg_bg_02.png'" alt="image_not_found">
 														</div>
 														<div class="item_content">
-															<h4 class="item_title mb-0">Top Curabitur Lectus</h4>
+															<h4 class="item_title mb-0">{{item.item.name}}</h4>
 														</div>
 													</div>
 												</td>
 												<td>
-													<span class="price_text">$69.00</span>
+                          <span class="price_text"*ngIf="item?.country === countriesEnum?.GH || item?.country === item?.countriesEnum?.NG || item?.country === '' || item?.country === undefined">
+                            {{item?.item?.currency}} {{item?.item?.selling_price | number: '1.2-2'}}
+                          </span>
+                          <span class="price_text"  *ngIf="item?.country !== countriesEnum?.GH && item?.country !== item?.countriesEnum?.NG && item?.country !== '' && item?.country !== undefined">
+                            $ {{item?.item?.selling_price_usd | number: '1.2-2'}}
+                          </span>
 												</td>
 												<td>
-													<span class="quantity_text">2</span>
+													<span class="quantity_text">{{item?.quantity}}</span>
 												</td>
-												<td><span class="total_price">$138.00</span></td>
+												<td><span class="total_price">{{item?.item?.currency}} {{item?.total_amount | number: '1.2-2'}}</span></td>
 											</tr>
 
-											<tr>
-												<td>
-													<div class="cart_product">
-														<div class="item_image">
-															<img src="../../assets/images/reg_bg_02.png" alt="image_not_found">
-														</div>
-														<div class="item_content">
-															<h4 class="item_title mb-0">Dress Lobortis Laculis</h4>
-														</div>
-													</div>
-												</td>
-												<td>
-													<span class="price_text">$69.00</span>
-												</td>
-												<td>
-													<span class="quantity_text">2</span>
-												</td>
-												<td><span class="total_price">$138.00</span></td>
-											</tr>
 
-											<tr>
-												<td>
-													<div class="cart_product">
-														<div class="item_image">
-															<img src="../../assets/images/reg_bg_02.png" alt="image_not_found">
-														</div>
-														<div class="item_content">
-															<h4 class="item_title mb-0">Boot Curabitur Lectus</h4>
-														</div>
-													</div>
-												</td>
-												<td>
-													<span class="price_text">$69.00</span>
-												</td>
-												<td>
-													<span class="quantity_text">2</span>
-												</td>
-												<td><span class="total_price">$138.00</span></td>
-											</tr>
+
 
 											<tr>
 												<td></td>
 												<td></td>
 												<td>
-													<span class="subtotal_text">Subtotal</span>
+													<span class="subtotal_text">{{currency}} {{subTotal | number: '1.2-2'}}</span>
 												</td>
-												<td><span class="total_price">$414.00</span></td>
+												<td><span class="total_price">{{currency}} {{subTotal | number: '1.2-2'}}</span></td>
 											</tr>
 
 											<tr>
@@ -966,7 +962,7 @@
 												<td></td>
 												<td></td>
 												<td>
-													<span class="total_price">$135.00</span>
+													<span class="total_price">{{currency}} {{subTotal | number: '1.2-2'}}</span>
 												</td>
 											</tr>
 										</tbody>
@@ -975,19 +971,42 @@
 
 								<div class="billing_payment_mathod">
 
-                  <div class="alert alert-info">Payment Option</div>
+
                   <div class="container">
                     <label id="example-radio-group-label">Pick your Payment Option</label>
-                    <mat-radio-group
+                    <mat-radio-group formControlName="payment_method"
                       aria-labelledby="example-radio-group-label"
-                      class="example-radio-group"
-                      [(ngModel)]="selectedPayment">
-                      <mat-radio-button class="example-radio-button" *ngFor="let option of payments" [value]="option">
-                        {{option}}
+                      class="example-radio-group">
+                      <mat-radio-button class="example-radio-button" [value]="'MOMO'"  (click)="selectPaymentMethod('MOMO', 'MTN', 'MTN MOMO')">
+                        MTN MOMO
+                      </mat-radio-button>
+                      <mat-radio-button class="example-radio-button" [value]="'MOMO'"  (click)="selectPaymentMethod('MOMO', 'VODAF', 'VODAFONE CASH')" >
+                        VODAFONE CASH
+                      </mat-radio-button>
+                      <mat-radio-button class="example-radio-button" [value]="'ATG'"  (click)="selectPaymentMethod('MOMO', 'AIR', 'AIRTELTIGO CASH')" >
+                        AIRTELTIGO CASH
+                      </mat-radio-button>
+                      <mat-radio-button class="example-radio-button"  [value]="'CARD'" (click)="selectPaymentMethod('CARD', '', '')">
+                        CARD PAYMENT
                       </mat-radio-button>
                     </mat-radio-group>
                   </div>
-                <div>Your Prefered option is: {{selectedPayment}}</div>
+
+                <p class="alert alert-info alert-dismissable mt-2" *ngIf="paymentMethod === 'MOMO'">Plese provide MoMo
+                  Number and click <b>COMPLETE ORDER PAYMENT</b> <span *ngIf="subdomain" > to pay for  <b>GHS {{currency}} {{subTotal | number: '1.2-2'}}</b></span></p>
+                <p class="" *ngIf="paymentMethod == 'MOMO' && paymentNetwork === 'VOD'">
+                  Dial <b>*110#</b> and select option <b>6</b> to generate your voucher code
+                </p>
+                <div class="form-group my-4 confirm-wrappar" *ngIf="paymentMethod === 'MOMO'">
+                  <div class="col-md-12 col-sm-12 col-xs-12 pl-0 pr-0 payment-methods-input">
+                    <input type="text" placeholder="Phone Number" numberOnly formControlName="sender_wallet_number">
+                  </div>
+                  <div class="col-md-12 col-sm-12 col-xs-12 mt-2 pl-0 pr-0 payment-methods-input"
+                    *ngIf="paymentMethod === 'MOMO' && paymentNetwork === 'VODAF'">
+                    <input type="text" placeholder="Voucher Code" numberOnly formControlName="payment_voucher_code">
+                  </div>
+
+                </div>
 
 
 									<!-- <ul class="ul_li_block clearfix">
@@ -1016,11 +1035,12 @@
 											</div>
 										</li>
 									</ul> -->
-									<button type="submit" class="custom_btn bg_default_red">PLACE ORDER</button>
+									<button type="submit" class="custom_btn bg_default_red" [disabled]="paymentMethod==='' || paymentMethod===undefined ||paymentMethod===null && paymentFormGroup?.invalid">PLACE ORDER</button>
 								</div>
 
-							</div>
 
+							</div>
+            </form>
 					</div>
 
 				</div>

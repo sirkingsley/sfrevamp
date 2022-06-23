@@ -15,7 +15,9 @@
 "
   (click)="close()"><i style="font-weight: bold; color: #000" class="bi bi-x-lg"></i></span>
 </div>
-<div class="cart_table mb_50"
+
+<app-empty-record *ngIf="cartItems?.length <= 0 && !isProcessing"></app-empty-record>
+<div class="cart_table mb_50" *ngIf="cartItems.length>0"
     style="
     max-height: 50vh;
     overflow-y: scroll;" >
@@ -30,7 +32,7 @@
     </thead>
     <tbody >
 
-      <tr>
+      <tr *ngFor="let item of cartItems; let i=index">
         <td >
           <div class="cart_product">
             <div class="item_image cart-image">
@@ -38,16 +40,19 @@
                style="
                 width: 80px !important;
                 height: auto !important;"
-              src="../../assets/images/reg_bg_02.png}" onerror="this.src='../../assets/images/reg_bg_02.png'" alt="image_not_found">
+              src="{{item.item.image}}" onerror="this.src='../../assets/images/reg_bg_02.png'" alt="image_not_found">
             </div>
             <div class="item_content">
-              <h4 class="item_title">Product Name</h4>
-              <span class="item_type" routerLink="/shop-details">Shop Name</span>
-              <span class="price_text">
-                Ghc 39.00
+              <h4 class="item_title">{{item.item.name}}</h4>
+              <span class="item_type" routerLink="/shop-details" style="cursor: pointer; color: #228b27;" >{{item.item.myshop.business_name}}</span>
+              <span class="price_text"*ngIf="item?.country === countriesEnum?.GH || item?.country === item?.countriesEnum?.NG || item?.country === '' || item?.country === undefined">
+                {{item?.item?.currency}} {{item?.item?.selling_price | number: '1.2-2'}}
+              </span>
+              <span class="price_text"  *ngIf="item?.country !== countriesEnum?.GH && item?.country !== item?.countriesEnum?.NG && item?.country !== '' && item?.country !== undefined">
+                $ {{item?.item?.selling_price_usd | number: '1.2-2'}}
               </span>
             </div>
-            <button type="button" class="remove_btn">
+            <button type="button" class="remove_btn" (click)="removeItemFromCart(item.id)">
               <i class="fal fa-times"></i>
             </button>
           </div>
@@ -61,95 +66,17 @@
         <td>
           <div class="quantity_input">
             <form action="#">
-              <span class="input_number_decrement" >–</span>
+              <span class="input_number_decrement" (click)="reduceQty(item)" >–</span>
               <!-- <input class="input_number" type="text" value="{{item.quantity}}"> -->
-              <span>1</span>
-              <span class="input_number_increment" >+</span>
+              <span>{{item?.quantity}}</span>
+              <span class="input_number_increment" (click)="addQty(item)">+</span>
             </form>
           </div>
         </td>
-        <td><span class="total_price"> Ghc 298</span></td>
+        <td><span class="total_price"> {{item?.item?.currency}} {{item?.total_amount | number: '1.2-2'}}</span></td>
       </tr>
-      <tr>
-        <td >
-          <div class="cart_product">
-            <div class="item_image cart-image">
-              <img
-               style="
-                width: 80px !important;
-                height: auto !important;"
-              src="../../assets/images/reg_bg_02.png}" onerror="this.src='../../assets/images/reg_bg_02.png'" alt="image_not_found">
-            </div>
-            <div class="item_content">
-              <h4 class="item_title">Product Name</h4>
-              <span class="item_type" routerLink="/shop-details">Shop Name</span>
-              <span class="price_text">
-                Ghc 39.00
-              </span>
-            </div>
-            <button type="button" class="remove_btn">
-              <i class="fal fa-times"></i>
-            </button>
-          </div>
-        </td>
-        <!-- <td>
-          <span class="price_text">
-            Ghc 39.00
-          </span>
 
-        </td> -->
-        <td>
-          <div class="quantity_input">
-            <form action="#">
-              <span class="input_number_decrement" >–</span>
-              <!-- <input class="input_number" type="text" value="{{item.quantity}}"> -->
-              <span>1</span>
-              <span class="input_number_increment" >+</span>
-            </form>
-          </div>
-        </td>
-        <td><span class="total_price"> Ghc 298</span></td>
-      </tr>
-      <tr>
-        <td >
-          <div class="cart_product">
-            <div class="item_image cart-image">
-              <img
-               style="
-                width: 80px !important;
-                height: auto !important;"
-              src="../../assets/images/reg_bg_02.png" onerror="this.src='../../assets/images/reg_bg_02.png'" alt="image_not_found">
-            </div>
-            <div class="item_content">
-              <h4 class="item_title">Product Name</h4>
-              <span class="item_type" routerLink="/shop-details">Shop Name</span>
-              <span class="price_text">
-                Ghc 39.00
-              </span>
-            </div>
-            <button type="button" class="remove_btn">
-              <i class="fal fa-times"></i>
-            </button>
-          </div>
-        </td>
-        <!-- <td>
-          <span class="price_text">
-            Ghc 39.00
-          </span>
 
-        </td> -->
-        <td>
-          <div class="quantity_input">
-            <form action="#">
-              <span class="input_number_decrement" >–</span>
-              <!-- <input class="input_number" type="text" value="{{item.quantity}}"> -->
-              <span>1</span>
-              <span class="input_number_increment" >+</span>
-            </form>
-          </div>
-        </td>
-        <td><span class="total_price"> Ghc 298</span></td>
-      </tr>
 
 
     </tbody>
@@ -157,9 +84,9 @@
 
 </div>
 <div class="container cart-total">
-  <h3>Total <span>GHC 100.00</span></h3>
+  <h3>Total <span>{{currency}} {{subTotal | number: '1.2-2'}}</span></h3>
 </div>
 <div class=" container cart-action-wrapper">
   <button class="btn-shop" (click)="close()" >Continue Shoping</button>
-  <button class="btn-checkout" [routerLink]="['/checkout2']" (click)="close()" >Checkout</button>
+  <button *ngIf="cartItems.length>0" class="btn-checkout" [routerLink]="['/checkout2']" (click)="close()" >Checkout</button>
 </div>

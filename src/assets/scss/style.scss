@@ -15692,13 +15692,13 @@ button {
   color: $primary-color;
   border-radius: 2px;
   padding: 2px 5px;
-  transition: 0.3s;
+  transition: all 0.5s ease;
 }
 
 .mat-button-wrapper:hover{
   background-color: $secondary-color-2;
   color: $text_white;
-  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+
 }
 .bt-yellow {
   background: #3a9643 !important;
@@ -19561,7 +19561,7 @@ blockquote .blockquote_title {
   font-family: "Jost", sans-serif;
 }
 .checkout_collapse_content .wrap_heade a:hover {
-  color: #ce0b2b;
+  color: $secondary-color-2;
 }
 .checkout_collapse_content .card-body {
   border-top: 2px solid #e6e6e6;
@@ -48423,7 +48423,7 @@ blockquote {
 		}
 		&.bg_default_red {
 			&:before {
-				border-top: 12px solid $primary-color-light;
+				border-top: 12px solid $primary-color;
 			}
 		}
 		&.bg_default_black {
@@ -48622,7 +48622,7 @@ blockquote {
 	background-color: $default_black;
 }
 .bg_default_red {
-	background-color: $primary-color-light;
+	background-color: $primary-color;
 }
 
 .bg_danger {
@@ -59365,7 +59365,8 @@ footer a{
     color: #ffffff;
     background-color: $secondary-color-2;
     border-radius: 2px;
-    transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: all 0.5s ease;
+
 
     &:hover{
       background-color: $primary-color;
@@ -59423,4 +59424,21 @@ footer a{
   align-items: center;
   width: 100%;
   height: 100vh;
+}
+
+.confirm-wrappar input{
+  border: 1px solid #026E08;
+  background-color: #f1f1f1;
+  transition: all 0.5s ease;
+
+}
+
+.confirm-wrappar input:focus{
+  box-shadow:
+  1px 1px $text-grey,
+  2px 2px $text-grey,
+  3px 3px $text-grey;
+-webkit-transform: translateX(-3px);
+transform: translateX(-3px);
+
 }
