@@ -503,7 +503,7 @@ filterByCategory(category: string,el: HTMLElement) {
   }
 
   openCartDialog(): void {
-    this.dialog.open(CartPopUpComponent
+    this.dialog.open(CartPopUpComponent,{panelClass: ['animate__animated','animate__slideInRight']}
 
    );
   }
