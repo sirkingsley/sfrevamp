@@ -66,6 +66,7 @@ export class ProductsApiCallsService {
    * @param callback ICallback function that returns an error or result
    */
   async addProductToCart(data, callback: ICallback) {
+    console.log('service add to cart starting');
     await this.getCartItems(async (error, result) => {
       if (result !== null) {
         const itm: any[] = result;
@@ -82,6 +83,7 @@ export class ProductsApiCallsService {
           }
           await this.removeCartItem(exists.id, async (_error, _result) => {
             if (_result !== null) {
+              console.log("service  item removed and adding..");
               await this._addProductToCart(data, callback);
             }
           });
@@ -121,6 +123,7 @@ export class ProductsApiCallsService {
   private async _addProductToCart(data, callback: ICallback) {
     await this.localStorageDataProvider.create(localStoreNames.order, data).subscribe(id => {
       callback(null, id);
+      console.log('service id--'+JSON.stringify(id,null,2));
     // tslint:disable-next-line: variable-name
     }, _error => {
       callback(_error, null);
