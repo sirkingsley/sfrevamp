@@ -126,6 +126,7 @@ export class ProductsApiCallsService {
     });
   }
   private async _addProductToCart(data, callback: ICallback) {
+    console.log('service adding to local storage...');
     await this.localStorageDataProvider.create(localStoreNames.order, data).subscribe(id => {
       console.log('service added to local storage');
       callback(null, id);
