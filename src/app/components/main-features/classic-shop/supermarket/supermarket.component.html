@@ -288,7 +288,7 @@
                   </div>
                   <ul class="product_action_btns ul_li_center clearfix">
                     <!-- <li><a class="tooltips" data-placement="top" title="Add To Wishlist" href="#!"><i class="fal fa-heart"></i></a></li> -->
-                    <li><a class="tooltips"  title="Add To Cart" (click)="addProductToCart(item)" (click)="openCartDialog()" ><i class="fal fa-shopping-basket"></i></a></li>
+                    <li><a class="tooltips"  title="Add To Cart" (click)="addProductToCart(item)"  ><i class="fal fa-shopping-basket"></i></a></li>
                     <li><a class="tooltips q-v" title="Quick View" (click)="openDialog(item)" ><i class="fal fa-eye"></i></a></li>
                   </ul>
                 </div>
@@ -303,7 +303,7 @@
                   </ul>
                   <span class="item_price"><strong>{{item.currency}} {{item.price_list[0]?.selling_price}} </strong> <del>{{item.currency}} {{item.price_list[0]?.selling_price*2}}</del></span>
 
-                  <button class="mat-button-wrapper mt-3" (click)="addProductToCart(item)" (click)="openCartDialog()">ADD TO CART</button>
+                  <button class="mat-button-wrapper mt-3" (click)="addProductToCart(item)" >ADD TO CART</button>
                 </div>
               </div>
             </div>
