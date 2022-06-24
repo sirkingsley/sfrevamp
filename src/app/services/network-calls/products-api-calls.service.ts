@@ -66,10 +66,10 @@ export class ProductsApiCallsService {
    * @param callback ICallback function that returns an error or result
    */
   async addProductToCart(data, callback: ICallback) {
-    console.log('service add to cart starting');
+    //console.log('service add to cart starting');
     await this.getCartItems(async (error, result) => {
       if (result !== null) {
-        console.log('service get cart worked');
+        //console.log('service get cart worked');
         const itm: any[] = result;
         const exists = itm.find(el => el.item.id === data.item.id);
         if (exists !== null && exists !== undefined && exists !== '') {
@@ -84,16 +84,16 @@ export class ProductsApiCallsService {
           }
           await this.removeCartItem(exists.id, async (_error, _result) => {
             if (_result !== null) {
-              console.log("service  item removed and adding..");
+              //console.log("service  item removed and adding..");
               await this._addProductToCart(data, callback);
             }
           });
         } else {
-          console.log('service calling private add to cart method');
+          //console.log('service calling private add to cart method');
           await this._addProductToCart(data, callback);
         }
       }else{
-        console.log("Cart is null");
+        //console.log("Cart is null");
         await this._addProductToCart(data, callback);
       }
 
@@ -126,11 +126,11 @@ export class ProductsApiCallsService {
     });
   }
   private async _addProductToCart(data, callback: ICallback) {
-    console.log('service adding to local storage...');
+    //console.log('service adding to local storage...');
     await this.localStorageDataProvider.create(localStoreNames.order, data).subscribe(id => {
-      console.log('service added to local storage');
+     // console.log('service added to local storage');
       callback(null, id);
-      console.log('service id--'+JSON.stringify(id,null,2));
+      //console.log('service id--'+JSON.stringify(id,null,2));
     // tslint:disable-next-line: variable-name
     }, _error => {
       callback(_error, null);

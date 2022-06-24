@@ -15686,20 +15686,20 @@ button {
 
 
 }
-.mat-button-wrapper{
-  border: 1px solid $secondary-color-2;
-  //background-color: white;
-  color: $primary-color;
-  border-radius: 2px;
-  padding: 2px 5px;
-  transition: all 0.5s ease;
-}
+// .mat-button-wrapper{
+//   border: 1px solid $secondary-color-2;
+//   //background-color: white;
+//   color: $primary-color;
+//   border-radius: 2px;
+//   padding: 2px 5px;
+//   transition: all 0.5s ease;
+// }
 
-.mat-button-wrapper:hover{
-  background-color: $secondary-color-2;
-  color: $text_white;
+// .mat-button-wrapper:hover{
+//   background-color: $secondary-color-2;
+//   color: $text_white;
 
-}
+// }
 .bt-yellow {
   background: #3a9643 !important;
   color: #fff !important;
@@ -59441,4 +59441,19 @@ footer a{
 -webkit-transform: translateX(-3px);
 transform: translateX(-3px);
 
+}
+.confirm-order-payment-heading {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+}
+.confirm-order-payment-heading-desc {
+  text-align: center;
+  color: #666666;
+}
+.spinner-img {
+  width: 100px;
+}
+.order-payment-instruction-desc {
+  color: #666666;
 }

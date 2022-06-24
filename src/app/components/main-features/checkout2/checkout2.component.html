@@ -636,10 +636,12 @@
 						<li><a><span>03.</span> Order Completed</a></li>
 					</ul>
 
-
+          <!-- <div class="container m-5">
+            <button (click)="openD()" >Open Dialog</button>
+          </div> -->
 
 					<div class="row">
-						<div class="col-lg-6 ">
+						<div class="col-lg-6 "*ngIf="!isLoggedIn" >
               <div class="checkout_collapse_content" >
               <mat-accordion>
                 <mat-expansion-panel hideToggle class="py-3">
@@ -657,24 +659,36 @@
                   </mat-expansion-panel-header>
                   <div id="" class="collapse_form_wrap">
                     <div class="card-body">
-                      <form action="#">
+                      <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup?.value)" >
                         <div class="row">
-                          <div class="col-lg-6">
+                          <!-- <div class="col-lg-6">
                             <div class="form_item">
-                              <input type="email" name="email" placeholder="Email">
+                              <input type="text" placeholder="Full name" formControlName="customer_name">
                             </div>
                           </div>
                           <div class="col-lg-6">
                             <div class="form_item">
-                              <input type="password" name="password" placeholder="Password">
+                              <input type="email" placeholder="Email" formControlName="email">
+                            </div>
+                          </div> -->
+                          <div class="col-lg-6">
+                            <div class="form_item">
+                              <input type="tel"  placeholder="Phone number" formControlName="phone_number">
+                            </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <div class="form_item">
+                              <input type="password"  placeholder="Password" formControlName="password">
                             </div>
                           </div>
                         </div>
-                        <div class="login_button">
+                        <mat-progress-bar *ngIf="isProcessing"  class="mb-3" mode="indeterminate"></mat-progress-bar>
+                        <div class="login_button" *ngIf="!formGroup?.invalid">
                           <div class="checkbox_item">
                             <label for="remember_checkbox"><input id="remember_checkbox" type="checkbox"> Remember me</label>
                           </div>
-                          <button type="submit" class="custom_btn bg_default_red">Login Now</button>
+
+                          <button [disabled]="formGroup?.invalid || isProcessing" type="submit" class="custom_btn bg_default_red">Login Now</button>
                         </div>
                       </form>
                     </div>
@@ -796,7 +810,7 @@
 
 								<div class="form_item">
 									<span class="input_title">Address<sup>*</sup></span>
-									<input type="text" formControlName="address" placeholder="House number and street name">
+									<input type="text"  formControlName="address" placeholder="House number and street name">
 								</div>
 
 								<div class="form_item">

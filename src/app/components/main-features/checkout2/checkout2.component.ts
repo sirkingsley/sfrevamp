@@ -1,3 +1,4 @@
+
 import { Component, ElementRef, Inject, Input, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -22,6 +23,8 @@ import { OrderCompletedDialogComponent } from '../../commons/order-completed-dia
 import { ConfirmPhoneNumberComponent } from '../../commons/confirm-phone-number/confirm-phone-number.component';
 import { GuestUserComponent } from '../../commons/guest-user/guest-user.component';
 import { WINDOW } from 'src/app/utils/window.provider';
+import { LoginUpdateService } from 'src/app/services/login-update.service';
+import { CustomersApiCallsService } from 'src/app/services/network-calls/customers-api-calls.service';
 //import Jquery
 //import * as $ from 'jquery';
 //JavaScript Functions
@@ -72,7 +75,7 @@ export class Checkout2Component implements OnInit {
   transactionFee = 0;
   deliveryChargeAmount = 0;
   private geoCoder;
-  currentUser: User;
+  //currentUser: User;
   cartItems = [];
   currency = '';
   subTotal = 0;
@@ -104,6 +107,12 @@ export class Checkout2Component implements OnInit {
   industries = [];
   isProcessingFeaturedShops: boolean;
   windowLoaded=false;
+  formGroup: FormGroup;
+  isLoggedIn = false;
+  currentUser: User;
+
+  btnText = 'SIGN IN';
+  heading = 'Sign In';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -125,20 +134,29 @@ export class Checkout2Component implements OnInit {
     private shopsApiCalls: ShopApiCallsService,
     private constantValues: ConstantValuesService,
     private _formBuilder: FormBuilder,
-    @Inject(WINDOW) public window: Window,
+    //@Inject(WINDOW) public window: Window,
+    private customersApiCalls: CustomersApiCallsService,
+
+    //private dialogRef: MatDialogRef<LoginComponent>,
+    private loginUpdate: LoginUpdateService,
+    //@Inject(MAT_DIALOG_DATA) public data: any,
+
     ){ }
    //Call JavaScript functions onload
    onload(){
     custom();
     main();
-    parallaxie();
+    //parallaxie();
   }
 
   async ngOnInit(): Promise<void> {
-    this.window.addEventListener('load',()=>{
-      this.windowLoaded=true;
-      //alert("hi");
-    })
+    this.isLoggedIn = this.authService.isLogedIn;
+    this.currentUser = this.authService.currentUser;
+    //console.log(this.currentUser);
+    // this.window.addEventListener('load',()=>{
+    //   this.windowLoaded=true;
+    //   //alert("hi");
+    // })
     this.getCartItems();
     this.getIndustries()
     this.getFeaturedShops({});
@@ -188,6 +206,13 @@ export class Checkout2Component implements OnInit {
       delivery_fee: [''],
       promo_code: [''],
       order_items: [[]]
+    });
+
+    this.formGroup = new FormGroup({
+      phone_number: new FormControl('', [Validators.required]),
+      password: new FormControl(''),
+      email: new FormControl('', [Validators.email]),
+      customer_name: new FormControl('')
     });
 
 
@@ -567,7 +592,7 @@ export class Checkout2Component implements OnInit {
       data.checkout_type = 'USD_ONLY';
       data.product_variants = this.getProductVariants;
     }
-    console.log(JSON.stringify(data,null,2))
+    //console.log(JSON.stringify(data,null,2))
     this.orderService.placeOrder(data, (error, result) => {
       this.isProcessing = false;
       if (result !== null && result.transaction_id !== '' && result.transaction_id !== undefined) {
@@ -587,6 +612,7 @@ export class Checkout2Component implements OnInit {
         if (this.paymentMethod === PaymentMethods.CARD) {
           this.notificationsService.success(this.constantValues.APP_NAME, 'Order successfully placed. Kindly follow the action in the popup to complete Card Payment');
           this.redirectUrl = result.redirect_url;
+          this.router.navigate(["/checkout3"]);
           // setTimeout(() => {
           //   if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
           //     this.router.navigate(['/account/orders']);
@@ -600,6 +626,7 @@ export class Checkout2Component implements OnInit {
             { data: { payment_method: this.paymentMethod, payment_network: this.paymentNetwork, network_name: this.networkName, transaction_id: result.transaction_id }, disableClose: true })
             .afterClosed().subscribe((isCompleted: boolean) => {
               // tslint:disable-next-line: max-line-length
+              this.router.navigate(["/checkout3"]);
               this.dialog.open(OrderCompletedDialogComponent, { data: { order_code: result.order_code, transactionSuccessful: isCompleted }, disableClose: true })
                 .afterClosed().subscribe((isSuccess: boolean) => {
                   if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
@@ -718,9 +745,63 @@ export class Checkout2Component implements OnInit {
     });
   }
 
+  openD(){
+    this.dialog.open(OrderCompletedDialogComponent);
+  }
+
   getDaddress(){
     console.log(this.addressFormGroup.value);
   }
+
+  onSubmit(data) {
+    if (this.formGroup.valid) {
+      this.isProcessing = true;
+      this.customersApiCalls.signIn(data, (error, result) => {
+        this.isProcessing = false;
+        this.loginUpdate.isUpdated(true);
+        if (result !== null) {
+          if (!this.isGuest) {
+            this.notificationsService.success(this.constantValues.APP_NAME, 'Login successful');
+            this.authService.increaseLoggedInCount();
+            this.authService.removeUserAndToken();
+            this.authService.saveUser(result);
+            this.authService.saveToken(result.auth_token);
+            this.loginUpdate.isUpdated(true);
+            this.isLoggedIn=true;
+            this.currentUser=this.authService.currentUser;
+            //console.log("Data-->"+JSON.stringify(data,null,2));
+            //this.router.navigate(['/supermarket']);
+
+          } else {
+            this.notificationsService.success(this.constantValues.APP_NAME, 'Sign Up successful');
+            this.authService.increaseLoggedInCount();
+            this.authService.removeUserAndToken();
+            this.authService.saveUser(result.results);
+            this.authService.saveToken(result.results.auth_token);
+            this.loginUpdate.isUpdated(true);
+            //this.router.navigate(['/supermarket']);
+
+
+          }
+          if (this.authService.isLogedIn) {
+            this.productsApiCalls.getCartItems((error, result) => {
+              const items: any[] = result.map(data => "" + data.item.id + ":" + data.quantity + ":" + data.total_amount);
+              if (items.length > 0) {
+                this.productsApiCalls.syncCartItems({items: items.join(',')}, (er, res) => {
+
+                });
+              }
+            });
+          }
+          //this.dialogRef.close(true);
+        }
+      }, this.isGuest);
+    }
+  }
+  get phone_number() { return this.formGroup.get('phone_number'); }
+  get password() { return this.formGroup.get('password'); }
+  get customer_name() { return this.formGroup.get('customer_name'); }
+  get email() { return this.formGroup.get('email'); }
 
   get location() { return this.addressFormGroup.get('location'); }
   get latitude_ctrl() { return this.addressFormGroup.get('latitude'); }

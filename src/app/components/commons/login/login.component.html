@@ -55,14 +55,14 @@
 						<form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup?.value)">
 							<div class="reg_form">
 								<h2 class="form_title text-uppercase text-center">Login</h2>
-								<div class="form_item">
+								<!-- <div class="form_item">
                   <input type="text" placeholder="Full Name"
                   formControlName="customer_name"/>
                   <mat-error *ngIf="customer_name?.invalid && customer_name?.touched" >
                     Please enter your full name
                   </mat-error>
 									<label for="username_input"><i class="fal fa-user"></i></label>
-								</div>
+								</div> -->
                 <div class="form_item">
                   <!-- <lac-mat-country-selector
                   matPrefix [selectorFor]="input1"
@@ -78,18 +78,18 @@
                   </mat-error>
 									<label for="username_input"><i class="fal fa-user"></i></label>
 								</div>
-                <div class="form_item">
+                <!-- <div class="form_item">
                   <input type="text" placeholder="Email"
                   formControlName="email"/>
                   <mat-error *ngIf="email?.invalid && email?.touched" >
                     Please enter your email
                   </mat-error>
 									<label for="username_input"><i class="fal fa-user"></i></label>
-								</div>
+								</div> -->
 								<div class="form_item">
                   <input type="password" placeholder="Password" formControlName="password"/>
                   <mat-error *ngIf="password?.invalid && password?.touched" >
-                    Please enter a valid phone number
+                    Please enter a password
                   </mat-error>
 									<label for="password_input"><i class="fal fa-unlock-alt"></i></label>
 								</div>

@@ -5,18 +5,18 @@
 
 
     <p class="">
-      Enter the OTP code sent to <b>{{phoneNunber}}</b>. <small class="text-primary" (click)="validatePhoneNumberSMS()">Resend Code</small>
+      Enter the OTP code sent to <b>{{phoneNunber}}</b>. <small class="text-primary" (click)="validatePhoneNumberSMS()" style="color: #026E08 !important;">Resend Code</small>
     </p>
     <div class="form-group" >
-      <div class="col-md-12 col-sm-12 col-xs-12 pl-0 pr-0 payment-methods-input">
+      <div class="col-md-12 col-sm-12 col-xs-12 pl-0 pr-0 payment-methods-input confirm-wrappar">
         <input type="text" placeholder="Phone Number" numberOnly [formControl]="uniqueCodeCtrl">
       </div>
 
 
     </div>
   </div>
-  <mat-dialog-actions class="d-flex-right">
+  <mat-dialog-actions class="d-flex-right" style="display:flex; justify-content:space-between">
     <button type="button" mat-raised-button (click)="onClose()">CLOSE</button>
-    <button mat-raised-button color="primary" [disabled]="uniqueCodeCtrl?.invalid"
-      type="buttons" (click)="validatePhoneNumber(uniqueCodeCtrl?.value)">CONFIRM</button>
+    <button mat-raised-button [disabled]="uniqueCodeCtrl?.invalid"
+      type="button" (click)="validatePhoneNumber(uniqueCodeCtrl?.value)">CONFIRM</button>
   </mat-dialog-actions>

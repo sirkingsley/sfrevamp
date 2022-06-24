@@ -62,7 +62,7 @@
     <p class="" *ngIf="paymentMethod == 'MOMO' && paymentNetwork === 'VOD'">
       Dial <b>*110#</b> and select option <b>6</b> to generate your voucher code
     </p>
-    <div class="form-group" *ngIf="paymentMethod === 'MOMO'">
+    <div class="form-group confirm-wrappar" *ngIf="paymentMethod === 'MOMO'">
       <div class="col-md-12 col-sm-12 col-xs-12 pl-0 pr-0 payment-methods-input">
         <input type="text" placeholder="Phone Number" numberOnly formControlName="sender_wallet_number">
       </div>
@@ -76,6 +76,6 @@
   <mat-dialog-actions class="d-flex-right">
     <button type="button" mat-raised-button (click)="onClose()">CLOSE</button>
     <button mat-raised-button color="primary" [disabled]="paymentFormGroup?.invalid"
-      type="submit">COMPLETE ORDER PAYMENT</button>
+      type="submit" style="background-color: green;" >COMPLETE ORDER PAYMENT</button>
   </mat-dialog-actions>
 </form>

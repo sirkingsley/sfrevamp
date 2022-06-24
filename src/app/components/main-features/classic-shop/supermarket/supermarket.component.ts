@@ -409,11 +409,11 @@ filterByCategory(category: string,el: HTMLElement) {
       date_added: new Date(),
       country: this.country
       };
-    console.log("Started adding-->");
+    //console.log("Started adding-->");
     await this.productsService.addProductToCart(data, (error, result) => {
-      console.log("adding ing service-->");
+      //console.log("adding ing service-->");
       if (result !== null) {
-        console.log("added");
+        //console.log("added");
         this.dbaseUpdate.dbaseUpdated(true);
         //this.toastr.success(product.name + ' has been successfully added to cart');
         this.notificationService.success(this.constantValues.APP_NAME, product.name + ' has been successfully added to cart');

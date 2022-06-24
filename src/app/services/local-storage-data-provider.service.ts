@@ -25,7 +25,7 @@ export class LocalStorageDataProviderService {
    * @param data data to store in current store
    */
   create(currentStore: string, data: any) {
-    console.log('DBservice adding');
+    //console.log('DBservice adding');
     return this.dbService.add(currentStore, data);
   }
   /**
