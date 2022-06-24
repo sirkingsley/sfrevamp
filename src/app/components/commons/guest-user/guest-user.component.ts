@@ -2,6 +2,7 @@ import { SignUpComponent } from './../sign-up/sign-up.component';
 import { LoginComponent } from './../login/login.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
+import { LoginMainComponent } from '../login-main/login-main.component';
 
 @Component({
   selector: 'app-guest-user',
@@ -18,14 +19,14 @@ export class GuestUserComponent implements OnInit {
   ngOnInit(): void {
   }
   checkoutAsGuest() {
-    this.dialog.open(LoginComponent, {data: {guest: true}}).afterClosed().subscribe((isSuccess: boolean) => {
+    this.dialog.open(LoginMainComponent, {data: {guest: true}}).afterClosed().subscribe((isSuccess: boolean) => {
       if (isSuccess) {
         this.dialogRef.close(true);
       }
     });
   }
   login() {
-    this.dialog.open(LoginComponent, {data: {guest: false}}).afterClosed().subscribe((isSuccess: boolean) => {
+    this.dialog.open(LoginMainComponent, {data: {guest: false}}).afterClosed().subscribe((isSuccess: boolean) => {
       if (isSuccess) {
         this.dialogRef.close(true);
       }

@@ -1,0 +1,56 @@
+<div class="signup-content">
+  <div class="row">
+
+      <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="signup-form">
+              <h2 class="form-title" mat-dialog-title>{{heading}}</h2>
+              <form class="register-form" [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup?.value)">
+                <div mat-mat-dialog-content>
+
+                <div class="form-group">
+                  <label ><i class="fa fa-phone"></i></label>
+                  <input type="tel" placeholder="phone number" formControlName="phone_number"/>
+                  <!-- <ngx-mat-intl-tel-input class="phone-number-input ngx-floating"
+                  formControlName="phone_number"
+                  [preferredCountries]="['gh', 'ng']"
+                  [enablePlaceholder]="true"
+                  name="phone"
+                  (countryChanged)="onCountryChanged($event)"></ngx-mat-intl-tel-input> -->
+                  <mat-error *ngIf="phone_number?.invalid && phone_number?.touched" >
+                    Please enter a valid phone number
+                  </mat-error>
+              </div>
+
+                  <div class="form-group" *ngIf="!isGuest" >
+                      <label><i class="fa fa-lock"></i></label>
+                      <input type="password" placeholder="Password" formControlName="password"/>
+                      <mat-error *ngIf="password?.invalid && password?.touched" >
+                        Please enter a valid phone number
+                      </mat-error>
+                  </div>
+                  <div class="form-group" *ngIf="isGuest" >
+                    <label ><i class="fa fa-user"></i></label>
+                    <input type="text" placeholder="Full Name"
+                    formControlName="customer_name"/>
+                    <mat-error *ngIf="customer_name?.invalid && customer_name?.touched" >
+                      Please enter your full name
+                    </mat-error>
+                </div>
+                <div class="form-group" *ngIf="isGuest" >
+                  <label ><i class="fa fa-user"></i></label>
+                  <input type="text" placeholder="Email"
+                  formControlName="email"/>
+                  <mat-error *ngIf="email?.invalid && email?.touched" >
+                    Please enter your email
+                  </mat-error>
+              </div>
+                </div>
+                  <div class="form-group form-button full-width m-1" mat-dialog-actions>
+                    <mat-progress-bar *ngIf="isProcessing"  class="mb-0" mode="indeterminate"></mat-progress-bar>
+                    <button class="bt-link bt-yellow bt-style5 mt-0 full-width" [disabled]="formGroup?.invalid || isProcessing">{{btnText}}</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>

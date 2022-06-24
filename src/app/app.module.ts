@@ -83,6 +83,7 @@ import { SectionBannerComponent } from './components/main-features/section-banne
 import { DisplayProductsComponent } from './components/main-features/display-products/display-products.component';
 import { CartPopUpComponent } from './components/commons/cart-pop-up/cart-pop-up.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
+import { LoginMainComponent } from './components/commons/login-main/login-main.component';
 
 //import { LacMatTelInputModule } from 'lac-mat-tel-input';
 
@@ -119,6 +120,7 @@ import { TruncatePipe } from './pipes/truncate.pipe';
     DisplayProductsComponent,
     CartPopUpComponent,
     TruncatePipe,
+    LoginMainComponent,
 
 
   ],

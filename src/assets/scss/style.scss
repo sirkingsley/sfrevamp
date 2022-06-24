@@ -59457,3 +59457,49 @@ transform: translateX(-3px);
 .order-payment-instruction-desc {
   color: #666666;
 }
+
+ @media screen and (max-width: 768px) {
+    .signup {
+        margin-bottom: 150px;
+        padding: 0px;
+        }
+        figure >img {
+          width: 100%;
+          max-height: 330px;
+      }
+    .signup-form {
+      padding: 0px;
+      margin: 0rem -1rem;
+  }
+
+    .form-button {
+      text-align: center; }
+  }
+  .register-form .form-group input, select {
+    width: 100%;
+    display: block;
+    height: 45px;
+    font-family: "Open Sans",sans-serif !important;
+    border: none;
+    font-size: 1.5rem;
+    border-bottom: 1px solid #999;
+    padding: 0px 30px;
+    box-sizing: border-box;
+    }
+.register-form .form-group label {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        color: #222;
+    }
+    .register-form .form-group {
+      position: relative;
+      /* margin-bottom: 25px; */
+      overflow: hidden; }
+  .form-group:last-child {
+        margin-bottom: 0px; }

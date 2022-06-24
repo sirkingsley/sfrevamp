@@ -430,7 +430,20 @@ export class Checkout2Component implements OnInit {
    * @param data request payload
    */
   updateDeliveryAddress(data) {
-    console.log("updateDeliveryAddress");
+    if (!this.authService.isLogedIn) {
+      this.dialog.open(GuestUserComponent).afterClosed().subscribe(async (isSuccess: boolean) => {
+        if (isSuccess) {
+          this.address_ctrl.setValue(this.authService.currentUser.address);
+          this.city_ctrl.setValue(this.authService.currentUser.city);
+          this.state_ctrl.setValue(this.authService.currentUser.brief);
+          await this.getCartItems();
+          return;
+          // this.getPromoCodeValue('', true);
+        }
+      });
+      return;
+    }
+    //console.log("updateDeliveryAddress");
     if (this.cartItems.length <= 0) {
 
       this.notificationsService.info(this.constantValues.APP_NAME, 'Please add item to cart to continue');
