@@ -649,7 +649,7 @@
                     <mat-panel-title>
                       <div class="wrap_heade">
                         <p class="mb-0">
-                          Returning customer? <a class="collapsed" role="button">Click here to login</a>
+                          Returning customer/Guest? <a class="collapsed" role="button">Click here</a>
                         </p>
                       </div>
                     </mat-panel-title>
@@ -661,22 +661,22 @@
                     <div class="card-body">
                       <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup?.value)" >
                         <div class="row">
-                          <!-- <div class="col-lg-6">
+                          <div class="col-lg-6" *ngIf="isGuest">
                             <div class="form_item">
                               <input type="text" placeholder="Full name" formControlName="customer_name">
                             </div>
                           </div>
-                          <div class="col-lg-6">
+                          <div class="col-lg-6" *ngIf="isGuest">
                             <div class="form_item">
                               <input type="email" placeholder="Email" formControlName="email">
                             </div>
-                          </div> -->
+                          </div>
                           <div class="col-lg-6">
                             <div class="form_item">
                               <input type="tel"  placeholder="Phone number" formControlName="phone_number">
                             </div>
                           </div>
-                          <div class="col-lg-6">
+                          <div class="col-lg-6" *ngIf="!isGuest">
                             <div class="form_item">
                               <input type="password"  placeholder="Password" formControlName="password">
                             </div>
@@ -685,7 +685,7 @@
                         <mat-progress-bar *ngIf="isProcessing"  class="mb-3" mode="indeterminate"></mat-progress-bar>
                         <div class="login_button" *ngIf="!formGroup?.invalid">
                           <div class="checkbox_item">
-                            <label for="remember_checkbox"><input id="remember_checkbox" type="checkbox"> Remember me</label>
+                            <label for="remember_checkbox"><input id="remember_checkbox" type="checkbox"(click)="Guest()" >Checkout as Guest?</label>
                           </div>
 
                           <button [disabled]="formGroup?.invalid || isProcessing" type="submit" class="custom_btn bg_default_red">Login Now</button>
@@ -744,7 +744,7 @@
             <mat-radio-group
               aria-labelledby="example-radio-group-label"
               class="example-radio-group"
-              [(ngModel)]="selectedDelivery">
+              [(ngModel)]="selectedDelivery" >
               <mat-radio-button class="example-radio-button"  [value]="deliveryOptions?.DHL_DELIVERY">
                 DHL DELIVERY
               </mat-radio-button>

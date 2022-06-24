@@ -46,7 +46,7 @@ export class Checkout2Component implements OnInit {
   delivery: string[] = ['Pick up', 'Bolt', 'DHL', 'Uber Delivery', 'Bike Delivery'];
   payments:string[]=['Momo','Vodafone','AirtelTiGo', 'Card']
   isLinear = false;
-  isGuest = false;
+
   isGiftDelivery = false;
   deliveryOptions = DeliveryOptions;
   deliveryModes = DeliveryModeEnum;
@@ -110,7 +110,7 @@ export class Checkout2Component implements OnInit {
   formGroup: FormGroup;
   isLoggedIn = false;
   currentUser: User;
-
+  isGuest = false;
   btnText = 'SIGN IN';
   heading = 'Sign In';
 
@@ -467,7 +467,9 @@ export class Checkout2Component implements OnInit {
 
 
   }
-
+ Guest(){
+  this.isGuest= !this.isGuest;
+ }
   /**
    * Get delivery charge basd on the location provided
    * @param data request payload

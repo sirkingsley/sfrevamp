@@ -1,3 +1,4 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { SignUpComponent } from './../sign-up/sign-up.component';
 import { LoginComponent } from './../login/login.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -13,7 +14,8 @@ export class GuestUserComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private dialogRef: MatDialogRef<GuestUserComponent>
+    private dialogRef: MatDialogRef<GuestUserComponent>,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -33,10 +35,11 @@ export class GuestUserComponent implements OnInit {
     });
   }
   signUp() {
-    this.dialog.open(SignUpComponent).afterClosed().subscribe((isSuccess: boolean) => {
-      if (isSuccess) {
-        this.dialogRef.close(true);
-      }
-    });
+    // this.dialog.open(SignUpComponent).afterClosed().subscribe((isSuccess: boolean) => {
+    //   if (isSuccess) {
+    //     this.dialogRef.close(true);
+    //   }
+    // });
+    this.router.navigate(['/sign-up']);
   }
 }
