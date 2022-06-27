@@ -19929,24 +19929,24 @@ blockquote .blockquote_title {
   margin: auto;
   max-width: 800px;
   border-radius: 4px;
-  padding: 80px 100px;
+ // padding: 80px 100px;
 
   background-color: #f0f2f1;
-  background-image: url('../../assets/images/reg_bg_01.png');
-  background-size: cover;
-  background-repeat: no-repeat;
+  //background-image: url('../../assets/images/young_black.JPG');
+  // background-size: cover;
+  // background-repeat: no-repeat;
 }
-.reg_form_wrap.login_form {
-  background-position: left 480px center;
-}
-.reg_form_wrap.signup_form {
-  background-position: left 460px center;
-}
-.reg_form_wrap.signup_form .form_item input {
-  padding: 0px;
-}
+// .reg_form_wrap.login_form {
+//   background-position: left 480px center;
+// }
+// .reg_form_wrap.signup_form {
+//   background-position: left 460px center;
+// }
+// .reg_form_wrap.signup_form .form_item input {
+//   padding: 0px;
+// }
 .reg_form_wrap .reg_form {
-  max-width: 400px;
+  //max-width: 400px;
 }
 .reg_form_wrap .form_title {
   color: #2e2e2e;
@@ -22784,12 +22784,12 @@ blockquote .blockquote_title {
 
   .coupon_wrap .form_item {
     margin: 0px;
-    width: 100%;
+    //width: 90%;
     display: block;
   }
 
   .coupon_wrap .custom_btn {
-    margin-top: 15px;
+    //margin-top: 15px;
   }
 
   /* shop cart - end */
@@ -26924,7 +26924,7 @@ blockquote .blockquote_title {
   /* shop details - end */
   /* shop checkout - start */
   .checkout_step li {
-    width: 100%;
+    width: 33.333%;
   }
 
   /* shop checkout - end */
@@ -32492,7 +32492,7 @@ button {
 ==================================================================================================== */
 .reg_form_wrap {
 	margin: auto;
-	max-width: 800px;
+	max-width: 50%;
 	border-radius: 4px;
 	padding: 80px 100px;
 	background-size: 100%;
@@ -32510,7 +32510,7 @@ button {
 	}
 
 	.reg_form {
-		max-width: 400px;
+		//max-width: 400px;
 	}
 	.form_title {
 		color: #2e2e2e;
@@ -53194,11 +53194,17 @@ blockquote {
 	}
 	.coupon_wrap .form_item {
 		margin: 0px;
-		width: 100%;
+		//width: 100%;
 		display: block;
 	}
+  .coupon_form{
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-between;
+  }
 	.coupon_wrap .custom_btn {
-		margin-top: 15px;
+		//margin-top: 15px;
+    width: fit-content !important;
 	}
 	/* shop cart - end */
 
@@ -56820,7 +56826,7 @@ blockquote {
 
 	/* shop checkout - start */
 	.checkout_step li {
-		width: 100%;
+		width: 33.333%;
 	}
 	/* shop checkout - end */
 
@@ -59503,3 +59509,12 @@ transform: translateX(-3px);
       overflow: hidden; }
   .form-group:last-child {
         margin-bottom: 0px; }
+.register_section{
+  background-image: url('../../assets/images/banner1.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  //background: #026e08;
+
+
+}

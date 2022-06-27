@@ -146,6 +146,7 @@ export class TopNavComponent implements OnInit {
     this.authService.logOut();
     this.isLoggedIn = this.authService.isLogedIn;
     this.currentUser = this.authService.currentUser;
+    window.location.reload();
   }
   onSignIn() {
     this.router.navigate(['/login']);

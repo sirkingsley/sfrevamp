@@ -150,6 +150,7 @@ export class Checkout2Component implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+
     this.isLoggedIn = this.authService.isLogedIn;
     this.currentUser = this.authService.currentUser;
     //console.log(this.currentUser);
@@ -450,14 +451,14 @@ export class Checkout2Component implements OnInit {
       return;
     }
     this.isProcessing = true;
-    console.log("Items in Cart");
+    //console.log("Items in Cart");
     this.orderService.updateDeliveryAddress(data, (error, result) => {
-      console.log("orderService.updateDeliveryAddress---");
+      //console.log("orderService.updateDeliveryAddress---");
       if (result !== null) {
-        console.log("orderService.updateDeliveryAddress not null");
+        //console.log("orderService.updateDeliveryAddress not null");
         this.authService.saveUser(result.results);
         this.getDeliveryCharge(data);
-        this.notificationsService.success("","Address saved");
+        //this.notificationsService.success("","Address saved");
       }
     });
   }
@@ -466,6 +467,9 @@ export class Checkout2Component implements OnInit {
     console.log(data);
 
 
+  }
+  back(){
+    this.router.navigate(['/cart'])
   }
  Guest(){
   this.isGuest= !this.isGuest;
@@ -500,8 +504,8 @@ export class Checkout2Component implements OnInit {
         this.serviceCharge = +serviceCharge.toFixed(2);
         this.transactionFee = +transactionFee.toFixed(2);
         this.grandTotal = +this.subTotal + this.deliveryChargeAmount + this.serviceCharge + this.transactionFee;
-        console.log("this.delieryCharge"+this.delieryCharge);
-        this.stepper.next();
+        console.log("this.delieryCharge"+JSON.stringify(this.delieryCharge,null,2));
+        //this.stepper.next();
       }
     });
   }
@@ -553,12 +557,26 @@ export class Checkout2Component implements OnInit {
    */
   placeOrder(data) {
 
+    if (!this.isLoggedIn){
+      this.notificationsService.info(this.constantValues.APP_NAME, 'Please login to continue');
+      return;
+    }
+    if (this.selectedDelivery ==='' || this.selectedDelivery ===undefined || this.selectedDelivery ===null){
+      this.notificationsService.info(this.constantValues.APP_NAME, 'Please select delivery option to continue');
+      return;
+    }
+
+    if (this.selectedDelivery !==this.deliveryOptions.PICKUP && this.addressFormGroup.invalid ){
+      this.notificationsService.info(this.constantValues.APP_NAME, 'Please provide delivery address to continue');
+      return;
+    }
+
     if (this.cartItems.length <= 0) {
       this.notificationsService.info(this.constantValues.APP_NAME, 'Please add item to cart to continue');
       return;
     }
 
-    if (this.paymentMethod === '' || this.paymentMethod === undefined) {
+    if (this.paymentMethod === '' || this.paymentMethod === undefined || this.paymentMethod ===null ) {
       this.notificationsService.info(this.constantValues.APP_NAME, 'Please select a payment method to continue');
       return;
     }
@@ -569,9 +587,11 @@ export class Checkout2Component implements OnInit {
     if (this.paymentMethod === PaymentMethods.MOMO && data.sender_wallet_number !== '') {
       //data.delivery_option = this.selectedDelivery;
       //console.log(JSON.stringify(data,null,2))
-
+      this.updateDeliveryAddress(this.addressFormGroup.value);
       this.validatePhoneNumber(data.sender_wallet_number, data);
     } else {
+      //console.log(this.addressFormGroup.value);
+      this.updateDeliveryAddress(this.addressFormGroup.value);
       this.processOrder(data);
     }
 
@@ -784,6 +804,7 @@ export class Checkout2Component implements OnInit {
             this.loginUpdate.isUpdated(true);
             this.isLoggedIn=true;
             this.currentUser=this.authService.currentUser;
+            window.location.reload();
             //console.log("Data-->"+JSON.stringify(data,null,2));
             //this.router.navigate(['/supermarket']);
 
@@ -794,6 +815,7 @@ export class Checkout2Component implements OnInit {
             this.authService.saveUser(result.results);
             this.authService.saveToken(result.results.auth_token);
             this.loginUpdate.isUpdated(true);
+            window.location.reload();
             //this.router.navigate(['/supermarket']);
 
 

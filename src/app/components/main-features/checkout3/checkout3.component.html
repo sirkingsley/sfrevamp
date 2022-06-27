@@ -57,13 +57,13 @@
 				<div class="container">
 
 					<ul class="checkout_step ul_li clearfix">
-						<li class="activated"><a><span>01.</span> Shopping Cart</a></li>
-						<li class="activated" ><a ><span>02.</span> Checkout</a></li>
-						<li class="active"><a ><span>03.</span> Order Completed</a></li>
+						<li class="activated" [routerLink]="['/cart']"><a>Cart</a></li>
+						<li class="activated" [routerLink]="['/checkout2']" ><a > Checkout</a></li>
+						<li class="active"><a >Complete</a></li>
 					</ul>
 
 					<div class="order_complete_alart text-center">
-						<h2>Congratulation! You’ve <strong>Completed</strong> Payment.</h2>
+						<h2>Congratulation! Order <strong>Completed</strong></h2>
 					</div>
 
 				</div>

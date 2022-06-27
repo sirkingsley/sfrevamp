@@ -631,9 +631,9 @@
 				<div class="container">
 
 					<ul class="checkout_step ul_li clearfix">
-						<li class="activated"><a><span>01.</span> Shopping Cart</a></li>
-						<li class="active"><a><span>02.</span> Checkout</a></li>
-						<li><a><span>03.</span> Order Completed</a></li>
+						<li [routerLink]="['/cart']" class="activated"><a>Cart</a></li>
+						<li class="active" ><a > Checkout</a></li>
+						<li ><a >Complete</a></li>
 					</ul>
 
           <!-- <div class="container m-5">
@@ -861,7 +861,7 @@
 									<textarea formControlName="order_note" placeholder="Note about your order, eg. special notes fordelivery."></textarea>
 								</div>
 
-                <div class="" style="display: flex;
+                <!-- <div class="" style="display: flex;
                                       width: 100%;
                                       padding-top: 20px;">
 
@@ -873,7 +873,7 @@
                                             border-radius: 2px;"
                                             [disabled]="!addressFormGroup.valid"
                                             >Save Address</button>
-								</div>
+								</div> -->
 
 							</div>
 
@@ -926,47 +926,30 @@
 
 
 
-											<tr>
+											<!-- <tr>
 												<td></td>
 												<td></td>
 												<td>
 													<span class="subtotal_text">{{currency}} {{subTotal | number: '1.2-2'}}</span>
 												</td>
 												<td><span class="total_price">{{currency}} {{subTotal | number: '1.2-2'}}</span></td>
-											</tr>
+											</tr> -->
 
 											<tr>
 
-												<td>
+												<!-- <td>
 													<span class="subtotal_text">Delivery Fee</span>
 												</td>
                         <td>
-                          <span class="subtotal_text">Delivery Option</span>
+                          <span class="subtotal_text">{{selectedDelivery}}</span>
                         </td>
                         <td>
                           <!-- <span class="subtotal_text">Delivery Option</span> -->
-                        </td>
+                        <!-- </td>
                         <td>
-                          <span class="subtotal_text">Ghc 0.00</span>
-                        </td>
-												<td class="text-left">
+                          <span class="subtotal_text">{{currency}} {{serviceCharge | number: '1.2-2'}}</span>
+                        </td> -->
 
-													<!-- <div >
-														<label for="shipping_checkbox"><input id="shipping_checkbox" type="radio"> Pick Up</label>
-													</div>
-                          <div class="checkbox_item mb_15">
-														<label for="shipping_checkbox"><input id="shipping_checkbox" type="radio" > BOLT DELIVERY</label>
-													</div>
-                          <div class="checkbox_item mb_15">
-														<label for="shipping_checkbox"><input id="shipping_checkbox" type="radio"> UBER DELIVERY</label>
-													</div>
-													<div class="checkbox_item mb_15">
-														<label for="flatrate_checkbox"><input id="flatrate_checkbox" type="radio"> BIKE DELIVERY</label>
-													</div>
-													<div class="checkbox_item">
-														<label for="localpickup_checkbox"><input id="localpickup_checkbox" type="radio"> DHL DELIVERY</label>
-													</div> -->
-												</td>
 											</tr>
 
 											<tr>
@@ -1007,9 +990,9 @@
                   </div>
 
                 <p class="alert alert-info alert-dismissable mt-2" *ngIf="paymentMethod === 'MOMO'">Plese provide MoMo
-                  Number and click <b>COMPLETE ORDER PAYMENT</b> <span *ngIf="subdomain" > to pay for  <b>GHS {{currency}} {{subTotal | number: '1.2-2'}}</b></span></p>
-                <p class="" *ngIf="paymentMethod == 'MOMO' && paymentNetwork === 'VOD'">
-                  Dial <b>*110#</b> and select option <b>6</b> to generate your voucher code
+                  Number and click <b>COMPLETE ORDER</b> <span *ngIf="subdomain" > to pay for  <b>GHS {{currency}} {{subTotal | number: '1.2-2'}}</b></span></p>
+                <p class="" *ngIf="paymentMethod == 'MOMO' && paymentNetwork === 'VODAF'">
+                  Dial <b>*110#</b> and select option <b>6</b> to generate your voucher code.
                 </p>
                 <div class="form-group my-4 confirm-wrappar" *ngIf="paymentMethod === 'MOMO'">
                   <div class="col-md-12 col-sm-12 col-xs-12 pl-0 pr-0 payment-methods-input">
@@ -1049,7 +1032,7 @@
 											</div>
 										</li>
 									</ul> -->
-									<button type="submit" class="custom_btn bg_default_red" [disabled]="paymentMethod==='' || paymentMethod===undefined ||paymentMethod===null && paymentFormGroup?.invalid">PLACE ORDER</button>
+									<button type="submit" class="custom_btn bg_default_red" [disabled]="paymentMethod==='' || paymentMethod===undefined ||paymentMethod===null && paymentFormGroup?.invalid">COMPLETE ORDER</button>
 								</div>
 
 

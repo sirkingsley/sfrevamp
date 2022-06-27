@@ -39,11 +39,11 @@
 			================================================== -->
 			<section class="cart_section sec_ptb_140 clearfix">
 				<div class="container">
-          <!-- <ul class="checkout_step ul_li clearfix">
-						<li  class="active"><a><span>01.</span> Shopping Cart</a></li>
-						<li><a><span>02.</span> Checkout</a></li>
-						<li><a><span>03.</span> Order Completed</a></li>
-					</ul> -->
+          <ul class="checkout_step ul_li clearfix">
+						<li class="active"><a>Cart</a></li>
+						<li  ><a > Checkout</a></li>
+						<li ><a >Complete</a></li>
+					</ul>
 
           <app-empty-record *ngIf="cartItems?.length <= 0"></app-empty-record>
 
@@ -93,66 +93,6 @@
 									</td>
 									<td><span class="total_price"> {{item?.item?.currency}} {{item?.total_amount | number: '1.2-2'}}</span></td>
 								</tr>
-
-								<!-- <tr>
-									<td>
-										<div class="cart_product">
-											<div class="item_image">
-												<img src="assets/images/reg_bg_02.png" alt="image_not_found">
-											</div>
-											<div class="item_content">
-												<h4 class="item_title">Men's Polo T-shirt</h4>
-												<span class="item_type">Clothes</span>
-											</div>
-											<button type="button" class="remove_btn">
-												<i class="fal fa-times"></i>
-											</button>
-										</div>
-									</td>
-									<td>
-										<span class="price_text">$23.00</span>
-									</td>
-									<td>
-										<div class="quantity_input">
-											<form action="#">
-												<span class="input_number_decrement">–</span>
-												<input class="input_number" type="text" value="1">
-												<span class="input_number_increment">+</span>
-											</form>
-										</div>
-									</td>
-									<td><span class="total_price">$23.00</span></td>
-								</tr>
-
-								<tr>
-									<td>
-										<div class="cart_product">
-											<div class="item_image">
-												<img src="assets/images/reg_bg_02.png" alt="image_not_found">
-											</div>
-											<div class="item_content">
-												<h4 class="item_title">Men's Polo T-shirt</h4>
-												<span class="item_type">Clothes</span>
-											</div>
-											<button type="button" class="remove_btn">
-												<i class="fal fa-times"></i>
-											</button>
-										</div>
-									</td>
-									<td>
-										<span class="price_text">$36.00</span>
-									</td>
-									<td>
-										<div class="quantity_input">
-											<form action="#">
-												<span class="input_number_decrement">–</span>
-												<input class="input_number" type="text" value="1">
-												<span class="input_number_increment">+</span>
-											</form>
-										</div>
-									</td>
-									<td><span class="total_price">$36.00</span></td>
-								</tr> -->
 							</tbody>
 						</table>
 					</div>
