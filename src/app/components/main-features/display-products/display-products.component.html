@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
 
 
 
-
-	<body class="home_modern">
-
-
+ <div *ngIf="loader" style="display: flex; justify-content: center; align-items:center; width:100%; height:100%;">
+  <div class="spinner-grow" style="width: 3rem; height: 3rem; color: green;" role="status" >
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
 
 
 		<!-- preloader - start -->
@@ -14,27 +13,27 @@
 		<!-- preloader - end -->
 
 
-    <app-top-nav [featuredShops]="featuredShops" [industries]="industries" (htmlTarget)="filterByCategory($event,target)"></app-top-nav>
+    <app-top-nav (htmlTarget)="filterByCategory($event)"></app-top-nav>
 
 		<!-- main body - start
 		================================================== -->
-		<main>
 
+		<main *ngIf="!loader">
 
 
 
 			<!-- modern container - start -->
-			<div class="modern_container clearfix">
+			<div class="modern_container clearfix" >
 
 
-          <app-section-banner></app-section-banner>
+          <app-section-banner *ngIf="!loader"></app-section-banner>
 				<!-- product_section - start
 				================================================== -->
-        <div class="container">
+        <div class="container" >
 
-				<section class="product_section sec_ptb_100 clearfix" #target>
+				<section class="product_section sec_ptb_100 clearfix" #target >
 
-          <div class="carparts_filetr_bar clearfix">
+          <div class="carparts_filetr_bar clearfix" >
 						<div class="row align-items-center justify-content-lg-between" style="display: flex ; justify-content:space-between; flex-wrap: nowrap;">
 							<div class="" style="width: 50% !important;">
 								<h4 class="result_text">Showing {{products?.length}} of {{totalPage}} </h4>
@@ -59,9 +58,15 @@
 					</div>
 					<div class="tab-content mb_50">
 						<div id="best_tab" class="tab-pane active">
-							<div class="row justify-content-center" >
+
+              <div *ngIf="isProcessing"  class="container spinner-wrapper">
+                <mat-spinner class="custom-spinner-color"></mat-spinner>
+
+              </div>
+							<div class="row justify-content-center" *ngIf="!isProcessing" >
                 <app-empty-record *ngIf="products?.length <= 0 && !isProcessing"></app-empty-record>
-								<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12" *ngFor="let item of products">
+
+								<div   class="col-lg-4 col-md-6 col-sm-12 col-xs-12" *ngFor="let item of products">
 									<div class="modern_product_item bg_lightyellow text-uppercase">
 										<!-- <ul class="product_label ul_li_right clearfix"  *ngIf="item?.new_quantity<=0">
 											<li class="bg_black">Out of Stock</li>
@@ -256,7 +261,7 @@
 
 		<!-- footer_section - start
 		================================================== -->
-	<app-footer></app-footer>
+	<app-footer *ngIf="!loader"></app-footer >
 		<!-- footer_section - end
 		================================================== -->
 
@@ -264,5 +269,3 @@
 
 
 
-	</body>
-</html>

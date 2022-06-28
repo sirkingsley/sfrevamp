@@ -134,6 +134,7 @@ export class SupermarketComponent implements OnInit {
  customOptions1=customOptions1;
  slides1=slides1;
  customOptionsHome=customOptionsHome;
+ loader=true;
 
 
   constructor(
@@ -181,6 +182,10 @@ onload(){
 // }
 
   async ngOnInit(): Promise<void> {
+    //Loader variable set false after page load
+    setTimeout(()=>{
+      this.loader = false;
+  }, 3000);
     // this.window.addEventListener('load',()=>{
     //   this.windowLoaded=true;
     //   // alert("hi");

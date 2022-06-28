@@ -148,9 +148,13 @@ export class Checkout2Component implements OnInit {
     main();
     //parallaxie();
   }
+  loader=true;
 
   async ngOnInit(): Promise<void> {
-
+    //Loader variable set false after page load
+    setTimeout(()=>{
+      this.loader = false;
+  }, 3000);
     this.isLoggedIn = this.authService.isLogedIn;
     this.currentUser = this.authService.currentUser;
     //console.log(this.currentUser);

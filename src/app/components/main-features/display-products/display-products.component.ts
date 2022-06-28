@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -123,6 +123,7 @@ export class DisplayProductsComponent implements OnInit {
 
   selectedValue: string;
   selectedCar: string;
+  loader=true;
 
   prices = [
     {value: 'All-Prices', viewValue: 'All Prices'},
@@ -135,6 +136,7 @@ export class DisplayProductsComponent implements OnInit {
   hasTopTrendingProducts = false;
   isProcessingFeaturedShops: boolean;
 
+ @ViewChild('target') target: ElementRef<HTMLElement>;
 
     //Call JavaScript functions onload
     onload(){
@@ -143,6 +145,9 @@ export class DisplayProductsComponent implements OnInit {
       parallaxie();
     }
   async ngOnInit(): Promise<void> {
+    setTimeout(()=>{
+      this.loader = false;
+  }, 3000);
     this.subdomain = this.getHostname.subDomain;
     // this.subdomain = this.constantValues.GTP_SUBDOMAIN;
     this.gtpSubdomin = this.constantValues.GTP_SUBDOMAIN;
@@ -278,13 +283,13 @@ filterCategory(category: string,el: HTMLElement) {
       el.scrollIntoView({behavior: 'smooth'});
   }
 
-filterByCategory(category: string,el: HTMLElement) {
+filterByCategory(category: string) {
     this.isSearching=true;
     this.ProductsTitle=category +" Products";
     this.selectedCategory = category;
 
     this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
-    el.scrollIntoView({behavior: 'smooth'});
+    this.target.nativeElement.scrollIntoView({behavior: 'smooth'});
   }
 
   scrollTo(target:HTMLElement){

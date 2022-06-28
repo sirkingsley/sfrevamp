@@ -70,9 +70,12 @@ export class CartComponent implements OnInit {
     main();
     parallaxie();
   }
-
+  loader=true
   async ngOnInit(): Promise<void> {
-
+    //Loader variable set false after page load
+    setTimeout(()=>{
+      this.loader = false;
+    }, 3000);
     this.getIndustries()
     this.getFeaturedShops({});
     this.formGroup=this.formBuilder.group({

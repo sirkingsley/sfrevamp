@@ -30,9 +30,9 @@ export class TopNavComponent implements OnInit {
   @Input() shopName = 'StoreFront Mall';
   shopInfo;
   cartItems = [];
-  @Input() productGroups = [];
-  @Input() featuredShops = [];
-  @Input() industries = [];
+  productGroups = [];
+  featuredShops = [];
+  industries = [];
   pGroups = [];
   isLoggedIn = false;
   currentUser: User;
@@ -89,6 +89,8 @@ export class TopNavComponent implements OnInit {
 
 
   async ngOnInit(): Promise<void> {
+    this.getFeaturedShops({});
+    this.getIndustries();
     // console.log("Products: _->");
     // $('#flip').on("click",function(){
     //   $("#panel").slideToggle("slow");

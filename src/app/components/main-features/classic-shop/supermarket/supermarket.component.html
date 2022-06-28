@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<!--
-  <div *ngIf="!windowLoaded"  class="container spinner-wrapper">
-    <mat-spinner class="custom-spinner-color"></mat-spinner>
 
-  </div> -->
-
-	<body class="home_classic_ecommerce" >
-
-
+<div *ngIf="loader" style="display: flex; justify-content: center; align-items:center; width:100%; height:100%;">
+  <div class="spinner-grow" style="width: 3rem; height: 3rem; color: green;" role="status" >
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
 
 
 		<!-- backtotop - start -->
@@ -27,13 +22,16 @@
 
 	<!-- header_section - start
 		================================================== -->
-	<app-top-nav  [featuredShops]="featuredShops" [industries]="industries" (htmlTarget)="filterByCategory($event,target)"></app-top-nav>
+
+      <app-top-nav></app-top-nav>
+
+
 		<!-- header_section - end
 		================================================== -->
 
 		<!-- main body - start
 		================================================== -->
-		<main >
+		<main *ngIf="!loader">
 
 
 <!--
@@ -44,7 +42,7 @@
 
 			<!-- slider_section - start
 			================================================== -->
-      <app-landing-page ></app-landing-page>
+      <app-landing-page *ngIf="!loader" ></app-landing-page>
       <!-- <div >
         <mat-spinner></mat-spinner>
 
@@ -260,7 +258,7 @@
 
           <app-empty-record *ngIf="products?.length <= 0 && !isProcessing"></app-empty-record>
           <div *ngIf="isProcessing"  class="container spinner-wrapper">
-            <mat-spinner></mat-spinner>
+            <mat-spinner class="custom-spinner-color"></mat-spinner>
 
           </div>
           <div  class="element-grid column4_element_grid mb_50" >
@@ -548,54 +546,10 @@
 
 		<!-- footer_section - start
 		================================================== -->
-	<app-footer></app-footer>
+	<app-footer *ngIf="!loader"></app-footer>
 		<!-- footer_section - end
 		================================================== -->
 
 
-		<!-- fraimwork - jquery include -->
-		<script src="assets/js/jquery-3.5.1.min.js"></script>
-		<script src="assets/js/popper.min.js"></script>
-		<script src="assets/js/bootstrap.min.js"></script>
-
-		<!-- mobile menu - jquery include -->
-        <script src="assets/js/mCustomScrollbar.js"></script>
-
-		<!-- google map - jquery include -->
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDk2HrmqE4sWSei0XdKGbOMOHN3Mm2Bf-M&ver=2.1.6"></script>
-        <script src="assets/js/gmaps.min.js"></script>
-
-		<!-- animation - jquery include -->
-        <script src="assets/js/parallaxie.js"></script>
-        <script src="assets/js/wow.min.js"></script>
-
-		<!-- nice select - jquery include -->
-        <script src="assets/js/nice-select.min.js"></script>
-
-		<!-- carousel - jquery include -->
-        <script src="assets/js/slick.min.js"></script>
-
-		<!-- countdown timer - jquery include -->
-        <script src="assets/js/countdown.js"></script>
-
-		<!-- popup images & videos - jquery include -->
-        <script src="assets/js/magnific-popup.min.js"></script>
-
-		<!-- filtering & masonry layout - jquery include -->
-        <script src="assets/js/isotope.pkgd.min.js"></script>
-        <script src="assets/js/masonry.pkgd.min.js"></script>
-        <script src="assets/js/imagesloaded.pkgd.min.js"></script>
-
-		<!-- jquery ui - jquery include -->
-        <script src="assets/js/jquery-ui.js"></script>
-
-		<!-- custom - jquery include -->
-		<script src="assets/js/custom.js"></script>
 
 
-		<!-- product quick view - end -->
-		<!-- shop_section - end
-			================================================== -->
-
-	</body>
-</html>

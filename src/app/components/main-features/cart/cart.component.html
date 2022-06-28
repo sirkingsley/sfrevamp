@@ -1,31 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
 
 
 
-
-	<body>
-
-
-		<!-- backtotop - start -->
-
-		<!-- backtotop - end -->
-
-		<!-- preloader - start -->
-		<!-- <div id="preloader"></div> -->
-		<!-- preloader - end -->
-
+	<div *ngIf="loader" style="display: flex; justify-content: center; align-items:center; width:100%; height:100%;">
+    <div class="spinner-grow" style="width: 3rem; height: 3rem; color: green;" role="status" >
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
 
 		<!-- header_section - start
 		================================================== -->
-    <app-top-nav [featuredShops]="featuredShops" [industries]="industries" [target]="" ></app-top-nav>
+    <app-top-nav ></app-top-nav>
 		<!-- header_section - end
 		================================================== -->
 
 
 		<!-- main body - start
 		================================================== -->
-		<main>
+		<main *ngIf="!loader">
 
 
 			<!-- sidebar mobile menu & sidebar cart - start
@@ -147,45 +138,3 @@
 		================================================== -->
 
 
-		<!-- fraimwork - jquery include -->
-		<script src="assets/js/jquery-3.5.1.min.js"></script>
-		<script src="assets/js/popper.min.js"></script>
-		<script src="assets/js/bootstrap.min.js"></script>
-
-		<!-- mobile menu - jquery include -->
-        <script src="assets/js/mCustomScrollbar.js"></script>
-
-		<!-- google map - jquery include -->
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDk2HrmqE4sWSei0XdKGbOMOHN3Mm2Bf-M&ver=2.1.6"></script>
-        <script src="assets/js/gmaps.min.js"></script>
-
-		<!-- animation - jquery include -->
-        <script src="assets/js/parallaxie.js"></script>
-        <script src="assets/js/wow.min.js"></script>
-
-		<!-- nice select - jquery include -->
-        <script src="assets/js/nice-select.min.js"></script>
-
-		<!-- carousel - jquery include -->
-        <script src="assets/js/slick.min.js"></script>
-
-		<!-- countdown timer - jquery include -->
-        <script src="assets/js/countdown.js"></script>
-
-		<!-- popup images & videos - jquery include -->
-        <script src="assets/js/magnific-popup.min.js"></script>
-
-		<!-- filtering & masonry layout - jquery include -->
-        <script src="assets/js/isotope.pkgd.min.js"></script>
-        <script src="assets/js/masonry.pkgd.min.js"></script>
-        <script src="assets/js/imagesloaded.pkgd.min.js"></script>
-
-		<!-- jquery ui - jquery include -->
-        <script src="assets/js/jquery-ui.js"></script>
-
-		<!-- custom - jquery include -->
-		<script src="assets/js/custom.js"></script>
-
-
-	</body>
-</html>
