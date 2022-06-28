@@ -14,7 +14,7 @@
 		<!-- preloader - end -->
 
 
-    <app-top-nav [featuredShops]="featuredShops" [industries]="industries" ></app-top-nav>
+    <app-top-nav [featuredShops]="featuredShops" [industries]="industries" (htmlTarget)="filterByCategory($event,target)"></app-top-nav>
 
 		<!-- main body - start
 		================================================== -->
@@ -32,11 +32,11 @@
 				================================================== -->
         <div class="container">
 
-				<section class="product_section sec_ptb_100 clearfix">
+				<section class="product_section sec_ptb_100 clearfix" #target>
           <div class="carparts_filetr_bar clearfix">
 						<div class="row align-items-center justify-content-lg-between">
 							<div class="col-lg-6 col-md-6">
-								<h4 class="result_text">Showing {{products?.length}} of {{totalPage}} products </h4>
+								<h4 class="result_text">Showing {{products?.length}} of {{totalPage}} </h4>
 							</div>
 
 							<div class="col-lg-6 col-md-6">
@@ -60,7 +60,7 @@
 					<div class="tab-content mb_50">
 						<div id="best_tab" class="tab-pane active">
 							<div class="row justify-content-center" >
-
+                <app-empty-record *ngIf="products?.length <= 0 && !isProcessing"></app-empty-record>
 								<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12" *ngFor="let item of products">
 									<div class="modern_product_item bg_lightyellow text-uppercase">
 										<!-- <ul class="product_label ul_li_right clearfix"  *ngIf="item?.new_quantity<=0">

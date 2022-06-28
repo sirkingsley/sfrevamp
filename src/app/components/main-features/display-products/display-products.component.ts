@@ -157,16 +157,16 @@ export class DisplayProductsComponent implements OnInit {
     });
     await this.getCartItems();
 
-    this.searchControl.valueChanges.pipe(
-      debounceTime(500),
-      distinctUntilChanged()
-    ).subscribe((searchTerm: string) => {
-      if (searchTerm !== null && searchTerm !== undefined && searchTerm !== '' && searchTerm.length >= 2) {
-        this.isSearching = true;
-        // TODO:  this.getProducts({ storefrontmall_name: this.getHostname.subDomain, search_text: searchTerm });
-        this.getProducts({ storefrontmall_name: this.subdomain, search_text: searchTerm });
-      }
-    });
+    // this.searchControl.valueChanges.pipe(
+    //   debounceTime(500),
+    //   distinctUntilChanged()
+    // ).subscribe((searchTerm: string) => {
+    //   if (searchTerm !== null && searchTerm !== undefined && searchTerm !== '' && searchTerm.length >= 2) {
+    //     this.isSearching = true;
+    //     // TODO:  this.getProducts({ storefrontmall_name: this.getHostname.subDomain, search_text: searchTerm });
+    //     this.getProducts({ storefrontmall_name: this.subdomain, search_text: searchTerm });
+    //   }
+    // });
     this.getShopInfo();
     this.getProductGroups();
     this.protocol = this.constantValues.STOREFRONT_MALL_URL_PROTOCOL;
@@ -178,7 +178,7 @@ export class DisplayProductsComponent implements OnInit {
 
       if(param['pageSec']){
         this.selectedCategory=param['category'];
-        this.ProductsTitle=this.selectedCategory +" Products";
+        this.ProductsTitle=this.selectedCategory +"Products";
         this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
       }else{
       this.getProducts({});
