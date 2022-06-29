@@ -165,8 +165,8 @@ export class SupermarketComponent implements OnInit {
 
 onload(){
   custom();
-  main();
-  parallaxie();
+  //main();
+  //parallaxie();
 }
 
 // ngAfterInit (){
@@ -247,6 +247,10 @@ onload(){
     // });
     // alert("hi 2");
 
+    $('.filter_sidebar_btn').on('click', function () {
+      $('.filter_sidebar').addClass('active');
+      $('.overlay').addClass('active');
+    });
 
     $('#flip').on("click",function(){
       $("#panel").slideToggle("slow");
@@ -255,6 +259,9 @@ onload(){
     $('.search_btn').on("click",function(){
       $("#search_body_collapse").slideToggle("slow");
     });
+
+
+
     this.onload();
 
 
@@ -351,7 +358,7 @@ getFeaturedShops({ }) {
 getIndustries() {
   this.shopsApiCalls.getIndustries((error, result) => {
     this.industries = result;
-    //console.log("this.industries "+ JSON.stringify(this.industries) );
+    //console.log("this.industries "+ JSON.stringify(this.industries,null,2) );
   });
 }
 

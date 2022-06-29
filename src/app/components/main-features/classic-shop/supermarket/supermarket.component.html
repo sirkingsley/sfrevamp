@@ -1,6 +1,6 @@
 
 <div *ngIf="loader" style="display: flex; justify-content: center; align-items:center; width:100%; height:100%;">
-  <div class="spinner-grow" style="width: 3rem; height: 3rem; color: green;" role="status" >
+  <div class="spinner-grow" style="width: 6rem; height: 6rem; color: green;" role="status" >
     <span class="visually-hidden">Loading...</span>
   </div>
 </div>
@@ -188,7 +188,7 @@
       <div class="container category-wrapper" >
         <div class=" category-item ">
           <div class="ecommerce_category_fullimage ">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMEpzuK5beL9iJ31-n-2GIijS8pAsNEZC-o37dvU0eM6JZYLJO2LGfkmgjdy9DIn4HeUQ&usqp=CAU" alt="image_not_found">
+            <img src="https://res.cloudinary.com/dg6egbqfn/image/upload/v1656502665/kudigo-assets/storefront/books_ityeh8.jpg" alt="image_not_found">
             <h3 class="item_title">
               <a (click)="filterByCategory(industries[0]?.name,target)">{{industries[0]?.name}}</a>
             </h3>
@@ -197,7 +197,7 @@
 
         <div class=" category-item">
           <div class="ecommerce_category_fullimage ">
-            <img src="https://www.cosmeticsdesign-europe.com/var/wrbm_gb_food_pharma/storage/images/publications/cosmetics/cosmeticsdesign-europe.com/article/2020/05/25/covid-19-crisis-impacts-beauty-financials-hard-personal-care-fares-better/11419099-1-eng-GB/COVID-19-crisis-impacts-beauty-financials-hard-personal-care-fares-better.jpg" alt="image_not_found">
+            <img src="https://res.cloudinary.com/dg6egbqfn/image/upload/v1656502666/kudigo-assets/storefront/beauty_zl3eeb.jpg" alt="image_not_found">
             <h3 class="item_title">
               <a (click)="filterByCategory(industries[1]?.name,target)">{{industries[1]?.name}}</a>
             </h3>
@@ -206,9 +206,18 @@
 
         <div class=" category-item">
           <div class="ecommerce_category_fullimage ">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt1sW19JoqS92cT6-6rjsjJTCliEGUhtxF_K7EH0o30TyZ6zgJpflXKGWIZd4H9NEjUEQ&usqp=CAU" alt="image_not_found">
+            <img src="https://res.cloudinary.com/dg6egbqfn/image/upload/v1656502665/kudigo-assets/storefront/building_fnpco3.jpg" alt="image_not_found">
             <h3 class="item_title">
               <a (click)="filterByCategory(industries[2]?.name,target)">{{industries[2]?.name}}</a>
+            </h3>
+          </div>
+        </div>
+
+        <div class=" category-item" id="cat_hide">
+          <div class="ecommerce_category_fullimage ">
+            <img src="https://res.cloudinary.com/dg6egbqfn/image/upload/v1656502666/kudigo-assets/storefront/building_mat_boya6i.jpg" alt="image_not_found">
+            <h3 class="item_title">
+              <a (click)="filterByCategory(industries[3]?.name,target)">{{industries[3]?.name}}</a>
             </h3>
           </div>
         </div>
@@ -223,37 +232,24 @@
 			================================================== -->
 			<section class="product_section sec_ptb_100 clearfix">
 				<div class="container">
-					<div class="row mb_30 align-items-center justify-content-lg-between">
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-5">
+          <div class="row mb_30 align-items-center justify-content-lg-between">
+						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
 							<div class="ecommerce_section_title" #container>
-								<h2 class="title_text mb-0" id="silas" #target>{{ProductsTitle}}</h2>
+								<h2 class="title_text mb-0"  #target>{{ProductsTitle}}</h2>
 							</div>
+
 						</div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<ul class="button-group filters-button-group ul_li_right clearfix" >
-                <!--Larger screen navs-->
-                <ul class="button-group filters-button-group ul_li_right clearfix ms-0">
+
+						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+							<ul class="button-group filters-button-group ul_li_right clearfix ms-0">
                   <li class="large-screen-cat-nav ms-0" ><button [class.active]="selectedCategory === ''" (click)="filterCategory('',target)">All</button></li>
-                  <li class="large-screen-cat-nav"  *ngFor="let category of industries | slice:4:7"><button (click)="filterCategory(category?.name,target)" [class.active]="selectedCategory === category?.name" >{{category?.name}}</button></li>
+                  <li class="large-screen-cat-nav"  *ngFor="let category of industries | slice:5:8"><button (click)="filterCategory(category?.name,target)" [class.active]="selectedCategory === category?.name" >{{category?.name}}</button></li>
 
-                  <li><span class="filter_sidebar_btn" data-bg-color="#f9f9f9"><i class="far fa-bars"></i> FILTER</span></li>
+                  <li><span class="filter_sidebar_btn" ><i class="far fa-bars"></i> FILTER</span></li>
                 </ul>
-							</ul>
 						</div>
-
-						<!-- <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-							<ul class="button-group filters-button-group ul_li_right clearfix">
-								<li><button class="active" routerLink="dresses">All</button></li>
-								<li><button  routerLink="fall">Fall</button></li>
-								<li><button  routerLink="blouse">Blouse</button></li>
-								<li ><button  routerLink="dresses">Dresses</button></li>
-
-								<li><button >Tops</button></li>
-								<li><button >Bodysuits</button></li>
-								<li><span class="filter_sidebar_btn" data-bg-color="#f9f9f9"><i class="far fa-bars"></i> FILTER</span></li>
-							</ul>
-						</div> -->
 					</div>
+
           <!-- <router-outlet></router-outlet> -->
 
           <app-empty-record *ngIf="products?.length <= 0 && !isProcessing"></app-empty-record>
