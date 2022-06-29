@@ -82,12 +82,12 @@
 									<label for="password_input"><i class="fal fa-unlock-alt"></i></label>
 								</div>
                 <div class="checkbox_item">
-                  <label for="remember_checkbox"><input  type="checkbox"(click)="Guest()" >Checkout as Guest?</label>
+                  <label for="remember_checkbox"><input  type="checkbox"(click)="Guest()" >Continue as Guest?</label>
                   <a class="forget_pass text-uppercase mb_30">Forgot password?</a>
                 </div>
 
                 <mat-progress-bar *ngIf="isProcessing"  class="mb-0" mode="indeterminate"></mat-progress-bar>
-								<button type="submit" class="bt-link bt-yellow bt-style5 mt-0 full-width" [disabled]="formGroup?.invalid || isProcessing">Login</button>
+								<button type="submit" class="bt-link bt-yellow bt-style5 mt-0 full-width" [class.cursor_disabled]="formGroup?.invalid"  [disabled]="formGroup?.invalid || isProcessing">Login</button>
 
 								<!-- <div class="social_wrap mb_100">
 									<h4 class="small_title_text mb_15 text-center text-uppercase">Or Login With</h4>

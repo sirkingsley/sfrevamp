@@ -88,7 +88,7 @@
 									<label for="agree_checkbox"><input id="agree_checkbox" type="checkbox"> I agree to the Terms of User</label>
 								</div> -->
                 <mat-progress-bar *ngIf="isProcessing"  class="mb-0" mode="indeterminate"></mat-progress-bar>
-								<button type="submit" class="bt-link bt-yellow bt-style5 mt-0 full-width" [disabled]="formGroup?.invalid || isProcessing">Create Account</button>
+								<button type="submit" class="bt-link bt-yellow bt-style5 mt-0 full-width" [class.cursor_disabled]="formGroup?.invalid " [disabled]="formGroup?.invalid || isProcessing">Create Account</button>
 
 								<div class="create_account text-center mt-4">
 									<h4 class="small_title_text text-center text-uppercase">Have an account/ continue as guest?</h4>

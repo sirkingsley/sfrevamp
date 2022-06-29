@@ -15725,6 +15725,10 @@ button {
 //   color: $text_white;
 
 // }
+.cursor_disabled{
+  cursor: not-allowed !important;
+  background-color: #ffffff !important;
+}
 .bt-yellow {
   background: #3a9643 !important;
   color: #fff !important;
