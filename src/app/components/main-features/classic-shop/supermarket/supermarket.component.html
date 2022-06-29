@@ -261,7 +261,14 @@
             <mat-spinner class="custom-spinner-color"></mat-spinner>
 
           </div>
+          <div class="load_more text-center clearfix">
+						<app-pagination *ngIf="products?.length > 0 " [dataSet]="products" [nextPage]="nextPage"
+              [prevPage]="prevPage" [totalPage]="totalPage" [requestPayload]="filterParams" [requestMethod]="'POST'"
+              (pageChanged)="onPageChanged($event)" [(isProcessing)]="isProcessing">
+            </app-pagination>
+					</div>
           <div  class="element-grid column4_element_grid mb_50" >
+
 
             <div class="element-item " *ngFor="let item of products" >
               <div class="ecommerce_product_grid">

@@ -147,7 +147,7 @@ export class DisplayProductsComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     setTimeout(()=>{
       this.loader = false;
-  }, 3000);
+  }, 1000);
     this.subdomain = this.getHostname.subDomain;
     // this.subdomain = this.constantValues.GTP_SUBDOMAIN;
     this.gtpSubdomin = this.constantValues.GTP_SUBDOMAIN;

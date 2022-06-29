@@ -154,7 +154,7 @@ export class Checkout2Component implements OnInit {
     //Loader variable set false after page load
     setTimeout(()=>{
       this.loader = false;
-  }, 3000);
+  }, 1000);
     this.isLoggedIn = this.authService.isLogedIn;
     this.currentUser = this.authService.currentUser;
     //console.log(this.currentUser);
