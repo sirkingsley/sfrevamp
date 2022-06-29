@@ -74,7 +74,7 @@
                   </mat-error>
 									<label for="username_input"><i class="fal fa-user"></i></label>
 								</div> -->
-								<div class="form_item">
+								<div class="form_item" *ngIf="!isGuest">
                   <input type="password" placeholder="Password" formControlName="password"/>
                   <mat-error *ngIf="password?.invalid && password?.touched" >
                     Please enter a password
