@@ -41,14 +41,16 @@
 								<h2 class="form_title text-uppercase text-center">
                   <img src="assets/images/logo-main.png" alt="kudigo Inc">
                 </h2>
-								<!-- <div class="form_item">
+								<div class="form_item" *ngIf="isGuest">
                   <input type="text" placeholder="Full Name"
                   formControlName="customer_name"/>
-                  <mat-error *ngIf="customer_name?.invalid && customer_name?.touched" >
-                    Please enter your full name
-                  </mat-error>
 									<label for="username_input"><i class="fal fa-user"></i></label>
-								</div> -->
+								</div>
+                <div class="form_item" *ngIf="isGuest">
+                  <input type="text" placeholder="email"
+                  formControlName="email"/>
+									<label for="username_input"><i class="fal fa-envelope"></i></label>
+								</div>
                 <div class="form_item">
                   <!-- <lac-mat-country-selector
                   matPrefix [selectorFor]="input1"
@@ -79,7 +81,11 @@
                   </mat-error>
 									<label for="password_input"><i class="fal fa-unlock-alt"></i></label>
 								</div>
-								<a class="forget_pass text-uppercase mb_30" href="#!">Forgot password?</a>
+                <div class="checkbox_item">
+                  <label for="remember_checkbox"><input  type="checkbox"(click)="Guest()" >Checkout as Guest?</label>
+                  <a class="forget_pass text-uppercase mb_30">Forgot password?</a>
+                </div>
+
                 <mat-progress-bar *ngIf="isProcessing"  class="mb-0" mode="indeterminate"></mat-progress-bar>
 								<button type="submit" class="bt-link bt-yellow bt-style5 mt-0 full-width" [disabled]="formGroup?.invalid || isProcessing">Login</button>
 
@@ -93,7 +99,7 @@
 								</div> -->
 
 								<div class="create_account text-center mt-3">
-									<h4 class="small_title_text text-center text-uppercase">Have not account yet?</h4>
+									<h4 class="small_title_text text-center text-uppercase">Have not account yet? </h4>
 									<a class="create_account_btn text-uppercase" [routerLink]="['/sign-up']">Sign Up</a>
 								</div>
 							</div>

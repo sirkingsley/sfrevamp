@@ -95,6 +95,10 @@ export class LoginComponent implements OnInit {
       }, this.isGuest);
     }
   }
+
+  Guest(){
+    this.isGuest= !this.isGuest;
+   }
   get phone_number() { return this.formGroup.get('phone_number'); }
   get password() { return this.formGroup.get('password'); }
   get customer_name() { return this.formGroup.get('customer_name'); }
