@@ -27,6 +27,7 @@ import { ProductsFilterParams } from 'src/app/interfaces/products-filter-params'
 import { WINDOW } from 'src/app/utils/window.provider';
 import { Subscription } from 'rxjs';
 import AOS from 'aos';
+import { CartPopUpComponent } from '../../commons/cart-pop-up/cart-pop-up.component';
 
 export interface DialogData {
   animal: 'panda' | 'unicorn' | 'lion';
@@ -334,4 +335,9 @@ filterCategory(category,el: HTMLElement) {
   }
 
 
+  openCartDialog(): void {
+    this.dialog.open(CartPopUpComponent,{panelClass: ['animate__animated','animate__slideInRight']}
+
+   );
+  }
 }
