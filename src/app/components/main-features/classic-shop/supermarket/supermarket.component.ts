@@ -10,6 +10,7 @@ import { ShopApiCallsService } from 'src/app/services/network-calls/shop-api-cal
 import { ProductsApiCallsService } from 'src/app/services/network-calls/products-api-calls.service';
 import { DataProviderService } from 'src/app/services/data-provider.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
+import AOS from 'aos';
 
 import { ToastrService } from 'ngx-toastr';
 
@@ -182,6 +183,7 @@ onload(){
 // }
 
   async ngOnInit(): Promise<void> {
+    AOS.init();
     //Loader variable set false after page load
     setTimeout(()=>{
       this.loader = false;

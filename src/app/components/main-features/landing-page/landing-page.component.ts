@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { interval, Subscription } from 'rxjs';
 import { ShopApiCallsService } from 'src/app/services/network-calls/shop-api-calls.service';
 import { customOptions, customOptions1, customOptionsHome, OwlLandingPageOtion, slides1 } from 'src/app/utils/constants';
+import AOS from 'aos';
 
 @Component({
   selector: 'app-landing-page',
@@ -29,6 +30,7 @@ export class LandingPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    AOS.init();
  // This visualizes the banner delay
  const source = interval(10000);
 

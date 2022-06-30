@@ -17,6 +17,7 @@ import { CountryEnum, PriceSortingEnums, PromosEnum } from 'src/app/utils/enums'
 import { servicesCarouselConfig } from 'src/app/utils/owl-config';
 import { CartPopUpComponent } from '../../commons/cart-pop-up/cart-pop-up.component';
 import { ViewProductComponent } from '../../commons/view-product/view-product.component';
+import AOS from 'aos';
 
 //JavaScript Functions
 declare const custom:any;
@@ -148,6 +149,7 @@ export class DisplayProductsComponent implements OnInit {
     setTimeout(()=>{
       this.loader = false;
   }, 1000);
+  AOS.init();
     this.subdomain = this.getHostname.subDomain;
     // this.subdomain = this.constantValues.GTP_SUBDOMAIN;
     this.gtpSubdomin = this.constantValues.GTP_SUBDOMAIN;

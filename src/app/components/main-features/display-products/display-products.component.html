@@ -36,7 +36,7 @@
           <div class="carparts_filetr_bar clearfix" >
 						<div class="row align-items-center justify-content-lg-between" style="display: flex ; justify-content:space-between; flex-wrap: nowrap;">
 							<div class="" style="width: 50% !important;">
-								<h4 class="result_text">Showing {{products?.length}} of {{totalPage}} </h4>
+								<h4 class="result_text">Showing {{products?.length}} of {{totalPage}} Products </h4>
 							</div>
 
 							<div class="" style="width: 50% !important;">
@@ -67,7 +67,8 @@
                 <app-empty-record *ngIf="products?.length <= 0 && !isProcessing"></app-empty-record>
 
 								<div   class="col-lg-4 col-md-6 col-sm-12 col-xs-12" *ngFor="let item of products">
-									<div class="modern_product_item bg_lightyellow text-uppercase">
+									<div class="modern_product_item bg_lightyellow text-uppercase"
+                  data-aos="zoom-in-down">
 										<!-- <ul class="product_label ul_li_right clearfix"  *ngIf="item?.new_quantity<=0">
 											<li class="bg_black">Out of Stock</li>
 										</ul> -->
@@ -114,7 +115,10 @@
 
 				<!-- feature_section - start
 				================================================== -->
-				<section class="feature_section clearfix">
+				<section class="feature_section clearfix"
+          data-aos="fade-right"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine">
 					<div class="modern_top_product clearfix">
 						<ul class="tab_menu nav ul_li_block text-uppercase" role="tablist">
 							<li>
@@ -137,7 +141,10 @@
 											<h2 class="title_text mb_30">
 												home decoration product
 											</h2>
-											<a class="custom_btn bg_black text-uppercase" href="#!">Shop Now</a>
+											<a class="custom_btn bg_black text-uppercase" href="#!"
+                      data-aos="fade-right"
+                      data-aos-offset="300"
+                      data-aos-easing="ease-in-sine">Shop Now</a>
 										</div>
 									</div>
 
@@ -195,7 +202,10 @@
 
 				<!-- blog_section - start
 				================================================== -->
-				<section class="blog_section sec_ptb_100 clearfix">
+				<section class="blog_section sec_ptb_100 clearfix"
+        data-aos="fade-left"
+        data-aos-offset="300"
+        data-aos-easing="ease-in-sine">
 					<div class="modern_blog_listlayout">
 						<div class="row align-items-center justify-content-lg-between">
 							<div class="col-lg-7 order-last">

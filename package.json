@@ -21,6 +21,7 @@
     "@angular/platform-browser": "~13.1.0",
     "@angular/platform-browser-dynamic": "~13.1.0",
     "@angular/router": "~13.1.0",
+    "aos": "^2.3.4",
     "compression": "^1.7.4",
     "express": "^4.17.3",
     "helmet": "^5.0.2",
