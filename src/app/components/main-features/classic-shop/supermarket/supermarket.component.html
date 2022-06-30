@@ -153,7 +153,7 @@
 												<p>
 													{{shop.location}}
 												</p>
-												<a class="custom_btn bg_white text-uppercase" [routerLink]="['/shop-details', shop]">View Shop</a>
+												<a class="custom_btn bg_white text-uppercase" [routerLink]="['/shop-details', {shop: shop,storefrontmall_name:shop.storefrontmall_name,store_name:shop.business_name}]">View Shop</a>
 											</div>
 										</div>
 									  </div>
@@ -322,105 +322,6 @@
         <a class="custom_btn bg_gray text-uppercase m-3" href="#!">Load More</a>
       </div> -->
 
-			<div class="sidebar-menu-wrapper">
-				<div class="filter_sidebar">
-					<button type="button" class="close_btn mb_50"><i class="fal fa-times"></i></button>
-					<div class="fs_widget fs_category_list">
-						<h3 class="fs_widget_title text-uppercase">Top Categories</h3>
-            <ul class="ul_li_block clearfix">
-							<li *ngFor="let category of industries"><a (click)="filterCategory(category.name,target)" (click)="filterByCategory(category.name,target)">{{category.name}}</a></li>
-
-						</ul>
-						<!-- <ul class="ul_li_block clearfix">
-							<li><a href="#!"><span><i class="fab fa-black-tie"></i></span>Andy</a></li>
-							<li><a href="#!"><span><i class="fal fa-tshirt"></i></span>Ariadne’s Thread</a></li>
-							<li><a href="#!"><span><i class="fal fa-watch"></i></span>Black Swan</a></li>
-							<li><a href="#!"><span><i class="fal fa-compact-disc"></i></span>Disco</a></li>
-							<li><a href="#!"><span><i class="fas fa-gem"></i></span>Discovering Greece</a></li>
-							<li><a href="#!"><span><i class="fal fa-bicycle"></i></span>Folding the News</a></li>
-							<li><a href="#!"><span><i class="far fa-laptop"></i></span>George C.</a></li>
-							<li><a href="#!"><span><i class="fas fa-mobile-alt"></i></span>Helen of Troy</a></li>
-							<li><a href="#!"><span><i class="fab fa-black-tie"></i></span>Hi-Tech</a></li>
-							<li><a href="#!"><span><i class="fab fa-black-tie"></i></span>Yokoso</a></li>
-						</ul> -->
-					</div>
-
-					<div class="fs_widget fs_price_list">
-						<h3 class="fs_widget_title text-uppercase">Price filter</h3>
-						<form action="#">
-							<ul class="ul_li_block clearfix">
-								<li>
-									<input id="fs_price_1" type="radio" name="fs_price_wroup" checked>
-									<label for="fs_price_1">$25 - $100</label>
-								</li>
-								<li>
-									<input id="fs_price_2" type="radio" name="fs_price_wroup">
-									<label for="fs_price_2">$100 - $200</label>
-								</li>
-								<li>
-									<input id="fs_price_3" type="radio" name="fs_price_wroup">
-									<label for="fs_price_3">$200 - $300</label>
-								</li>
-								<li>
-									<input id="fs_price_4" type="radio" name="fs_price_wroup">
-									<label for="fs_price_4">$400 - $500</label>
-								</li>
-								<li>
-									<input id="fs_price_5" type="radio" name="fs_price_wroup">
-									<label for="fs_price_5">$500 - $1000</label>
-								</li>
-							</ul>
-						</form>
-					</div>
-
-
-
-					<div class="fs_widget fs_realted_post">
-						<h3 class="fs_widget_title text-uppercase">Your may also like</h3>
-						<div class="small_blog">
-							<a href="blog_details.html" class="item_image">
-								<img src="assets/images/reg_bg_02.png" alt="image_not_found">
-							</a>
-							<div class="item_content">
-								<h3 class="item_title">
-									<a href="blog_details.html">
-										A Sound Way To Treat Hearing Loss
-									</a>
-								</h3>
-								<span class="post_date">March 12, 2020</span>
-							</div>
-						</div>
-
-						<div class="small_blog">
-							<a href="blog_details.html" class="item_image">
-								<img src="assets/images/reg_bg_02.png" alt="image_not_found">
-							</a>
-							<div class="item_content">
-								<h3 class="item_title">
-									<a href="blog_details.html">
-										A Sound Way To Treat Hearing Loss
-									</a>
-								</h3>
-								<span class="post_date">March 12, 2020</span>
-							</div>
-						</div>
-
-						<div class="small_blog">
-							<a href="blog_details.html" class="item_image">
-								<img src="assets/images/reg_bg_02.png" alt="image_not_found">
-							</a>
-							<div class="item_content">
-								<h3 class="item_title">
-									<a href="blog_details.html">
-										A Sound Way To Treat Hearing Loss
-									</a>
-								</h3>
-								<span class="post_date">March 12, 2020</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 			<!-- product_section - end
 			================================================== -->
 
@@ -548,6 +449,105 @@
 			================================================== -->
 
 
+			<div class="sidebar-menu-wrapper">
+				<div class="filter_sidebar">
+					<button type="button" class="close_btn mb_50"><i class="fal fa-times"></i></button>
+					<div class="fs_widget fs_category_list">
+						<h3 class="fs_widget_title text-uppercase">Top Categories</h3>
+            <ul class="ul_li_block clearfix">
+							<li *ngFor="let category of industries"><a (click)="filterCategory(category.name,target)" (click)="filterByCategory(category.name,target)">{{category.name}}</a></li>
+
+						</ul>
+						<!-- <ul class="ul_li_block clearfix">
+							<li><a href="#!"><span><i class="fab fa-black-tie"></i></span>Andy</a></li>
+							<li><a href="#!"><span><i class="fal fa-tshirt"></i></span>Ariadne’s Thread</a></li>
+							<li><a href="#!"><span><i class="fal fa-watch"></i></span>Black Swan</a></li>
+							<li><a href="#!"><span><i class="fal fa-compact-disc"></i></span>Disco</a></li>
+							<li><a href="#!"><span><i class="fas fa-gem"></i></span>Discovering Greece</a></li>
+							<li><a href="#!"><span><i class="fal fa-bicycle"></i></span>Folding the News</a></li>
+							<li><a href="#!"><span><i class="far fa-laptop"></i></span>George C.</a></li>
+							<li><a href="#!"><span><i class="fas fa-mobile-alt"></i></span>Helen of Troy</a></li>
+							<li><a href="#!"><span><i class="fab fa-black-tie"></i></span>Hi-Tech</a></li>
+							<li><a href="#!"><span><i class="fab fa-black-tie"></i></span>Yokoso</a></li>
+						</ul> -->
+					</div>
+
+					<div class="fs_widget fs_price_list">
+						<h3 class="fs_widget_title text-uppercase">Price filter</h3>
+						<form action="#">
+							<ul class="ul_li_block clearfix">
+								<li>
+									<input id="fs_price_1" type="radio" name="fs_price_wroup" checked>
+									<label for="fs_price_1">$25 - $100</label>
+								</li>
+								<li>
+									<input id="fs_price_2" type="radio" name="fs_price_wroup">
+									<label for="fs_price_2">$100 - $200</label>
+								</li>
+								<li>
+									<input id="fs_price_3" type="radio" name="fs_price_wroup">
+									<label for="fs_price_3">$200 - $300</label>
+								</li>
+								<li>
+									<input id="fs_price_4" type="radio" name="fs_price_wroup">
+									<label for="fs_price_4">$400 - $500</label>
+								</li>
+								<li>
+									<input id="fs_price_5" type="radio" name="fs_price_wroup">
+									<label for="fs_price_5">$500 - $1000</label>
+								</li>
+							</ul>
+						</form>
+					</div>
+
+
+
+					<div class="fs_widget fs_realted_post">
+						<h3 class="fs_widget_title text-uppercase">Your may also like</h3>
+						<div class="small_blog">
+							<a href="blog_details.html" class="item_image">
+								<img src="assets/images/reg_bg_02.png" alt="image_not_found">
+							</a>
+							<div class="item_content">
+								<h3 class="item_title">
+									<a href="blog_details.html">
+										A Sound Way To Treat Hearing Loss
+									</a>
+								</h3>
+								<span class="post_date">March 12, 2020</span>
+							</div>
+						</div>
+
+						<div class="small_blog">
+							<a href="blog_details.html" class="item_image">
+								<img src="assets/images/reg_bg_02.png" alt="image_not_found">
+							</a>
+							<div class="item_content">
+								<h3 class="item_title">
+									<a href="blog_details.html">
+										A Sound Way To Treat Hearing Loss
+									</a>
+								</h3>
+								<span class="post_date">March 12, 2020</span>
+							</div>
+						</div>
+
+						<div class="small_blog">
+							<a href="blog_details.html" class="item_image">
+								<img src="assets/images/reg_bg_02.png" alt="image_not_found">
+							</a>
+							<div class="item_content">
+								<h3 class="item_title">
+									<a href="blog_details.html">
+										A Sound Way To Treat Hearing Loss
+									</a>
+								</h3>
+								<span class="post_date">March 12, 2020</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</main>
 		<!-- main body - end
 		================================================== -->

@@ -29,6 +29,7 @@ import { JsonpClientBackend } from '@angular/common/http';
 import { User } from 'src/app/modules/user';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { LoginComponent } from 'src/app/components/commons/login/login.component';
+import { WINDOW } from 'src/app/utils/window.provider';
 //import { WINDOW } from 'src/app/utils/window.provider';
 
 
@@ -45,7 +46,7 @@ export interface DialogData {
 declare const custom:any;
 declare const main:any;
 declare const parallaxie: any;
-declare const $;
+//declare const $;
 
 @Component({
   selector: 'app-supermarket',
@@ -152,7 +153,7 @@ export class SupermarketComponent implements OnInit {
     private toastr: ToastrService,
     private authService: AuthService,
     private route: ActivatedRoute,
-    //@Inject(WINDOW) public window: Window,
+    @Inject(WINDOW) private window: Window,
 
   ) { }
 
@@ -249,10 +250,10 @@ onload(){
     // });
     // alert("hi 2");
 
-    $('.filter_sidebar_btn').on('click', function () {
-      $('.filter_sidebar').addClass('active');
-      $('.overlay').addClass('active');
-    });
+    // $('.filter_sidebar_btn').on('click', function () {
+    //   $('.filter_sidebar').addClass('active');
+    //   $('.overlay').addClass('active');
+    // });
 
     $('#flip').on("click",function(){
       $("#panel").slideToggle("slow");
@@ -352,7 +353,7 @@ getFeaturedShops({ }) {
     this.isProcessingFeaturedShops = false;
     if (result !== null) {
       this.featuredShops = result.results;
-      //console.log("this.featuredShops-->"+ JSON.stringify(this.featuredShops));
+      console.log("this.featuredShops-->"+ JSON.stringify(this.featuredShops,null,2));
     }
   });
 }

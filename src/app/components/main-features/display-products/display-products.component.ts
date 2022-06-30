@@ -226,6 +226,10 @@ openDialog(item) {
     },
   });
 }
+filterByShop(storefrontmall_name){
+  this.getProducts({ tag: this.tag, storefrontmall_name: storefrontmall_name })
+}
+
 
 getFeaturedShops({ }) {
   this.isProcessingFeaturedShops = true;

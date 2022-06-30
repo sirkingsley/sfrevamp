@@ -39,7 +39,7 @@
 												<div class="container">
 													<ul class="home_pages ul_li clearfix" >
 														<li *ngFor="let shop of featuredShops">
-															<a [routerLink]="['/shop-details']">
+															<a [routerLink]="['/shop-details',{shop: shop,storefrontmall_name:shop.storefrontmall_name,store_name:shop.business_name}]">
 																<span class="item_image">
 																	<img src="{{shop.featured_image}}" onerror="this.src='../../assets/images/black-women-shopping.jpg'" alt="image_not_found">
 																</span>

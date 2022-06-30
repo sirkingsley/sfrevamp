@@ -23,6 +23,8 @@ export class GetHostnameService {
       subDomain= 'atlfabrics';
     } else if (this.hostname.includes("bquirkygh.com")) {
       subDomain= 'bquirky';
+    }else if (this.hostname.includes('localhost')){
+      subDomain='';
     }
     return subDomain;
     // return this.constValues.YOUNG_TEMPLATE_SUBDOMAIN;

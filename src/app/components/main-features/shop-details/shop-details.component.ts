@@ -1,4 +1,4 @@
-import { customOptionsHome,customOptions,customOptions1, slides1 } from 'src/app/utils/constants';
+import { customOptionsHome,customOptions,customOptions1, slides1, OwlLandingPageOtion, sectionOptions } from 'src/app/utils/constants';
 
 import { Component, Renderer2, OnInit, ElementRef, ViewChild, AfterViewInit, Inject  } from '@angular/core';
 
@@ -25,6 +25,8 @@ import { ProductsApiCallsService } from 'src/app/services/network-calls/products
 import { NotificationsService } from 'src/app/services/notifications.service';
 import { ProductsFilterParams } from 'src/app/interfaces/products-filter-params';
 import { WINDOW } from 'src/app/utils/window.provider';
+import { Subscription } from 'rxjs';
+import AOS from 'aos';
 
 export interface DialogData {
   animal: 'panda' | 'unicorn' | 'lion';
@@ -33,7 +35,7 @@ export interface DialogData {
 //JavaScript Functions
 declare const custom:any;
 declare const main:any;
-declare const parallaxie: any;
+//declare const parallaxie: any;
 @Component({
   selector: 'app-shop-details',
   templateUrl: './shop-details.component.html',
@@ -62,7 +64,17 @@ export class ShopDetailsComponent implements OnInit {
     private shopApiCalls: ShopApiCallsService
 
     ) { }
+    subscription: Subscription;
+    intervalId: number;
 
+
+    banners=[
+      {image:'../../assets/images/attractive-stylish-modern-young-african-woman-2021-08-26-17-26-19-utc.jpg'},
+      {image:'../../assets/images/happy-young-black-couple-with-presents-jumping-up-2022-02-22-15-54-29-utc.jpg'},
+      {image:'../../assets/images/black-millennial-couple-with-gift-box-on-pink-back-2022-02-22-15-52-54-utc.jpg'},
+    ];
+  sectionOptions=sectionOptions;
+  OwlLandingPageOtion=OwlLandingPageOtion;
     customOptions=customOptions;
     customOptions1=customOptions1;
     slides1=slides1;
@@ -101,6 +113,14 @@ export class ShopDetailsComponent implements OnInit {
     shopHasActivePromo = false;
     promoCodes = [];
     exchangeRate = 0;
+    storefrontmall_name='';
+    store_name='';
+    selectedValue: string;
+    prices = [
+      {value: 'All-Prices', viewValue: 'All Prices'},
+      {value: 'From-Lowest-to-Highest', viewValue: 'From Lowest to Highest'},
+      {value: 'From-Highest-to-Lowest', viewValue: 'From Highest to Lowest'},
+    ];
 
 
     getAttribute(){
@@ -112,23 +132,39 @@ export class ShopDetailsComponent implements OnInit {
   //Call JavaScript functions onload
   onload(){
   custom();
-  main();
-  parallaxie();
+  //main();
+  //parallaxie();
 }
+loader=true;
   ngOnInit(): void {
-
+    setTimeout(()=>{
+      this.loader = false;
+  }, 1000);
+    AOS.init();
     this.protocol = this.constantValues.STOREFRONT_MALL_URL_PROTOCOL;
     this.url = this.constantValues.STOREFRONT_MALL_URL;
     this.subdomain = this.getHostname.subDomain;
+    //this.subdomain = "gtpstore";
+    //console.log('subDomain-->'+this.subdomain);
     this.gtpSubdomain = this.constantValues.GTP_SUBDOMAIN;
     this.woodinSubdomain = this.constantValues.WOODIN_SUBDOMAIN;
     //this.getProducts({ tag: this.tag, storefrontmall_name: 'bquirky' });
-    this.getProducts({ tag: this.tag, storefrontmall_name: this.subdomain });
+    //this.getProducts({ tag: this.tag, storefrontmall_name: this.subdomain });
     let domain = this.window.location.hostname.split('.')[0];
     // this.getProducts({ tag: this.tag, storefrontmall_name: 'clauneizeenterprise' });
     //this.getProducts({});
     this.getShopInfo();
     this.getShopSliders();
+    this.getIndustries();
+
+    this.route.params.subscribe(param => {
+      const mall=param['shop'];
+      this.store_name=param['store_name'];
+      this.storefrontmall_name=param['storefrontmall_name'];
+      //console.log('Mall-->'+JSON.stringify(mall.shop,null,2));
+      this.getProducts({ tag: this.tag, storefrontmall_name: this.storefrontmall_name })
+      //console.log()
+    });
 
     console.log("SubDomain->"+this.subdomain);
     console.log("domin->"+domain);
@@ -150,11 +186,11 @@ export class ShopDetailsComponent implements OnInit {
       }
       this.selectedCategoryId = cid;
       // tslint:disable-next-line: max-line-length
-      this.getProducts({ sorting: this.selectedPriceSorting, product_group_id: this.selectedCategoryId, search_text: this.searchQuery, tag: this.tag, storefrontmall_name: this.subdomain });
+     // this.getProducts({ sorting: this.selectedPriceSorting, product_group_id: this.selectedCategoryId, search_text: this.searchQuery, tag: this.tag, storefrontmall_name: this.subdomain });
     });
 
       // tslint:disable-next-line: max-line-length
-      this.getProducts({ sorting: this.selectedPriceSorting, product_group_id: this.selectedCategoryId, search_text: this.searchQuery, tag: this.tag, storefrontmall_name: this.subdomain });
+      //this.getProducts({ sorting: this.selectedPriceSorting, product_group_id: this.selectedCategoryId, search_text: this.searchQuery, tag: this.tag, storefrontmall_name: this.subdomain });
 
       this.getActivePromo(this.getHostname.subDomain);
 
@@ -174,12 +210,23 @@ export class ShopDetailsComponent implements OnInit {
     });
 
 }
-
-filterByCategory(category) {
-  this.selectedCategoryId = category.id;
-  // tslint:disable-next-line: max-line-length
-  this.getProducts({ sorting: this.selectedPriceSorting, product_group_id: this.selectedCategoryId, search_text: this.searchQuery, tag: this.tag, storefrontmall_name: this.subdomain });
+filterByShop(storefrontmall_name){
+  this.getProducts({ tag: this.tag, storefrontmall_name: storefrontmall_name })
 }
+filterByCategory(category) {
+  this.isSearching=true;
+  this.ProductsTitle=category +" Products";
+  this.selectedCategory = category;
+
+  this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag,storefrontmall_name: this.storefrontmall_name });
+  // el.scrollIntoView({behavior: 'smooth'});
+}
+
+// scrollTo(target:HTMLElement){
+//   target.scrollIntoView({behavior: 'smooth'});
+
+
+
 
 /**
  * Get products by filter parameters
