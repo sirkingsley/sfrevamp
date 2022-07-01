@@ -116,7 +116,7 @@ export class ShopDetailsComponent implements OnInit {
     exchangeRate = 0;
     storefrontmall_name='';
     store_name='';
-    selectedValue: string;
+    selectedValueCtrl= new FormControl();
     prices = [
       {value: 'All-Prices', viewValue: 'All Prices'},
       {value: 'From-Lowest-to-Highest', viewValue: 'From Lowest to Highest'},
@@ -204,14 +204,14 @@ loader=true;
     });
     this.onload();
   }
-  openDialog(item) {
+  openDialog(item: any) {
     this.dialog.open(ViewProductComponent, {
+
       data: {
-        data: item,
+        item: item,
       },
     });
-
-}
+  }
 filterByShop(storefrontmall_name){
   this.getProducts({ tag: this.tag, storefrontmall_name: storefrontmall_name })
 }
@@ -315,7 +315,10 @@ onPageChanged(result) {
 filterByPrice(priceSort) {
   this.selectedPriceSorting = priceSort;
   // tslint:disable-next-line: max-line-length
-  this.getProducts({ sorting: this.selectedPriceSorting, product_group_id: this.selectedCategoryId, search_text: this.searchQuery, tag: this.tag, storefrontmall_name: this.subdomain });
+  this.getProducts({sorting: this.selectedPriceSorting, tag: this.tag,search_text: this.searchQuery, storefrontmall_name: this.storefrontmall_name });
+  //this.getProducts({ sorting: this.selectedPriceSorting, product_group_id: this.selectedCategory, search_text: this.searchQuery, tag: this.tag, storefrontmall_name: this.subdomain });
+  //console.log("Price-->"+this.selectedValueCtrl);
+  //alert('price sorted to '+this.selectedValueCtrl);
 }
 
 getActivePromo(onlineAddress) {

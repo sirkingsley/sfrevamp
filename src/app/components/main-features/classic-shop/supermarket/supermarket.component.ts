@@ -88,7 +88,7 @@ export class SupermarketComponent implements OnInit {
   toggleYoungSideBar = false;
   toggleYoungCart = false;
   toggleYoungSearch = false;
-
+  selectedValueCtrl= new FormControl();
   slug: any;
 
   ProductsTitle="Popular Products";
@@ -311,7 +311,13 @@ pagefullyLoaded:Boolean=false;
       }
     });
   }
-
+  filterByPrice(priceSort) {
+    this.selectedPriceSorting = priceSort;
+    // tslint:disable-next-line: max-line-length
+    this.getProducts({ sorting: this.selectedPriceSorting, product_group_id: this.selectedCategoryId, search_text: this.searchQuery, tag: this.tag, storefrontmall_name: this.subdomain });
+    //console.log("Price-->"+this.selectedValueCtrl);
+    //alert('price sorted to '+this.selectedValueCtrl);
+  }
 /**
    * Get products by filter parameters
    * @param filterParams filter parameters

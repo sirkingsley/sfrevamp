@@ -26,7 +26,7 @@
 			<div class="modern_container clearfix" >
 
 
-          <app-section-banner *ngIf="!loader"></app-section-banner>
+          <app-section-banner *ngIf="!isSearching"></app-section-banner>
 				<!-- product_section - start
 				================================================== -->
         <div class="container" >
@@ -61,20 +61,21 @@
                 <!-- <li class="large-screen-cat-nav ms-0" ><button [class.active]="selectedCategory === ''" (click)="filterByCategory('')">All</button></li>
                 <li class="large-screen-cat-nav"  *ngFor="let category of industries | slice:0:4"><button (click)="filterByCategory(category?.name)" [class.active]="selectedCategory === category?.name" >{{category?.name}}</button></li> -->
 
-                <li><span class="filter_sidebar_btn" ><i class="far fa-bars"></i> FILTER</span></li>
+                <li id="productsView"><span class="filter_sidebar_btn" ><i class="far fa-bars"></i> FILTER</span></li>
               </ul>
           </div>
 					<div class="tab-content mb_50" >
-						<div id="best_tab" class="tab-pane active" id="products">
+						<div id="best_tab" class="tab-pane active" >
 
               <div *ngIf="isProcessing"  class="container spinner-wrapper">
                 <mat-spinner class="custom-spinner-color"></mat-spinner>
 
               </div>
+              <app-empty-record *ngIf="products?.length <= 0 && !isProcessing"></app-empty-record>
 							<div class="row justify-content-center" *ngIf="!isProcessing" >
-                <app-empty-record *ngIf="products?.length <= 0 && !isProcessing"></app-empty-record>
 
-								<div   class="col-lg-4 col-md-6 col-sm-12 col-xs-12" *ngFor="let item of products">
+
+								<div   class="col-lg-4 col-md-6 col-sm-6 col-xs-6" *ngFor="let item of products">
 									<div class="modern_product_item bg_lightyellow text-uppercase"
                   data-aos="zoom-in-down">
 										<!-- <ul class="product_label ul_li_right clearfix"  *ngIf="item?.new_quantity<=0">

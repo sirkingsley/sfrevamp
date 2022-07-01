@@ -57,7 +57,7 @@
           <div class="col-lg-6 col-md-6">
             <div class="item_content">
               <strong class="offer_text">10%off</strong>
-              <h3 class="item_title mb_15">On the entire range of {{store_name}} Sales</h3>
+              <h3 class="item_title mb_15">On the entire range of <b>{{store_name}}</b> Sales</h3>
               <p class="mb-0">
                 Don’t miss the  sale  and grab all the available products
               </p>
@@ -77,7 +77,7 @@
           <div class="col-lg-6 col-md-6">
             <div class="item_content">
               <strong class="offer_text">10%off</strong>
-              <h3 class="item_title mb_15">On the entire range of {{store_name}} Sales</h3>
+              <h3 class="item_title mb_15">On the entire range of <b>{{store_name}}</b> Sales</h3>
               <p class="mb-0">
                 Don’t miss the  sale  and grab all the available products
               </p>
@@ -97,7 +97,7 @@
           <div class="col-lg-6 col-md-6">
             <div class="item_content">
               <strong class="offer_text" style="color: #ffffff;">10%off</strong>
-              <h3 class="item_title mb_15" style="color: #ffffff;">On the entire range of {{store_name}} Sales</h3>
+              <h3 class="item_title mb_15" style="color: #ffffff;">On the entire range of <b>{{store_name}}</b> Sales</h3>
               <p class="mb-0 " style="color: #ffffff;">
                 Don’t miss the  sale  and grab all the available products
               </p>
@@ -140,14 +140,22 @@
                         <!-- <span class="option_title text-uppercase">Sort by:</span> -->
                         <mat-form-field appearance="fill">
                           <mat-label>Sort By Prices</mat-label>
-                          <mat-select [(ngModel)]="selectedValue" name="prices">
-                            <mat-option *ngFor="let choice of prices" [value]="choice.value">
-                              {{choice.viewValue}}
+                          <mat-select [formControl]="selectedValueCtrl" name="prices" >
+                            <mat-option value="" (click)="filterByPrice(selectedValueCtrl.value)">
+                              Sort By All Prices
                             </mat-option>
+                            <mat-option  [value]="priceSorting.LOW_TO_HIGH_PRICING" (click)="filterByPrice(selectedValueCtrl.value)">
+                              Prices from Lowest to Highest
+                            </mat-option>
+                            <mat-option  [value]="priceSorting.HIGH_TO_LOW_PRICING" (click)="filterByPrice(selectedValueCtrl.value)">
+                              Prices from Highest to Lowest
+                            </mat-option>
+
                           </mat-select>
                         </mat-form-field>
                       </div>
                     </form>
+                    <!-- <p>selected value: {{selectedValueCtrl.value}}</p> -->
 
                   </div>
                 </div>
@@ -164,7 +172,7 @@
 
               <app-empty-record *ngIf="products?.length <= 0 && !isProcessing"></app-empty-record>
 
-              <div  class="element-grid column4_element_grid mb_50" >
+              <div  class="element-grid column4_element_grid  mb_50" >
 
                 <div class="element-item " *ngFor="let item of products">
                   <div class="ecommerce_product_grid" data-aos="zoom-in-down">
@@ -195,14 +203,15 @@
                     </div>
                     <div class="item_content">
                       <h3 class="item_title">
-                        <a href="#!">{{item.name}}</a>
+                        <a >{{item.name}}</a>
                       </h3>
                       <ul class="product_color ul_li nav clearfix">
-                        <li class="active"><a class="pbg_brown" data-toggle="tab" href="#ptab1_1"></a></li>
-                        <li><a class="pbg_olivegreen" data-toggle="tab" href="#ptab1_2"></a></li>
-                        <li><a class="pbg_gray" data-toggle="tab" href="#ptab1_3"></a></li>
+                        <li class="active"><a class="pbg_brown" data-toggle="tab" ></a></li>
+                        <li><a class="pbg_olivegreen" data-toggle="tab" ></a></li>
+                        <li><a class="pbg_gray" data-toggle="tab" ></a></li>
                       </ul>
-                      <span class="item_price"><strong>{{item.currency}} {{item.price_list[0]?.selling_price}} </strong> <del>{{item.currency}} {{item.price_list[0]?.selling_price*2}}</del></span>
+                      <!-- <span class="item_price"><strong>{{item.currency}} {{item.price_list[0]?.selling_price}} </strong> <del>{{item.currency}} {{item.price_list[0]?.selling_price*2}}</del></span> -->
+                      <span class="item_price"><strong>{{item.currency}} {{item.price_list[0]?.selling_price}} </strong></span>
 
                       <button class="mat-button-wrapper mt-3" (click)="addProductToCart(item)">ADD TO CART</button>
                     </div>

@@ -7654,7 +7654,7 @@ button {
   @media screen and (max-width: 300px) {
     /* global - start */
     .column4_element_grid  {
-      grid-template-columns: 100% !important;
+      grid-template-columns: 50% 50% !important;
     }
     .category-wrapper {
       grid-template-columns: 100% !important;

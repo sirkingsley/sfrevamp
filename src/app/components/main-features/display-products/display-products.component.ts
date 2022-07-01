@@ -18,6 +18,7 @@ import { servicesCarouselConfig } from 'src/app/utils/owl-config';
 import { CartPopUpComponent } from '../../commons/cart-pop-up/cart-pop-up.component';
 import { ViewProductComponent } from '../../commons/view-product/view-product.component';
 import AOS from 'aos';
+import { ViewportScroller } from '@angular/common';
 
 //JavaScript Functions
 declare const custom:any;
@@ -51,6 +52,7 @@ export class DisplayProductsComponent implements OnInit {
 
     private authService: AuthService,
     private route: ActivatedRoute,
+    private scroller: ViewportScroller
   ) { }
 
   @Input() shopName = 'StoreFront Mall';
@@ -111,7 +113,6 @@ export class DisplayProductsComponent implements OnInit {
  selectedPriceSorting = '';
  searchQuery = '';
  productListTitle: string;
-
 
  gtpSubdomain = '';
  woodinSubdomain = '';
@@ -197,23 +198,34 @@ export class DisplayProductsComponent implements OnInit {
         this.productSearchFormControl.setValue(this.searchQuery);
         this.getProducts({ search_text: this.searchQuery, tag: this.tag, industry: this.selectedCategory });
         console.log("Filter Params-->"+ JSON.stringify({ search_text: this.searchQuery, tag: this.tag, industry: this.selectedCategory }));
-        document.getElementById("products").scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-          inline: "nearest"
-          });
+        this.scroller.scrollToAnchor("productsView");
+        // document.getElementById("products").scrollIntoView({
+        //   behavior: "smooth",
+        //   block: "start",
+        //   inline: "nearest"
+        //   });
       }
+      else{
+        this.route.params.subscribe(param => {
+          this.isSearching = false;
+          const pageSec=(param['pageSec'] !== null && param['pageSec'] !== '' &&  param['pageSec'] !== undefined) ? param['pageSec'] : '';
+          if (pageSec){
+          this.selectedCategory=param['category'];
+          this.productListTitle = this.selectedCategory+ ' Products';
+          this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
+          this.scroller.scrollToAnchor("productsView");
+        }else{
+          this.getProducts({});
+        }
+      });
+      }
+
+
     });
 
 
-      this.route.params.subscribe(param => {
-        const pageSec=(param['pageSec'] !== null && param['pageSec'] !== '' &&  param['pageSec'] !== undefined) ? param['pageSec'] : '';
-        if (pageSec){
-        this.selectedCategory=param['category'];
-        this.productListTitle = this.selectedCategory+ ' Products';
-        this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
-      }
-    });
+
+
     this.getIndustries()
     this.getFeaturedShops({});
 
