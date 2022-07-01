@@ -51,7 +51,7 @@
 					<div class="row">
 						<div class="col-lg-6 "*ngIf="!isLoggedIn" >
               <div class="checkout_collapse_content" >
-              <mat-accordion>
+              <mat-accordion >
                 <mat-expansion-panel hideToggle class="py-3">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
@@ -149,7 +149,7 @@
             <h3 class="form_title mb_30">Delivery Option</h3>
             <div class="alert alert-info">Pick your delivery Option</div>
             <label id="example-radio-group-label"></label>
-            <mat-radio-group
+            <mat-radio-group data-aos="fade-left"
               aria-labelledby="example-radio-group-label"
               class="example-radio-group"
               [(ngModel)]="selectedDelivery" >

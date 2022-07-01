@@ -25,6 +25,9 @@ import { GuestUserComponent } from '../../commons/guest-user/guest-user.componen
 import { WINDOW } from 'src/app/utils/window.provider';
 import { LoginUpdateService } from 'src/app/services/login-update.service';
 import { CustomersApiCallsService } from 'src/app/services/network-calls/customers-api-calls.service';
+
+import AOS from 'aos';
+
 //import Jquery
 //import * as $ from 'jquery';
 //JavaScript Functions
@@ -151,6 +154,7 @@ export class Checkout2Component implements OnInit {
   loader=true;
 
   async ngOnInit(): Promise<void> {
+    AOS.init();
     //Loader variable set false after page load
     setTimeout(()=>{
       this.loader = false;

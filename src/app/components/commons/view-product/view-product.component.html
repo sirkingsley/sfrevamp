@@ -46,8 +46,8 @@
             <li><a href="#!" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add To Wishlist"><i class="fal fa-heart"></i></a></li>
           </ul>
           <ul class="info_list ul_li_block clearfix">
-            <li><strong class="list_title">Shop:</strong> <a routerLink="/shop-details" mat-dialog-close>{{data.item.myshop.business_name}}</a></li>
-            <li class="social_icon">
+            <li><strong class="list_title">Shop:</strong> <a [routerLink]="['/shop-details',{shop: data.item.myShop,storefrontmall_name: data.item.myshop.storefrontmall_name,store_name: data.item.myshop.business_name}]" mat-dialog-close>{{data.item.myshop.business_name}}</a></li>
+            <!-- <li class="social_icon">
               <strong class="list_title">Share:</strong>
               <ul class="ul_li clearfix">
                 <li><a href="#!"><i class="fab fa-facebook-f"></i></a></li>
@@ -55,7 +55,7 @@
                 <li><a href="#!"><i class="fab fa-instagram"></i></a></li>
                 <li><a href="#!"><i class="fab fa-pinterest-p"></i></a></li>
               </ul>
-            </li>
+            </li> -->
           </ul>
 
         </div>

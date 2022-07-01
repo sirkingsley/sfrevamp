@@ -8,7 +8,7 @@
 					<div class="row align-items-center">
 						<div class="col-lg-3">
 							<div class="brand_logo">
-								<a class="brand_link" href="#!">
+								<a class="brand_link" [routerLink]="['/']" >
 									<img src="assets/images/logo-main.png" srcset="assets/images/logo-main.png 2x" alt="logo_not_found">
 								</a>
 
@@ -305,7 +305,7 @@
                     Shops
                 </mat-expansion-panel-header>
                 <mat-nav-list dense  *ngFor="let shop of featuredShops">
-                    <a mat-list-item routerLink="['/shop-details']" > {{shop?.business_name}} </a>
+                    <a mat-list-item  [routerLink]="['/shop-details',{shop: shop,storefrontmall_name:shop.storefrontmall_name,store_name:shop.business_name}]" > {{shop?.business_name}} </a>
                 </mat-nav-list>
             </mat-expansion-panel>
             <mat-expansion-panel [class.mat-elevation-z0]="true" dense>

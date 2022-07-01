@@ -164,6 +164,7 @@ loader=true;
       this.storefrontmall_name=param['storefrontmall_name'];
       //console.log('Mall-->'+JSON.stringify(mall.shop,null,2));
       this.getProducts({ tag: this.tag, storefrontmall_name: this.storefrontmall_name })
+      this.getActivePromo('gtpstore');
       //console.log()
     });
 
@@ -193,7 +194,7 @@ loader=true;
       // tslint:disable-next-line: max-line-length
       //this.getProducts({ sorting: this.selectedPriceSorting, product_group_id: this.selectedCategoryId, search_text: this.searchQuery, tag: this.tag, storefrontmall_name: this.subdomain });
 
-      this.getActivePromo(this.getHostname.subDomain);
+      //this.getActivePromo(this.getHostname.subDomain);
 
     $('#flip').on("click",function(){
       $("#panel").slideToggle("slow");
@@ -322,6 +323,7 @@ getActivePromo(onlineAddress) {
     if (result !== null && result.response_code === '100') {
       this.shopHasActivePromo = result.results;
       this.promoCodes = result.codes;
+      console.log('this.promoCodes-->'+this.promoCodes);
     }
   });
 }
@@ -340,4 +342,5 @@ filterCategory(category,el: HTMLElement) {
 
    );
   }
+
 }
