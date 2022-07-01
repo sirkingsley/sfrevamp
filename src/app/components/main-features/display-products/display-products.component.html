@@ -36,7 +36,7 @@
           <div class="carparts_filetr_bar clearfix" >
 						<div class="row align-items-center justify-content-lg-between" style="display: flex ; justify-content:space-between; flex-wrap: nowrap;">
 							<div class="" style="width: 50% !important;">
-								<h4 class="result_text">Showing {{products?.length}} of {{totalPage}} Products </h4>
+								<h4 class="result_text">Showing {{products?.length}} of {{totalPage}} {{productListTitle}} </h4>
 							</div>
 
 							<div class="" style="width: 50% !important;">
@@ -64,8 +64,8 @@
                 <li><span class="filter_sidebar_btn" ><i class="far fa-bars"></i> FILTER</span></li>
               </ul>
           </div>
-					<div class="tab-content mb_50">
-						<div id="best_tab" class="tab-pane active">
+					<div class="tab-content mb_50" >
+						<div id="best_tab" class="tab-pane active" id="products">
 
               <div *ngIf="isProcessing"  class="container spinner-wrapper">
                 <mat-spinner class="custom-spinner-color"></mat-spinner>

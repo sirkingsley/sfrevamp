@@ -216,7 +216,7 @@ export class TopNavComponent implements OnInit {
     // tslint:disable-next-line: max-line-length
     if (this.searchControl.value !== null && this.searchControl.value !== undefined && this.searchControl.value !== '') {
       this.isSearching = false;
-      this.router.navigate(['/mall'], {queryParams: {q: this.searchControl.value}});
+      this.router.navigate(['/display-products'], {queryParams: {q: this.searchControl.value}});
     }
   }
   showSearchDropdown() {

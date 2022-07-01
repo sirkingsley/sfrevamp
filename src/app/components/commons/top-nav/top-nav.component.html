@@ -150,10 +150,10 @@
 			<div id="search_body_collapse" class="search_body_collapse collapse">
 				<div class="search_body">
 					<div class="container">
-						<form action="#">
+						<form (ngSubmit)="viewAllSearchResult()" >
 							<div class="form_item mb-0">
-								<input type="search" name="search" placeholder="Type here...">
-								<button type="submit"><i class="fal fa-search"></i></button>
+								<input type="search" name="search" placeholder="Type here..." [formControl]="searchControl" >
+								<button type="submit"  ><i class="fal fa-search"></i></button>
 							</div>
 						</form>
 					</div>

@@ -181,14 +181,37 @@ export class DisplayProductsComponent implements OnInit {
     this.subdomain = this.getHostname.subDomain;
     this.gtpSubdomain = this.constantValues.GTP_SUBDOMAIN;
     this.woodinSubdomain = this.constantValues.WOODIN_SUBDOMAIN;
-    this.route.params.subscribe(param => {
 
-      if(param['pageSec']){
+    this.route.queryParams.subscribe(param => {
+      this.tag =(  param['tag'] !== null &&  param['tag']  !== '' &&  param['tag']  !== undefined) ?  param['tag'] : '';
+      this.selectedCategory =( param['category'] !== null && param['category'] !== '' && param['category'] !== undefined) ? param['category'] : '';
+      this.searchQuery = (param['q'] !== null && param['q'] !== '' && param['q'] !== undefined) ? param['q'] : '';
+      console.log("this.searchQuery-->"+param['q']);
+      if (this.searchQuery !== '') {
+        this.productListTitle = 'SEARCH RESULTS';
+        this.isSearching = true;
+        if (this.searchQuery === '') {
+          this.productListTitle = 'TRENDING PRODUCTS';
+          this.isSearching = false;
+        }
+        this.productSearchFormControl.setValue(this.searchQuery);
+        this.getProducts({ search_text: this.searchQuery, tag: this.tag, industry: this.selectedCategory });
+        console.log("Filter Params-->"+ JSON.stringify({ search_text: this.searchQuery, tag: this.tag, industry: this.selectedCategory }));
+        document.getElementById("products").scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+          inline: "nearest"
+          });
+      }
+    });
+
+
+      this.route.params.subscribe(param => {
+        const pageSec=(param['pageSec'] !== null && param['pageSec'] !== '' &&  param['pageSec'] !== undefined) ? param['pageSec'] : '';
+        if (pageSec){
         this.selectedCategory=param['category'];
-        this.ProductsTitle=this.selectedCategory +"Products";
+        this.productListTitle = this.selectedCategory+ ' Products';
         this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
-      }else{
-      this.getProducts({});
       }
     });
     this.getIndustries()
@@ -207,15 +230,24 @@ export class DisplayProductsComponent implements OnInit {
 
   ngAfterViewInit(): void {
 
-    this.route.params.subscribe(param => {
-      if(param['pageSec']){
-      let section = document.querySelector('#silas');
-      //const section = this.container.nativeElement.querySelector(`#${param.pageSec}`)
-      //console.log(section)
+    // this.route.params.subscribe(param => {
+    //   this.tag = param['tag'];
+    //   this.selectedCategory = param['category'];
+    //   this.searchQuery = (param['q'] !== null && param['q'] !== '' && param['q'] !== undefined) ? param['q'] : '';
+    //   if (this.searchQuery !== '') {
+    //     this.productListTitle = 'SEARCH RESULTS';
+    //     this.isSearching = true;
+    //     if (this.searchQuery === '') {
+    //       this.productListTitle = 'TRENDING PRODUCTS';
+    //       this.isSearching = false;
+    //     }
+    //     this.productSearchFormControl.setValue(this.searchQuery);
+    //   }
+    //   this.getProducts({ search_text: this.searchQuery, tag: this.tag, industry: this.selectedCategory });
+    //   console.log("Filter Params-->"+ JSON.stringify({ search_text: this.searchQuery, tag: this.tag, industry: this.selectedCategory }));
+    // });
 
-      section?.scrollIntoView();
-      }
-    })
+
 
   }
 openDialog(item) {
