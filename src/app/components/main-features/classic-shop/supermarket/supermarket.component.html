@@ -153,7 +153,8 @@
 												<p>
 													{{shop.location}}
 												</p>
-												<a class="custom_btn bg_white text-uppercase" [routerLink]="['/shop-details', {shop: shop,storefrontmall_name:shop.storefrontmall_name,store_name:shop.business_name}]">View Shop</a>
+                        <a class="custom_btn bg_white text-uppercase" href="{{protocol}}{{shop?.storefrontmall_name}}.{{url}}" target="_blank">View Shop</a>
+												<!-- <a class="custom_btn bg_white text-uppercase" [routerLink]="['/shop-details', {shop: shop,storefrontmall_name:shop.storefrontmall_name,store_name:shop.business_name}]">View Shop</a> -->
 											</div>
 										</div>
 									  </div>

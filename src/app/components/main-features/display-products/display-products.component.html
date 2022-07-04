@@ -26,7 +26,7 @@
 			<div class="modern_container clearfix" >
 
 
-          <app-section-banner *ngIf="!isSearching"></app-section-banner>
+          <app-section-banner></app-section-banner>
 				<!-- product_section - start
 				================================================== -->
         <div class="container" >
@@ -40,19 +40,26 @@
 							</div>
 
 							<div class="" style="width: 50% !important;">
-								<form >
-									<div class="option_select d-flex align-items-center mb-0">
-										<!-- <span class="option_title text-uppercase">Sort by:</span> -->
-										<mat-form-field appearance="fill">
+                <form >
+                  <div class="option_select d-flex align-items-center mb-0">
+                    <!-- <span class="option_title text-uppercase">Sort by:</span> -->
+                    <mat-form-field appearance="fill">
                       <mat-label>Sort By Prices</mat-label>
-                      <mat-select [(ngModel)]="selectedValue" name="prices">
-                        <mat-option *ngFor="let choice of prices" [value]="choice.value">
-                          {{choice.viewValue}}
+                      <mat-select [formControl]="selectedValueCtrl" name="prices" >
+                        <mat-option value="" (click)="filterByPrice(selectedValueCtrl.value)">
+                          Sort By All Prices
                         </mat-option>
+                        <mat-option  [value]="priceSorting.LOW_TO_HIGH_PRICING" (click)="filterByPrice(selectedValueCtrl.value)">
+                          Prices from Lowest to Highest
+                        </mat-option>
+                        <mat-option  [value]="priceSorting.HIGH_TO_LOW_PRICING" (click)="filterByPrice(selectedValueCtrl.value)">
+                          Prices from Highest to Lowest
+                        </mat-option>
+
                       </mat-select>
                     </mat-form-field>
-									</div>
-								</form>
+                  </div>
+                </form>
 							</div>
 						</div>
 					</div>

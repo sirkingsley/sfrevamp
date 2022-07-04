@@ -20,9 +20,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 //import { SwiperOptions } from 'swiper';
 import { AuthService } from 'src/app/services/auth.service';
 import { ICallback } from 'src/app/classes/callback-method';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { servicesCarouselConfig } from 'src/app/utils/owl-config';
-import { CountryEnum, PriceSortingEnums, PromosEnum } from 'src/app/utils/enums';
+import { CountryEnum, PriceSortingEnums, PromoCodeRateTypeEnum, PromosEnum } from 'src/app/utils/enums';
 import { ProductsFilterParams } from 'src/app/interfaces/products-filter-params';
 import { GetHostnameService } from 'src/app/services/get-hostname.service';
 import { JsonpClientBackend } from '@angular/common/http';
@@ -30,6 +30,7 @@ import { User } from 'src/app/modules/user';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { LoginComponent } from 'src/app/components/commons/login/login.component';
 import { WINDOW } from 'src/app/utils/window.provider';
+import { OrderApiCallsService } from 'src/app/services/network-calls/order-api-calls.service';
 //import { WINDOW } from 'src/app/utils/window.provider';
 
 
@@ -90,6 +91,7 @@ export class SupermarketComponent implements OnInit {
   toggleYoungSearch = false;
   selectedValueCtrl= new FormControl();
   slug: any;
+  promoCodeFormCtrl = new FormControl('', [Validators.required]);
 
   ProductsTitle="Popular Products";
 
@@ -130,8 +132,11 @@ export class SupermarketComponent implements OnInit {
  windowLoaded=false;
  promoCodes = [];
  exchangeRate = 0;
-
-
+ orderCode: any;
+ discountCode = '';
+ discountAmount = 0;
+ discountRateValue = 0;
+ discountRateType = '';
  customOptions=customOptions;
  customOptions1=customOptions1;
  slides1=slides1;
@@ -153,6 +158,7 @@ export class SupermarketComponent implements OnInit {
     private toastr: ToastrService,
     private authService: AuthService,
     private route: ActivatedRoute,
+    private orderService: OrderApiCallsService,
     @Inject(WINDOW) private window: Window,
 
   ) { }
@@ -184,6 +190,8 @@ onload(){
 // }
 
   async ngOnInit(): Promise<void> {
+    this.getShopsWithPromo();
+
     AOS.init();
     //Loader variable set false after page load
     setTimeout(()=>{
@@ -370,7 +378,43 @@ getIndustries() {
     //console.log("this.industries "+ JSON.stringify(this.industries,null,2) );
   });
 }
-
+getActivePromo(onlineAddress) {
+  this.shopsApiCalls.checkActivePromo(onlineAddress, (error, result) => {
+    console.log("shopHas->"+result)
+    if (result !== null && result.response_code === '100') {
+      this.shopHasActivePromo = result.results;
+      if (this.shopHasActivePromo) {
+        const promoCode = this.authService.getPromoCode;
+        if (promoCode !== null && promoCode !== undefined && promoCode !== '') {
+          this.promoCodeFormCtrl.setValue(promoCode);
+          this.getPromoCodeValue(promoCode);
+        }
+      }
+    }
+  });
+}
+getPromoCodeValue(promoCode, isFirstLoad = false) {
+  console.log(promoCode);
+  this.isProcessing = true;
+  this.orderService.getPromoCodeValue(promoCode, isFirstLoad, (error, result) => {
+    this.isProcessing = false;
+    if (result !== null) {
+      this.discountRateType = result.rate_type;
+      this.discountRateValue = +result.rate_value;
+      if (result.rate_type === PromoCodeRateTypeEnum.FLAT) {
+        this.discountAmount = +result.rate_value;
+      } else if (result.rate_type === PromoCodeRateTypeEnum.PERCENTAGE) {
+        const percentage = +result.rate_value;
+        this.discountAmount = (percentage / 100) * this.subTotal;
+      }
+    }
+  });
+}
+getShopsWithPromo(){
+  this.featuredShops.forEach(shop=>{
+    this.getActivePromo(shop.storefrontmall_name);
+  })
+}
 getShopInfo() {
   // const suddomain = (this.getHostname.subDomain === 'localhost') ? environment.pluto : this.getHostname.subDomain;
   this.shopsApiCalls.getShopByOnlineAddress(this.subdomain, (error, result) => {

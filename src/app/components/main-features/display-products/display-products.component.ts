@@ -85,7 +85,7 @@ export class DisplayProductsComponent implements OnInit {
   toggleYoungSideBar = false;
   toggleYoungCart = false;
   toggleYoungSearch = false;
-
+  selectedValueCtrl= new FormControl();
   slug: any;
 
   ProductsTitle="Popular Products";
@@ -147,6 +147,7 @@ export class DisplayProductsComponent implements OnInit {
       parallaxie();
     }
   async ngOnInit(): Promise<void> {
+    this.scroller.scrollToAnchor("productsView");
     setTimeout(()=>{
       this.loader = false;
   }, 1000);
@@ -396,6 +397,12 @@ filterByCategory(category: string) {
         this.getSubTotal();
       }
     });
+  }
+
+  filterByPrice(priceSort) {
+    this.selectedPriceSorting = priceSort;
+    // tslint:disable-next-line: max-line-length
+    this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
   }
   /**
    * Remove item from cart

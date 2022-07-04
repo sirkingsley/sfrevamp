@@ -129,7 +129,7 @@
                       <div class="card-body">
                         <form [formGroup]="promoCodeFormGroup" (ngSubmit)="getPromoCodeValue(promoCodeFormGroup?.value)" >
                           <div class="form_item">
-                            <input type="text" name="coupon" placeholder="Coupon Code" >
+                            <input type="text" name="coupon" placeholder="Coupon Code" formControlName="promoCode" >
                           </div>
                           <button type="submit" class="custom_btn bg_default_red">Apply coupon</button>
                         </form>
@@ -269,7 +269,7 @@
 									<textarea formControlName="order_note" placeholder="Note about your order, eg. special notes fordelivery."></textarea>
 								</div>
 
-                <!-- <div class="" style="display: flex;
+                <div class="" style="display: flex;
                                       width: 100%;
                                       padding-top: 20px;">
 
@@ -280,8 +280,8 @@
                                             padding: 2px 5px;
                                             border-radius: 2px;"
                                             [disabled]="!addressFormGroup.valid"
-                                            >Save Address</button>
-								</div> -->
+                                            >Proceed</button>
+								</div>
 
 							</div>
 
@@ -289,7 +289,7 @@
 						</form>
 					</div>
 
-					<div class="billing_form">
+					<div class="billing_form" *ngIf="proceed">
             <form [formGroup]="paymentFormGroup" (ngSubmit)="placeOrder(paymentFormGroup?.value)">
 						<h3 class="form_title mb_30">Your order</h3>
             <app-empty-record *ngIf="cartItems?.length <= 0 && !isProcessing"></app-empty-record>
