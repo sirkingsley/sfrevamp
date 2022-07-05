@@ -573,5 +573,7 @@ filterByCategory(category: string,el: HTMLElement) {
    );
   }
 
+
+
 }
 

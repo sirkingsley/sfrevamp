@@ -14,7 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 //import Jquery
 import * as $ from 'jquery';
 import { servicesCarouselConfig } from 'src/app/utils/owl-config';
-import { PriceSortingEnums } from 'src/app/utils/enums';
+import { CountryEnum, PriceSortingEnums, PromoCodeRateTypeEnum } from 'src/app/utils/enums';
 import { FormControl } from '@angular/forms';
 import { ShopApiCallsService } from 'src/app/services/network-calls/shop-api-calls.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -28,6 +28,7 @@ import { WINDOW } from 'src/app/utils/window.provider';
 import { Subscription } from 'rxjs';
 import AOS from 'aos';
 import { CartPopUpComponent } from '../../commons/cart-pop-up/cart-pop-up.component';
+import { OrderApiCallsService } from 'src/app/services/network-calls/order-api-calls.service';
 
 export interface DialogData {
   animal: 'panda' | 'unicorn' | 'lion';
@@ -46,6 +47,8 @@ export class ShopDetailsComponent implements OnInit {
   @ViewChild('mainImg', { static: false }) mainImg?: ElementRef;
   @ViewChild('thum', { static: false }) thum: ElementRef | undefined;
   ProductsTitle= 'Products';
+  currency: string;
+
 
 
   constructor(
@@ -54,6 +57,7 @@ export class ShopDetailsComponent implements OnInit {
     private renderer:Renderer2,
     private route: ActivatedRoute,
     private productsService: ProductsApiCallsService,
+    private productsApiCalls: ProductsApiCallsService,
     private shopsApiCalls: ShopApiCallsService,
     private dbaseUpdate: DbaseUpdateService,
     private constantValues: ConstantValuesService,
@@ -61,7 +65,7 @@ export class ShopDetailsComponent implements OnInit {
     private notificationsService: NotificationsService,
     @Inject(WINDOW) private window: Window,
     private authService: AuthService,
-
+    private orderService: OrderApiCallsService,
     private shopApiCalls: ShopApiCallsService
 
     ) { }
@@ -117,6 +121,14 @@ export class ShopDetailsComponent implements OnInit {
     storefrontmall_name='';
     store_name='';
     selectedValueCtrl= new FormControl();
+    promoCodeFormCtrl=new FormControl();
+    subTotal = 0;
+    discountCode = '';
+    discountAmount = 0;
+    discountRateValue = 0;
+    discountRateType = '';
+    countriesEnum = CountryEnum;
+    cartItems = [];
     prices = [
       {value: 'All-Prices', viewValue: 'All Prices'},
       {value: 'From-Lowest-to-Highest', viewValue: 'From Lowest to Highest'},
@@ -158,18 +170,20 @@ loader=true;
     this.getShopSliders();
     this.getIndustries();
 
+
     this.route.params.subscribe(param => {
       const mall=param['shop'];
       this.store_name=param['store_name'];
       this.storefrontmall_name=param['storefrontmall_name'];
       //console.log('Mall-->'+JSON.stringify(mall.shop,null,2));
       this.getProducts({ tag: this.tag, storefrontmall_name: this.storefrontmall_name })
-      this.getActivePromo('gtpstore');
+      this.getActivePromo({storefrontmall_name: this.storefrontmall_name });
       //console.log()
     });
 
-    console.log("SubDomain->"+this.subdomain);
-    console.log("domin->"+domain);
+
+    // console.log("SubDomain->"+this.subdomain);
+    // console.log("domin->"+domain);
     this.route.queryParams.subscribe(param => {
       const category = param['category'];
       const cid = param['cid'];
@@ -322,11 +336,57 @@ filterByPrice(priceSort) {
 }
 
 getActivePromo(onlineAddress) {
-  this.shopApiCalls.checkActivePromo(onlineAddress, (error, result) => {
+  this.shopsApiCalls.checkActivePromo(onlineAddress, (error, result) => {
+    console.log("shopHas->"+result)
     if (result !== null && result.response_code === '100') {
       this.shopHasActivePromo = result.results;
-      this.promoCodes = result.codes;
-      console.log('this.promoCodes-->'+this.promoCodes);
+      if (this.shopHasActivePromo) {
+        const promoCode = this.authService.getPromoCode;
+        if (promoCode !== null && promoCode !== undefined && promoCode !== '') {
+          this.promoCodeFormCtrl.setValue(promoCode);
+          this.getPromoCodeValue(promoCode);
+        }
+      }
+    }
+  });
+}
+getSubTotal() {
+  if (this.country === this.countriesEnum.GH || this.country === this.countriesEnum.NG || this.country === undefined || this.country === '') {
+    this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount), 0);
+  } else {
+    this.currency = '$';
+    this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount_usd), 0);
+  }
+}
+async getCartItems() {
+  await this.productsApiCalls.getCartItems((error, result) => {
+    if (result !== null) {
+      this.cartItems = result;
+      this.cartItems = result.sort(this.compare);
+      //console.log("Cart length-->"+this.cartItems.length);
+      //console.log("Cart-->"+ JSON.stringify(this.cartItems,null,2));
+      if (this.cartItems.length > 0) {
+        this.currency = this.cartItems[0].item.currency;
+        this.country = this.cartItems[0].country;
+      }
+      this.getSubTotal();
+    }
+  });
+}
+getPromoCodeValue(promoCode, isFirstLoad = false) {
+  console.log(promoCode);
+  this.isProcessing = true;
+  this.orderService.getPromoCodeValue(promoCode, isFirstLoad, (error, result) => {
+    this.isProcessing = false;
+    if (result !== null) {
+      this.discountRateType = result.rate_type;
+      this.discountRateValue = +result.rate_value;
+      if (result.rate_type === PromoCodeRateTypeEnum.FLAT) {
+        this.discountAmount = +result.rate_value;
+      } else if (result.rate_type === PromoCodeRateTypeEnum.PERCENTAGE) {
+        const percentage = +result.rate_value;
+        this.discountAmount = (percentage / 100) * this.subTotal;
+      }
     }
   });
 }
@@ -345,5 +405,16 @@ filterCategory(category,el: HTMLElement) {
 
    );
   }
+     //sort cart items
+
+     compare( a:any, b:any ) {
+      if ( a.item.name < b.item.name ){
+        return -1;
+      }
+      if ( a.item.name > b.item.name ){
+        return 1;
+      }
+      return 0;
+    }
 
 }

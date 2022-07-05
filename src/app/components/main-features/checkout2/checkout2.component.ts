@@ -740,7 +740,7 @@ export class Checkout2Component implements OnInit {
   }
   getActivePromo(onlineAddress) {
     this.shopApiCalls.checkActivePromo(onlineAddress, (error, result) => {
-      console.log("shopHas->"+result)
+      //console.log("shopHas->"+result)
       if (result !== null && result.response_code === '100') {
         this.shopHasActivePromo = result.results;
         if (this.shopHasActivePromo) {
@@ -754,7 +754,7 @@ export class Checkout2Component implements OnInit {
     });
   }
   getPromoCodeValue(promoCode, isFirstLoad = false) {
-    console.log(promoCode);
+    //console.log(promoCode);
     this.isProcessing = true;
     this.orderService.getPromoCodeValue(promoCode, isFirstLoad, (error, result) => {
       this.isProcessing = false;
