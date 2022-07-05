@@ -84,8 +84,6 @@ import { DisplayProductsComponent } from './components/main-features/display-pro
 import { CartPopUpComponent } from './components/commons/cart-pop-up/cart-pop-up.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { LoginMainComponent } from './components/commons/login-main/login-main.component';
-import { LacMatTelInputModule } from 'lac-mat-tel-input';
-
 //import { LacMatTelInputModule } from 'lac-mat-tel-input';
 
 @NgModule({
