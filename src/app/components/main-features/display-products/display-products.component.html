@@ -70,7 +70,7 @@
 
                 <!-- <li id="productsView"><span class="filter_sidebar_btn" ><i class="far fa-bars"></i> FILTER</span></li> -->
                 <!--  -->
-                <button mat-button [matMenuTriggerFor]="menu"><span class="filter_sidebar_btn" ><i class="far fa-bars"></i> FILTER</span></button>
+                <button mat-button [matMenuTriggerFor]="menu"><span class="" ><i class="far fa-bars"></i> FILTER</span></button>
                   <mat-menu #menu="matMenu">
                     <ul class="ul_li_block clearfix">
                       <li mat-menu-item><a (click)="filterByCategory('')" > All </a> </li>
@@ -91,6 +91,9 @@
               </div>
               <app-empty-record *ngIf="products?.length <= 0 && !isProcessing"></app-empty-record>
 							<div class="row justify-content-center" *ngIf="!isProcessing" >
+                <div *ngIf="isProcessing"  class="container spinner-wrapper">
+                  <mat-spinner class="custom-spinner-color"></mat-spinner>
+                </div>
 
 
 								<div   class="col-lg-4 col-md-6 col-sm-6 col-xs-6" *ngFor="let item of products">
@@ -289,7 +292,7 @@
 			</div>
 			<!-- modern container - end -->
       </div>
-      <div class="sidebar-menu-wrapper">
+      <!-- <div class="sidebar-menu-wrapper">
         <div class="filter_sidebar">
           <button type="button" class="close_btn mb_50"><i class="fal fa-times"></i></button>
           <div class="fs_widget fs_category_list">
@@ -303,7 +306,7 @@
 
 
         </div>
-      </div>
+      </div> -->
 
 		</main>
 		<!-- main body - end
