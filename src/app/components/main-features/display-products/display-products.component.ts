@@ -55,6 +55,8 @@ export class DisplayProductsComponent implements OnInit {
     private scroller: ViewportScroller
   ) { }
 
+  events: string[] = [];
+  opened: boolean;
   @Input() shopName = 'StoreFront Mall';
   shopInfo: any;
   cartItems = [];
@@ -188,7 +190,7 @@ export class DisplayProductsComponent implements OnInit {
       this.tag =(  param['tag'] !== null &&  param['tag']  !== '' &&  param['tag']  !== undefined) ?  param['tag'] : '';
       this.selectedCategory =( param['category'] !== null && param['category'] !== '' && param['category'] !== undefined) ? param['category'] : '';
       this.searchQuery = (param['q'] !== null && param['q'] !== '' && param['q'] !== undefined) ? param['q'] : '';
-      console.log("this.searchQuery-->"+param['q']);
+      //console.log("this.searchQuery-->"+param['q']);
       if (this.searchQuery !== '') {
         this.productListTitle = 'SEARCH RESULTS';
         this.isSearching = true;
@@ -198,7 +200,7 @@ export class DisplayProductsComponent implements OnInit {
         }
         this.productSearchFormControl.setValue(this.searchQuery);
         this.getProducts({ search_text: this.searchQuery, tag: this.tag, industry: this.selectedCategory });
-        console.log("Filter Params-->"+ JSON.stringify({ search_text: this.searchQuery, tag: this.tag, industry: this.selectedCategory }));
+       // console.log("Filter Params-->"+ JSON.stringify({ search_text: this.searchQuery, tag: this.tag, industry: this.selectedCategory }));
         this.scroller.scrollToAnchor("productsView");
         // document.getElementById("products").scrollIntoView({
         //   behavior: "smooth",
@@ -282,7 +284,7 @@ getFeaturedShops({ }) {
     this.isProcessingFeaturedShops = false;
     if (result !== null) {
       this.featuredShops = result.results;
-      //console.log("this.featuredShops-->"+ JSON.stringify(this.featuredShops));
+      //console.log("this.featuredShops-->"+ JSON.stringify(this.featuredShops,null,2));
     }
   });
 }

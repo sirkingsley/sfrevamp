@@ -367,7 +367,7 @@ getFeaturedShops({ }) {
     this.isProcessingFeaturedShops = false;
     if (result !== null) {
       this.featuredShops = result.results;
-      console.log("this.featuredShops-->"+ JSON.stringify(this.featuredShops,null,2));
+      //console.log("this.featuredShops-->"+ JSON.stringify(this.featuredShops,null,2));
     }
   });
 }

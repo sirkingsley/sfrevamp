@@ -177,7 +177,7 @@ loader=true;
       this.storefrontmall_name=param['storefrontmall_name'];
       //console.log('Mall-->'+JSON.stringify(mall.shop,null,2));
       this.getProducts({ tag: this.tag, storefrontmall_name: this.storefrontmall_name })
-      this.getActivePromo({storefrontmall_name: this.storefrontmall_name });
+      this.getActivePromo(this.storefrontmall_name );
       //console.log()
     });
 

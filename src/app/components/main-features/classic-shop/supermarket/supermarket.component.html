@@ -246,7 +246,15 @@
                   <li class="large-screen-cat-nav ms-0" ><button [class.active]="selectedCategory === ''" (click)="filterCategory('',target)">All</button></li>
                   <li class="large-screen-cat-nav"  *ngFor="let category of industries | slice:5:8"><button (click)="filterCategory(category?.name,target)" [class.active]="selectedCategory === category?.name" >{{category?.name}}</button></li>
 
-                  <li><span class="filter_sidebar_btn large-screen-cat-nav" ><i class="far fa-bars"></i> FILTER</span></li>
+                  <!-- <li><span class="filter_sidebar_btn large-screen-cat-nav" ><i class="far fa-bars"></i> FILTER</span></li> -->
+                  <button mat-button [matMenuTriggerFor]="menu"><span class="filter_sidebar_btn" ><i class="far fa-bars"></i> FILTER</span></button>
+                  <mat-menu #menu="matMenu">
+                    <ul class="ul_li_block clearfix">
+                      <li mat-menu-item><a (click)="filterCategory('',target)" > All </a> </li>
+                      <li mat-menu-item *ngFor="let category of industries"><a (click)="filterCategory(category?.name,target)">{{category.name}}</a></li>
+
+                    </ul>
+                  </mat-menu>
                 </ul>
 						</div>
 					</div>
