@@ -127,7 +127,7 @@
                     </mat-expansion-panel-header>
                     <div id="coupon_collapse" class="collapse_form_wrap">
                       <div class="card-body">
-                        <form [formGroup]="promoCodeFormGroup" (ngSubmit)="getPromoCodeValue(promoCodeFormGroup?.value)" >
+                        <form [formGroup]="promoCodeFormGroup" (ngSubmit)="applyCoupon()" >
                           <div class="form_item">
                             <input type="text" name="coupon" placeholder="Coupon Code" formControlName="promoCode" >
                           </div>
@@ -269,6 +269,8 @@
 									<textarea formControlName="order_note" placeholder="Note about your order, eg. special notes fordelivery."></textarea>
 								</div>
 
+                <p class="alert alert-info alert-dismissable mt-2" >Plese Click <b>Confirm Address</b> and scroll down to complete payment</p>
+
                 <div class="" style="display: flex;
                                       width: 100%;
                                       padding-top: 20px;">
@@ -280,7 +282,7 @@
                                             padding: 2px 5px;
                                             border-radius: 2px;"
                                             [disabled]="!addressFormGroup.valid"
-                                            >Proceed</button>
+                                            >Confirm Address</button>
 								</div>
 
 							</div>
@@ -289,7 +291,7 @@
 						</form>
 					</div>
 
-					<div class="billing_form" *ngIf="proceed">
+					<div class="billing_form">
             <form [formGroup]="paymentFormGroup" (ngSubmit)="placeOrder(paymentFormGroup?.value)">
 						<h3 class="form_title mb_30">Your order</h3>
             <app-empty-record *ngIf="cartItems?.length <= 0 && !isProcessing"></app-empty-record>
@@ -345,7 +347,7 @@
 
 											<tr>
 
-												<!-- <td>
+												<td>
 													<span class="subtotal_text">Delivery Fee</span>
 												</td>
                         <td>
@@ -353,10 +355,10 @@
                         </td>
                         <td>
                           <!-- <span class="subtotal_text">Delivery Option</span> -->
-                        <!-- </td>
+                        </td>
                         <td>
                           <span class="subtotal_text">{{currency}} {{serviceCharge | number: '1.2-2'}}</span>
-                        </td> -->
+                        </td>
 
 											</tr>
 
@@ -367,7 +369,7 @@
 												<td></td>
 												<td></td>
 												<td>
-													<span class="total_price">{{currency}} {{subTotal | number: '1.2-2'}}</span>
+													<span class="total_price">{{currency}} {{subTotal- discountAmount | number: '1.2-2'}}</span>
 												</td>
 											</tr>
 										</tbody>

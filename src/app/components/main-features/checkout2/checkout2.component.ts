@@ -18,13 +18,14 @@ import { ProductsApiCallsService } from 'src/app/services/network-calls/products
 import { SharedDataApiCallsService } from 'src/app/services/network-calls/shared-data-api-calls.service';
 import { ShopApiCallsService } from 'src/app/services/network-calls/shop-api-calls.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
-import { DeliveryOptions, DeliveryModeEnum, CurrencyEnums, CountryEnum, CheckoutSourceEnums, PaymentMethods, PromoCodeRateTypeEnum } from 'src/app/utils/enums';
+import { DeliveryOptions, DeliveryModeEnum, CurrencyEnums, CountryEnum, ResponseCodesEnum, CheckoutSourceEnums, PaymentMethods, PromoCodeRateTypeEnum } from 'src/app/utils/enums';
 import { OrderCompletedDialogComponent } from '../../commons/order-completed-dialog/order-completed-dialog.component';
 import { ConfirmPhoneNumberComponent } from '../../commons/confirm-phone-number/confirm-phone-number.component';
 import { GuestUserComponent } from '../../commons/guest-user/guest-user.component';
 import { WINDOW } from 'src/app/utils/window.provider';
 import { LoginUpdateService } from 'src/app/services/login-update.service';
 import { CustomersApiCallsService } from 'src/app/services/network-calls/customers-api-calls.service';
+
 
 import AOS from 'aos';
 
@@ -117,7 +118,8 @@ export class Checkout2Component implements OnInit {
   btnText = 'SIGN IN';
   heading = 'Sign In';
   proceed=false;
-
+  promos: any = [];
+  rate: number = 0;
   constructor(
     private formBuilder: FormBuilder,
     private sharedDataApiCallsService: SharedDataApiCallsService,
@@ -138,6 +140,7 @@ export class Checkout2Component implements OnInit {
     private shopsApiCalls: ShopApiCallsService,
     private constantValues: ConstantValuesService,
     private _formBuilder: FormBuilder,
+    private dbaseUpdate: DbaseUpdateService,
     //@Inject(WINDOW) public window: Window,
     private customersApiCalls: CustomersApiCallsService,
 
@@ -247,6 +250,7 @@ export class Checkout2Component implements OnInit {
     if (this.getHostname.isShopMall) {
       this.getActivePromo(this.getHostname.subDomain);
     }
+    this.getShopPromos();
     // this.getActivePromo('lgenterprise');
     this.route.queryParams.subscribe(param => {
       const promoCode = param['promoCode'];
@@ -441,6 +445,10 @@ export class Checkout2Component implements OnInit {
    * @param data request payload
    */
   updateDeliveryAddress(data) {
+    if (!this.authService.isLogedIn) {
+      this.notificationsService.info(this.constantValues.APP_NAME, 'Please login to continue');
+      return;
+    }
     // if (!this.authService.isLogedIn) {
     //   this.dialog.open(GuestUserComponent).afterClosed().subscribe(async (isSuccess: boolean) => {
     //     if (isSuccess) {
@@ -469,7 +477,7 @@ export class Checkout2Component implements OnInit {
         this.authService.saveUser(result.results);
         this.getDeliveryCharge(data);
         this.proceed=true;
-        //this.notificationsService.success("","Address saved");
+        this.notificationsService.success("","Address confirmed. Scroll down to make payment");
       }
     });
   }
@@ -756,6 +764,7 @@ export class Checkout2Component implements OnInit {
   getPromoCodeValue(promoCode, isFirstLoad = false) {
     //console.log(promoCode);
     this.isProcessing = true;
+    //this.discountAmount = (10 / 100) * this.subTotal;
     this.orderService.getPromoCodeValue(promoCode, isFirstLoad, (error, result) => {
       this.isProcessing = false;
       if (result !== null) {
@@ -849,6 +858,107 @@ export class Checkout2Component implements OnInit {
         }
       }, this.isGuest);
     }
+  }
+
+  getShopPromos() {
+    let i = 0;
+    // const payload2 = {
+    //           promo: "5588",
+    //           storefrontmall_name: "shop.storefrontmall_name",
+    //         };
+    //         this.promos.push(payload2);
+    this.featuredShops.forEach((shop: any) => {
+
+
+      this.shopApiCalls.checkActivePromo(shop?.storefrontmall_name, (error, result) => {
+        if (
+          result !== null &&
+          result.response_code === ResponseCodesEnum.CODE_100
+        ) {
+          i += i;
+          const payload2 = {
+            promo: result.codes[i],
+            storefrontmall_name: shop.storefrontmall_name,
+          };
+          this.promos.push(payload2);
+        }
+      });
+    });
+
+   // console.log("promos->"+this.promos)
+  }
+
+  // checkPromoUsage(payload:any) {
+  //   this.isProcessing = true;
+  //   this.shopApiCallService.CheckPromoUsage(payload,(error, result) => {
+  //     if (
+  //       result !== null &&
+  //       result.response_code === ResponseCodesEnum.CODE_100
+  //     ) {
+  //       console.log(JSON.stringify(result, null, ' '));
+  //       this.isProcessing = false;
+  //     }
+  //   });
+  // }
+
+  async applyCoupon(){
+    // console.log("Conde entered: "+this.promoCodeFormCtrl.value)
+    // console.log("promos=>"+JSON.stringify(this.promos,null,2))
+    const found = this.promos.find(
+      (element: any) => element.promo.code === this.promoCodeFormCtrl.value
+    );
+
+    if (found !== null && found !== undefined && found !== '') {
+      this.getPromoCodeValue(found?.promo);
+      // const rate = found.promo.rate_value;
+      // this.cartItems.forEach(async (element: any) => {
+      //   if (element.item.myshop.id === found.shopId && element.promo === 0) {
+      //     const discount=(element.total_amount * rate) / 100;
+      //     element.price_before=element.total_amount;
+      //     element.total_amount =element.total_amount -discount;
+      //     element.promo = rate;
+      //     element.promo_code=this.promoCodeFormCtrl.value;
+
+      //     this.rate = parseInt(element.promo);
+
+      //     this.productsApiCalls.removeAndAddProductToCart(
+      //       element,
+      //       async (error: any, result: any) => {
+      //         if (result !== null) {
+      //           this.dbaseUpdate.dbaseUpdated(true);
+      //           await this.getCartItems();
+      //           this.cartItems=this.cartItems.sort(this.compare);
+      //           await this.getSubTotal();
+      //         }
+      //       }
+      //     );
+
+      //     this.notificationsService.success('',
+      //       'Promo Successfuly applied'
+      //     );
+      //     //this.promos=[];
+      //   } else {
+      //     this.notificationsService.info('',
+      //       'No promo for selected product(s)'
+      //     );
+      //   }
+      // });
+      this.notificationsService.success('',
+          'Promo Successfuly applied'
+          );
+    } else {
+      console.log("Not Found")
+      this.notificationsService.info('','Invalid Promo Code');
+    }
+  }
+  compare( a:any, b:any ) {
+    if ( a.item.name < b.item.name ){
+      return -1;
+    }
+    if ( a.item.name > b.item.name ){
+      return 1;
+    }
+    return 0;
   }
   get phone_number() { return this.formGroup.get('phone_number'); }
   get password() { return this.formGroup.get('password'); }

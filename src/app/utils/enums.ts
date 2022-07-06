@@ -82,3 +82,7 @@ export enum ProductVariantsEnum {
   XTRA_LARGE = 'XTRA_LARGE',
   XTRA_XTRA_LARGE = 'XTRA_XTRA_LARGE'
 }
+export enum ResponseCodesEnum {
+  CODE_100 = '100',
+  CODE_101 = '101'
+}
