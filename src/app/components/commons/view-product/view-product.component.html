@@ -42,8 +42,8 @@
           </div> -->
           <ul class="btns_group ul_li mb_30 clearfix">
             <li><a class="custom_btn bg_carparts_red" (click)="addProductToCart(data.item)" >Add to Cart</a></li>
-            <li><a href="#!" data-toggle="tooltip" data-placement="top" title="" data-original-title="Compare Product"><i class="fal fa-sync"></i></a></li>
-            <li><a href="#!" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add To Wishlist"><i class="fal fa-heart"></i></a></li>
+            <!-- <li><a href="#!" data-toggle="tooltip" data-placement="top" title="" data-original-title="Compare Product"><i class="fal fa-sync"></i></a></li>
+            <li><a href="#!" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add To Wishlist"><i class="fal fa-heart"></i></a></li> -->
           </ul>
           <ul class="info_list ul_li_block clearfix">
             <li><strong class="list_title">Shop:</strong> <a [routerLink]="['/shop-details',{shop: data.item.myShop,storefrontmall_name: data.item.myshop.storefrontmall_name,store_name: data.item.myshop.business_name}]" mat-dialog-close>{{data.item.myshop.business_name}}</a></li>

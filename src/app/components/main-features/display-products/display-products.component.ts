@@ -380,7 +380,7 @@ filterByCategory(category: string) {
         this.dbaseUpdate.dbaseUpdated(true);
         //this.toastr.success(product.name + ' has been successfully added to cart');
         this.notificationService.success(this.constantValues.APP_NAME, product.name + ' has been successfully added to cart');
-
+        this.dialog.open(CartPopUpComponent,{panelClass: ['animate__animated','animate__slideInRight']} );
       }
     });
   }
