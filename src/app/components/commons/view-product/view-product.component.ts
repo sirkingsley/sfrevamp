@@ -12,6 +12,7 @@ import { ProductsApiCallsService } from 'src/app/services/network-calls/products
 import { NotificationsService } from 'src/app/services/notifications.service';
 import { SEOService } from 'src/app/services/seo.service';
 import { CountryEnum } from 'src/app/utils/enums';
+import { CartPopUpComponent } from '../cart-pop-up/cart-pop-up.component';
 
 
 
@@ -30,7 +31,7 @@ export class ViewProductComponent implements OnInit {
   appUtils: any;
   formGroup: any;
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: {item: any},
+    @Inject(MAT_DIALOG_DATA) public data,
     private productsApiCalls: ProductsApiCallsService,
     private route: ActivatedRoute,
     private constantValues: ConstantValuesService,
@@ -147,7 +148,7 @@ export class ViewProductComponent implements OnInit {
           this.dbaseUpdate.dbaseUpdated(true);
           //this.toastr.success(product.name + ' has been successfully added to cart');
           this.notificationsService.success(this.constantValues.APP_NAME, product.name + ' has been successfully added to cart');
-
+          this.dialog.open(CartPopUpComponent,{panelClass: ['animate__animated','animate__slideInRight']} );
         }
       });
     }

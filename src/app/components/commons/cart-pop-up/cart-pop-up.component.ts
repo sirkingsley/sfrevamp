@@ -59,9 +59,9 @@ export class CartPopUpComponent implements OnInit {
 
 
   async ngOnInit(): Promise<void> {
+    this.getCartItems();
     // this.getIndustries()
     // this.getFeaturedShops({});
-    this.getCartItems();
     this.formGroup=this.formBuilder.group({
       qty: ['',Validators.required],
     });
@@ -77,6 +77,7 @@ export class CartPopUpComponent implements OnInit {
         this.cartItems = result;
         this.cartItems = result.sort(this.compare);
         //console.log("Cart-->"+ JSON.stringify(this.cartItems,null,2));
+        console.log("len-->"+this.cartItems.length)
         if (this.cartItems.length > 0) {
           this.currency = this.cartItems[0].item.currency;
           this.country = this.cartItems[0].country;

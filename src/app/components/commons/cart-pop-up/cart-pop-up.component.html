@@ -1,3 +1,4 @@
+<div style="min-width: 300px !important;">
 <div class="close-wrapper"
  style="position: relative;">
   <span
@@ -88,5 +89,6 @@
 </div>
 <div class=" container cart-action-wrapper">
   <button class="btn-shop" (click)="close()" mat-dialog-close>Continue Shoping</button>
-  <button *ngIf="cartItems.length>0" class="btn-checkout" [routerLink]="['/checkout2']" (click)="close()" >Checkout</button>
+  <button [disabled]="cartItems.length <=0" class="btn-checkout" [routerLink]="['/checkout2']" (click)="close()" [class.cursor_disabled2]="cartItems.length <=0" >Checkout</button>
+</div>
 </div>

@@ -285,6 +285,7 @@ async addProductToCart(product) {
     if (result !== null) {
       this.dbaseUpdate.dbaseUpdated(true);
       this.notificationsService.success(this.constantValues.APP_NAME, product.name + ' has been successfully added to cart');
+      this.dialog.open(CartPopUpComponent,{panelClass: ['animate__animated','animate__slideInRight']} );
     }
   });
 }
