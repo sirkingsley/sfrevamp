@@ -247,7 +247,7 @@
                   <li class="large-screen-cat-nav"  *ngFor="let category of industries | slice:5:8"><button (click)="filterCategory(category?.name,target)" [class.active]="selectedCategory === category?.name" >{{category?.name}}</button></li>
 
                   <!-- <li><span class="filter_sidebar_btn large-screen-cat-nav" ><i class="far fa-bars"></i> FILTER</span></li> -->
-                  <button mat-button [matMenuTriggerFor]="menu"><span class="" ><i class="far fa-bars"></i> FILTER</span></button>
+                  <button class="large-screen-cat-nav" mat-button [matMenuTriggerFor]="menu"><span class="" ><i class="bi bi-three-dots"></i></span></button>
                   <mat-menu #menu="matMenu">
                     <ul class="ul_li_block clearfix">
                       <li mat-menu-item><a (click)="filterCategory('',target)" > All </a> </li>
@@ -261,19 +261,16 @@
 
           <!-- <router-outlet></router-outlet> -->
 
-          <app-empty-record *ngIf="products?.length <= 0 && !isProcessing"></app-empty-record>
-          <div *ngIf="isProcessing"  class="container spinner-wrapper">
-            <mat-spinner class="custom-spinner-color"></mat-spinner>
-          </div>
-          <div class="load_more text-center clearfix large-screen-cat-nav">
+
+          <!-- <div class="load_more text-center clearfix large-screen-cat-nav">
 						<app-pagination *ngIf="products?.length > 0 " [dataSet]="products" [nextPage]="nextPage"
               [prevPage]="prevPage" [totalPage]="totalPage" [requestPayload]="filterParams" [requestMethod]="'POST'"
               (pageChanged)="onPageChanged($event)" [(isProcessing)]="isProcessing">
             </app-pagination>
-					</div>
-          <div class="" style="width: 50% !important;" >
+					</div> -->
+          <div class="" style="width: 100% !important; background-color: #B6F0B9;" >
 
-            <form >
+            <form style=" width: 100%; display: flex ; justify-content: space-between; align-items: center;" >
               <div class="option_select d-flex align-items-center mb-0">
                 <!-- <span class="option_title text-uppercase">Sort by:</span> -->
                 <mat-form-field appearance="fill">
@@ -290,12 +287,29 @@
                     </mat-option>
 
                   </mat-select>
+
                 </mat-form-field>
+
               </div>
+              <div class="large-screen-cat-nav" style="width: fit-content ;">
+                <app-pagination *ngIf="products?.length > 0 " [dataSet]="products" [nextPage]="nextPage"
+                  [prevPage]="prevPage" [totalPage]="totalPage" [requestPayload]="filterParams" [requestMethod]="'POST'"
+                  (pageChanged)="onPageChanged($event)" [(isProcessing)]="isProcessing">
+                </app-pagination>
+              </div>
+              <button mat-button [matMenuTriggerFor]="menu"><span class="" ><i class="far fa-bars"></i> Categories</span></button>
             </form>
             <!-- <p>selected value: {{selectedValueCtrl.value}}</p> -->
 
           </div>
+          <div *ngIf="isProcessing"  class="container spinner-wrapper">
+            <mat-spinner class="custom-spinner-color"></mat-spinner>
+          </div>
+          <div *ngIf="products?.length <= 0 && !isProcessing" class="container mt-5" >
+            <app-empty-record *ngIf="products?.length <= 0 && !isProcessing"></app-empty-record>
+
+          </div>
+
           <div  class="element-grid column4_element_grid mb_50" >
 
 
