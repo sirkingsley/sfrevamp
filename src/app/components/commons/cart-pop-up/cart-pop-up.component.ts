@@ -59,8 +59,9 @@ export class CartPopUpComponent implements OnInit {
 
 
   async ngOnInit(): Promise<void> {
-    this.getIndustries()
-    this.getFeaturedShops({});
+    // this.getIndustries()
+    // this.getFeaturedShops({});
+    this.getCartItems();
     this.formGroup=this.formBuilder.group({
       qty: ['',Validators.required],
     });

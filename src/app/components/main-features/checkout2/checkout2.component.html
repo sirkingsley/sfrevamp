@@ -153,25 +153,31 @@
               aria-labelledby="example-radio-group-label"
               class="example-radio-group"
               [(ngModel)]="selectedDelivery" >
-              <mat-radio-button class="example-radio-button"  [value]="deliveryOptions?.DHL_DELIVERY">
+              <mat-radio-button class="example-radio-button"  [value]="deliveryOptions?.DHL_DELIVERY"
+              *ngIf="currency !== currencies.GHS && currency !== currencies.NGN && currency !== currencies.USD">
                 DHL DELIVERY
               </mat-radio-button>
-              <mat-radio-button class="example-radio-button"  [value]="deliveryOptions?.GH_BIKE_DELIVERY">
+              <mat-radio-button class="example-radio-button"  [value]="deliveryOptions?.GH_BIKE_DELIVERY"
+              *ngIf="currency == currencies.GHS || currency == currencies.USD">
                 GH BIKE DELIVERY
               </mat-radio-button>
-              <mat-radio-button class="example-radio-button"  [value]="deliveryOptions?.NG_BIKE_DELIVERY">
+              <mat-radio-button class="example-radio-button"  [value]="deliveryOptions?.NG_BIKE_DELIVERY"
+              *ngIf="currency == currencies.NGN">
                 NG BIKE DELIVERY
               </mat-radio-button>
-              <mat-radio-button class="example-radio-button"  [value]="deliveryOptions?.BOLT_DELIVERY">
+              <mat-radio-button class="example-radio-button"  [value]="deliveryOptions?.BOLT_DELIVERY"
+              *ngIf="currency == currencies.GHS || currency == currencies.NGN || currency == currencies.USD">
                 BOLT DELIVERY
               </mat-radio-button>
-              <mat-radio-button class="example-radio-button"  [value]="deliveryOptions?.UBER_DELIVERY">
+              <mat-radio-button class="example-radio-button"  [value]="deliveryOptions?.UBER_DELIVERY"
+              *ngIf="currency == currencies.GHS || currency == currencies.USD">
                 UBER DELIVERY
               </mat-radio-button>
-              <mat-radio-button class="example-radio-button"  [value]="deliveryOptions?.PICKUP">
+              <mat-radio-button class="example-radio-button"  [value]="deliveryOptions?.PICKUP"
+              *ngIf="currency === currencies.GHS || currency === currencies.NGN || currency == currencies.USD">
                 PICKUP
               </mat-radio-button>
-              <mat-radio-button class="example-radio-button"   [value]="deliveryOptions?.GIFT">
+              <mat-radio-button class="example-radio-button"   [value]="deliveryOptions?.GIFT" *ngIf="fathersDay" >
                 FATHER'S DAY GIFT
               </mat-radio-button>
 
