@@ -196,7 +196,7 @@ onload(){
     //Loader variable set false after page load
     setTimeout(()=>{
       this.loader = false;
-  }, 2000);
+  }, 1000);
     // this.window.addEventListener('load',()=>{
     //   this.windowLoaded=true;
     //   // alert("hi");
