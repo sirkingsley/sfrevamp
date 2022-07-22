@@ -57,7 +57,7 @@
                     Please enter a valid email
                   </mat-error>
 								</div>
-								<div class="form_item">
+								<div class="form_item form_item_number" >
                   <!-- <input type="tel" placeholder="+233542893998" formControlName="phone_number"/>
                   <mat-error *ngIf="password?.invalid && password?.touched" >
                     Please enter a valid phone number
@@ -66,7 +66,7 @@
                   <lac-mat-country-selector
                   matPrefix [selectorFor]="input1"
                   [preferredCountries]="['gh', 'ng']"
-                  ></lac-mat-country-selector>
+                   class="lact-mat-selector"></lac-mat-country-selector>
                  <lac-mat-tel-input  #input1 formControlName="phone_number"></lac-mat-tel-input>
                   <mat-error *ngIf="phone_number?.invalid && phone_number?.touched" >
                     Please enter a valid phone number

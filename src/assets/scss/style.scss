@@ -59553,3 +59553,12 @@ transform: translateX(-3px);
 
 
 }
+.form_item_number{
+  display: grid;
+  grid-template-columns: 20% auto;
+  grid-gap:0;
+  .lact-mat-selector{
+    border-bottom: 2px solid #cccecd;
+  }
+
+}
