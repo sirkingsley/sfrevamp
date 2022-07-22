@@ -15,6 +15,8 @@ export function passwordMatch(fieldName: string, comparingFieldName: string) {
     if (!pwd || !cpwd) { return null; }
     if (pwd.value !== cpwd.value) {
       return { valid: false };
+    }else{
+      return null;
     }
 };
 }

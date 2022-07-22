@@ -7,7 +7,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "heroku-postbuild": "ng build"
   },
   "private": true,
   "dependencies": {
@@ -25,9 +26,10 @@
     "compression": "^1.7.4",
     "express": "^4.17.3",
     "helmet": "^5.0.2",
-    "intl-tel-input": "^17.0.16",
+    "intl-tel-input": "^17.0.3",
     "jquery": "^3.6.0",
-    "libphonenumber-js": "^1.10.7",
+    "lac-mat-tel-input": "^2.1.0-beta.1",
+    "libphonenumber-js": "^1.10.9",
     "ngx-indexed-db": "^10.0.0",
     "ngx-owl-carousel-o": "^7.0.2",
     "ngx-toastr": "^14.3.0",
@@ -49,5 +51,9 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
     "typescript": "~4.5.2"
+  },
+  "engines": {
+    "node": "16.13.2",
+    "npm":"8.3.1"
   }
 }

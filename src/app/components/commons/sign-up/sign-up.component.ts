@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { MatDialogRef } from '@angular/material/dialog';
 //import { passwordMatch } from 'src/app/utils/validator';
 import { Router, ActivatedRoute } from '@angular/router';
+import { passwordMatch } from 'src/app/utils/validator';
 
 @Component({
   selector: 'app-sign-up',
@@ -33,9 +34,25 @@ export class SignUpComponent implements OnInit {
       email: new FormControl('', [Validators.email]),
       phone_number: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
-      retype_password: new FormControl('', [Validators.required])
-    });
+      retype_password: new FormControl('', [Validators.required, passwordMatch('password', 'retype_password')])
+    },);
   }
+
+  MustMatch(controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+    const control = formGroup.controls[controlName];
+    const matchingControl = formGroup.controls[matchingControlName];
+    if (matchingControl.errors && !matchingControl.errors['mustMatch']) {
+    return;
+    }
+    if (control.value !== matchingControl.value) {
+    matchingControl.setErrors({ mustMatch: true });
+    } else {
+    matchingControl.setErrors(null);
+    }
+    }
+    }
+
   onCountryChanged(country) {
     console.log(country);
   }
