@@ -25,6 +25,7 @@ import { GuestUserComponent } from '../../commons/guest-user/guest-user.componen
 import { WINDOW } from 'src/app/utils/window.provider';
 import { LoginUpdateService } from 'src/app/services/login-update.service';
 import { CustomersApiCallsService } from 'src/app/services/network-calls/customers-api-calls.service';
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
 
 
 import AOS from 'aos';
@@ -680,11 +681,17 @@ export class Checkout2Component implements OnInit {
         } else if (this.paymentMethod === PaymentMethods.MOMO) {
           this.dialog.open(ConfirmOrderPaymentDialogComponent,
             // tslint:disable-next-line: max-line-length
-            { data: { payment_method: this.paymentMethod, payment_network: this.paymentNetwork, network_name: this.networkName, transaction_id: result.transaction_id }, disableClose: true })
+            { data: { payment_method: this.paymentMethod, payment_network: this.paymentNetwork, network_name: this.networkName, transaction_id: result.transaction_id },
+             disableClose: true,
+             scrollStrategy: new NoopScrollStrategy(),},
+           )
             .afterClosed().subscribe((isCompleted: boolean) => {
               // tslint:disable-next-line: max-line-length
               this.router.navigate(["/checkout3"]);
-              this.dialog.open(OrderCompletedDialogComponent, { data: { order_code: result.order_code, transactionSuccessful: isCompleted }, disableClose: true })
+              this.dialog.open(OrderCompletedDialogComponent, {
+                data: { order_code: result.order_code, transactionSuccessful: isCompleted },
+                 disableClose: true,
+                 scrollStrategy: new NoopScrollStrategy(),})
                 .afterClosed().subscribe((isSuccess: boolean) => {
                   if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
                     //this.router.navigate(['/account/orders']);
@@ -696,7 +703,9 @@ export class Checkout2Component implements OnInit {
                 });
             });
         } else if (this.paymentMethod === PaymentMethods.CASH) {
-          this.dialog.open(OrderCompletedDialogComponent, { data: { order_code: result.order_code }, disableClose: true })
+          this.dialog.open(OrderCompletedDialogComponent, { data: { order_code: result.order_code },
+            disableClose: true,
+            scrollStrategy: new NoopScrollStrategy(),})
             .afterClosed().subscribe((isSuccess: boolean) => {
               if (isSuccess) {
                 if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
@@ -796,7 +805,9 @@ export class Checkout2Component implements OnInit {
     this.orderService.validateMOMOPhoneNumber(phoneNunber, (error, result) => {
       this.isProcessing = false;
       if (result !== null && result.response_code === '100') {
-        this.dialog.open(ConfirmPhoneNumberComponent, {data: {phone_number: phoneNunber}}).afterClosed().subscribe((isSuccess: boolean) => {
+        this.dialog.open(ConfirmPhoneNumberComponent,
+          {data: {phone_number: phoneNunber},
+          scrollStrategy: new NoopScrollStrategy(),}).afterClosed().subscribe((isSuccess: boolean) => {
           if (isSuccess) {
             this.processOrder(data);
           }
@@ -806,7 +817,9 @@ export class Checkout2Component implements OnInit {
   }
 
   openD(){
-    this.dialog.open(OrderCompletedDialogComponent);
+    this.dialog.open(OrderCompletedDialogComponent,{
+      scrollStrategy: new NoopScrollStrategy(),
+    });
   }
 
   getDaddress(){

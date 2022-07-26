@@ -10,6 +10,7 @@ import { ShopApiCallsService } from 'src/app/services/network-calls/shop-api-cal
 import { ProductsApiCallsService } from 'src/app/services/network-calls/products-api-calls.service';
 import { DataProviderService } from 'src/app/services/data-provider.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import AOS from 'aos';
 
 import { ToastrService } from 'ngx-toastr';
@@ -564,7 +565,11 @@ filterByCategory(category: string,el: HTMLElement) {
   }
 
   openCartDialog(): void {
-    this.dialog.open(CartPopUpComponent,{panelClass: ['animate__animated','animate__slideInRight']}
+    this.dialog.open(CartPopUpComponent,
+      {
+        panelClass: ['animate__animated','animate__slideInRight'],
+        scrollStrategy: new NoopScrollStrategy(),
+      }
 
    );
   }
