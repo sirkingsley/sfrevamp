@@ -19996,10 +19996,13 @@ blockquote .blockquote_title {
   font-weight: 600;
 }
 .reg_form_wrap .form_item input {
+  #num{
+    padding-left: 0 !important;
+  }
   border: none;
   padding: 0px;
   height: 45px;
-  padding-left: 50px;
+  //padding-left: 50px;
   background-color: transparent;
   border-bottom: 2px solid #cccecd;
 }
@@ -32561,6 +32564,7 @@ button {
 	}
 
 	.form_item {
+
 		input {
 			border: none;
 			padding: 0px;
@@ -32572,6 +32576,9 @@ button {
 				border-color: $primary-color-light;
 			}
 		}
+    #num{
+      padding-left: 0px !important;
+    }
 		label {
 			top: 50%;
 			left: 13px;

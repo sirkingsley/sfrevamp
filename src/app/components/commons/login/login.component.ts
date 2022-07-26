@@ -54,6 +54,8 @@ export class LoginComponent implements OnInit {
   }
   onSubmit(data) {
     if (this.formGroup.valid) {
+      data.phone_number=data.phone_number.replace(/\s/g, "").trim();
+      //console.log("Data-->"+JSON.stringify(data,null,2));
       this.isProcessing = true;
       this.customersApiCalls.signIn(data, (error, result) => {
         this.isProcessing = false;

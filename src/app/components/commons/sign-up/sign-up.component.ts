@@ -63,7 +63,10 @@ export class SignUpComponent implements OnInit {
    */
   onSubmit(data) {
     if (this.formGroup.valid) {
+      //console.log("Data-->"+JSON.stringify(data,null,2));
+      data.phone_number=data.phone_number.replace(/\s/g, "").trim();
       this.isProcessing = true;
+
       this.customersApiCalls.create(data, (error, result) => {
         this.isProcessing = false;
         if (result !== null) {

@@ -56,7 +56,7 @@
                   matPrefix [selectorFor]="input1"
                   [preferredCountries]="['gh', 'ng']"
                   class="lact-mat-selector"></lac-mat-country-selector>
-                 <lac-mat-tel-input  #input1 formControlName="phone_number"></lac-mat-tel-input>
+                 <lac-mat-tel-input  #input1 formControlName="phone_number" id="num"></lac-mat-tel-input>
                   <mat-error *ngIf="phone_number?.invalid && phone_number?.touched" >
                     Please enter a valid phone number
                   </mat-error>
