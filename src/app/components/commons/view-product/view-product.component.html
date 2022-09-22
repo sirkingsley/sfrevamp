@@ -40,13 +40,13 @@
               </form>
             </div>
           </div> -->
-          <ul class="btns_group ul_li mb_30 clearfix">
+          <ul class="btns_group ul_li mb_30 clearfix" style="display:flex; justify-content: flex-start !important;">
             <li><a class="custom_btn bg_carparts_red" (click)="addProductToCart(data.item)" >Add to Cart</a></li>
             <!-- <li><a href="#!" data-toggle="tooltip" data-placement="top" title="" data-original-title="Compare Product"><i class="fal fa-sync"></i></a></li>
             <li><a href="#!" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add To Wishlist"><i class="fal fa-heart"></i></a></li> -->
           </ul>
           <ul class="info_list ul_li_block clearfix">
-            <li><strong class="list_title">Shop:</strong> <a [routerLink]="['/shop-details',{shop: data.item.myShop,storefrontmall_name: data.item.myshop.storefrontmall_name,store_name: data.item.myshop.business_name}]" mat-dialog-close>{{data.item.myshop.business_name}}</a></li>
+            <li style="display:flex ;" > <span class="me-2">Shop:</span> <a [routerLink]="['/shop-details',{shop: data.item.myShop,storefrontmall_name: data.item.myshop.storefrontmall_name,store_name: data.item.myshop.business_name}]" mat-dialog-close>{{data.item.myshop.business_name}}</a></li>
             <!-- <li class="social_icon">
               <strong class="list_title">Share:</strong>
               <ul class="ul_li clearfix">

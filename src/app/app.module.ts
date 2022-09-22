@@ -32,7 +32,7 @@ import { DressesComponent } from './components/main-features/classic-shop/superm
 import { FallComponent } from './components/main-features/classic-shop/supermarket/fall/fall.component';
 import { BlouseComponent } from './components/main-features/classic-shop/supermarket/blouse/blouse.component';
 import { ViewProductComponent } from './components/commons/view-product/view-product.component';
-import {MatDialogModule} from '@angular/material/dialog';
+import {MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
 import { Checkout2Component } from './components/main-features/checkout2/checkout2.component';
 import { Checkout3Component } from './components/main-features/checkout3/checkout3.component';
 import { CartComponent } from './components/main-features/cart/cart.component';
@@ -178,7 +178,8 @@ import { LacMatTelInputModule } from 'lac-mat-tel-input';
     Title,
     { provide: ErrorHandler, useClass: SentryErrorHandlerService },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    WINDOW_PROVIDERS
+    WINDOW_PROVIDERS,
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue:{hasBackdrop: false}}
 
 
   ],

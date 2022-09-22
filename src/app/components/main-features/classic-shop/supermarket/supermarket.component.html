@@ -314,7 +314,8 @@
 
 
             <div class="element-item " *ngFor="let item of products" >
-              <div class="ecommerce_product_grid" data-aos="zoom-in-down">
+              <!-- <div class="ecommerce_product_grid" data-aos="zoom-in-down"> -->
+                <div class="ecommerce_product_grid">
                 <ul *ngIf="item?.new_quantity<=0" class="product_label ul_li clearfix">
                   <li class="bg-danger">Out of Stock</li>
                 </ul>
