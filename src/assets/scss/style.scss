@@ -2903,6 +2903,13 @@ button {
     height: auto;
     max-width: 70%;
 }
+@media screen and (max-width: 991px) {
+  .brand_logo img{
+    height: auto;
+    max-width: 150px;
+    //margin-left: 10px;
+}
+}
 .carparts_header .header_top,
 .carparts_header .header_bottom {
   height: 90px;
