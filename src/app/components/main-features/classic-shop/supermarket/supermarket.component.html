@@ -92,7 +92,7 @@
 								</div>
 								<div class="item_content">
 									<h3 class="item_title">Worldwide Shipping</h3>
-									<p>Get free shipping over $65.</p>
+									<p>Get free shipping over GHC65.</p>
 								</div>
 							</div>
 						</div>
@@ -130,7 +130,7 @@
 
 			<!-- category_section - start
 			================================================== -->
-			<section class="category_section sec_ptb_100 pb-0 clearfix" #shops>
+			<!-- <section class="category_section sec_ptb_100 pb-0 clearfix" #shops>
 				<div class="container">
 					<div class="ecommerce_category_masonry grid">
 						<div class="grid-sizer"></div>
@@ -148,13 +148,13 @@
 
 											<img src="{{shop.featured_image}}" onerror="this.src='../../assets/images/black-women-shopping.jpg'"  alt="alternative" />
 											<div class="item_content">
-												<!-- <h3 class="item_title text-white">Special Offers</h3> -->
+
                         <h3 class="item_title text-white">{{shop.business_name}}</h3>
 												<p>
 													{{shop.location}}
 												</p>
                         <a class="custom_btn bg_white text-uppercase" [routerLink]="['/shop-details',{shop: shop,storefrontmall_name:shop.storefrontmall_name,store_name:shop.business_name}]" target="_blank">View Shop</a>
-												<!-- <a class="custom_btn bg_white text-uppercase" [routerLink]="['/shop-details', {shop: shop,storefrontmall_name:shop.storefrontmall_name,store_name:shop.business_name}]">View Shop</a> -->
+
 											</div>
 										</div>
 									  </div>
@@ -163,10 +163,7 @@
                   </owl-carousel-o>
 								</div>
 
-								<!-- <div class="carousel_nav clearfix">
-									<button type="button" class="left_arrow"><i class="fal fa-angle-left"></i></button>
-									<button type="button" class="right_arrow"><i class="fal fa-angle-right"></i></button>
-								</div> -->
+
 							</div>
 						</div>
 
@@ -179,7 +176,7 @@
             </div>
 					</div>
 				</div>
-			</section>
+			</section> -->
 
       <div class="container category-heading-wrapper mt-2">
         <h3 class="main-heading">
@@ -345,15 +342,17 @@
                   <h3 class="item_title">
                     <a >{{item.name | truncate:2}}</a>
                   </h3>
-                  <ul class="product_color ul_li nav clearfix">
+                  <!-- <ul class="product_color ul_li nav clearfix">
                     <li class="active"><a class="pbg_brown" data-toggle="tab" ></a></li>
                     <li><a class="pbg_olivegreen" data-toggle="tab" ></a></li>
                     <li><a class="pbg_gray" data-toggle="tab" ></a></li>
-                  </ul>
+                  </ul> -->
                   <!-- <span class="item_price"><strong>{{item.currency}} {{item.price_list[0]?.selling_price}} </strong> <del >{{item.currency}} {{item.price_list[0]?.selling_price*2}}</del></span> -->
                   <span class="item_price"><strong>{{item.currency}} {{item.price_list[0]?.selling_price}} </strong></span>
+                  <div class="add-to-wrapper">
+                    <button class="mat-button-wrapper mt-3 add-to-cart" (click)="addProductToCart(item)" >ADD TO CART</button>
+                  </div>
 
-                  <button class="mat-button-wrapper mt-3" (click)="addProductToCart(item)">ADD TO CART</button>
                 </div>
               </div>
             </div>
