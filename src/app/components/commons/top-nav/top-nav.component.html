@@ -37,12 +37,12 @@
 										<div class="mega_menu text-center">
 											<div class="background" data-bg-color="#ffffff">
 												<div class="container">
-													<ul class="home_pages ul_li clearfix" >
+													<ul class="home_pages ul_li ul_li2 clearfix" >
 														<li *ngFor="let shop of featuredShops">
 															<a [routerLink]="['/shop-details',{shop: shop,storefrontmall_name:shop.storefrontmall_name,store_name:shop.business_name}]">
-																<span class="item_image">
+																<!-- <span class="item_image">
 																	<img src="{{shop.featured_image}}" onerror="this.src='../../assets/images/black-women-shopping.jpg'" alt="image_not_found">
-																</span>
+																</span> -->
 																<span class="item_title">{{shop.business_name}}</span>
 															</a>
 														</li>
@@ -59,7 +59,7 @@
 												<div class="container">
 													<div class="row mt__30">
                             <div class="page_links" >
-                              <h3 class="title_text" [routerLink] = "['/display-products', {pageSec: 'section2', category: ''}]" (click)="filterCategory('',target)" (click)="filterByCategory('',target)">All</h3>
+                              <h3 class="title_text"  [routerLink] = "['/display-products', {pageSec: 'section2', category: ''}]" (click)="filterCategory('',target)" (click)="filterByCategory('',target)">All</h3>
 
                             </div>
 														<div class="col-lg-3" *ngFor="let category of industries">
@@ -71,7 +71,7 @@
 
 															<div class="page_links" >
 																<!-- <h3 class="title_text" [routerLink] = "['/supermarket', {pageSec: 'section2', category: category.name}]" (click)="filterCategory(category.name,target)" (click)="filterByCategory(category.name,target)">{{category.name}}</h3> -->
-                                <h3 class="title_text"  [routerLink] = "['/display-products', {pageSec: 'section2', category: category?.name}]" (click)="filterCategory('',target)" (click)="filterByCategory('',target)">{{category.name}}</h3>
+                                <h3 class="title_text" id="top-category-title"  [routerLink] = "['/display-products', {pageSec: 'section2', category: category?.name}]" (click)="filterCategory('',target)" (click)="filterByCategory('',target)">{{category.name}}</h3>
 																<!-- <ul class="ul_li_block">
 																	<li><a href="carparts_shop.html">Shop Page</a></li>
 																	<li><a href="carparts_shop_grid.html">Shop Grid</a></li>

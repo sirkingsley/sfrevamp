@@ -406,7 +406,7 @@ hr {
   border-radius: 45px;
   display: inline-flex;
   justify-content: center;
-  border: 2px solid #eceef2;
+  border: 2px solid #0000007d !important;
 }
 .quantity_input input {
   width: 100px;
@@ -418,7 +418,7 @@ hr {
   text-align: center;
 }
 .quantity_input span {
-  color: #ced9df;
+  color: #0000007d !important;
   line-height: 1;
   cursor: pointer;
   font-size: 30px;
@@ -32038,8 +32038,22 @@ hr {
   }
 }
 
+.ul_li2{
+  justify-content: flex-start !important;
+  align-items: flex-start;
+  text-align: start !important;
+
+    a{
+      transition: 0.3s;
+      opacity: 0.7;
+    &:hover{
+      opacity: 1;
+    }
+  }
+}
 .ul_li {
   justify-content: flex-start;
+
 }
 .ul_li_center {
   justify-content: center;
@@ -59596,4 +59610,12 @@ transform: translateX(-3px);
   &:hover{
    opacity: 1;
   }
+}
+
+#top-category-title{
+  transition: 0.3s !important;
+  opacity: 0.7 !important;
+&:hover{
+  opacity: 1 !important;
+}
 }
