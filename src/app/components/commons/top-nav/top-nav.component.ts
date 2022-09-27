@@ -126,7 +126,7 @@ export class TopNavComponent implements OnInit {
         this.getProducts({ storefrontmall_name: this.subdomain, search_text: searchTerm });
       }
     });
-    this.getShopInfo();
+    // this.getShopInfo();
     this.getProductGroups();
 
 

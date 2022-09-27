@@ -226,7 +226,7 @@ onload(){
         this.getProducts({ storefrontmall_name: this.subdomain, search_text: searchTerm });
       }
     });
-    this.getShopInfo();
+    // this.getShopInfo();
     this.getProductGroups();
     this.protocol = this.constantValues.STOREFRONT_MALL_URL_PROTOCOL;
     this.url = this.constantValues.STOREFRONT_MALL_URL;
@@ -243,7 +243,7 @@ onload(){
       this.getProducts({});
       }
     });
-    this.getShopInfo();
+    // this.getShopInfo();
     this.getIndustries()
     this.getFeaturedShops({});
     this.getCartItems();
@@ -411,17 +411,17 @@ getShopsWithPromo(){
     this.getActivePromo(shop.storefrontmall_name);
   })
 }
-getShopInfo() {
-  // const suddomain = (this.getHostname.subDomain === 'localhost') ? environment.pluto : this.getHostname.subDomain;
-  this.shopsApiCalls.getShopByOnlineAddress(this.subdomain, (error, result) => {
-    if (result !== null && result.response_code === '100') {
-      this.shopInfo = result.results;
-      this.exchangeRate = (result.results.exchange_rate !== '' && result.results.exchange_rate !== null && result.results.exchange_rate !== undefined) ? +result.results.exchange_rate : 0;
+// getShopInfo() {
+//   // const suddomain = (this.getHostname.subDomain === 'localhost') ? environment.pluto : this.getHostname.subDomain;
+//   this.shopsApiCalls.getShopByOnlineAddress(this.subdomain, (error, result) => {
+//     if (result !== null && result.response_code === '100') {
+//       this.shopInfo = result.results;
+//       this.exchangeRate = (result.results.exchange_rate !== '' && result.results.exchange_rate !== null && result.results.exchange_rate !== undefined) ? +result.results.exchange_rate : 0;
 
-    }
-    //console.log("this.shopInfo " +this.shopInfo);
-  });
-}
+//     }
+//     //console.log("this.shopInfo " +this.shopInfo);
+//   });
+// }
 
 
 
