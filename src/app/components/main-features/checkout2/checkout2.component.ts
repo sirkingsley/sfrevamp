@@ -4,7 +4,7 @@ import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { Title } from '@angular/platform-browser';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute,NavigationEnd } from '@angular/router';
 
 import { ConfirmOrderPaymentDialogComponent } from '../../commons/confirm-order-payment-dialog/confirm-order-payment-dialog.component';
 import { User } from 'src/app/modules/user';
@@ -34,8 +34,8 @@ import AOS from 'aos';
 //import * as $ from 'jquery';
 //JavaScript Functions
 declare const custom:any;
-declare const main:any;
-declare const parallaxie: any;
+// declare const main:any;
+// declare const parallaxie: any;
 declare const $;
 @Component({
   selector: 'app-checkout2',
@@ -123,6 +123,8 @@ export class Checkout2Component implements OnInit {
   promos: any = [];
   rate: number = 0;
   constructor(
+   
+   
     private formBuilder: FormBuilder,
     private sharedDataApiCallsService: SharedDataApiCallsService,
     // private mapsAPILoader: MapsAPILoader,
@@ -150,16 +152,28 @@ export class Checkout2Component implements OnInit {
     private loginUpdate: LoginUpdateService,
     //@Inject(MAT_DIALOG_DATA) public data: any,
 
-    ){ }
+    ){
+      
+     }
+
+
+    //  firstFormGroup = this._formBuilder.group({
+    //   firstCtrl: ['', Validators.required],
+    // });
+    // secondFormGroup = this._formBuilder.group({
+    //   secondCtrl: ['', Validators.required],
+    // });
+    isEditable = false;
    //Call JavaScript functions onload
    onload(){
     custom();
-    main();
+    //main();
     //parallaxie();
   }
   loader=true;
 
   async ngOnInit(): Promise<void> {
+
     //this.getActivePromo("gtpstore");
     AOS.init();
     //Loader variable set false after page load
@@ -208,7 +222,8 @@ export class Checkout2Component implements OnInit {
       gift_recipient_longitude: ['']
     });
     this.deliveryMethod = this.formBuilder.group({
-      bolt_delivery: ['', [Validators.required]]
+      bolt_delivery: [''],
+      delivery_method:[this.selectedDelivery,Validators.required],
     });
     this.paymentFormGroup = this.formBuilder.group({
       payment_method: [''],
@@ -269,13 +284,13 @@ export class Checkout2Component implements OnInit {
     }
 
 
-      $('#flip').on("click",function(){
-        $("#panel").slideToggle("slow");
-      });
+      // $('#flip').on("click",function(){
+      //   $("#panel").slideToggle("slow");
+      // });
 
-      $('.search_btn').on("click",function(){
-        $("#search_body_collapse").slideToggle("slow");
-      });
+      // $('.search_btn').on("click",function(){
+      //   $("#search_body_collapse").slideToggle("slow");
+      // });
       this.onload();
 
       this.firstFormGroup = this._formBuilder.group({

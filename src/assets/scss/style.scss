@@ -59499,21 +59499,18 @@ footer a{
 }
 
 .confirm-wrappar input{
-  border: 1px solid #026E08;
-  background-color: #f1f1f1;
-  transition: all 0.5s ease;
+  width: 40%;
+  padding: 10px 10px;
+ // outline:  1px solid #000000;;
+  opacity: 0.7;
+  border: 1px solid #000000;
+  //background-color: #f1f1f1;
+  border-radius: 5px;
+  //transition: all 0.3s ease;
 
 }
 
-.confirm-wrappar input:focus{
-  box-shadow:
-  1px 1px $text-grey,
-  2px 2px $text-grey,
-  3px 3px $text-grey;
--webkit-transform: translateX(-3px);
-transform: translateX(-3px);
 
-}
 .confirm-order-payment-heading {
   text-align: center;
   font-size: 2rem;
@@ -59618,4 +59615,23 @@ transform: translateX(-3px);
 &:hover{
   opacity: 1 !important;
 }
+}
+
+.mat_action_btn{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  button{
+    padding: 5px 20px;
+    width: 120px;
+    color: #FFF;
+    opacity: 0.7;
+    background-color:$primary-color;
+    transition: 0.3s;
+    &:hover{
+      opacity: 1;
+      // background: $primary-color;
+    }
+  }
 }

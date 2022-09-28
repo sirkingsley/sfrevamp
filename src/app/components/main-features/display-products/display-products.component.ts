@@ -232,14 +232,14 @@ export class DisplayProductsComponent implements OnInit {
     this.getIndustries()
     this.getFeaturedShops({});
 
-    $('#flip').on("click",function(){
-      $("#panel").slideToggle("slow");
-    });
+    // $('#flip').on("click",function(){
+    //   $("#panel").slideToggle("slow");
+    // });
 
-    $('.search_btn').on("click",function(){
-      $("#search_body_collapse").slideToggle("slow");
+    // $('.search_btn').on("click",function(){
+    //   $("#search_body_collapse").slideToggle("slow");
 
-    });
+    // });
     this.onload();
   }
 

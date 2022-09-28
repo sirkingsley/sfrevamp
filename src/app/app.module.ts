@@ -8,7 +8,7 @@ import { ConstantValuesService } from 'src/app/services/constant-values.service'
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import {MatStepperModule} from '@angular/material/stepper';
+
 import { ReactiveFormsModule } from '@angular/forms';
 
 //import { NgxIndexedDBModule } from 'ngx-indexed-db';
@@ -59,6 +59,7 @@ import { ToastrModule } from 'ngx-toastr';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatStepperModule} from '@angular/material/stepper';
 
 import { ConfirmOrderPaymentDialogComponent } from './components/commons/confirm-order-payment-dialog/confirm-order-payment-dialog.component';
 import { OrderCompletedDialogComponent } from './components/commons/order-completed-dialog/order-completed-dialog.component';
@@ -88,6 +89,7 @@ import { LoginMainComponent } from './components/commons/login-main/login-main.c
 //import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 import { LacMatTelInputModule } from 'lac-mat-tel-input';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 @NgModule({
   declarations: [
@@ -179,7 +181,11 @@ import { LacMatTelInputModule } from 'lac-mat-tel-input';
     { provide: ErrorHandler, useClass: SentryErrorHandlerService },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     WINDOW_PROVIDERS,
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue:{hasBackdrop: false}}
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue:{hasBackdrop: false}},
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: {displayDefaultIndicatorType: false},
+    },
 
 
   ],

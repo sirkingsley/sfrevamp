@@ -46,8 +46,8 @@ export interface DialogData {
 
 //JavaScript Functions
 declare const custom:any;
-declare const main:any;
-declare const parallaxie: any;
+// declare const main:any;
+// declare const parallaxie: any;
 //declare const $;
 
 @Component({
@@ -264,13 +264,13 @@ onload(){
     //   $('.overlay').addClass('active');
     // });
 
-    $('#flip').on("click",function(){
-      $("#panel").slideToggle("slow");
-    });
+    // $('#flip').on("click",function(){
+    //   $("#panel").slideToggle("slow");
+    // });
 
-    $('.search_btn').on("click",function(){
-      $("#search_body_collapse").slideToggle("slow");
-    });
+    // $('.search_btn').on("click",function(){
+    //   $("#search_body_collapse").slideToggle("slow");
+    // });
 
 
 
@@ -318,7 +318,7 @@ pagefullyLoaded:Boolean=false;
   filterByPrice(priceSort) {
     this.selectedPriceSorting = priceSort;
     // tslint:disable-next-line: max-line-length
-    this.getProducts({ sorting: this.selectedPriceSorting, product_group_id: this.selectedCategoryId, search_text: this.searchQuery, tag: this.tag, storefrontmall_name: this.subdomain });
+    this.getProducts({ sorting: this.selectedPriceSorting, product_group_id: this.selectedCategoryId, search_text: this.searchQuery, tag: this.tag, storefrontmall_name: '' });
     //console.log("Price-->"+this.selectedValueCtrl);
     //alert('price sorted to '+this.selectedValueCtrl);
   }

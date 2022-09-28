@@ -210,12 +210,12 @@ loader=true;
 
       //this.getActivePromo(this.getHostname.subDomain);
 
-    $('#flip').on("click",function(){
-      $("#panel").slideToggle("slow");
-    });
-    $('.search_btn').on("click",function(){
-      $("#search_body_collapse").slideToggle("slow");
-    });
+    // $('#flip').on("click",function(){
+    //   $("#panel").slideToggle("slow");
+    // });
+    // $('.search_btn').on("click",function(){
+    //   $("#search_body_collapse").slideToggle("slow");
+    // });
     this.onload();
   }
   openDialog(item: any) {

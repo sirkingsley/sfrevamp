@@ -20,7 +20,7 @@ import { ProductsFilterParams } from 'src/app/interfaces/products-filter-params'
 // declare const custom:any;
 // declare const main:any;
 // declare const parallaxie: any;
-// declare const $;
+declare const $;
 @Component({
   selector: 'app-top-nav',
   templateUrl: './top-nav.component.html',
@@ -89,16 +89,17 @@ export class TopNavComponent implements OnInit {
 
 
   async ngOnInit(): Promise<void> {
+ 
     this.getFeaturedShops({});
     this.getIndustries();
     // console.log("Products: _->");
-    // $('#flip').on("click",function(){
-    //   $("#panel").slideToggle("slow");
-    // });
+    $('.user_btn').on("click",function(){
+      $("#panel").slideToggle("slow");
+    });
 
-    // $('.search_btn').on("click",function(){
-    //   $("#search_body_collapse").slideToggle("slow");
-    // });
+    $('.search_btn').on("click",function(){
+      $("#search_body_collapse").slideToggle("slow");
+    });
     // this.onload();
 
     this.subdomain = this.getHostname.subDomain;

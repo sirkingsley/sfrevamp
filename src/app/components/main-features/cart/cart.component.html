@@ -1,140 +1,236 @@
-
-
-
-	<div *ngIf="loader" style="display: flex; justify-content: center; align-items:center; width:100%; height:100%;">
-    <div class="spinner-grow" style="width: 3rem; height: 3rem; color: green;" role="status" >
-      <span class="visually-hidden">Loading...</span>
-    </div>
+<div
+  *ngIf="loader"
+  style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  "
+>
+  <div
+    class="spinner-grow"
+    style="width: 3rem; height: 3rem; color: green"
+    role="status"
+  >
+    <span class="visually-hidden">Loading...</span>
   </div>
+</div>
 
-		<!-- header_section - start
+<!-- header_section - start
 		================================================== -->
-    <app-top-nav ></app-top-nav>
-		<!-- header_section - end
+<app-top-nav></app-top-nav>
+<!-- header_section - end
 		================================================== -->
 
-
-		<!-- main body - start
+<!-- main body - start
 		================================================== -->
-		<main *ngIf="!loader">
-
-
-			<!-- sidebar mobile menu & sidebar cart - start
+<main *ngIf="!loader">
+  <!-- sidebar mobile menu & sidebar cart - start
 			================================================== -->
 
-			<!-- breadcrumb_section - end
+  <!-- breadcrumb_section - end
 			================================================== -->
 
-
-			<!-- cart_section - start
+  <!-- cart_section - start
 			================================================== -->
-			<section class="cart_section sec_ptb_140 clearfix">
-				<div class="container">
-          <ul class="checkout_step ul_li clearfix">
-						<li class="active"><a>Cart</a></li>
-						<li  ><a > Checkout</a></li>
-						<li ><a >Complete</a></li>
-					</ul>
+  <section class="cart_section sec_ptb_140 clearfix">
+    <div class="container">
+		<div class="mb-3">
+			<a [routerLink]="['']" >Home</a>/<a>Cart</a>
+		</div>
+      <!-- <ul class="checkout_step ul_li clearfix">
+        <li class="active"><a>Cart</a></li>
+        <li><a> Checkout</a></li>
+        <li><a>Complete</a></li>
+      </ul> -->
 
-          <app-empty-record *ngIf="cartItems?.length <= 0"></app-empty-record>
+      <app-empty-record *ngIf="cartItems?.length <= 0"></app-empty-record>
 
-					<div class="cart_table mb_50">
-						<table class="table" *ngIf="cartItems.length>0">
-							<thead class="text-uppercase">
-								<tr>
-									<th>Product Name</th>
-									<th>Price</th>
-									<th>Quantity</th>
-									<th>Total Price</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr *ngFor="let item of cartItems; let i=index">
-									<td >
-										<div class="cart_product">
-											<div class="item_image">
-                        <img src="{{item.item.image}}" onerror="this.src='../../assets/images/reg_bg_02.png'" alt="image_not_found">
-											</div>
-											<div class="item_content">
-												<h4 class="item_title">{{item.item.name}}</h4>
-												<span class="item_type" [routerLink]="['/shop-details',{shop: item.item.myShop,storefrontmall_name:item.item.myshop.storefrontmall_name,store_name:item.item.myshop.business_name}]">{{item.item.myshop.business_name}}</span>
-											</div>
-											<button type="button" class="remove_btn" (click)="removeItemFromCart(item.id)">
-												<i class="fal fa-times"></i>
-											</button>
-										</div>
-									</td>
-									<td>
-										<span class="price_text"*ngIf="item?.country === countriesEnum?.GH || item?.country === item?.countriesEnum?.NG || item?.country === '' || item?.country === undefined">
-                      {{item?.item?.currency}} {{item?.item?.selling_price | number: '1.2-2'}}
-                    </span>
-                        <span class="price_text"  *ngIf="item?.country !== countriesEnum?.GH && item?.country !== item?.countriesEnum?.NG && item?.country !== '' && item?.country !== undefined">
-                      $ {{item?.item?.selling_price_usd | number: '1.2-2'}}
-                    </span>
-									</td>
-									<td>
-										<div class="quantity_input">
-											<form action="#">
-												<span class="input_number_decrement" (click)="reduceQty(item)">–</span>
-												<!-- <input class="input_number" type="text" value="{{item.quantity}}"> -->
-                        <span>{{item?.quantity}}</span>
-												<span class="input_number_increment" (click)="addQty(item)">+</span>
-											</form>
-										</div>
-									</td>
-									<td><span class="total_price"> {{item?.item?.currency}} {{item?.total_amount | number: '1.2-2'}}</span></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+      <div class="cart_table mb_50">
+        <table class="table" *ngIf="cartItems.length > 0">
+          <thead class="text-uppercase">
+            <tr>
+              <th>Product Name</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of cartItems; let i = index">
+              <td>
+                <div class="cart_product">
+                  <div class="item_image">
+                    <img
+                      src="{{ item.item.image }}"
+                      onerror="this.src='../../assets/images/reg_bg_02.png'"
+                      alt="image_not_found"
+                    />
+                  </div>
+                  <div class="item_content">
+                    <h4 class="item_title">{{ item.item.name }}</h4>
+                    <span
+                      class="item_type"
+                      [routerLink]="[
+                        '/shop-details',
+                        {
+                          shop: item.item.myShop,
+                          storefrontmall_name:
+                            item.item.myshop.storefrontmall_name,
+                          store_name: item.item.myshop.business_name
+                        }
+                      ]"
+                      >{{ item.item.myshop.business_name }}</span
+                    >
+                  </div>
+                  <button
+                    type="button"
+                    class="remove_btn"
+                    (click)="removeItemFromCart(item.id)"
+                  >
+                    <i class="fal fa-times"></i>
+                  </button>
+                </div>
+              </td>
+              <td>
+                <span
+                  class="price_text"
+                  *ngIf="
+                    item?.country === countriesEnum?.GH ||
+                    item?.country === item?.countriesEnum?.NG ||
+                    item?.country === '' ||
+                    item?.country === undefined
+                  "
+                >
+                  {{ item?.item?.currency }}
+                  {{ item?.item?.selling_price | number: "1.2-2" }}
+                </span>
+                <span
+                  class="price_text"
+                  *ngIf="
+                    item?.country !== countriesEnum?.GH &&
+                    item?.country !== item?.countriesEnum?.NG &&
+                    item?.country !== '' &&
+                    item?.country !== undefined
+                  "
+                >
+                  $ {{ item?.item?.selling_price_usd | number: "1.2-2" }}
+                </span>
+              </td>
+              <td>
+                <div class="quantity_input">
+                  <form action="#">
+                    <span
+                      class="input_number_decrement"
+                      (click)="reduceQty(item)"
+                      >–</span
+                    >
+                    <!-- <input class="input_number" type="text" value="{{item.quantity}}"> -->
+                    <span>{{ item?.quantity }}</span>
+                    <span class="input_number_increment" (click)="addQty(item)"
+                      >+</span
+                    >
+                  </form>
+                </div>
+              </td>
+              <td>
+                <span class="total_price">
+                  {{ item?.item?.currency }}
+                  {{ item?.total_amount | number: "1.2-2" }}</span
+                >
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-					<div class="coupon_wrap mb_50">
-						<div class="row justify-content-lg-between">
-							<div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
-								<div class="coupon_form">
-									<div class="form_item mb-0">
-										<input type="text" class="coupon" placeholder="Coupon Code">
-									</div>
-									<button type="submit" class="custom_btn bg_danger text-uppercase">Apply Coupon</button>
-								</div>
-							</div>
+      <div class="coupon_wrap mb_50">
+        <div class="row">
+          <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12 d-flex align-baseline">
+            <!-- <div class="coupon_form">
+              <div class="form_item mb-0">
+                <input type="text" class="coupon" placeholder="Coupon Code" />
+              </div>
+              <button type="submit" class="custom_btn bg_danger text-uppercase">
+                Apply Coupon
+              </button>
+            </div> -->
+			
+				<!-- <button
+				  type="button"
+				  class="custom_btn bg_secondary text-uppercase"
+				  routerLink="/supermarket"
+				>
+				  Update Cart
+				</button> -->
+			 
+          </div>
 
-							<div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
-								<div class="cart_update_btn">
-									<button type="button" class="custom_btn bg_secondary text-uppercase" routerLink="/supermarket" >Update Cart</button>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row justify-content-lg-end">
-						<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-							<div class="cart_pricing_table pt-0 text-uppercase" data-bg-color="#f2f3f5">
-								<h3 class="table_title text-center" data-bg-color="#ededed">Cart Total</h3>
-								<ul class="ul_li_block clearfix">
-									<li><span>Subtotal</span> <span>{{currency}} {{subTotal | number: '1.2-2'}}</span></li>
-									<li><span>Total</span> <span>{{currency}} {{subTotal | number: '1.2-2'}}</span></li>
-								</ul>
-								<a routerLink="/checkout2" class="custom_btn bg_success">Proceed to Checkout</a>
-							</div>
-						</div>
-					</div>
-
+          <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
+			
+				<div
+				  class="cart_pricing_table pt-0 text-uppercase"
+				  data-bg-color="#f2f3f5"
+				>
+				  <h3 class="table_title text-center" data-bg-color="#ededed">
+					Cart Total
+				  </h3>
+				  <ul class="ul_li_block clearfix">
+					<li>
+					  <span>Subtotal</span>
+					  <span>{{ currency }} {{ subTotal | number: "1.2-2" }}</span>
+					</li>
+					<li>
+					  <span>Total</span>
+					  <span>{{ currency }} {{ subTotal | number: "1.2-2" }}</span>
+					</li>
+				  </ul>
+				  <a routerLink="/checkout2" class="custom_btn bg_success"
+					>Proceed to Checkout</a
+				  >
 				</div>
-			</section>
-			<!-- cart_section - end
+			
+           
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="row justify-content-lg-end">
+        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+          <div
+            class="cart_pricing_table pt-0 text-uppercase"
+            data-bg-color="#f2f3f5"
+          >
+            <h3 class="table_title text-center" data-bg-color="#ededed">
+              Cart Total
+            </h3>
+            <ul class="ul_li_block clearfix">
+              <li>
+                <span>Subtotal</span>
+                <span>{{ currency }} {{ subTotal | number: "1.2-2" }}</span>
+              </li>
+              <li>
+                <span>Total</span>
+                <span>{{ currency }} {{ subTotal | number: "1.2-2" }}</span>
+              </li>
+            </ul>
+            <a routerLink="/checkout2" class="custom_btn bg_success"
+              >Proceed to Checkout</a
+            >
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </section>
+  <!-- cart_section - end
 			================================================== -->
-
-
-		</main>
-		<!-- main body - end
+</main>
+<!-- main body - end
 		================================================== -->
 
-
-		<!-- footer_section - start
+<!-- footer_section - start
 		================================================== -->
-		<app-footer *ngIf="!loader" ></app-footer>
-		<!-- footer_section - end
+<app-footer *ngIf="!loader"></app-footer>
+<!-- footer_section - end
 		================================================== -->
-
-
