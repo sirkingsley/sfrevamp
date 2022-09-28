@@ -195,12 +195,12 @@
 
       <mat-stepper [linear]="true" #stepper>
         <mat-step [stepControl]="deliveryMethod">
-          <ng-template matStepLabel>Delivery</ng-template>
+          <ng-template class="stepper-title" matStepLabel>Delivery</ng-template>
 		  <form
 		  [formGroup]="deliveryMethod"
 		>
           <div class="billing_form">
-            <h3 class="form_title mb_30">Delivery Option</h3>
+            <!-- <h3 class="form_title mb_30">Delivery Option</h3> -->
             <p class="">Pick your delivery Option</p>
             <label id="example-radio-group-label"></label>
             <mat-radio-group

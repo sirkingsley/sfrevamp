@@ -59483,7 +59483,8 @@ footer a{
 .example-radio-group {
   display: flex;
   flex-direction: column;
-  margin: 15px 0;
+  margin-bottom: 15px;
+  margin-top: 0;
   align-items: flex-start;
 }
 
@@ -59499,7 +59500,7 @@ footer a{
 }
 
 .confirm-wrappar input{
-  width: 40%;
+  //width: 40%;
   padding: 10px 10px;
  // outline:  1px solid #000000;;
   opacity: 0.7;
@@ -59625,7 +59626,7 @@ footer a{
   button{
     text-transform: uppercase;
     padding: 5px 20px;
-    width: 120px;
+    min-width: 120px;
     color: #FFF;
     opacity: 0.7;
     background-color:$primary-color;
@@ -59633,6 +59634,17 @@ footer a{
     &:hover{
       opacity: 1;
       // background: $primary-color;
+    }
+  }
+}
+
+@media screen and (max-width: 500px){
+  .mat-step-text-label{
+    font-size: 9px !important;
+  }
+  .mat_action_btn{
+    .stepper-title{
+      font-size: 9px !important;
     }
   }
 }
