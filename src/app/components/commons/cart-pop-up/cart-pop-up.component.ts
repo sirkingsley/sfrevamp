@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { AppUtilsService } from 'src/app/services/app-utils.service';
 import { ConstantValuesService } from 'src/app/services/constant-values.service';
 import { DbaseUpdateService } from 'src/app/services/dbase-update.service';
@@ -42,6 +43,7 @@ export class CartPopUpComponent implements OnInit {
   country = '';
   qty:number;
    constructor(
+    private router: Router,
     public dialog: MatDialog,
     private productsApiCalls: ProductsApiCallsService,
     private notificationsService: NotificationsService,
@@ -296,6 +298,10 @@ filterByCategory(category,el: HTMLElement) {
     return 1;
   }
   return 0;
+}
+
+navigateTo(url){
+  this.router.navigate([`/${url}`]);
 }
 
 get Qty(){
