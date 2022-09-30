@@ -21,7 +21,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 //import { SwiperOptions } from 'swiper';
 import { AuthService } from 'src/app/services/auth.service';
 import { ICallback } from 'src/app/classes/callback-method';
-import { FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { servicesCarouselConfig } from 'src/app/utils/owl-config';
 import { CountryEnum, PriceSortingEnums, PromoCodeRateTypeEnum, PromosEnum } from 'src/app/utils/enums';
 import { ProductsFilterParams } from 'src/app/interfaces/products-filter-params';
@@ -32,6 +32,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { LoginComponent } from 'src/app/components/commons/login/login.component';
 import { WINDOW } from 'src/app/utils/window.provider';
 import { OrderApiCallsService } from 'src/app/services/network-calls/order-api-calls.service';
+import { CustomersApiCallsService } from 'src/app/services/network-calls/customers-api-calls.service';
 //import { WINDOW } from 'src/app/utils/window.provider';
 
 
@@ -85,6 +86,7 @@ export class SupermarketComponent implements OnInit {
   selectedCategory = '';
   isSearching = false;
   searchControl: FormControl = new FormControl('');
+ 
   subdomain = '';
   gtpSubdomin = '';
   toggleYoungSideBar = false;
@@ -124,7 +126,7 @@ export class SupermarketComponent implements OnInit {
  selectedPriceSorting = '';
  searchQuery = '';
  productListTitle: string;
-
+ newsLetterFormGroup: FormGroup;
 
  gtpSubdomain = '';
  woodinSubdomain = '';
@@ -149,14 +151,14 @@ export class SupermarketComponent implements OnInit {
     public dialog: MatDialog,
     private productsService: ProductsApiCallsService,
     private router: Router,
-    private dataProvider: DataProviderService,
+    private customerService: CustomersApiCallsService,
     private constantValues : ConstantValuesService,
     private notificationService: NotificationsService,
     private getHostname: GetHostnameService,
     private shopsApiCalls: ShopApiCallsService,
     private dbaseUpdate: DbaseUpdateService,
     private productsApiCalls: ProductsApiCallsService,
-    private toastr: ToastrService,
+    
     private authService: AuthService,
     private route: ActivatedRoute,
     private orderService: OrderApiCallsService,
@@ -273,7 +275,9 @@ onload(){
     // });
 
 
-
+    this.newsLetterFormGroup=new FormGroup({
+      email: new FormControl(''),
+    })
     this.onload();
 
 
@@ -575,6 +579,18 @@ filterByCategory(category: string,el: HTMLElement) {
   }
 
 
+subscribeNews(data){
+  this.customerService.subscribeNews(data,(results,error)=>{
+    if (results){
+      this.notificationService.success(this.constantValues.APP_NAME, "News Letter Subscribed succeefully");
+      this.newsLetterFormGroup.get('email').setValue('');
+    }else{
+      console.log("error result=>"+JSON.stringify(results,null,2));
+      this.notificationService.error(this.constantValues.APP_NAME, results.error);
+      
+    }
+  })
+}
 
 }
 

@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  NEWS_LETTER_URL: 'https://storefront-features.herokuapp.com/',
   BASE_URL: 'https://testapi.cudigo.com/api/v7.0/mall/',
   trackingId: '',
   // BASE_URL: 'https://api.cudigo.com/api/v7.0/mall/',

@@ -25,6 +25,7 @@ export class ConstantValuesService {
   get APP_NAME() { return 'KudiGo StoreFront Mall '; }
   get BASE_URL() { return environment.BASE_URL; }
   get ADMIN_BASE_URL() { return environment.ADMIN_BASE_URL; }
+  get NEWS_LETTER_URL(){ return environment.NEWS_LETTER_URL;}
   get GET_COUNTRY_INFO_URL() {return 'https://ipapi.co/json/'; }
   get USER_PROFILE_ENDPOINT() { return 'users/me/'; }
   get CUSTOMER_SIGNUP_ENDPOINT() { return 'customer_signup/'; }
@@ -53,6 +54,7 @@ export class ConstantValuesService {
   get RETRY_ORDER_PAYMENT_ENDPOINT() { return 'retry_mallorder_payment/'; }
   get VALIDATE_PHONE_ENDPOINT() { return 'validate_phone_number_sms/'; }
   get CONFIRM_PHONE_NUMBER_ENDPOINT() { return 'validate_phone_number/'; }
+  get SUBSCRIBE_NEWS_LETTER_ENDPOINT(){return 'subscribe'}
 
 
   // tslint:disable-next-line: adjacent-overload-signatures

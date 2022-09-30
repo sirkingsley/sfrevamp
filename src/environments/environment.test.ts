@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
   BASE_URL: 'https://testapi.cudigo.com/api/v7.0/mall/',
+  NEWS_LETTER_URL: 'https://storefront-features.herokuapp.com/',
   ADMIN_BASE_URL: 'https://testapi.cudigo.com/api/v3.0/dashboard/',
   trackingId: '',
   firebase: {

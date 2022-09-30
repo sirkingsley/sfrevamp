@@ -45,5 +45,20 @@ export class CustomersApiCallsService {
     });
   }
 
+  subscribeNews(payload:any,callback:ICallback){
+    this.dataProvider.createNoTokenNews(this.constantValues.SUBSCRIBE_NEWS_LETTER_ENDPOINT,payload).subscribe(
+      {
+        next: (response) => {
+          callback(response);
+        },error: (error) => {
+          console.log(error)
+          //console.log(JSON.stringify(error,null,2))
+          this.notificationService.error(this.constantValues.APP_NAME,"Failed to subscribe");
+         
+        }
+      },
+    
+      );
+  }
 
 }

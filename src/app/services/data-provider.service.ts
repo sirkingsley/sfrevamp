@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConstantValuesService } from './constant-values.service';
 import { NetworkErrorHandlerService } from './network-error-handler.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, catchError, filter, debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 @Injectable({
@@ -123,6 +123,13 @@ export class DataProviderService {
         catchError(this.handleNetworkErrorsService.handleError),
         map((response) => response)
       );
+  }
+
+  createNoTokenNews(endPoint: string, resource?: any): Observable<any> {
+    return this.http.post(this.constantValuesService.NEWS_LETTER_URL + endPoint, JSON.stringify(resource), this.optionsNoToken).
+    pipe(
+      map((response)=>response),
+      catchError(err => err))
   }
   /**
    * HTTP POST request to fetch data
