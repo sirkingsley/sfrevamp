@@ -121,9 +121,9 @@
 												</div>
 											</div>
 											<ul class="settings_options ul_li_block clearfix">
-												<li *ngIf="isLoggedIn"><a><i class="fal fa-user-circle"></i> Profile</a></li>
-												<!-- <li><a href="#!"><i class="fal fa-user-cog"></i> Settings</a></li> -->
-                        <li *ngIf="isLoggedIn"><a class="cursor-pointer" [routerLink]="['/account/orders']"><i class="bi bi-basket"></i><span
+												<li *ngIf="isLoggedIn" [routerLink]="['/profile-view/account']"><a><i class="fal fa-user-circle"></i> Profile</a></li>
+						
+                        <li *ngIf="isLoggedIn"><a class="cursor-pointer" [routerLink]="['/profile-view/orders']"><i class="bi bi-basket"></i><span
                           class="lnr lnr-user" ></span>My Orders</a></li>
                     <li *ngIf="isLoggedIn">
 												<li *ngIf="isLoggedIn"><a (click)="onSignOut()" [routerLink]="['/']"><i class="fal fa-sign-out-alt"></i> Logout</a></li>
@@ -291,8 +291,8 @@
                       Profile
                   </mat-expansion-panel-header>
                   <mat-nav-list dense  *ngIf="isLoggedIn">
-                      <a mat-list-item [routerLink]="['/account/orders']" ><mat-icon>person</mat-icon>Profile</a>
-                      <a mat-list-item [routerLink]="['/account/orders']"><mat-icon>shop</mat-icon>My Orders</a>
+                      <a mat-list-item [routerLink]="['/profile-view/orders']" ><mat-icon>person</mat-icon>Profile</a>
+                      <a mat-list-item [routerLink]="['/profile-view/orders']"><mat-icon>shop</mat-icon>My Orders</a>
                       <a mat-list-item (click)="onSignOut()" [routerLink]="['/']"><mat-icon>logout</mat-icon>Logout</a>
                   </mat-nav-list>
                   <mat-nav-list dense  *ngIf="!isLoggedIn">

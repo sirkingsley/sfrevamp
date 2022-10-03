@@ -60,6 +60,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatTabsModule} from '@angular/material/tabs';
 
 import { ConfirmOrderPaymentDialogComponent } from './components/commons/confirm-order-payment-dialog/confirm-order-payment-dialog.component';
 import { OrderCompletedDialogComponent } from './components/commons/order-completed-dialog/order-completed-dialog.component';
@@ -90,6 +91,7 @@ import { LoginMainComponent } from './components/commons/login-main/login-main.c
 
 import { LacMatTelInputModule } from 'lac-mat-tel-input';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { AddressComponent } from './components/customer/address/address.component';
 
 @NgModule({
   declarations: [
@@ -125,6 +127,7 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
     CartPopUpComponent,
     TruncatePipe,
     LoginMainComponent,
+    AddressComponent,
 
 
   ],
@@ -155,6 +158,7 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
     MatProgressSpinnerModule,
     //NgxIntlTelInputModule,
     LacMatTelInputModule,
+    MatTabsModule,
   ],
   providers:
   [

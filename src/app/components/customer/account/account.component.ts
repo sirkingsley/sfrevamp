@@ -18,6 +18,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { OrderApiCallsService } from 'src/app/services/network-calls/order-api-calls.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 
@@ -47,6 +48,7 @@ export class AccountComponent implements OnInit {
     private route: ActivatedRoute,
     private orderApiCalls: OrderApiCallsService,
     private dialog: MatDialog,
+    private authService: AuthService,
   ) {
     this.orderId = this.route.snapshot.params['id'];
     if (this.orderId !== null && this.orderId !== '' && this.orderId !== undefined) {
@@ -92,8 +94,9 @@ export class AccountComponent implements OnInit {
     main();
     // parallaxie();
   }
-
+  user:any;
   ngOnInit(): void {
+    this.user=this.authService.currentUser;
     this.getIndustries()
     this.getFeaturedShops({});
     this.getMyOrders();
@@ -126,7 +129,7 @@ export class AccountComponent implements OnInit {
 
   }
   goBack() {
-    this.router.navigate(['/account/orders']);
+    this.router.navigate(['/profile-view/orders']);
   }
 
   viewMyOrders() {

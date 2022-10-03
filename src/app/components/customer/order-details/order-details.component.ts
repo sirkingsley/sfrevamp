@@ -63,7 +63,7 @@ export class OrderDetailsComponent implements OnInit {
 
   }
   goBack() {
-    this.router.navigate(['/account/orders']);
+    this.router.navigate(['/profile-view/orders']);
   }
   viewPackageStatusHistory(item) {
     this.dialog.open(PackageStatusHistoryComponent, {data: {order_item: item}});

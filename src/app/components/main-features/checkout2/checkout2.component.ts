@@ -688,9 +688,9 @@ export class Checkout2Component implements OnInit {
           this.router.navigate(["/checkout3"]);
           // setTimeout(() => {
           //   if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
-          //     this.router.navigate(['/account/orders']);
+          //     this.router.navigate(['/profile-view/orders']);
           //   } else  if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
-          //     this.router.navigate(['/mall/account/orders']);
+          //     this.router.navigate(['/profile-view/orders']);
           //   }
           // }, 5000);
         } else if (this.paymentMethod === PaymentMethods.MOMO) {
@@ -709,11 +709,11 @@ export class Checkout2Component implements OnInit {
                  scrollStrategy: new NoopScrollStrategy(),})
                 .afterClosed().subscribe((isSuccess: boolean) => {
                   if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
-                    //this.router.navigate(['/account/orders']);
-                    this.router.navigate(['/account/orders']);
+                   
+                    this.router.navigate(['/profile-view/orders']);
                   } else if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
-                    //this.router.navigate(['/mall/account/orders']);
-                    this.router.navigate(['/account/orders']);
+                   
+                    this.router.navigate(['/profile-view/orders']);
                   }
                 });
             });
@@ -724,10 +724,10 @@ export class Checkout2Component implements OnInit {
             .afterClosed().subscribe((isSuccess: boolean) => {
               if (isSuccess) {
                 if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
-                  this.router.navigate(['/account/orders']);
+                  this.router.navigate(['/profile-view/orders']);
                 } else if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
-                  // this.router.navigate(['/mall/account/orders']);
-                  this.router.navigate(['/account/orders']);
+                 
+                  this.router.navigate(['/profile-view/orders']);
                 }
               }
             });

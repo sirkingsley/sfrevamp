@@ -1,4 +1,4 @@
-<div class="user-profile">
+<!-- <div class="user-profile">
 
   <div class="user-image-container">
     {{currentUser?.first_name | uppercase | slice:0:1}} {{currentUser?.last_name | uppercase | slice:0:1}}
@@ -10,9 +10,193 @@
 
   <nav class="user-navs">
       <a routerLink='/user-info'>My Account</a>
-      <a [routerLink]="['/account/orders/detail']">My Orders</a>
+      <a [routerLink]="['/profile-view/orders/detail']">My Orders</a>
       <a  id="last-nav-link" [routerLink]="['/checkout2']">Delivery Address</a>
-      <!-- <a  routerLink='/disputes'>Dispute & Refunds</a> -->
+     
   </nav>
 
+</div> -->
+
+<section class="my-3 profile-view">
+  <div class="container">
+    <p><span class="me-2" [routerLink]="['']" style="cursor: pointer;">Home</span> / <span style="color: black;">Account</span></p>
+  </div>
+
+  <div class="container">
+    <mat-tab-group mat-align-tabs="cstart">
+      <mat-tab label="Orders">
+       
+
+        <div class="table-responsive my-3">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Date Placed</th>
+                <th scope="col">Status</th>
+                <th scope="col">Amount (Ghc)</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">131426262</th>
+                <td>01/12/2022</td>
+                <td>placed</td>
+                <td>50</td>
+                <td><i class="material-icons">more_vert</i></td>
+              </tr>
+              <tr>
+                <th scope="row">131426262</th>
+                <td>01/12/2022</td>
+                <td>placed</td>
+                <td>50</td>
+                <td><i class="material-icons">more_vert</i></td>
+              </tr>
+              <tr>
+                <th scope="row">131426262</th>
+                <td>01/12/2022</td>
+                <td>placed</td>
+                <td>50</td>
+                <td><i class="material-icons">more_vert</i></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="My Account">
+        <div class="container my-3">
+          
+          <!-- <div class="profile-top">
+            <div class="profile-header ">
+              <div class="profile-img-wrappar">
+
+              </div>
+              <div class="change-pic mt-2">
+                <label for="profile-pic">
+                  <img src="assets/img/upload2.png" alt="">
+                </label>
+
+                <input type="file" placeholder="edit photo" name="" id="profile-pic">
+              </div>
+        
+            </div>
+            </div> -->
+          <div class="mb-3 row">
+            <label for="staticEmail" class="col col-form-label">First Name</label>
+            <div class="col">
+              <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user.first_name}}">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="staticEmail" class="col col-form-label">Last Name</label>
+            <div class="col">
+              <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user.last_name}}">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="staticEmail" class="col col-form-label">Phone Number</label>
+            <div class="col">
+              <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user.phone_number}}">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="staticEmail" class="col col-form-label">Email</label>
+            <div class="col">
+              <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="">
+            </div>
+          </div>
+          <div class="mb-3">
+
+            <button class="btn">Edit Profile</button>
+            <!-- <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+            <div class="col">
+              <input type="password" readonly  class="form-control" id="inputPassword" value="1234567">
+            </div> -->
+          </div>
+
+
+
+        </div>
+
+
+      </mat-tab>
+      <mat-tab label="Address">
+        <div class="container my-3">
+
+          <div class="mb-3 row">
+            <label for="staticEmail" class="col col-form-label">Address</label>
+            <div class="col">
+              <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user.first_name}}">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="staticEmail" class="col col-form-label">Town/City</label>
+            <div class="col">
+              <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user.last_name}}">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="staticEmail" class="col col-form-label">Region/State</label>
+            <div class="col">
+              <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user.phone_number}}">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="staticEmail" class="col col-form-label">Location</label>
+            <div class="col">
+              <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="">
+            </div>
+          </div>
+          <div class="mb-3">
+            <button class="btn">Edit Address</button>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+
+  </div>
+<div class="container profile-grid">
+
+  <div class="grid-box aside">
+    <div class="profile-header ">
+      <div class="profile-img-wrappar">
+
+      </div>
+      <div class="change-pic mt-2">
+        <label for="profile-pic">
+          <img src="assets/images/upload.png" alt="">
+        </label>
+
+        <input type="file" placeholder="edit photo" name="" id="profile-pic">
+      </div>
+      <h3 class="profile-name-title mt-3"> {{user?.first_name}} {{user?.last_name}}</h3>
+      <p class="d-flex"> <span><i class="material-icons">phone</i></span>{{user.phone_number}}</p>
+    </div>
+    <div class="tabs-wrapper">
+      <mat-selection-list  [multiple]="false" class="ps-0 ms-0">
+        <mat-list-option [routerLink]="['/profile-view/account']" [routerLinkActive]="'active'" class="ps-0">
+        Account
+        </mat-list-option>
+
+        <mat-list-option [routerLink]="['/profile-view/orders']" [routerLinkActive]="'active'">
+         My Orders
+        </mat-list-option>
+
+        <mat-list-option [routerLink]="['/profile-view/address']"   [routerLinkActive]="'active'">
+         Address
+          </mat-list-option>
+      </mat-selection-list>
+
+
+    </div>
+  </div>
+  <div class="grid-box">
+    <div class="profile-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>
+
+</section>

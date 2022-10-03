@@ -125,7 +125,7 @@ export class OrderHistoryComponent implements OnInit {
 
   }
   goBack() {
-    this.router.navigate(['/account/orders']);
+    this.router.navigate(['/profile-view/orders']);
   }
 
   viewMyOrders() {

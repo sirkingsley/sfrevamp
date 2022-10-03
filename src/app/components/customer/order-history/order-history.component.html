@@ -1,59 +1,41 @@
-
-<div class="details-section">
-  <div class="order-history-title-div">
-    <span class="order-history-title">Orders ({{orders.length}})</span>
-  </div>
-
-  <app-empty-record *ngIf="!orders.length && !isProcessing"></app-empty-record>
-  <div *ngFor="let order of orders">
-    <div class="order-items-row pe-3" >
-      <div class="item-image-container">
-        <img class="product-image" src="{{order.customer_mall_items[0]?.my_product.image}}"
-          alt="">
-      </div>
-      <div class="item-description-container">
-        <h3 class="fw-bold" >Order ID: {{order?.order_code}}</h3>
-        <h3>{{order?.customer_mall_items.length}} item(s)</h3>
-        <p class="item-description fw-bold">Total: {{order?.currency }} {{order?.total_amount }} </p>
-        <p class="order-date">Placed on {{order?.date_placed | date: 'medium'}}</p>
-        <div>Status: <span class="status-pending-span">{{ order?.status | lowercase }}</span></div>
-      </div>
-      <div class="action-container">
-        <span class="view-order" title="view order details" [routerLink]="['/account/orders/detail/', order?.id]"><i class="bi bi-eye"></i></span>
-        <!-- <span [routerLink]="getDtetailURL(order?.id)" class="edit-payment" title="Change payment method"><i class="bi bi-pencil-square"></i></span> -->
-      </div>
-    </div>
-    <!-- <div class="order-items-row">
-      <div class="item-image-container">
-        <img class="product-image" src="https://sc04.alicdn.com/kf/U0e4624d0f13b4f7bb67916b643709b9eO.jpg" alt="">
-      </div>
-      <div class="item-description-container">
-        <h6>Product Name</h6>
-        <p class="item-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-        <p class="order-date">Placed on 12/09/2021</p>
-        <div>Status: <span class="status-pending-span">Confirmed</span></div>
-      </div>
-      <div class="action-container">
-        <span class="view-order" title="view order details" routerLink='/order-details'><i class="bi bi-eye"></i></span>
-        <span class="edit-payment" title="Change payment method"><i class="bi bi-pencil-square"></i></span>
-      </div>
-    </div>
-    <div class="order-items-row">
-      <div class="item-image-container">
-        <img class="product-image"
-          src="https://www.lifenfashion.com/wp-content/uploads/2014/02/Top-And-Best-Sunglasses-Brands-2014-Of-The-World-005.jpg"
-          alt="">
-      </div>
-      <div class="item-description-container">
-        <h6>Product Name</h6>
-        <p class="item-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-        <p class="order-date">Placed on 12/09/2021</p>
-        <div>Status: <span class="status-pending-span">Confirmed</span></div>
-      </div>
-      <div class="action-container">
-        <span class="view-order" title="view order details" routerLink='/order-details'><i class="bi bi-eye"></i></span>
-        <span class="edit-payment" title="Change payment method"><i class="bi bi-pencil-square"></i></span>
-      </div>
-    </div> -->
-  </div>
+<div class=" alert alert-info">
+  <p>Orders</p>
 </div>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Date Placed</th>
+        <th scope="col">Status</th>
+        <th scope="col">Amount (Ghc)</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">131426262</th>
+        <td>01/12/2022</td>
+        <td>placed</td>
+        <td>50</td>
+        <td><i class="material-icons">more_vert</i></td>
+      </tr>
+      <tr>
+        <th scope="row">131426262</th>
+        <td>01/12/2022</td>
+        <td>placed</td>
+        <td>50</td>
+        <td><i class="material-icons">more_vert</i></td>
+      </tr>
+      <tr>
+        <th scope="row">131426262</th>
+        <td>01/12/2022</td>
+        <td>placed</td>
+        <td>50</td>
+        <td><i class="material-icons">more_vert</i></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+

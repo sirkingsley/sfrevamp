@@ -18,6 +18,8 @@ import { SupermarketComponent } from './components/main-features/classic-shop/su
 import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { OrderHistoryComponent } from './components/customer/order-history/order-history.component';
+import { AddressComponent } from './components/customer/address/address.component';
+import { ProfileSidebarComponent } from './components/customer/profile-sidebar/profile-sidebar.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'supermarket', pathMatch: 'full' },
@@ -31,10 +33,12 @@ const routes: Routes = [
     ]
   },
   {path: 'view-product', component : ViewProductComponent},
-  {path: 'account', component : AccountComponent,
+  {path: 'profile-view', component : ProfileSidebarComponent,
     children: [
       {path: '', component : OrderHistoryComponent},
       {path: 'orders/detail/:id', component : OrderDetailsComponent},
+      {path: 'account', component : AccountComponent},
+      {path: 'address', component :AddressComponent},
       {path: 'orders', component : OrderHistoryComponent},
 
     ]

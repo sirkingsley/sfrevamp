@@ -9,12 +9,13 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class ProfileSidebarComponent implements OnInit {
   currentUser: User;
+  user:any;
   constructor(
     private authService: AuthService
   ) { }
 
   ngOnInit(): void {
-    this.currentUser = this.authService.currentUser;
+    this.user = this.authService.currentUser;
   }
 
   logOut() {
