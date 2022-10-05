@@ -1163,7 +1163,7 @@ hr {
 }
 
 .sec_ptb_140 {
-  padding: 140px 0px;
+  //padding: 140px 0px;
   /* background-image: url("https://www.marketingdonut.co.uk/sites/default/files/customercare_220766767.jpg");
   background-size: cover;
   background-repeat: no-repeat; */
@@ -15760,7 +15760,7 @@ button {
   background-color: #dddddd !important;
 }
 .bt-yellow {
-  background: #3a9643 !important;
+  background: $primary-color !important;
   color: #fff !important;
 }
 .full-width {
@@ -20009,10 +20009,14 @@ blockquote .blockquote_title {
   //max-width: 400px;
 }
 .reg_form_wrap .form_title {
+  img{
+    height: auto;
+    width: 150px;
+  }
   color: #2e2e2e;
-  line-height: 1;
-  font-size: 40px;
-  margin-bottom: 60px;
+  //line-height: 1;
+  //font-size: 40px;
+  //margin-bottom: 60px;
 }
 .reg_form_wrap .small_title_text {
   color: #686c6e;
@@ -20034,14 +20038,14 @@ blockquote .blockquote_title {
 .reg_form_wrap .form_item input:focus {
   border-color: #ce0b2b;
 }
-.reg_form_wrap .form_item label {
-  top: 50%;
-  left: 13px;
-  margin: 0px;
-  font-size: 22px;
-  position: absolute;
-  transform: translateY(-50%);
-}
+// .reg_form_wrap .form_item label {
+//   top: 50%;
+//   left: 13px;
+//   margin: 0px;
+//   font-size: 22px;
+//   position: absolute;
+//   transform: translateY(-50%);
+// }
 .reg_form_wrap .forget_pass {
   float: right;
   color: #808080;
@@ -21407,7 +21411,7 @@ blockquote .blockquote_title {
   }
 
   .sec_ptb_140 {
-    padding: 120px 0px;
+    //padding: 120px 0px;
   }
 
   .sports_feature_fullimage .item_content {
@@ -22658,7 +22662,7 @@ blockquote .blockquote_title {
   }
   /* global - start */
   .sec_ptb_140 {
-    padding: 100px 0px;
+    //padding: 100px 0px;
   }
 
   .custom_btn {
@@ -25144,7 +25148,7 @@ blockquote .blockquote_title {
   }
 
   .sec_ptb_140 {
-    padding: 100px 0px;
+    //padding: 100px 0px;
   }
 
   .mb_100 {
@@ -28403,7 +28407,7 @@ blockquote .blockquote_title {
   }
 
   .sec_ptb_140 {
-    padding: 80px 0px;
+    //padding: 80px 0px;
   }
 
   .mb_100 {
@@ -32367,7 +32371,7 @@ hr {
 ================================================== */
 .sec_ptb_50 {padding: 50px 0px;}
 .sec_ptb_100 {padding: 100px 0px;}
-.sec_ptb_140 {padding: 140px 0px;}
+//.sec_ptb_140 {padding: 140px 0px;}
 
 .prl_100 {
   padding-left: 100px;
@@ -32571,7 +32575,7 @@ button {
 	margin: auto;
 	max-width: 50%;
 	border-radius: 4px;
-	padding: 80px 100px;
+  padding: 17px 29px;
 	background-size: 100%;
 	background-color: #f0f2f1;
 	&.login_form {
@@ -32592,8 +32596,9 @@ button {
 	.form_title {
 		color: #2e2e2e;
 		line-height: 1;
+    text-align: center;
 		font-size: 40px;
-		margin-bottom: 60px;
+		//margin-bottom: 60px;
 	}
 	.small_title_text {
 		color: #686c6e;
@@ -32603,12 +32608,38 @@ button {
 	}
 
 	.form_item {
+    
+    height: 30px !important;
+    label{
+      
+      margin-right: 5px;
+    }
+    lac-mat-country-selector{
+      border-bottom: 2px solid #cccecd !important;
+      height: 46px !important;
+     
+    }
+    mat-error{
+      align-self: baseline !important;
+    }
+    lac-mat-tel-input {
+      border: none ;
+			padding: 0px !important;
+			height: 45px !important;
+      width: 100% !important;
+			//padding-left: 50px;
+			background-color: transparent !important;
+			border-bottom: 2px solid #cccecd !important;
+			// &:focus {
+			// 	border-color: $primary-color-light !important;
+			// }
 
+    }
 		input {
 			border: none;
 			padding: 0px;
 			height: 45px;
-			padding-left: 50px;
+			//padding-left: 50px;
 			background-color: transparent;
 			border-bottom: 2px solid #cccecd;
 			&:focus {
@@ -32618,19 +32649,19 @@ button {
     #num{
       padding-left: 0px !important;
     }
-		label {
-			top: 50%;
-			left: 13px;
-			margin: 0px;
-			font-size: 22px;
-			position: absolute;
-			transform: translateY(-50%);
-		}
+		// label {
+		// 	top: 50%;
+		// 	left: 13px;
+		// 	margin: 0px;
+		// 	font-size: 22px;
+		// 	position: absolute;
+		// 	transform: translateY(-50%);
+		// }
 	}
 
 	.forget_pass {
 		float: right;
-		color: #808080;
+		color: $secondary-color;
 		font-size: 13px;
 		font-weight: 500;
 		&:hover {
@@ -32656,7 +32687,7 @@ button {
 	}
 
 	.create_account_btn {
-		color: #2e2e2e;
+		color: $accent-color !important;
 		font-size: 20px;
 		font-weight: 700;
 		font-family: 'Jost', sans-serif;
@@ -51986,7 +52017,11 @@ blockquote {
 		margin-bottom: 5px;
 	}
 	.sec_ptb_140 {
-		padding: 120px 0px;
+		padding: 0 0 !important;
+    height: 100vh !important;
+    display: flex ;
+    align-items: center;
+    justify-content: center;
 	}
 	.sports_feature_fullimage .item_content {
 		padding: 25px;
@@ -59605,7 +59640,10 @@ footer a{
   grid-template-columns: 20% auto;
   grid-gap:0;
   .lact-mat-selector{
-    border-bottom: 2px solid #cccecd;
+    border-bottom: 10px solid #cccecd !important;
+    &:focus{
+      outline: none !important;
+    }
   }
 
 }
@@ -59759,8 +59797,13 @@ footer a{
     .mat-tab-group{
       display: none !important;
     }
+    
   }
   @media screen and (max-width: 999px) {
+    .ecommerce_product_grid .item_title > a {
+      font-size: 15px !important;
+      font-weight: 600;
+    }
     .profile-grid{
       display: none !important;
       grid-template-columns: 100%;

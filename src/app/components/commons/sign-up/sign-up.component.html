@@ -1,116 +1,112 @@
-
-		<!-- header_section - start
+<!-- header_section - start
 		================================================== -->
 
-		<!-- header_section - end
+<!-- header_section - end
 		================================================== -->
 
 
-		<!-- main body - start
+<!-- main body - start
 		================================================== -->
-		<main>
+<main>
 
 
-			<!-- sidebar mobile menu & sidebar cart - start
+	<!-- sidebar mobile menu & sidebar cart - start
 			================================================== -->
 
-			<!-- sidebar mobile menu & sidebar cart - end
-			================================================== -->
-
-
-			<!-- breadcrumb_section - start
-			================================================== -->
-
-			<!-- breadcrumb_section - end
+	<!-- sidebar mobile menu & sidebar cart - end
 			================================================== -->
 
 
-			<!-- register_section - start
+	<!-- breadcrumb_section - start
 			================================================== -->
-			<section class="register_section sec_ptb_140 parallaxie clearfix">
-				<div class="container">
-					<div class="reg_form_wrap signup_form">
-						<form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup?.value)">
-							<div class="reg_form">
-								<h2 class="form_title text-uppercase">
-                  <img src="assets/images/kokorko-logo.png" alt="kudigo Inc">
-                </h2>
-								<div class="form_item">
-                  <input type="text" placeholder="First Name"
-                  formControlName="first_name"/>
-                  <mat-error *ngIf="first_name?.invalid && first_name?.touched" >
-                    Please enter your first name
-                  </mat-error>
-								</div>
-								<div class="form_item">
-									<input type="text" placeholder="Last Name" formControlName="last_name"/>
-                      <mat-error *ngIf="last_name?.invalid && last_name?.touched" >
-                        Please enter your last name
-                      </mat-error>
-								</div>
-								<!-- <div class="form_item">
+
+	<!-- breadcrumb_section - end
+			================================================== -->
+
+
+	<!-- register_section - start
+			================================================== -->
+	<section class="register_section sec_ptb_140 parallaxie clearfix">
+		<div class="container">
+			<div class="reg_form_wrap signup_form">
+				<form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup?.value)">
+					<div class="reg_form">
+						<h2 class="form_title text-uppercase">
+							<img src="assets/images/kokorko-logo.png" alt="kudigo Inc">
+						</h2>
+						<div class="form_item">
+							<input type="text" placeholder="First Name" formControlName="first_name" />
+							<mat-error *ngIf="first_name?.invalid && first_name?.touched">
+								Please enter your first name
+							</mat-error>
+						</div>
+						<div class="form_item">
+							<input type="text" placeholder="Last Name" formControlName="last_name" />
+							<mat-error *ngIf="last_name?.invalid && last_name?.touched">
+								Please enter your last name
+							</mat-error>
+						</div>
+						<!-- <div class="form_item">
 									<input type="text" name="company" placeholder="Company Name">
 								</div> -->
-								<div class="form_item">
-                  <input placeholder="Email" formControlName="email"/>
-                  <mat-error *ngIf="email?.invalid && email?.touched" >
-                    Please enter a valid email
-                  </mat-error>
-								</div>
-								<div class="form_item form_item_number ps-0" >
-                  <!-- <input type="tel" placeholder="+233542893998" formControlName="phone_number"/>
-                  <mat-error *ngIf="password?.invalid && password?.touched" >
-                    Please enter a valid phone number
-                  </mat-error> -->
-									<!-- <label for="username_input"><i class="fal fa-user"></i></label> -->
-                  <lac-mat-country-selector
-                  matPrefix [selectorFor]="input1"
-                  [preferredCountries]="['gh', 'ng']"
-                   class="lact-mat-selector"></lac-mat-country-selector>
-                 <lac-mat-tel-input  #input1 formControlName="phone_number"></lac-mat-tel-input>
-                  <mat-error *ngIf="phone_number?.invalid && phone_number?.touched" >
-                    Please enter a valid phone number
-                  </mat-error>
-								</div>
-								<div class="form_item">
-                  <input type="password" placeholder="Password" formControlName="password"/>
-                  <mat-error *ngIf="password?.invalid && password?.touched" >
-                    Please enter a valid password
-                  </mat-error>
-								</div>
-								<div class="form_item">
-                  <input type="password" placeholder="Repeat your password" formControlName="retype_password"/>
-                  <mat-error *ngIf="retype_password?.invalid && retype_password?.touched" >
-                    Passwords do not match
-                  </mat-error>
-								</div>
-								<!-- <div class="checkbox_item mb_30">
+						<div class="form_item">
+							<input placeholder="Email" formControlName="email" />
+							<mat-error *ngIf="email?.invalid && email?.touched">
+								Please enter a valid email
+							</mat-error>
+						</div>
+						<div class="form_item form_item_number ps-0">
+						
+							<lac-mat-country-selector matPrefix [selectorFor]="input1"
+								[preferredCountries]="['gh', 'ng']" class="lact-mat-selector">
+							</lac-mat-country-selector>
+							<lac-mat-tel-input #input1 formControlName="phone_number"></lac-mat-tel-input>
+							<mat-error *ngIf="phone_number?.invalid && phone_number?.touched">
+								Please enter a valid phone number
+							</mat-error>
+						</div>
+						<div class="form_item">
+							<input type="password" placeholder="Password" formControlName="password" />
+							<mat-error *ngIf="password?.invalid && password?.touched">
+								Please enter a valid password
+							</mat-error>
+						</div>
+						<div class="form_item">
+							<input type="password" placeholder="Repeat your password"
+								formControlName="retype_password" />
+							<mat-error *ngIf="retype_password?.invalid && retype_password?.touched">
+								Passwords do not match
+							</mat-error>
+						</div>
+						<!-- <div class="checkbox_item mb_30">
 									<label for="agree_checkbox"><input id="agree_checkbox" type="checkbox"> I agree to the Terms of User</label>
 								</div> -->
-                <mat-progress-bar *ngIf="isProcessing"  class="mb-0" mode="indeterminate"></mat-progress-bar>
-								<button type="submit" class="bt-link bt-yellow bt-style5 mt-0 full-width" [class.cursor_disabled]="formGroup?.invalid " [disabled]="formGroup?.invalid || isProcessing">Create Account</button>
+						<mat-progress-bar *ngIf="isProcessing" class="mb-0" mode="indeterminate"></mat-progress-bar>
+						<button type="submit" class="bt-link bt-yellow bt-style5 mt-0 full-width"
+							[class.cursor_disabled]="formGroup?.invalid "
+							[disabled]="formGroup?.invalid || isProcessing">Create Account</button>
 
-								<div class="create_account text-center mt-4">
-									<h4 class="small_title_text text-center text-uppercase">Have an account/ continue as guest?</h4>
-									<a class="create_account_btn text-uppercase" routerLink="/login">Click Here</a>
-								</div>
-							</div>
-						</form>
+						<div class="create_account text-center mt-4">
+							<h4 class="small_title_text text-center text-uppercase">Have an account/ continue as guest?
+							</h4>
+							<a class="create_account_btn text-uppercase" routerLink="/login">Click Here</a>
+						</div>
 					</div>
-				</div>
-			</section>
-			<!-- register_section - end
+				</form>
+			</div>
+		</div>
+	</section>
+	<!-- register_section - end
 			================================================== -->
 
 
-		</main>
-		<!-- main body - end
+</main>
+<!-- main body - end
 		================================================== -->
 
 
-		<!-- footer_section - start
+<!-- footer_section - start
 		================================================== -->
 
-		<!-- footer_section - end
+<!-- footer_section - end
 		================================================== -->
-

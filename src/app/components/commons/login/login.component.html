@@ -1,95 +1,86 @@
+<!-- backtotop - start -->
+
+<!-- backtotop - end -->
+
+<!-- preloader - start -->
+<!-- <div id="preloader"></div> -->
+<!-- preloader - end -->
 
 
-		<!-- backtotop - start -->
-
-		<!-- backtotop - end -->
-
-		<!-- preloader - start -->
-		<!-- <div id="preloader"></div> -->
-		<!-- preloader - end -->
-
-
-		<!-- header_section - start
+<!-- header_section - start
 		================================================== -->
 
-		<!-- header_section - end
+<!-- header_section - end
 		================================================== -->
 
 
-		<!-- main body - start
+<!-- main body - start
 		================================================== -->
-		<main>
+<main>
 
 
-			<!-- sidebar mobile menu & sidebar cart - start
+	<!-- sidebar mobile menu & sidebar cart - start
 			================================================== -->
 
-			<!-- sidebar mobile menu & sidebar cart - end
+	<!-- sidebar mobile menu & sidebar cart - end
 			================================================== -->
 
 
 
 
-			<!-- register_section - start
+	<!-- register_section - start
 			================================================== -->
-			<section class="register_section sec_ptb_140 has_overlay parallaxie clearfix">
-				<!-- <div class="overlay" data-bg-color="rgba(55, 55, 55, 0.75)"></div> -->
-				<div class="container">
-					<div class="reg_form_wrap login_form">
-						<form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup?.value)">
-							<div class="reg_form">
-								<h2 class="form_title text-uppercase text-center">
-                  <img src="assets/images/kokorko-logo.png" alt="kudigo Inc">
-                </h2>
-								<div class="form_item" *ngIf="isGuest">
-                  <input type="text" placeholder="Full Name"
-                  formControlName="customer_name"/>
-									<label for="username_input"><i class="fal fa-user"></i></label>
-								</div>
-                <div class="form_item" *ngIf="isGuest">
-                  <input type="text" placeholder="email"
-                  formControlName="email"/>
-									<label for="username_input"><i class="fal fa-envelope"></i></label>
-								</div>
-                <div class="form_item form_item_number" >
-                  <lac-mat-country-selector
-                  matPrefix [selectorFor]="input1"
-                  [preferredCountries]="['gh', 'ng']"
-                  class="lact-mat-selector"></lac-mat-country-selector>
-                 <lac-mat-tel-input  #input1 formControlName="phone_number" id="num"></lac-mat-tel-input>
-                  <mat-error *ngIf="phone_number?.invalid && phone_number?.touched" >
-                    Please enter a valid phone number
-                  </mat-error>
-                  <!-- <input type="tel" placeholder="+233542893998" formControlName="phone_number"/>
-                  <mat-error *ngIf="password?.invalid && password?.touched" >
-                    Please enter a valid phone number
-                  </mat-error>
-									<label for="username_input"><i class="fal fa-user"></i></label>-->
-								</div>
-                <!-- <div class="form_item">
-                  <input type="text" placeholder="Email"
-                  formControlName="email"/>
-                  <mat-error *ngIf="email?.invalid && email?.touched" >
-                    Please enter your email
-                  </mat-error>
-									<label for="username_input"><i class="fal fa-user"></i></label>
-								</div> -->
-								<div class="form_item" *ngIf="!isGuest">
-                  <input type="password" placeholder="Password" formControlName="password"/>
-                  <mat-error *ngIf="password?.invalid && password?.touched" >
-                    Please enter a password
-                  </mat-error>
-									<label for="password_input"><i class="fal fa-unlock-alt"></i></label>
-								</div>
-                <div class="checkbox_item">
-                  <label for="remember_checkbox"><input  type="checkbox"(click)="Guest()" >Continue as Guest?</label>
-                  <a class="forget_pass text-uppercase mb_30">Forgot password?</a>
-                </div>
+	<section class="register_section sec_ptb_140 has_overlay parallaxie clearfix">
+		<!-- <div class="overlay" data-bg-color="rgba(55, 55, 55, 0.75)"></div> -->
+		<div class="container">
+			<div class="reg_form_wrap login_form">
+				<form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup?.value)">
+					<div class="reg_form">
+						<h2 class="form_title text-uppercase text-center">
+							<img src="assets/images/kokorko-logo.png" alt="kudigo Inc">
+						</h2>
+						<div class="form_item" *ngIf="isGuest">
+							<!-- <label for="username_input"><i class="fal fa-user"></i></label> -->
+							<input type="text" placeholder="Full Name" formControlName="customer_name" />
 
-                <mat-progress-bar *ngIf="isProcessing"  class="mb-0" mode="indeterminate"></mat-progress-bar>
-								<button type="submit" class="bt-link bt-yellow bt-style5 mt-0 full-width" [class.cursor_disabled]="formGroup?.invalid"  [disabled]="formGroup?.invalid || isProcessing">Login</button>
+						</div>
+						<div class="form_item" *ngIf="isGuest">
+							<!-- <label for="username_input"><i class="fal fa-envelope"></i></label> -->
+							<input type="text" placeholder="email" formControlName="email" />
 
-								<!-- <div class="social_wrap mb_100">
+						</div>
+						<div class="form_item form_item_number ps-0">
+						
+							<lac-mat-country-selector matPrefix [selectorFor]="input1"
+								[preferredCountries]="['gh', 'ng']" class="lact-mat-selector">
+							</lac-mat-country-selector>
+							<lac-mat-tel-input #input1 formControlName="phone_number"></lac-mat-tel-input>
+							<mat-error *ngIf="phone_number?.invalid && phone_number?.touched">
+								Please enter a valid phone number
+							</mat-error>
+						</div>
+						
+						
+						<div class="form_item" *ngIf="!isGuest">
+							<!-- <label for="password_input"><i class="fal fa-unlock-alt"></i></label> -->
+							<input type="password" placeholder="Password" formControlName="password" />
+							<mat-error *ngIf="password?.invalid && password?.touched">
+								Please enter a password
+							</mat-error>
+
+						</div>
+						<div class="checkbox_item">
+							<label for="remember_checkbox"><input type="checkbox" (click)="Guest()">Continue as
+								Guest?</label>
+							<a class="forget_pass text-uppercase mb_30">Forgot password?</a>
+						</div>
+
+						<mat-progress-bar *ngIf="isProcessing" class="mb-0" mode="indeterminate"></mat-progress-bar>
+						<button type="submit" class="bt-link bt-yellow bt-style5 mt-0 full-width"
+							[class.cursor_disabled]="formGroup?.invalid"
+							[disabled]="formGroup?.invalid || isProcessing">Login</button>
+
+						<!-- <div class="social_wrap mb_100">
 									<h4 class="small_title_text mb_15 text-center text-uppercase">Or Login With</h4>
 									<ul class="circle_social_links ul_li_center clearfix">
 										<li><a data-bg-color="#3b5998" href="#!"><i class="fab fa-facebook-f"></i></a></li>
@@ -98,22 +89,19 @@
 									</ul>
 								</div> -->
 
-								<div class="create_account text-center mt-3">
-									<h4 class="small_title_text text-center text-uppercase">Have not account yet? </h4>
-									<a class="create_account_btn text-uppercase" [routerLink]="['/sign-up']">Sign Up</a>
-								</div>
-							</div>
-						</form>
+						<div class="create_account text-center mt-3">
+							<h4 class="small_title_text text-center text-uppercase">Have not account yet? </h4>
+							<a class="create_account_btn text-uppercase" [routerLink]="['/sign-up']">Sign Up</a>
+						</div>
 					</div>
-				</div>
-			</section>
-			<!-- register_section - end
+				</form>
+			</div>
+		</div>
+	</section>
+	<!-- register_section - end
 			================================================== -->
 
 
-		</main>
-		<!-- main body - end
+</main>
+<!-- main body - end
 		================================================== -->
-
-
-
