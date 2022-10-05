@@ -1,6 +1,6 @@
 
 <div *ngIf="loader" style="display: flex; justify-content: center; align-items:center; width:100%; height:100%;">
-  <div class="spinner-grow" style="width: 3rem; height: 3rem; color: green;" role="status" >
+  <div class="spinner-grow"  role="status" >
     <span class="visually-hidden">Loading...</span>
   </div>
 </div>
@@ -265,13 +265,13 @@
               (pageChanged)="onPageChanged($event)" [(isProcessing)]="isProcessing">
             </app-pagination>
 					</div> -->
-          <div class="" style="width: 100% !important; background-color: #b6f0b94d;" >
+          <div class="products-pagination-wrapper" style="color: white !important;" >
 
             <form style=" width: 100%; display: flex ; justify-content: space-between; align-items: center;" >
               <div class="option_select d-flex align-items-center mb-0">
                 <!-- <span class="option_title text-uppercase">Sort by:</span> -->
-                <mat-form-field appearance="fill">
-                  <mat-label>Sort By Prices</mat-label>
+                <mat-form-field appearance="fill" >
+                  <mat-label style="color: white !important;">Sort By Prices</mat-label>
                   <mat-select [formControl]="selectedValueCtrl" name="prices" >
                     <mat-option value="" (click)="filterByPrice(selectedValueCtrl.value)">
                       Sort By All Prices
@@ -289,7 +289,7 @@
 
               </div>
               <div class="large-screen-cat-nav" style="width: fit-content ;">
-                <app-pagination *ngIf="products?.length > 0 " [dataSet]="products" [nextPage]="nextPage"
+                <app-pagination *ngIf="products?.length  > 0 "  [dataSet]="products" [nextPage]="nextPage"
                   [prevPage]="prevPage" [totalPage]="totalPage" [requestPayload]="filterParams" [requestMethod]="'POST'"
                   (pageChanged)="onPageChanged($event)" [(isProcessing)]="isProcessing">
                 </app-pagination>
@@ -314,7 +314,7 @@
               <!-- <div class="ecommerce_product_grid" data-aos="zoom-in-down"> -->
                 <div class="ecommerce_product_grid">
                 <ul *ngIf="item?.new_quantity<=0" class="product_label ul_li clearfix">
-                  <li class="bg-danger">Out of Stock</li>
+                  <li class="out-of-stock">Out of Stock</li>
                 </ul>
                 <div class="tab-content">
                   <div id="ptab1_1" class="tab-pane fade active">

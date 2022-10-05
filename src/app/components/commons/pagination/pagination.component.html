@@ -1,7 +1,7 @@
-<div class="row ml-0 mr-0 full-width">
-  <div class="sort-pagi-bar bottom top clearfix full-width border-0 pt-0">
+<div class="row ml-0 mr-0">
+  <div class="sort-pagi-bar bottom top clearfix  border-0 pt-0">
     <ul class="product-pagination-nav pull-right list-inline ">
-      <li><p class="mb-0"> {{dataSet?.length}} of {{totalPage}}  results</p></li>
+      <li><p class="mb-0" > {{dataSet?.length}} of {{totalPage}}  result</p></li>
       <li ><a [class.disabled]="prevPage === '' || prevPage === null" (click)="changePage('previous')" class="next cursor-pointer"><i class="bi bi-chevron-left"></i></a></li>
       <li><a [class.disabled]="nextPage === '' || nextPage === null" (click)="changePage('next')" class="next cursor-pointer"><i class="bi bi-chevron-right"></i></a></li>
     </ul>

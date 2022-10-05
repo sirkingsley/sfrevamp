@@ -45,7 +45,7 @@
             </div>
             <div class="item_content">
               <h4 class="item_title">{{item.item.name}}</h4>
-              <span class="item_type" [routerLink]="['/shop-details',{shop: item.item.myShop,storefrontmall_name:item.item.myshop.storefrontmall_name,store_name:item.item.myshop.business_name}]" mat-dialog-close style="cursor: pointer; color: #228b27;" >{{item.item.myshop.business_name}}</span>
+              <span class="item_type" [routerLink]="['/shop-details',{shop: item.item.myShop,storefrontmall_name:item.item.myshop.storefrontmall_name,store_name:item.item.myshop.business_name}]" mat-dialog-close style="cursor: pointer;" >{{item.item.myshop.business_name}}</span>
               <span class="price_text"*ngIf="item?.country === countriesEnum?.GH || item?.country === item?.countriesEnum?.NG || item?.country === '' || item?.country === undefined">
                 {{item?.item?.currency}} {{item?.item?.selling_price | number: '1.2-2'}}
               </span>

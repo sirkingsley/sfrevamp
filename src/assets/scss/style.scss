@@ -64,13 +64,21 @@ Author 			:  jthemes (https://themeforest.net/user/jthemes)
 // @import "responsive";
 //@import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
 
-$primary-color: #026E08;
-$tertiary-color:#363636;
-$accent-color: #3D1C00;
-$secondary-color-2:#228b27;
-$secondary-color: #B6F0B9;
-$primary-color-progress: rgb(182, 240, 185);
-$primary-color-light: rgb(77, 236, 85);
+// $primary-color: #026E08;
+// $tertiary-color:#363636;
+// $accent-color: #3D1C00;
+// $secondary-color-2:#228b27;
+// $secondary-color: #B6F0B9;
+// $primary-color-progress: rgb(182, 240, 185);
+// $primary-color-light: rgb(77, 236, 85);
+
+$primary-color: #0071bc;
+$tertiary-color:#f7931e;
+$accent-color: #f15a24;
+$secondary-color-2:#0071bc;
+$secondary-color: #f7931e;
+$primary-color-progress: #f7931e;;
+$primary-color-light: #f7931e;;
 $active-nav-bg: #ECFAED;
 $small-text-size: .9375rem;
 $stepper-text-color: #E4E4E4;
@@ -144,7 +152,7 @@ svg .mat-progress-spinner circle, .mat-spinner circle {
   stroke: inherit;
 }
 .custom-spinner-color {
-  stroke: #026E08 !important;
+  stroke: $primary-color !important;
 }
 // default colors - end
 // ==================================================
@@ -1631,13 +1639,13 @@ button {
   background: #2e2e2e;
 }
 .custom_btn.bg_secondary {
-  box-shadow: 0px 10px 30px 0px rgba(135, 153, 163, 0.5);
+ // box-shadow: 0px 10px 30px 0px rgba(135, 153, 163, 0.5);
 }
 .custom_btn.bg_secondary:before {
   background: #2e2e2e;
 }
 .custom_btn.bg_success {
-  box-shadow: 0px 10px 30px 0px rgba(57, 181, 74, 0.5);
+  //box-shadow: 0px 10px 30px 0px rgba(57, 181, 74, 0.5);
 }
 .custom_btn.bg_success:before {
   background: #2e2e2e;
@@ -2346,7 +2354,7 @@ button {
   line-height: 27px;
   position: absolute;
   border-radius: 45px;
-  background-color: $primary-color !important;
+  background-color: $secondary-color !important;
   box-shadow: 0px 1px 4px 0px rgba(2, 3, 3, 0.5);
 }
 
@@ -2900,13 +2908,14 @@ button {
   border-right: 1px solid #f0f0f0;
 }
 .brand_logo img{
+  
     height: auto;
-    max-width: 70%;
+    max-width: 50%;
 }
 @media screen and (max-width: 991px) {
   .brand_logo img{
     height: auto;
-    max-width: 150px;
+    max-width: 150px !important;
     //margin-left: 10px;
 }
 }
@@ -3045,7 +3054,7 @@ button {
   background-color: #ffffff;
 }
 .classic_ecommerce_header.stuck .action_btns_group button {
-  background-color: $primary-color-progress !important;
+  background-color: $primary-color !important;
   color:#ffffff !important ;
 }
 .classic_ecommerce_header .main_menu > ul > li {
@@ -7711,7 +7720,11 @@ button {
   max-width: 370px;
   position: relative;
   margin: 30px auto 0px;
+  transition: 0.3s;
   &:hover{
+    .out-of-stock{
+      display:block !important;
+    }
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   }
 }
@@ -19437,10 +19450,10 @@ blockquote .blockquote_title {
   display: inline-block;
 }
 .cart_table .price_text {
-  color: #8799a3;
+  color: $primary-color;
 }
 .cart_table .total_price {
-  color: #39b54a;
+  color: $primary-color;
 }
 
 .cart_product {
@@ -43198,7 +43211,7 @@ button {
 		border-radius: 9px;
 		background-color: #ffffff;
 	}
-	.brand_logo,
+	
 	.header_top,
 	.header_bottom {
 		padding: 15px 30px;
@@ -43210,6 +43223,7 @@ button {
 		align-items: center;
 		justify-content: center;
 		border-right: 1px solid #f0f0f0;
+    padding:0 !important;
 	}
 	.header_top,
 	.header_bottom {
@@ -48670,7 +48684,7 @@ blockquote {
 ==================================================================================================== */
 
 .bg_black_subscribe{
-  background-color: $accent-color;
+  background-color: $primary-color;
 }
 
 .footer-text{
@@ -48859,9 +48873,10 @@ blockquote {
 	}
 	.price_text {
 		color: #8799a3;
+
 	}
 	.total_price {
-		color: #39b54a;
+		color: $primary-color;
 	}
 }
 
@@ -49284,19 +49299,19 @@ blockquote {
 	}
 
 	&.bg_danger {
-		box-shadow: 0px 10px 30px 0px $secondary-color-2;
+		//box-shadow: 0px 10px 30px 0px $secondary-color-2;
 		&:before {
 			background: $secondary-color-2;
 		}
 	}
 	&.bg_secondary {
-		box-shadow: 0px 10px 30px 0px rgba(135, 153, 163, 0.5);
+		//box-shadow: 0px 10px 30px 0px rgba(135, 153, 163, 0.5);
 		&:before {
 			background: $secondary-color-2
 		}
 	}
 	&.bg_success {
-		box-shadow: 0px 10px 30px 0px rgba(57, 181, 74, 0.5);
+		//box-shadow: 0px 10px 30px 0px rgba(57, 181, 74, 0.5);
 		&:before {
 			background: $secondary-color-2
 		}
@@ -59603,10 +59618,11 @@ footer a{
   background: $primary-color;
   padding: 7px;
   width: 100%;
-  opacity: 0.7;
+  //opacity: 0.7;
   //border-radius: 5px;
   &:hover{
-   opacity: 1;
+   //opacity: 1;
+   background: 	#0006b1;
   }
 }
 
@@ -59624,13 +59640,24 @@ footer a{
   justify-content: space-between;
 
   button{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     text-transform: uppercase;
-    padding: 5px 20px;
-    min-width: 120px;
+    //padding: 5px 10px;
+    //min-width: 120px;
     color: #FFF;
     opacity: 0.7;
     background-color:$primary-color;
     transition: 0.3s;
+
+    span{
+      justify-self: stretch;
+        i{
+          margin-right: 5px;
+          margin-left: 5px;
+        }
+    }
     &:hover{
       opacity: 1;
       // background: $primary-color;
@@ -59649,7 +59676,11 @@ footer a{
   }
 }
 
-
+.out-of-stock{
+  transition: 0.3s;
+  background: $accent-color;
+  display: none !important;
+}
 
 /*
 ============================================================================================================
@@ -59762,3 +59793,25 @@ footer a{
   }
   
   /*PROFILE AND ORDER HISTORY END */
+
+  .products-pagination-wrapper{
+    .next,.prev{
+      color: #fff !important;
+    }
+    width: 100% !important; 
+    background-color: $primary-color !important;
+    color: #fff !important;
+  }
+  .sub-title{
+    img{
+      height: auto;
+      width: 150px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .spinner-grow{
+      width: 3rem !important;
+      height: 3rem !important;
+      color: $primary-color !important;
+  }
