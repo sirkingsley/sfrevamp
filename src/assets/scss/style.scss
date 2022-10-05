@@ -7810,7 +7810,7 @@ button {
   line-height: 1;
 }
 .ecommerce_product_grid .item_price strong {
-  color: #000000;
+  color: $secondary-color !important;
   font-size: 18px;
   font-weight: 600;
 }
@@ -13720,6 +13720,7 @@ button {
   line-height: 1;
   font-size: 88px;
   margin-bottom: 25px;
+
 }
 .single_story_slider .item_content p {
   font-size: 18px;
@@ -14182,6 +14183,7 @@ button {
   font-size: 22px;
   padding: 19px 25px;
   border-radius: 4px;
+
 }
 .sports_product_item .item_content .item_price {
   z-index: 1;
@@ -41327,7 +41329,7 @@ button {
 		display: block;
 		line-height: 1;
 		strong {
-			color: #000000;
+			color: $secondary-color;
 			font-size: 18px;
 			font-weight: 600;
 		}
@@ -59820,3 +59822,6 @@ footer a{
   .order-table{
     font-size: 12px !important;
   }
+ .item_price{
+  color: $secondary-color !important;
+ }
