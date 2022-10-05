@@ -1,5 +1,5 @@
 <div class=" alert alert-info">
-  <p>Orders</p>
+  <p>Orders ({{orders?.length}})</p>
 </div>
 
 <div class="table-responsive">
@@ -14,7 +14,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr *ngFor="let order of orders">
+        <th scope="row">{{order.id}}</th>
+        <td>{{order.date_placed |date:'dd/MM/yyyy'}}</td>
+        <td>{{order.status}}</td>
+        <td>{{order.gross_total}}</td>
+        <td><i class="material-icons">more_vert</i></td>
+      </tr>
+      <!-- <tr>
         <th scope="row">131426262</th>
         <td>01/12/2022</td>
         <td>placed</td>
@@ -27,14 +34,7 @@
         <td>placed</td>
         <td>50</td>
         <td><i class="material-icons">more_vert</i></td>
-      </tr>
-      <tr>
-        <th scope="row">131426262</th>
-        <td>01/12/2022</td>
-        <td>placed</td>
-        <td>50</td>
-        <td><i class="material-icons">more_vert</i></td>
-      </tr>
+      </tr> -->
     </tbody>
   </table>
 </div>

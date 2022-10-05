@@ -190,6 +190,7 @@ export class Checkout2Component implements OnInit {
     this.getCartItems();
     this.getIndustries()
     this.getFeaturedShops({});
+    //this.setCurrentLocation();
     this.title.setTitle(this.constantValues.APP_NAME + ' Checkout Payment');
     this.subdomain = this.getHostname.subDomain;
     this.currentUser = this.authService.currentUser;
@@ -209,7 +210,7 @@ export class Checkout2Component implements OnInit {
       longitude: [''],
       order_items: [[this.order_items]],
       shops: [[]],
-      order_note: ['Notes'],
+      order_note: [''],
     });
 
     this.giftRecipientAddressFormGroup = this.formBuilder.group({
@@ -368,7 +369,9 @@ export class Checkout2Component implements OnInit {
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
         this.zoom = 15;
-        this.getAddress(position.coords.latitude, position.coords.longitude);
+
+        console.log("LAT,LOG: "+this.latitude+" "+this.longitude);
+        //this.getAddress(position.coords.latitude, position.coords.longitude);
       });
     }
   }
@@ -421,8 +424,9 @@ export class Checkout2Component implements OnInit {
    * @param longitude longitude
    */
   getAddress(latitude, longitude) {
-    this.geoCoder.geocode({ location: { lat: latitude, lng: longitude } }, (results, status) => {
+    this.geoCoder.geocod({ location: { lat: latitude, lng: longitude } }, (results, status) => {
       if (status === 'OK') {
+        console.log("LAT,LOG: "+this.latitude+" "+this.longitude);
         if (results[0]) {
           this.zoom = 12;
           this.address = results[0].formatted_address;

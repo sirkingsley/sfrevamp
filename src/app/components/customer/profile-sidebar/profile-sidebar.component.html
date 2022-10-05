@@ -27,7 +27,7 @@
       <mat-tab label="Orders">
        
 
-        <div class="table-responsive my-3">
+        <div class="table-responsive">
           <table class="table table-striped">
             <thead>
               <tr>
@@ -39,7 +39,14 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr *ngFor="let order of orders">
+                <th scope="row">{{order.id}}</th>
+                <td>{{order.date_placed | date:'dd/MM/yyyy'}}</td>
+                <td>{{order.status}}</td>
+                <td>{{order.gross_total}}</td>
+                <td><i class="material-icons">more_vert</i></td>
+              </tr>
+              <!-- <tr>
                 <th scope="row">131426262</th>
                 <td>01/12/2022</td>
                 <td>placed</td>
@@ -52,14 +59,7 @@
                 <td>placed</td>
                 <td>50</td>
                 <td><i class="material-icons">more_vert</i></td>
-              </tr>
-              <tr>
-                <th scope="row">131426262</th>
-                <td>01/12/2022</td>
-                <td>placed</td>
-                <td>50</td>
-                <td><i class="material-icons">more_vert</i></td>
-              </tr>
+              </tr> -->
             </tbody>
           </table>
         </div>
@@ -83,46 +83,45 @@
         
             </div>
             </div> -->
-          <div class="mb-3 row">
-            <label for="staticEmail" class="col col-form-label">First Name</label>
-            <div class="col">
-              <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user.first_name}}">
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label for="staticEmail" class="col col-form-label">Last Name</label>
-            <div class="col">
-              <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user.last_name}}">
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label for="staticEmail" class="col col-form-label">Phone Number</label>
-            <div class="col">
-              <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user.phone_number}}">
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label for="staticEmail" class="col col-form-label">Email</label>
-            <div class="col">
-              <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="">
-            </div>
-          </div>
-          <div class="mb-3">
-
-            <button class="btn">Edit Profile</button>
-            <!-- <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-            <div class="col">
-              <input type="password" readonly  class="form-control" id="inputPassword" value="1234567">
-            </div> -->
-          </div>
-
-
+            <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">First Name</label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user.first_name}}">
+              </div>
+              </div>
+              <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">Last Name</label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user.last_name}}">
+              </div>
+              </div>
+              <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">Phone Number</label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user.phone_number}}">
+              </div>
+              </div>
+              <div class="mb-3 row">
+              <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+              <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user.email}}">
+              </div>
+              </div>
+              <div class="mb-3">
+            
+              <button class="btn btn-dark">Edit Profile  <span class="material-icons">mode_edit</span></button>
+              <!-- <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+              <div class="col-sm-10">
+                <input type="password" readonly  class="form-control" id="inputPassword" value="1234567">
+              </div> -->
+              </div>
+            
 
         </div>
 
 
       </mat-tab>
-      <mat-tab label="Address">
+      <!-- <mat-tab label="Address">
         <div class="container my-3">
 
           <div class="mb-3 row">
@@ -153,7 +152,7 @@
             <button class="btn">Edit Address</button>
           </div>
         </div>
-      </mat-tab>
+      </mat-tab> -->
     </mat-tab-group>
 
   </div>
@@ -166,7 +165,9 @@
       </div>
       <div class="change-pic mt-2">
         <label for="profile-pic">
-          <img src="assets/images/upload.png" alt="">
+          <!-- <img src="assets/images/upload.png" alt=""> -->
+          <mat-icon>camera_alt</mat-icon>
+         
         </label>
 
         <input type="file" placeholder="edit photo" name="" id="profile-pic">
@@ -184,9 +185,9 @@
          My Orders
         </mat-list-option>
 
-        <mat-list-option [routerLink]="['/profile-view/address']"   [routerLinkActive]="'active'">
+        <!-- <mat-list-option [routerLink]="['/profile-view/address']"   [routerLinkActive]="'active'">
          Address
-          </mat-list-option>
+          </mat-list-option> -->
       </mat-selection-list>
 
 

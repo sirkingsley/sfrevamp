@@ -101,18 +101,18 @@ export class AccountComponent implements OnInit {
     this.getFeaturedShops({});
     this.getMyOrders();
 
-
+    console.log("USER->"+JSON.stringify(this.user,null,2));
     this.title.setTitle(this.constantValues.APP_NAME + ' | Cart');
 
 
 
-    $('#flip').on("click",function(){
-      $("#panel").slideToggle("slow");
-    });
+    // $('#flip').on("click",function(){
+    //   $("#panel").slideToggle("slow");
+    // });
 
-    $('.search_btn').on("click",function(){
-      $("#search_body_collapse").slideToggle("slow");
-    });
+    // $('.search_btn').on("click",function(){
+    //   $("#search_body_collapse").slideToggle("slow");
+    // });
     this.onload();
   }
 

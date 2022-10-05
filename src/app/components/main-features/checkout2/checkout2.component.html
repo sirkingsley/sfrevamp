@@ -293,13 +293,10 @@
             <h3 class="form_title mb_30">Delivery details</h3>
           
               <div class="form_wrap">
+
                 <div class="form_item">
-                  <span class="input_title">Address<sup>*</sup></span>
-                  <input
-                    type="text"
-                    formControlName="address"
-                    placeholder="House number and street name"
-                  />
+                  <span class="input_title">Region<sup>*</sup></span>
+                  <input type="text" formControlName="state" />
                 </div>
 
                 <div class="form_item">
@@ -308,15 +305,23 @@
                 </div>
 
                 <div class="form_item">
-                  <span class="input_title">Region/State<sup>*</sup></span>
-                  <input type="text" formControlName="state" />
+                  <span class="input_title">House No & Street<sup>*</sup></span>
+                  <input
+                    type="text"
+                    formControlName="address"
+                    placeholder="House number and street name"
+                  />
                 </div>
+
+               
+
+              
                 <br />
                 <div class="form_item">
                   <span class="input_title">Location<sup>*</sup></span>
                   <input
                     type="text"
-                    placeholder="Location"
+                    placeholder="address"
                     formControlName="location"
                   />
                   <mat-error *ngIf="location?.invalid && location?.touched">
@@ -325,10 +330,10 @@
                 </div>
 
                 <div class="form_item mb-0">
-                  <span class="input_title">Order notes<sup>*</sup></span>
+                  <span class="input_title">Order notes</span>
                   <textarea
                     formControlName="order_note"
-                    placeholder="Note about your order, eg. special notes fordelivery."
+                    placeholder="Note about your order, eg. special notes for delivery."
                   ></textarea>
                 </div>
 
