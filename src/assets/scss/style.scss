@@ -59501,6 +59501,7 @@ footer a{
   margin-bottom: 15px;
   margin-top: 0;
   align-items: flex-start;
+  font-size: 12px !important;
 }
 
 .example-radio-button {
@@ -59814,4 +59815,8 @@ footer a{
       width: 3rem !important;
       height: 3rem !important;
       color: $primary-color !important;
+  }
+
+  .order-table{
+    font-size: 12px !important;
   }
