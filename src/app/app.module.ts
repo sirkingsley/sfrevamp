@@ -139,7 +139,10 @@ import { AddressComponent } from './components/customer/address/address.componen
     MatDialogModule,
     HttpClientModule,
     NgxIndexedDBModule.forRoot(dbConfig),
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      //positionClass: 'center',
+      preventDuplicates: true,
+    }),
     MatStepperModule,
     MatProgressBarModule,
     ReactiveFormsModule,

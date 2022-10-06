@@ -6130,7 +6130,7 @@ button {
 }
 .offer_fullimage > img {
   width: 100%;
-  display: block;
+  display: block; 
   transition: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
 .offer_fullimage22 > img{
@@ -21411,7 +21411,7 @@ blockquote .blockquote_title {
   }
 
   .sec_ptb_140 {
-    //padding: 120px 0px;
+    padding: 120px 0px;
   }
 
   .sports_feature_fullimage .item_content {
@@ -22662,7 +22662,7 @@ blockquote .blockquote_title {
   }
   /* global - start */
   .sec_ptb_140 {
-    //padding: 100px 0px;
+    padding: 100px 0px;
   }
 
   .custom_btn {
@@ -25148,7 +25148,7 @@ blockquote .blockquote_title {
   }
 
   .sec_ptb_140 {
-    //padding: 100px 0px;
+    padding: 100px 0px;
   }
 
   .mb_100 {
@@ -28407,7 +28407,7 @@ blockquote .blockquote_title {
   }
 
   .sec_ptb_140 {
-    //padding: 80px 0px;
+    padding: 80px 0px;
   }
 
   .mb_100 {
@@ -32371,7 +32371,7 @@ hr {
 ================================================== */
 .sec_ptb_50 {padding: 50px 0px;}
 .sec_ptb_100 {padding: 100px 0px;}
-//.sec_ptb_140 {padding: 140px 0px;}
+.sec_ptb_140 {padding: 140px 0px;}
 
 .prl_100 {
   padding-left: 100px;
@@ -52016,12 +52016,17 @@ blockquote {
 		font-size: 18px;
 		margin-bottom: 5px;
 	}
-	.sec_ptb_140 {
-		padding: 0 0 !important;
+  .sec_ptb_140_login{
+    padding: 0 0 !important;
     height: 100vh !important;
     display: flex ;
     align-items: center;
     justify-content: center;
+  }
+	.sec_ptb_140 {
+		padding: 100px 0;
+   
+
 	}
 	.sports_feature_fullimage .item_content {
 		padding: 25px;
@@ -59715,13 +59720,17 @@ footer a{
       font-size: 9px !important;
     }
   }
+  .out-of-stock{
+    display: block !important;
+  }
+  
 }
 
-.out-of-stock{
-  transition: 0.3s;
-  background: $accent-color;
-  display: none !important;
-}
+// .out-of-stock{
+//   transition: 0.3s;
+//   background: $accent-color;
+//   display: none !important;
+// }
 
 /*
 ============================================================================================================
@@ -59868,3 +59877,14 @@ footer a{
  .item_price{
   color: $secondary-color !important;
  }
+ .toast-container .toast-success {
+  //background-image: none !important;
+  background-color: $primary-color !important;
+  color: #fff !important;
+}
+
+#toast-container > .toast-error {
+  //background-image: none !important;
+  background-color: $accent-color !important;
+  color: #fff !important;
+}
