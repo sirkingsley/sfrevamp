@@ -52,6 +52,8 @@ export class LoginMainComponent implements OnInit {
   }
   onSubmit(data) {
     if (this.formGroup.valid) {
+      data.phone_number=data.phone_number.replace(/\s/g, "").trim();
+      console.log("Data-->"+JSON.stringify(data,null,2));
       this.isProcessing = true;
       this.customersApiCalls.signIn(data, (error, result) => {
         this.isProcessing = false;
@@ -64,6 +66,8 @@ export class LoginMainComponent implements OnInit {
             this.authService.saveUser(result);
             this.authService.saveToken(result.auth_token);
             this.loginUpdate.isUpdated(true);
+            //console.log("Data-->"+JSON.stringify(data,null,2));
+        
 
           } else {
             this.notificationsService.success(this.constantValues.APP_NAME, 'Sign Up successful');
@@ -72,6 +76,8 @@ export class LoginMainComponent implements OnInit {
             this.authService.saveUser(result.results);
             this.authService.saveToken(result.results.auth_token);
             this.loginUpdate.isUpdated(true);
+            
+
 
           }
           if (this.authService.isLogedIn) {

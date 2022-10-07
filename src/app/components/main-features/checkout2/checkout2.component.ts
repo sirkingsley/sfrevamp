@@ -29,6 +29,7 @@ import { NoopScrollStrategy } from '@angular/cdk/overlay';
 
 
 import AOS from 'aos';
+import { LoginMainComponent } from '../../commons/login-main/login-main.component';
 
 //import Jquery
 //import * as $ from 'jquery';
@@ -174,6 +175,7 @@ export class Checkout2Component implements OnInit {
 
   async ngOnInit(): Promise<void> {
 
+
     //this.getActivePromo("gtpstore");
     AOS.init();
     //Loader variable set false after page load
@@ -198,6 +200,23 @@ export class Checkout2Component implements OnInit {
     this.promoCodeFormGroup=this.formBuilder.group({
       promoCode: ['',Validators.required]
     })
+
+    //Check if user is not login and alert user
+    if(!this.isLoggedIn){
+      this.dialog.open(LoginMainComponent, { data: { },
+      disableClose: false,
+      scrollStrategy: new NoopScrollStrategy(),})
+      .afterClosed().subscribe((isSuccess: boolean) => {
+        if (isSuccess) {
+          if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
+            this.router.navigate(['/checkout2']);
+          } else if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
+           
+            this.router.navigate(['/checkout2']);
+          }
+        }
+      });
+    } //Login popup end
 
     this.addressFormGroup = this.formBuilder.group({
       address: ['', Validators.required],
@@ -689,14 +708,18 @@ export class Checkout2Component implements OnInit {
         if (this.paymentMethod === PaymentMethods.CARD) {
           this.notificationsService.success(this.constantValues.APP_NAME, 'Order successfully placed. Kindly follow the action in the popup to complete Card Payment');
           this.redirectUrl = result.redirect_url;
-          this.router.navigate(["/checkout3"]);
-          // setTimeout(() => {
-          //   if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
-          //     this.router.navigate(['/profile-view/orders']);
-          //   } else  if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
-          //     this.router.navigate(['/profile-view/orders']);
-          //   }
-          // }, 5000);
+        
+          //window.location.href = `${result.redirect_url}`;
+          window.open(`${result.redirect_url}`, `_blank`);
+          //console.log("result.redirect_url==>"+result.redirect_url);
+          setTimeout(() => {
+            this.router.navigate(['/profile-view/orders']);
+            // if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
+            //   this.router.navigate(['/profile-view/orders']);
+            // } else  if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
+            //   this.router.navigate(['/profile-view/orders']);
+            // }
+          }, 5000);
         } else if (this.paymentMethod === PaymentMethods.MOMO) {
           this.dialog.open(ConfirmOrderPaymentDialogComponent,
             // tslint:disable-next-line: max-line-length

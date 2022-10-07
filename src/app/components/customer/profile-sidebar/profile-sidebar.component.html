@@ -44,7 +44,7 @@
                 <td>{{order.date_placed | date:'dd/MM/yyyy'}}</td>
                 <td>{{order.status}}</td>
                 <td>{{order.gross_total}}</td>
-                <td><i class="material-icons">more_vert</i></td>
+                <td > <span class="btn" [routerLink]="['/profile-view/orders/details',order.id]"><mat-icon>remove_red_eye</mat-icon></span></td>
               </tr>
               <!-- <tr>
                 <th scope="row">131426262</th>
@@ -201,3 +201,5 @@
 </div>
 
 </section>
+
+<app-footer></app-footer>

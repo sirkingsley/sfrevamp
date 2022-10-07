@@ -927,7 +927,7 @@ hr {
   padding: 6px 12px;
   margin-left: -1px;
   line-height: 1.42857143;
-  color: #026E08;
+  color: $primary-color;
   text-decoration: none;
   background-color: #fff;
   border: 1px solid #ddd;
@@ -960,8 +960,8 @@ hr {
   z-index: 2;
   color: #fff;
   cursor: default;
-  background-color: #026E08;
-  border-color: #026E08;
+  background-color: $primary-color;
+  border-color: $primary-color;
 }
 .pagination > .disabled > span,
 .pagination > .disabled > span:hover,
@@ -4260,6 +4260,7 @@ button {
 ==================================================================================================== */
 /* footer section - start
 ================================================== */
+
 .footer_section .author_link {
   z-index: 1;
   position: relative;
@@ -15839,10 +15840,11 @@ button {
 }
 .quickview_modal .item_image {
   float: left;
-  width: 430px;
+  padding: 30px;
+  //width: 430px;
 }
 .quickview_modal .item_image > img {
-  width: 80% !important;
+  width: 250px !important;
   height: auto !important;
 
   //display: block;
@@ -29240,7 +29242,7 @@ $default_transition: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
-  background-color: #2e7d32;
+  background-color: $primary-color;
   color: #fff;
 }
 /* sports sidebar - end */
@@ -29538,7 +29540,7 @@ $default_transition: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 
 	.item_image {
 		float: left;
-		width: 430px;
+		width: fit-content !important;
 		>img {
 			width: 100%;
 			display: block;
@@ -58874,7 +58876,7 @@ thead, th,tr,td{
   height: 80px;
   width: 80px;
   border-radius: 50%;
-  color: #026e08;
+  color: $primary-color;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -58951,18 +58953,18 @@ thead, th,tr,td{
 .reset-btn{
   margin: 20px 20px;
   width: 100%;
-  background-color: #026E08;
+  background-color: $primary-color;
   color: white;
   padding: 5px;
   border: none;
 }
 
 .resend{
-  color: #026E08;
+  color: $primary-color;
   cursor: pointer;
 }
 .btn-signout{
-  color: #026E08;
+  color: $primary-color;
   text-decoration: none;
 }
 .refund-amount{
@@ -59022,7 +59024,7 @@ thead, th,tr,td{
   cursor: pointer;
 }
 .bi-pencil-square{
-  color: #026E08;
+  color: $primary-color;
 }
 
 .item-container .col-4{
@@ -59095,7 +59097,7 @@ Order History section styling
   margin: 10px 5px;
 }
 .edit-payment{
-  color: #f1c40f;
+  color: $secondary-color;
   padding: 2px 10px;
   border-radius: 5px;
   background-color: rgba(241,196,15,.19);
@@ -59224,6 +59226,7 @@ border: 0;
   border: 1px solid $secondary-color;
   border-radius: 9px;
   margin-bottom: 1rem;
+  width: fit-content;
 }
 .payment-method-grid-list-item .payment-method-grid-list-item-media {
   width: 60px;
@@ -59636,7 +59639,7 @@ footer a{
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  //background: #026e08;
+  //background: $primary-color;
 
 
 }
@@ -59712,6 +59715,10 @@ footer a{
 }
 
 @media screen and (max-width: 500px){
+  .footer-mobile{
+    display: block !important;
+  }
+  
   .mat-step-text-label{
     font-size: 9px !important;
   }
@@ -59745,15 +59752,20 @@ footer a{
   }
 }
 .profile-grid{
+    height: 100vh;
+   // overflow-y: scroll;
  
     display: grid;
     grid-template-columns: 20% 80%;
     gap: 10px;
     .aside{
       //background-color: bisque;
-      height: 100% !important;
+      height: 100vh !important;
+      
     }
     .grid-box{
+      height: 100vh;
+      overflow-y: scroll;
       padding: 10px 20px;
       box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
       .profile-header{
@@ -59803,12 +59815,19 @@ footer a{
   }
   
   @media screen and (min-width: 999px) {
+    .quickview_modal .close {
+      top: -17px !important;
+    }
     .mat-tab-group{
       display: none !important;
     }
     
+    
   }
   @media screen and (max-width: 999px) {
+    .mobile-bread_crumb{
+      display: block !important;
+    }
     .ecommerce_product_grid .item_title > a {
       font-size: 15px !important;
       font-weight: 600;
@@ -59887,4 +59906,20 @@ footer a{
   //background-image: none !important;
   background-color: $accent-color !important;
   color: #fff !important;
+}
+
+.quickview_modal, #quickview_modal{
+
+.mat-dialog-container {
+  padding: 24px !important; 
+  width: 90% !important;
+
+}
+}
+
+.mobile-bread_crumb{
+  display: none;
+}
+.footer-mobile{
+  display: none;
 }

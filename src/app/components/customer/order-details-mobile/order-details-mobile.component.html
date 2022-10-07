@@ -1,0 +1,89 @@
+<div class="container">
+    <p><span class="me-2" [routerLink]="['']" style="cursor: pointer;">Home</span> / <span
+            style="color: black;">Orders/{{orderDetail?.id}}</span></p>
+</div>
+
+<div class="container">
+
+    <div class="order-details">
+
+        <h1><span [routerLink]="['/profile-view/orders']"><i class="bi bi-arrow-left-square"></i></span> Order Details
+        </h1>
+        <div class="order-summary-container">
+            <h3> {{orderItems?.length}} Item(s) in your Order</h3>
+            <p>Order #: <b>{{orderDetail?.id}}</b> </p>
+            <p>Placed on <b>{{orderDetail?.date_placed | date : 'medium'}}</b></p>
+            <p><span class="total-amount-span"><b>{{orderDetail?.currency}} {{orderDetail?.total_amount | number:
+                        '1.2-2'}}</b></span> </p>
+        </div>
+
+
+        <div class="products-container">
+            <p>Status: <span class="status-pending-span">{{ orderDetail?.status | lowercase }}</span></p>
+            <div class="row item-container" *ngFor="let item of orderItems">
+                <div class="col-2 p-0">
+                    <img class="product-image" width="100" [src]="item?.my_product?.image" alt="">
+                </div>
+                <div class="col">
+                    <h3>{{item?.my_product?.name}}</h3>
+                    <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
+                    <p>Qty: {{item?.quantity}}</p>
+                    <p><b> {{item?.my_product?.currency}} {{item?.subtotal}} </b></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <mat-card class="delivery-method-container">
+
+        <mat-card-title>
+            Delivery Information
+        </mat-card-title>
+        <hr>
+        <mat-card-content>
+            <mat-card-title class="card-title">
+                Delivery Method
+            </mat-card-title>
+
+            <p>{{orderDetail?.delivery_option}}</p>
+            <mat-card-title>
+                Address
+            </mat-card-title>
+            <p> {{orderDetail?.delivery_address}}</p>
+            <mat-card-title>Delivery Fee</mat-card-title>
+            <p>{{orderDetail?.currency}} {{orderDetail?.delivery_fee | number: '1.2-2'}}</p>
+        </mat-card-content>
+    </mat-card>
+    <mat-card class="payment-method-container">
+        <mat-card-title>
+            Payment Method<i (click)="changePaymentMethod()" class="bi bi-pencil-square edit-payment"
+                title="Change payment method"></i>
+        </mat-card-title>
+        <hr>
+        <mat-card-content>
+            <!-- <img  src="assets/icons/card-payment.jpg" alt="" class="payment-method-img"/> -->
+            <img *ngIf="orderDetail?.payment_method === 'MOMO' && orderDetail?.payment_network === 'MTN'"
+                src="assets/icons/ic_mtn_money.png" alt="" class="payment-method-img" />
+            <img *ngIf="orderDetail?.payment_method === 'MOMO' && orderDetail?.payment_network === 'VOD'"
+                src="assets/icons/ic_vodafone_cash.png" alt="" class="payment-method-img" />
+            <img *ngIf="orderDetail?.payment_method === 'MOMO' && orderDetail?.payment_network === 'AIR'"
+                src="assets/icons/atigo.png" alt="" class="payment-method-img" />
+            <img *ngIf="orderDetail?.payment_method === 'CARD'" src="assets/icons/card-payment.jpg" alt=""
+                class="payment-method-img-card">
+            <p class="mt-3">Payment Status: <span class="status-pending-span">{{orderDetail?.payment_status }}</span>
+            </p>
+
+        </mat-card-content>
+        <div class="sub-order-sub-head"><b>Payment Details</b></div>
+        <p class="">Items total: {{orderDetail?.currency}} {{orderDetail?.total_amount | number: '1.2-2'}}</p>
+        <p class="">Discount: {{orderDetail?.currency}} {{orderDetail?.discount | number: '1.2-2'}}</p>
+        <p class="">Delivery Fees: {{orderDetail?.currency}} {{orderDetail?.delivery_fee | number: '1.2-2'}}</p>
+        <p class="order-footer">Grand Total: {{orderDetail?.currency}} {{orderDetail?.total_amount_with_delivery |
+            number: '1.2-2'}}</p>
+    </mat-card>
+    <div class="back-btn-wrapper">
+        <button class="bt-link bt-yellow bt-style15 order-detail-button" (click)="goBack()">BACK TO ORDER
+            HISOTRY</button>
+    </div>
+
+</div>

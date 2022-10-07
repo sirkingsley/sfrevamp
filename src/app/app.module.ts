@@ -92,6 +92,7 @@ import { LoginMainComponent } from './components/commons/login-main/login-main.c
 import { LacMatTelInputModule } from 'lac-mat-tel-input';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { AddressComponent } from './components/customer/address/address.component';
+import { OrderDetailsMobileComponent } from './components/customer/order-details-mobile/order-details-mobile.component';
 
 @NgModule({
   declarations: [
@@ -128,6 +129,7 @@ import { AddressComponent } from './components/customer/address/address.componen
     TruncatePipe,
     LoginMainComponent,
     AddressComponent,
+    OrderDetailsMobileComponent,
 
 
   ],

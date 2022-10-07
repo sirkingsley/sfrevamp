@@ -3,19 +3,17 @@
 
       <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="signup-form">
-              <h2 class="form-title" mat-dialog-title>{{heading}}</h2>
+              <h2 class="form-title d-flex justify-content-space-between" style="justify-content: space-between;" mat-dialog-title><span>{{heading}}</span> <span mat-dialog-close><mat-icon>close</mat-icon></span></h2>
               <form class="register-form" [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup?.value)">
                 <div mat-mat-dialog-content>
 
-                <div class="form-group">
-                  <label ><i class="fa fa-phone"></i></label>
-                  <input type="tel" placeholder="phone number" formControlName="phone_number"/>
-                  <!-- <ngx-mat-intl-tel-input class="phone-number-input ngx-floating"
-                  formControlName="phone_number"
-                  [preferredCountries]="['gh', 'ng']"
-                  [enablePlaceholder]="true"
-                  name="phone"
-                  (countryChanged)="onCountryChanged($event)"></ngx-mat-intl-tel-input> -->
+                <div class="form-group" style="display:flex ;">
+                  <!-- <label ><i class="fa fa-phone"></i></label>
+                  <input type="tel" placeholder="phone number" formControlName="phone_number"/> -->
+                  <lac-mat-country-selector matPrefix [selectorFor]="input1"
+								[preferredCountries]="['gh', 'ng']" class="lact-mat-selector">
+							</lac-mat-country-selector>
+							<lac-mat-tel-input #input1 formControlName="phone_number"></lac-mat-tel-input>
                   <mat-error *ngIf="phone_number?.invalid && phone_number?.touched" >
                     Please enter a valid phone number
                   </mat-error>
@@ -25,7 +23,7 @@
                       <label><i class="fa fa-lock"></i></label>
                       <input type="password" placeholder="Password" formControlName="password"/>
                       <mat-error *ngIf="password?.invalid && password?.touched" >
-                        Please enter a valid phone number
+                        Please enter a password
                       </mat-error>
                   </div>
                   <div class="form-group" *ngIf="isGuest" >

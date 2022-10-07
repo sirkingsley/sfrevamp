@@ -32,11 +32,12 @@ const routes: Routes = [
       {path: 'blouse', component : BlouseComponent},
     ]
   },
+  {path: 'profile-view/orders/details/:id', component : OrderDetailsComponent},
   {path: 'view-product', component : ViewProductComponent},
   {path: 'profile-view', component : ProfileSidebarComponent,
     children: [
       {path: '', component : OrderHistoryComponent},
-      {path: 'orders/detail/:id', component : OrderDetailsComponent},
+      {path: 'detail/:id', component : OrderDetailsComponent},
       {path: 'account', component : AccountComponent},
       {path: 'address', component :AddressComponent},
       {path: 'orders', component : OrderHistoryComponent},
@@ -57,7 +58,10 @@ const routes: Routes = [
   {path: 'sign-up', component : SignUpComponent},
   {path: 'login', component : LoginComponent},
   {path: 'shop-details', component : ShopDetailsComponent},
-  {path: 'checkout2', component : Checkout2Component},
+  {
+    path: 'checkout2',
+    component : Checkout2Component,
+  },
   {path: 'checkout3', component : Checkout3Component},
   {path: 'cart', component : CartComponent},
 
