@@ -100,6 +100,7 @@ export class PaymentDialogComponent implements OnInit {
           if (this.paymentMethod === PaymentMethods.CARD) {
             this.notificationsService.success(this.constantValues.APP_NAME, 'Order successfully placed. Kindly follow the action in the popup to complete Card Payment');
             this.redirectUrl = result.redirect_url;
+            window.open(result.redirect_url,'_blank')
 
 
           } else if (this.paymentMethod === PaymentMethods.MOMO) {

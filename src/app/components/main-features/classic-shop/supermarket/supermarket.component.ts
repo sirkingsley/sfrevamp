@@ -276,7 +276,9 @@ onload(){
 
 
     this.newsLetterFormGroup=new FormGroup({
-      email: new FormControl(''),
+      email: new FormControl('',[Validators.required]),
+      // first_name: new FormControl(''),
+      // last_name: new FormControl(''),
     })
     this.onload();
 
@@ -580,12 +582,19 @@ filterByCategory(category: string,el: HTMLElement) {
 
 
 subscribeNews(data){
+  if (this.newsLetterFormGroup.invalid){
+    this.notificationService.error(this.constantValues.APP_NAME, "Email is required");
+    return
+  }
+  this.isProcessing=true;
   this.customerService.subscribeNews(data,(results,error)=>{
+   
+    this.isProcessing=false;
     if (results){
-      this.notificationService.success(this.constantValues.APP_NAME, "News Letter Subscribed succeefully");
+      this.notificationService.success(this.constantValues.APP_NAME, "News Letter Subscribed succeefully. Check and confirm email");
       this.newsLetterFormGroup.get('email').setValue('');
     }else{
-      console.log("error result=>"+JSON.stringify(results,null,2));
+      //console.log("error result=>"+JSON.stringify(results,null,2));
       this.notificationService.error(this.constantValues.APP_NAME, results.error);
       
     }

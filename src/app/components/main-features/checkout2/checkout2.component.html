@@ -455,7 +455,9 @@
 			paymentMethod === '' ||
 			paymentMethod === undefined ||
 			(paymentMethod === null && paymentFormGroup?.invalid)
-		  ">Complete Order</button>
+		  "><div *ngIf="isProcessing" class="spinner-border text-light me-2" role="status">
+        <span class="visually-hidden">Loading...</span>
+        </div>Complete Order</button>
             </div>
           </form>
         </mat-step>
