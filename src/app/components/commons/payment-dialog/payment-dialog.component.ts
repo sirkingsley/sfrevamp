@@ -40,6 +40,7 @@ export class PaymentDialogComponent implements OnInit {
     if (this.data !== null && this.data !== undefined) {
       this.orderDetail = this.data.order;
       this.currency = this.orderDetail.currency;
+      //console.log("this.orderDetail=>"+this.orderDetail?.customer_mall_items[0]?.my_product?.currency)
     }
     this.paymentFormGroup = this.formBuilder.group({
       payment_method: ['', Validators.required],
@@ -60,9 +61,9 @@ export class PaymentDialogComponent implements OnInit {
   * @param networkFullName payment network full name
   */
   selectPaymentMethod(paymentMethod, paymentNetwork, networkFullName) {
-    this.paymentMethod = '';
-    this.paymentNetwork = '';
-    this.networkName = '';
+    // this.paymentMethod = '';
+    // this.paymentNetwork = '';
+    // this.networkName = '';
     this.paymentMethod = paymentMethod;
     this.paymentNetwork = paymentNetwork;
     this.networkName = networkFullName;
@@ -71,15 +72,15 @@ export class PaymentDialogComponent implements OnInit {
 
     }
   }
-  showPaymentPrompt() {
-    if (this.paymentMethod === PaymentMethods.CARD) {
-      this.redirectUrl = '';
-      this.isProcessing = true;
+  // showPaymentPrompt() {
+  //   if (this.paymentMethod === PaymentMethods.CARD) {
+  //     this.redirectUrl = '';
+  //     this.isProcessing = true;
 
-    } else {
+  //   } else {
 
-    }
-  }
+  //   }
+  // }
 
     /**
    * Submit order for an authenticated user

@@ -166,12 +166,14 @@
                 <mat-radio-button class="example-radio-button" [value]="deliveryOptions?.DHL_DELIVERY" *ngIf="
                   currency !== currencies.GHS &&
                   currency !== currencies.NGN &&
-                  currency !== currencies.USD
+                  currency !== undefined &&
+                  currency !== null &&
+                  currency !== ''
                 ">
                   DHL DELIVERY
                 </mat-radio-button>
                 <mat-radio-button class="example-radio-button" [value]="deliveryOptions?.GH_BIKE_DELIVERY"
-                  *ngIf="currency == currencies.GHS || currency == currencies.USD">
+                  *ngIf="currency == currencies.GHS">
                   GH BIKE DELIVERY
                 </mat-radio-button>
                 <mat-radio-button class="example-radio-button" [value]="deliveryOptions?.NG_BIKE_DELIVERY"
@@ -250,29 +252,6 @@
                   <textarea formControlName="order_note"
                     placeholder="Note about your order, eg. special notes for delivery."></textarea>
                 </div>
-
-                <!-- <p class="alert alert-info alert-dismissable mt-2">
-                  Plese Click <b>Confirm Address</b> and scroll down to complete
-                  payment
-                </p> -->
-
-                <!-- <div
-                  class=""
-                  style="display: flex; width: 100%; padding-top: 20px"
-                >
-                  <button
-                    type="submit"
-                    style="
-                      background-color: #026e08;
-                      color: #fff;
-                      padding: 2px 5px;
-                      border-radius: 2px;
-                    "
-                    [disabled]="!addressFormGroup.valid"
-                  >
-                    Confirm Address
-                  </button>
-                </div> -->
               </div>
 
             </div>
@@ -455,9 +434,11 @@
 			paymentMethod === '' ||
 			paymentMethod === undefined ||
 			(paymentMethod === null && paymentFormGroup?.invalid)
-		  "><div *ngIf="isProcessing" class="spinner-border text-light me-2" role="status">
-        <span class="visually-hidden">Loading...</span>
-        </div>Complete Order</button>
+		  ">
+                <div *ngIf="isProcessing" class="spinner-border text-light me-2" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>Complete Order
+              </button>
             </div>
           </form>
         </mat-step>

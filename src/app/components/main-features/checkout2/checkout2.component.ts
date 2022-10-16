@@ -4,7 +4,7 @@ import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { Title } from '@angular/platform-browser';
-import { Router, ActivatedRoute,NavigationEnd } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 
 import { ConfirmOrderPaymentDialogComponent } from '../../commons/confirm-order-payment-dialog/confirm-order-payment-dialog.component';
 import { User } from 'src/app/modules/user';
@@ -34,7 +34,7 @@ import { LoginMainComponent } from '../../commons/login-main/login-main.componen
 //import Jquery
 //import * as $ from 'jquery';
 //JavaScript Functions
-declare const custom:any;
+declare const custom: any;
 // declare const main:any;
 // declare const parallaxie: any;
 declare const $;
@@ -50,14 +50,14 @@ export class Checkout2Component implements OnInit {
   selectedDelivery: string;
   selectedPayment: string;
   delivery: string[] = ['Pick up', 'Bolt', 'DHL', 'Uber Delivery', 'Bike Delivery'];
-  payments:string[]=['Momo','Vodafone','AirtelTiGo', 'Card']
+  payments: string[] = ['Momo', 'Vodafone', 'AirtelTiGo', 'Card']
   isLinear = false;
 
   isGiftDelivery = false;
   deliveryOptions = DeliveryOptions;
   deliveryModes = DeliveryModeEnum;
   currencies = CurrencyEnums;
-  promoCodeFormGroup:FormGroup;
+  promoCodeFormGroup: FormGroup;
   deliveryOptionsFormCtrl = new FormControl('', [Validators.required]);
   locationFormCtrl = new FormControl('', [Validators.required]);
   //promoCodeFormCtrl = new FormControl('', [Validators.required]);
@@ -98,7 +98,7 @@ export class Checkout2Component implements OnInit {
   public searchElementRef: ElementRef;
 
   @ViewChild('stepper')
-  fathersDay=false;
+  fathersDay = false;
   public stepper: MatStepper;
   grandTotal: number;
   orderCode: any;
@@ -113,19 +113,19 @@ export class Checkout2Component implements OnInit {
   featuredShops = [];
   industries = [];
   isProcessingFeaturedShops: boolean;
-  windowLoaded=false;
+  windowLoaded = false;
   formGroup: FormGroup;
   isLoggedIn = false;
   currentUser: User;
   isGuest = false;
   btnText = 'SIGN IN';
   heading = 'Sign In';
-  proceed=false;
+  proceed = false;
   promos: any = [];
   rate: number = 0;
   constructor(
-   
-   
+
+
     private formBuilder: FormBuilder,
     private sharedDataApiCallsService: SharedDataApiCallsService,
     // private mapsAPILoader: MapsAPILoader,
@@ -153,25 +153,25 @@ export class Checkout2Component implements OnInit {
     private loginUpdate: LoginUpdateService,
     //@Inject(MAT_DIALOG_DATA) public data: any,
 
-    ){
-      
-     }
+  ) {
+
+  }
 
 
-    //  firstFormGroup = this._formBuilder.group({
-    //   firstCtrl: ['', Validators.required],
-    // });
-    // secondFormGroup = this._formBuilder.group({
-    //   secondCtrl: ['', Validators.required],
-    // });
-    isEditable = false;
-   //Call JavaScript functions onload
-   onload(){
+  //  firstFormGroup = this._formBuilder.group({
+  //   firstCtrl: ['', Validators.required],
+  // });
+  // secondFormGroup = this._formBuilder.group({
+  //   secondCtrl: ['', Validators.required],
+  // });
+  isEditable = false;
+  //Call JavaScript functions onload
+  onload() {
     custom();
     //main();
     //parallaxie();
   }
-  loader=true;
+  loader = true;
 
   async ngOnInit(): Promise<void> {
 
@@ -179,9 +179,9 @@ export class Checkout2Component implements OnInit {
     //this.getActivePromo("gtpstore");
     AOS.init();
     //Loader variable set false after page load
-    setTimeout(()=>{
+    setTimeout(() => {
       this.loader = false;
-  }, 1000);
+    }, 1000);
     this.isLoggedIn = this.authService.isLogedIn;
     this.currentUser = this.authService.currentUser;
     //console.log(this.currentUser);
@@ -197,25 +197,27 @@ export class Checkout2Component implements OnInit {
     this.subdomain = this.getHostname.subDomain;
     this.currentUser = this.authService.currentUser;
 
-    this.promoCodeFormGroup=this.formBuilder.group({
-      promoCode: ['',Validators.required]
+    this.promoCodeFormGroup = this.formBuilder.group({
+      promoCode: ['', Validators.required]
     })
 
     //Check if user is not login and alert user
-    if(!this.isLoggedIn){
-      this.dialog.open(LoginMainComponent, { data: { },
-      disableClose: false,
-      scrollStrategy: new NoopScrollStrategy(),})
-      .afterClosed().subscribe((isSuccess: boolean) => {
-        if (isSuccess) {
-          if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
-            this.router.navigate(['/checkout2']);
-          } else if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
-           
-            this.router.navigate(['/checkout2']);
+    if (!this.isLoggedIn) {
+      this.dialog.open(LoginMainComponent, {
+        data: {},
+        disableClose: false,
+        scrollStrategy: new NoopScrollStrategy(),
+      })
+        .afterClosed().subscribe((isSuccess: boolean) => {
+          if (isSuccess) {
+            if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
+              this.router.navigate(['/checkout2']);
+            } else if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
+
+              this.router.navigate(['/checkout2']);
+            }
           }
-        }
-      });
+        });
     } //Login popup end
 
     this.addressFormGroup = this.formBuilder.group({
@@ -243,7 +245,7 @@ export class Checkout2Component implements OnInit {
     });
     this.deliveryMethod = this.formBuilder.group({
       bolt_delivery: [''],
-      delivery_method:[this.selectedDelivery,Validators.required],
+      delivery_method: [this.selectedDelivery, Validators.required],
     });
     this.paymentFormGroup = this.formBuilder.group({
       payment_method: [''],
@@ -303,22 +305,29 @@ export class Checkout2Component implements OnInit {
       this.getShopInfo();
     }
 
+    console.log("Currency=>"+this.currency);
+    console.log("Country=>"+this.country);
+  
 
-      // $('#flip').on("click",function(){
-      //   $("#panel").slideToggle("slow");
-      // });
 
-      // $('.search_btn').on("click",function(){
-      //   $("#search_body_collapse").slideToggle("slow");
-      // });
-      this.onload();
+    // $('#flip').on("click",function(){
+    //   $("#panel").slideToggle("slow");
+    // });
 
-      this.firstFormGroup = this._formBuilder.group({
-        firstCtrl: ['', Validators.required],
-      });
-      this.secondFormGroup = this._formBuilder.group({
-        secondCtrl: ['', Validators.required],
-      });
+    // $('.search_btn').on("click",function(){
+    //   $("#search_body_collapse").slideToggle("slow");
+    // });
+    this.onload();
+
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required],
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required],
+    });
+
+   
+
   }
 
 
@@ -339,7 +348,7 @@ export class Checkout2Component implements OnInit {
       //console.log("this.industries "+ JSON.stringify(this.industries) );
     });
   }
-  getDeliveryOption(){
+  getDeliveryOption() {
     console.log(this.deliveryOptionsFormCtrl.value);
   }
   // ngAfterViewInit() {
@@ -389,7 +398,7 @@ export class Checkout2Component implements OnInit {
         this.longitude = position.coords.longitude;
         this.zoom = 15;
 
-        console.log("LAT,LOG: "+this.latitude+" "+this.longitude);
+        console.log("LAT,LOG: " + this.latitude + " " + this.longitude);
         //this.getAddress(position.coords.latitude, position.coords.longitude);
       });
     }
@@ -417,9 +426,7 @@ export class Checkout2Component implements OnInit {
     this.paymentMethod = paymentMethod;
     this.paymentNetwork = paymentNetwork;
     this.networkName = networkFullName;
-    if (paymentMethod === PaymentMethods.CARD) {
-
-    }
+  
     if (paymentMethod === PaymentMethods.MOMO && this.constantValues.YOUNG_TEMPLATE_SUBDOMAIN.includes(this.getHostname.subDomain)) {
       this.getShopInfo();
     }
@@ -428,15 +435,15 @@ export class Checkout2Component implements OnInit {
     // console.log('pn--'+this.paymentNetwork);
     // console.log('networkName--'+this.networkName);
   }
-  showPaymentPrompt() {
-    if (this.paymentMethod === PaymentMethods.CARD) {
-      this.redirectUrl = '';
-      this.isProcessing = true;
+  // showPaymentPrompt() {
+  //   if (this.paymentMethod === PaymentMethods.CARD) {
+  //     this.redirectUrl = '';
+  //     this.isProcessing = true;
 
-    } else {
+  //   } else {
 
-    }
-  }
+  //   }
+  // }
   /**
    * Get road name (address) of a location by latitude and longitude
    * @param latitude latitude
@@ -445,7 +452,7 @@ export class Checkout2Component implements OnInit {
   getAddress(latitude, longitude) {
     this.geoCoder.geocod({ location: { lat: latitude, lng: longitude } }, (results, status) => {
       if (status === 'OK') {
-        console.log("LAT,LOG: "+this.latitude+" "+this.longitude);
+        console.log("LAT,LOG: " + this.latitude + " " + this.longitude);
         if (results[0]) {
           this.zoom = 12;
           this.address = results[0].formatted_address;
@@ -516,23 +523,23 @@ export class Checkout2Component implements OnInit {
         //console.log("orderService.updateDeliveryAddress not null");
         this.authService.saveUser(result.results);
         this.getDeliveryCharge(data);
-        this.proceed=true;
-        this.notificationsService.success("","Address confirmed. Scroll down to make payment");
+        this.proceed = true;
+        this.notificationsService.success("", "Address confirmed. Scroll down to make payment");
       }
     });
   }
-  updateDeliveryAddressTest(data){
+  updateDeliveryAddressTest(data) {
 
     console.log(data);
 
 
   }
-  back(){
+  back() {
     this.router.navigate(['/cart'])
   }
- Guest(){
-  this.isGuest= !this.isGuest;
- }
+  Guest() {
+    this.isGuest = !this.isGuest;
+  }
   /**
    * Get delivery charge basd on the location provided
    * @param data request payload
@@ -550,13 +557,13 @@ export class Checkout2Component implements OnInit {
       this.isProcessing = false;
       if (result !== null) {
         this.delieryCharge = result;
-       // console.log("D-->"+JSON.stringify(this.delieryCharge,null,2) )
+        // console.log("D-->"+JSON.stringify(this.delieryCharge,null,2) )
         //console.log("Selec-->"+this.selectedDelivery )
         // tslint:disable-next-line: max-line-length
         let deliveryCharge = (this.delieryCharge !== null && this.delieryCharge !== '' && this.delieryCharge !== undefined) ? +this.delieryCharge.delivery_fee : 0;
         let serviceCharge = (this.delieryCharge !== null && this.delieryCharge !== '' && this.delieryCharge !== undefined) ? +this.delieryCharge.service_charge : 0;
         let transactionFee = (this.delieryCharge !== null && this.delieryCharge !== '' && this.delieryCharge !== undefined) ? +this.delieryCharge.transaction_fee : 0;
-        if(this.constantValues.YOUNG_TEMPLATE_SUBDOMAIN.includes(this.subdomain)) {
+        if (this.constantValues.YOUNG_TEMPLATE_SUBDOMAIN.includes(this.subdomain)) {
           deliveryCharge = deliveryCharge / this.exchangeRate;
           serviceCharge = serviceCharge / this.exchangeRate;
           transactionFee = transactionFee / this.exchangeRate;
@@ -618,16 +625,16 @@ export class Checkout2Component implements OnInit {
    */
   placeOrder(data) {
 
-    if (!this.isLoggedIn){
+    if (!this.isLoggedIn) {
       this.notificationsService.info(this.constantValues.APP_NAME, 'Please login to continue');
       return;
     }
-    if (this.selectedDelivery ==='' || this.selectedDelivery ===undefined || this.selectedDelivery ===null){
+    if (this.selectedDelivery === '' || this.selectedDelivery === undefined || this.selectedDelivery === null) {
       this.notificationsService.info(this.constantValues.APP_NAME, 'Please select delivery option to continue');
       return;
     }
 
-    if (this.selectedDelivery !==this.deliveryOptions.PICKUP && this.addressFormGroup.invalid ){
+    if (this.selectedDelivery !== this.deliveryOptions.PICKUP && this.addressFormGroup.invalid) {
       this.notificationsService.info(this.constantValues.APP_NAME, 'Please provide delivery address to continue');
       return;
     }
@@ -637,7 +644,7 @@ export class Checkout2Component implements OnInit {
       return;
     }
 
-    if (this.paymentMethod === '' || this.paymentMethod === undefined || this.paymentMethod ===null ) {
+    if (this.paymentMethod === '' || this.paymentMethod === undefined || this.paymentMethod === null) {
       this.notificationsService.info(this.constantValues.APP_NAME, 'Please select a payment method to continue');
       return;
     }
@@ -677,6 +684,7 @@ export class Checkout2Component implements OnInit {
 
     data.checkout_origin = this.checkoutSoure;
     data.delivery_option = this.selectedDelivery;
+    data.currency=this.cartItems[0].item.currency;
     if (this.selectedDelivery === this.deliveryOptions.GIFT) {
       // tslint:disable-next-line: max-line-length
       data = JSON.parse('{' + this.appUtils.removeBraceBrackets(JSON.stringify(data) + ',' + JSON.stringify(this.giftRecipientAddressFormGroup.value)) + '}');
@@ -696,7 +704,7 @@ export class Checkout2Component implements OnInit {
         this.productsApiCalls.clearCartItem((clearCartError, clearCartResult) => {
           if (clearCartResult !== null) {
             this.getCartItems();
-            this.currency = '';
+            //this.currency = '';
             this.grandTotal = 0;
             this.delieryCharge = 0;
             this.deliveryChargeAmount = 0;
@@ -708,7 +716,7 @@ export class Checkout2Component implements OnInit {
         if (this.paymentMethod === PaymentMethods.CARD) {
           this.notificationsService.success(this.constantValues.APP_NAME, 'Order successfully placed. Kindly follow the action in the popup to complete Card Payment');
           this.redirectUrl = result.redirect_url;
-        
+
           //window.location.href = `${result.redirect_url}`;
           window.open(`${result.redirect_url}`, `_blank`);
           //console.log("result.redirect_url==>"+result.redirect_url);
@@ -723,37 +731,42 @@ export class Checkout2Component implements OnInit {
         } else if (this.paymentMethod === PaymentMethods.MOMO) {
           this.dialog.open(ConfirmOrderPaymentDialogComponent,
             // tslint:disable-next-line: max-line-length
-            { data: { payment_method: this.paymentMethod, payment_network: this.paymentNetwork, network_name: this.networkName, transaction_id: result.transaction_id },
-             disableClose: true,
-             scrollStrategy: new NoopScrollStrategy(),},
-           )
+            {
+              data: { payment_method: this.paymentMethod, payment_network: this.paymentNetwork, network_name: this.networkName, transaction_id: result.transaction_id },
+              disableClose: true,
+              scrollStrategy: new NoopScrollStrategy(),
+            },
+          )
             .afterClosed().subscribe((isCompleted: boolean) => {
               // tslint:disable-next-line: max-line-length
               this.router.navigate(["/checkout3"]);
               this.dialog.open(OrderCompletedDialogComponent, {
                 data: { order_code: result.order_code, transactionSuccessful: isCompleted },
-                 disableClose: true,
-                 scrollStrategy: new NoopScrollStrategy(),})
+                disableClose: true,
+                scrollStrategy: new NoopScrollStrategy(),
+              })
                 .afterClosed().subscribe((isSuccess: boolean) => {
                   if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
-                   
+
                     this.router.navigate(['/profile-view/orders']);
                   } else if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
-                   
+
                     this.router.navigate(['/profile-view/orders']);
                   }
                 });
             });
         } else if (this.paymentMethod === PaymentMethods.CASH) {
-          this.dialog.open(OrderCompletedDialogComponent, { data: { order_code: result.order_code },
+          this.dialog.open(OrderCompletedDialogComponent, {
+            data: { order_code: result.order_code },
             disableClose: true,
-            scrollStrategy: new NoopScrollStrategy(),})
+            scrollStrategy: new NoopScrollStrategy(),
+          })
             .afterClosed().subscribe((isSuccess: boolean) => {
               if (isSuccess) {
                 if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
                   this.router.navigate(['/profile-view/orders']);
                 } else if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
-                 
+
                   this.router.navigate(['/profile-view/orders']);
                 }
               }
@@ -848,23 +861,25 @@ export class Checkout2Component implements OnInit {
       this.isProcessing = false;
       if (result !== null && result.response_code === '100') {
         this.dialog.open(ConfirmPhoneNumberComponent,
-          {data: {phone_number: phoneNunber},
-          scrollStrategy: new NoopScrollStrategy(),}).afterClosed().subscribe((isSuccess: boolean) => {
-          if (isSuccess) {
-            this.processOrder(data);
-          }
-        });
+          {
+            data: { phone_number: phoneNunber },
+            scrollStrategy: new NoopScrollStrategy(),
+          }).afterClosed().subscribe((isSuccess: boolean) => {
+            if (isSuccess) {
+              this.processOrder(data);
+            }
+          });
       }
     });
   }
 
-  openD(){
-    this.dialog.open(OrderCompletedDialogComponent,{
+  openD() {
+    this.dialog.open(OrderCompletedDialogComponent, {
       scrollStrategy: new NoopScrollStrategy(),
     });
   }
 
-  getDaddress(){
+  getDaddress() {
     console.log(this.addressFormGroup.value);
   }
 
@@ -882,8 +897,8 @@ export class Checkout2Component implements OnInit {
             this.authService.saveUser(result);
             this.authService.saveToken(result.auth_token);
             this.loginUpdate.isUpdated(true);
-            this.isLoggedIn=true;
-            this.currentUser=this.authService.currentUser;
+            this.isLoggedIn = true;
+            this.currentUser = this.authService.currentUser;
             window.location.reload();
             //console.log("Data-->"+JSON.stringify(data,null,2));
             //this.router.navigate(['/supermarket']);
@@ -904,7 +919,7 @@ export class Checkout2Component implements OnInit {
             this.productsApiCalls.getCartItems((error, result) => {
               const items: any[] = result.map(data => "" + data.item.id + ":" + data.quantity + ":" + data.total_amount);
               if (items.length > 0) {
-                this.productsApiCalls.syncCartItems({items: items.join(',')}, (er, res) => {
+                this.productsApiCalls.syncCartItems({ items: items.join(',') }, (er, res) => {
 
                 });
               }
@@ -941,7 +956,7 @@ export class Checkout2Component implements OnInit {
       });
     });
 
-   // console.log("promos->"+this.promos)
+    // console.log("promos->"+this.promos)
   }
 
   // checkPromoUsage(payload:any) {
@@ -957,7 +972,7 @@ export class Checkout2Component implements OnInit {
   //   });
   // }
 
-  async applyCoupon(){
+  async applyCoupon() {
     // console.log("Conde entered: "+this.promoCodeFormCtrl.value)
     // console.log("promos=>"+JSON.stringify(this.promos,null,2))
     const found = this.promos.find(
@@ -1000,18 +1015,18 @@ export class Checkout2Component implements OnInit {
       //   }
       // });
       this.notificationsService.success('',
-          'Promo Successfuly applied'
-          );
+        'Promo Successfuly applied'
+      );
     } else {
       console.log("Not Found")
-      this.notificationsService.info('','Invalid Promo Code');
+      this.notificationsService.info('', 'Invalid Promo Code');
     }
   }
-  compare( a:any, b:any ) {
-    if ( a.item.name < b.item.name ){
+  compare(a: any, b: any) {
+    if (a.item.name < b.item.name) {
       return -1;
     }
-    if ( a.item.name > b.item.name ){
+    if (a.item.name > b.item.name) {
       return 1;
     }
     return 0;
@@ -1020,7 +1035,7 @@ export class Checkout2Component implements OnInit {
   get password() { return this.formGroup.get('password'); }
   get customer_name() { return this.formGroup.get('customer_name'); }
   get email() { return this.formGroup.get('email'); }
-  get promoCodeFormCtrl(){return this.promoCodeFormGroup.get('promoCode')}
+  get promoCodeFormCtrl() { return this.promoCodeFormGroup.get('promoCode') }
 
   get location() { return this.addressFormGroup.get('location'); }
   get latitude_ctrl() { return this.addressFormGroup.get('latitude'); }
@@ -1029,14 +1044,14 @@ export class Checkout2Component implements OnInit {
   get state_ctrl() { return this.addressFormGroup.get('state'); }
   get city_ctrl() { return this.addressFormGroup.get('city'); }
   get delivery_mode() { return this.addressFormGroup.get('delivery_mode'); }
-  get order_notes_ctrl(){return this.addressFormGroup.get('order_notes'); }
+  get order_notes_ctrl() { return this.addressFormGroup.get('order_notes'); }
 
 
   get address_ctr() { return this.deliveryAddressFormGroup.get('address'); }
   get state() { return this.deliveryAddressFormGroup.get('state'); }
   get city() { return this.deliveryAddressFormGroup.get('city'); }
-  get order_notes(){return this.deliveryAddressFormGroup.get('order_notes'); }
-  get order_items(){ return this.cartItems;}
+  get order_notes() { return this.deliveryAddressFormGroup.get('order_notes'); }
+  get order_items() { return this.cartItems; }
 
   get gift_recipient_name() { return this.giftRecipientAddressFormGroup.get('gift_recipient_name'); }
   get gift_recipient_email() { return this.giftRecipientAddressFormGroup.get('gift_recipient_email'); }

@@ -282,7 +282,8 @@ onload(){
     })
     this.onload();
 
-
+    console.log("Currency=>"+this.currency);
+    console.log("Country=>"+this.country);
 
   }
 

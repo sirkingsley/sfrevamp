@@ -1,9 +1,9 @@
-<h1 mat-dialog-title>TOTAL CHARGE: {{orderDetail?.currency}} {{orderDetail?.total_amount_with_delivery | number: '1.2-2'}}</h1>
+<h1 mat-dialog-title>TOTAL CHARGE: {{orderDetail?.customer_mall_items[0]?.my_product?.currency}} {{orderDetail?.total_amount_with_delivery | number: '1.2-2'}}</h1>
 <mat-progress-bar mode="indeterminate" *ngIf="isProcessing"></mat-progress-bar>
 <form [formGroup]="paymentFormGroup" (ngSubmit)="placeOrder(paymentFormGroup?.value)" class="payment-dialog-wrapper" >
   <div mat-dialog-content>
     <div class="row mlr-0 mt-4">
-      <div class="col-md-3 col-sm-4 payment-method-item-wrapper" *ngIf="currency == currencies.GHS">
+      <div class="col-md-3 col-sm-4 payment-method-item-wrapper">
 
         <input type="radio" id="momo" [value]="'MOMO'" name="momo">
         <label class="payment-method-grid-list-item" for="momo"
@@ -16,11 +16,11 @@
       </div>
 
 
-      <div class="col-md-3 col-sm-4 payment-method-item-wrapper" *ngIf="currency == currencies.GHS">
+      <div class="col-md-3 col-sm-4 payment-method-item-wrapper">
 
         <input type="radio" id="voda" [value]="'MOMO'" name="momo">
         <label class="payment-method-grid-list-item" for="voda"
-          (click)="selectPaymentMethod('MOMO', 'VOD', 'VODAFONE CASH')">
+          (click)="selectPaymentMethod('MOMO', 'VODAF', 'VODAFONE CASH')">
 
           <img src="./assets/icons/check.svg" class="payment-method-selected-icon" />
           <img src="./assets/icons/ic_vodafone_cash.png" alt=""
@@ -28,7 +28,7 @@
           <p class="mb-0 payment-method-grid-list-item-description">VODAFONE CASH</p>
         </label>
       </div>
-      <div class="col-md-3 col-sm-4 payment-method-item-wrapper" *ngIf="currency == currencies.GHS">
+      <div class="col-md-3 col-sm-4 payment-method-item-wrapper">
 
         <input type="radio" id="atigo" [value]="'ATG'" name="momo">
         <label class="payment-method-grid-list-item" for="atigo"
