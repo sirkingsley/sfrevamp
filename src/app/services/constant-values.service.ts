@@ -22,7 +22,7 @@ export class ConstantValuesService {
   get DATE_FORMAT() { return 'DD-MM-YYYY'; }
   get DATE_TIME_FORMAT() { return 'DD/MM/YYYY, hh:mm:ss A'; }
   get COUNTRY() { return localStorage.getItem(LocalStorageActionsEnum.COUNTRY); }
-  get APP_NAME() { return 'KudiGo StoreFront Mall '; }
+  get APP_NAME() { return 'Kokorko '; }
   get BASE_URL() { return environment.BASE_URL; }
   get ADMIN_BASE_URL() { return environment.ADMIN_BASE_URL; }
   get NEWS_LETTER_URL(){ return environment.NEWS_LETTER_URL;}

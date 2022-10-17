@@ -245,7 +245,8 @@ export class Checkout2Component implements OnInit {
     });
     this.deliveryMethod = this.formBuilder.group({
       bolt_delivery: [''],
-      delivery_method: [this.selectedDelivery, Validators.required],
+      delivery_method: new FormControl(this.selectedDelivery, [Validators.required]),
+      isLogedIn: new FormControl(this.isLoggedIn, [Validators.required,Validators.requiredTrue]),
     });
     this.paymentFormGroup = this.formBuilder.group({
       payment_method: [''],
@@ -1021,6 +1022,26 @@ export class Checkout2Component implements OnInit {
       console.log("Not Found")
       this.notificationsService.info('', 'Invalid Promo Code');
     }
+  }
+
+  loginPrompt(){
+    if (!this.isLoggedIn) {
+      this.dialog.open(LoginMainComponent, {
+        data: {},
+        disableClose: false,
+        scrollStrategy: new NoopScrollStrategy(),
+      })
+        .afterClosed().subscribe((isSuccess: boolean) => {
+          if (isSuccess) {
+            if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
+              this.router.navigate(['/checkout2']);
+            } else if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
+
+              this.router.navigate(['/checkout2']);
+            }
+          }
+        });
+    } //Login popup end
   }
   compare(a: any, b: any) {
     if (a.item.name < b.item.name) {
