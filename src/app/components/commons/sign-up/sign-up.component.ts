@@ -33,7 +33,12 @@ export class SignUpComponent implements OnInit {
       last_name: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.email]),
       phone_number: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.pattern(
+          /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
+        ),
+        Validators.minLength(8),]),
       retype_password: new FormControl('', [Validators.required, passwordMatch('password', 'retype_password')])
     },);
   }

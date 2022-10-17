@@ -29,7 +29,7 @@
 	<section class="register_section sec_ptb_140_login parallaxie clearfix">
 		<div class="container">
 			<div class="reg_form_wrap signup_form">
-				<form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup?.value)">
+				<form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup?.value)" autocomplete="off" >
 					<div class="reg_form">
 						<h2 class="form_title text-uppercase">
 							<img src="assets/images/kokorko-logo.png" alt="kudigo Inc">
@@ -67,8 +67,8 @@
 						</div>
 						<div class="form_item">
 							<input type="password" placeholder="Password" formControlName="password" />
-							<mat-error *ngIf="password?.invalid && password?.touched">
-								Please enter a valid password
+							<mat-error *ngIf="password?.invalid && password?.touched" style="font-size: 10px;line-height: 10px;">
+								Password must contain more than 8 characters, 1 upper case letter, and 1 special character
 							</mat-error>
 						</div>
 						<div class="form_item">

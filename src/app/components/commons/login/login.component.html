@@ -63,14 +63,14 @@
 						
 						<div class="form_item" *ngIf="!isGuest">
 							<!-- <label for="password_input"><i class="fal fa-unlock-alt"></i></label> -->
-							<input type="password" placeholder="Password" formControlName="password" />
+							<input  [type]="!showpassword? 'password': 'text'" placeholder="Password" formControlName="password" />
 							<mat-error *ngIf="password?.invalid && password?.touched">
 								Please enter a password
 							</mat-error>
 
 						</div>
 						<div class="checkbox_item">
-							<label for="remember_checkbox"><input type="checkbox" >Show password</label>
+							<label for="remember_checkbox"><input type="checkbox" (click)="showpass()">Show password</label>
 							<a class="forget_pass text-uppercase mb_30">Forgot password?</a>
 						</div>
 

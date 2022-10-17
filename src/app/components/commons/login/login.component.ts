@@ -97,6 +97,10 @@ export class LoginComponent implements OnInit {
       }, this.isGuest);
     }
   }
+  showpassword =false;
+  showpass(){
+    this.showpassword = !this.showpassword;
+  }
 
   Guest(){
     this.isGuest= !this.isGuest;

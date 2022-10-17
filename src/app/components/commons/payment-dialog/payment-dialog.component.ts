@@ -15,6 +15,7 @@ import { ConfirmOrderPaymentDialogComponent } from '../confirm-order-payment-dia
   styleUrls: ['./payment-dialog.component.scss']
 })
 export class PaymentDialogComponent implements OnInit {
+  showpassword=false;
   isProcessing = false;
   paymentFormGroup: FormGroup;
   orderDetail;
@@ -117,5 +118,9 @@ export class PaymentDialogComponent implements OnInit {
     }
 
     get payment_method() { return this.paymentFormGroup.get('payment_method'); }
+
+    showpass(){
+      this.showpassword !=this.showpassword;
+    }
 
 }
