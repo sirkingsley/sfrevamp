@@ -163,14 +163,14 @@
               <div class="">
                 <ul class="button-group filters-button-group ul_li_right clearfix ms-0">
                     <!-- <li class="large-screen-cat-nav ms-0" ><button [class.active]="selectedCategory === ''" (click)="filterByCategory('')">All</button></li>
-                    <li class="large-screen-cat-nav"  *ngFor="let category of industries | slice:0:4"><button (click)="filterByCategory(category?.name)" [class.active]="selectedCategory === category?.name" >{{category?.name}}</button></li> -->
+                    <li class="large-screen-cat-nav"  *ngFor="let category of pGroups | slice:0:4"><button (click)="filterByCategory(category?.name)" [class.active]="selectedCategory === category?.name" >{{category?.name}}</button></li> -->
 
                     <!-- <li><span class="filter_sidebar_btn" ><i class="far fa-bars"></i> FILTER</span></li> -->
                     <button mat-button [matMenuTriggerFor]="menu"><span class="" ><i class="bi bi-filter"></i> FILTER</span></button>
                     <mat-menu #menu="matMenu">
                       <ul class="ul_li_block clearfix">
                         <li mat-menu-item><a (click)="filterByShop(storefrontmall_name)" > All </a> </li>
-                        <li mat-menu-item *ngFor="let category of industries"><a (click)="filterByCategory(category.name)">{{category.name}}</a></li>
+                        <li mat-menu-item *ngFor="let category of pGroups"><a (click)="filterByCategory(category.name)">{{category.name}}</a></li>
 
                       </ul>
                     </mat-menu>
@@ -258,7 +258,7 @@
           <h3 class="fs_widget_title text-uppercase">Top Categories</h3>
           <ul class="ul_li_block clearfix">
             <li><a (click)="filterByShop(storefrontmall_name)" > All </a> </li>
-            <li *ngFor="let category of industries"><a (click)="filterByCategory(category.name)">{{category.name}}</a></li>
+            <li *ngFor="let category of pGroups"><a (click)="filterByCategory(category.name)">{{category.name}}</a></li>
 
           </ul>
           <!-- <ul class="ul_li_block clearfix">

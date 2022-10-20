@@ -225,7 +225,7 @@ onload(){
       if (searchTerm !== null && searchTerm !== undefined && searchTerm !== '' && searchTerm.length >= 2) {
         this.isSearching = true;
         // TODO:  this.getProducts({ storefrontmall_name: this.getHostname.subDomain, search_text: searchTerm });
-        this.getProducts({ storefrontmall_name: this.subdomain, search_text: searchTerm });
+        this.getProducts({ storefrontmall_name: "kokorko", search_text: searchTerm });
       }
     });
     // this.getShopInfo();
@@ -240,9 +240,10 @@ onload(){
       if(param['pageSec']){
         this.selectedCategory=param['category'];
         this.ProductsTitle=this.selectedCategory +" Products";
-        this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
+        this.getProducts({storefrontmall_name: "kokorko", sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
       }else{
-      this.getProducts({});
+      // this.getProducts({});
+      this.getProducts({ storefrontmall_name: "kokorko"});
       }
     });
     // this.getShopInfo();
@@ -325,7 +326,7 @@ pagefullyLoaded:Boolean=false;
   filterByPrice(priceSort) {
     this.selectedPriceSorting = priceSort;
     // tslint:disable-next-line: max-line-length
-    this.getProducts({ sorting: this.selectedPriceSorting, product_group_id: this.selectedCategoryId, search_text: this.searchQuery, tag: this.tag, storefrontmall_name: '' });
+    this.getProducts({ sorting: this.selectedPriceSorting, product_group_id: this.selectedCategoryId, search_text: this.searchQuery, tag: this.tag, storefrontmall_name: 'kokorko' });
     //console.log("Price-->"+this.selectedValueCtrl);
     //alert('price sorted to '+this.selectedValueCtrl);
   }
@@ -436,7 +437,7 @@ filterCategory(category: string,el: HTMLElement) {
   this.selectedCategory = category;
   this.ProductsTitle=category +" Products";
 
-  this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
+  this.getProducts({ storefrontmall_name: "kokorko", sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
 
       el.scrollIntoView({behavior: 'smooth'});
   }
@@ -446,7 +447,7 @@ filterByCategory(category: string,el: HTMLElement) {
     this.ProductsTitle=category +" Products";
     this.selectedCategory = category;
 
-    this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
+    this.getProducts({storefrontmall_name: "kokorko", sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
     el.scrollIntoView({behavior: 'smooth'});
   }
 
@@ -536,9 +537,10 @@ filterByCategory(category: string,el: HTMLElement) {
   }
   getProductGroups() {
     // TODO:
-    this.productsApiCalls.getProducts({storefrontmall_name: this.subdomain}, (error, result) => {
+    this.productsApiCalls.getProducts({storefrontmall_name: "kokorko"}, (error, result) => {
       if (result !== null && result.response_code === '100' && result.product_groups.length > 0) {
         this.pGroups = result.product_groups;
+        //console.log("cate"+JSON.stringify(this.pGroups,null,2));
       }
     });
   }

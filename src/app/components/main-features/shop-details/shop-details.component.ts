@@ -100,6 +100,7 @@ export class ShopDetailsComponent implements OnInit {
     nextPage = '';
     prevPage = '';
     product_groups = [];
+    pGroups=[];
     industries = [];
     shopInfo;
     tag = '';
@@ -260,7 +261,7 @@ getProducts(filterParams: ProductsFilterParams) {
       this.prevPage = result.previous;
       this.nextPage = result.next;
       this.totalPage = result.count;
-      this.product_groups = result.product_groups;
+      this.pGroups = result.product_groups;
       this.constantValues.COUNTRY = this.country;
       //console.log("Pro-->"+this.products);
     }

@@ -67,7 +67,7 @@
 				<div class="">
 					<ul class="button-group filters-button-group ul_li_right clearfix ms-0">
 						<!-- <li class="large-screen-cat-nav ms-0" ><button [class.active]="selectedCategory === ''" (click)="filterByCategory('')">All</button></li>
-                <li class="large-screen-cat-nav"  *ngFor="let category of industries | slice:0:4"><button (click)="filterByCategory(category?.name)" [class.active]="selectedCategory === category?.name" >{{category?.name}}</button></li> -->
+                <li class="large-screen-cat-nav"  *ngFor="let category of pGroups | slice:0:4"><button (click)="filterByCategory(category?.name)" [class.active]="selectedCategory === category?.name" >{{category?.name}}</button></li> -->
 
 						<!-- <li id="productsView"><span class="filter_sidebar_btn" ><i class="far fa-bars"></i> FILTER</span></li> -->
 						<!--  -->
@@ -76,7 +76,7 @@
 						<mat-menu #menu="matMenu">
 							<ul class="ul_li_block clearfix">
 								<li mat-menu-item><a (click)="filterByCategory('')"> All </a> </li>
-								<li mat-menu-item *ngFor="let category of industries"><a
+								<li mat-menu-item *ngFor="let category of pGroups"><a
 										(click)="filterByCategory(category.name)">{{category.name}}</a></li>
 
 							</ul>
@@ -190,7 +190,7 @@
 
 			<!-- feature_section - start
 				================================================== -->
-			<section class="feature_section clearfix">
+			<!-- <section class="feature_section clearfix">
 				<h1 class="my-2">Featured Shops</h1>
 				<div class="modern_top_product clearfix">
 					<!-- <ul class="tab_menu nav ul_li_block text-uppercase" role="tablist">
@@ -205,7 +205,7 @@
 							</li>
 						</ul> -->
 
-					<div class="tab-content">
+					<!--<div class="tab-content">
 						<div id="homesofa_tab" class="tab-pane active">
 							<div class="row align-items-center justify-content-center">
 								<div class="col-lg-6">
@@ -279,14 +279,14 @@
 						</div>
 					</div>
 				</div>
-			</section>
+			</section> -->
 			<!-- feature_section - end
 				================================================== -->
 
 
 			<!-- blog_section - start
 				================================================== -->
-			<section class="blog_section sec_ptb_100 clearfix">
+			<!-- <section class="blog_section sec_ptb_100 clearfix">
 				<div class="modern_blog_listlayout">
 					<div class="row align-items-center justify-content-lg-between">
 						<div class="col-lg-7 order-last">
@@ -301,11 +301,7 @@
 								<h3 class="item_title text-uppercase mb_30">
 									{{featuredShops[1]?.business_name}}
 								</h3>
-								<!-- <ul class="modern_post_meta ul_li text-uppercase mb_15 clearfix">
-										<li>24 Sep 2020</li>
-										<li><a href="#!"><i class="far fa-heart"></i> 18</a></li>
-										<li><a href="#!"><i class="far fa-comment-alt"></i> 3</a></li>
-									</ul> -->
+							
 								<p class="mb_30">
 									{{featuredShops[1]?.location}}
 								</p>
@@ -331,11 +327,7 @@
 								<h3 class="item_title text-uppercase mb_30">
 									{{featuredShops[5]?.business_name}}
 								</h3>
-								<!-- <ul class="modern_post_meta ul_li text-uppercase mb_15 clearfix">
-										<li>24 Sep 2020</li>
-										<li><a href="#!"><i class="far fa-heart"></i> 18</a></li>
-										<li><a href="#!"><i class="far fa-comment-alt"></i> 3</a></li>
-									</ul> -->
+								
 								<p class="mb_30">
 									{{featuredShops[5]?.location}}
 								</p>
@@ -346,28 +338,14 @@
 						</div>
 					</div>
 				</div>
-			</section>
+			</section> -->
 			<!-- blog_section - end
 				================================================== -->
 
 		</div>
 		<!-- modern container - end -->
 	</div>
-	<!-- <div class="sidebar-menu-wrapper">
-        <div class="filter_sidebar">
-          <button type="button" class="close_btn mb_50"><i class="fal fa-times"></i></button>
-          <div class="fs_widget fs_category_list">
-            <h3 class="fs_widget_title text-uppercase">Top Categories</h3>
-            <ul class="ul_li_block clearfix">
-              <li><a (click)="filterByCategory('')" > All </a> </li>
-              <li *ngFor="let category of industries"><a (click)="filterByCategory(category.name)">{{category.name}}</a></li>
-
-            </ul>
-          </div>
-
-
-        </div>
-      </div> -->
+	
 
 </main>
 <!-- main body - end

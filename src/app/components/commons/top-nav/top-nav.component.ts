@@ -204,7 +204,7 @@ export class TopNavComponent implements OnInit {
   }
   getProductGroups() {
     // TODO:
-    this.productsApiCalls.getProducts({storefrontmall_name: this.subdomain}, (error, result) => {
+    this.productsApiCalls.getProducts({storefrontmall_name: "kokorko"}, (error, result) => {
       if (result !== null && result.response_code === '100' && result.product_groups.length > 0) {
         this.pGroups = result.product_groups;
       }
