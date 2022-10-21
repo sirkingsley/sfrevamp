@@ -33,48 +33,10 @@
 		================================================== -->
 		<main *ngIf="!loader">
 
-
-<!--
-      <div *ngIf="!windowLoaded"  class="container spinner-wrapper">
-        <mat-spinner class="custom-spinner-color"></mat-spinner>
-
-      </div> -->
-
 			<!-- slider_section - start
 			================================================== -->
       <app-landing-page *ngIf="!loader" ></app-landing-page>
-      <!-- <div >
-        <mat-spinner></mat-spinner>
-
-      </div> -->
-      <!-- <div>
-        <mat-progress-bar mode="buffer"></mat-progress-bar>
-      </div> -->
-			<!-- <section class="slider_section classic_ecommerce_slider position-relative clearfix">
-				<div class="main_slider clearfix">
- -->
-
-              <!-- <div class="item d-flex align-items-center clearfix" data-background="../../assets/images/african-shopping-time-2022-02-12-05-06-41-utc.jpg"> -->
-              <!-- <div class="item d-flex align-items-center clearfix sf-home">
-                <div class="container">
-                  <div class="slider_content">
-                    <h3 data-animation="fadeInUp" data-delay=".6s">Sweet Home Collections.</h3>
-                    <p data-animation="fadeInUp" data-delay=".8s">
-                      Discover new ways to dress this spring with a selection of the best designer jackets.
-                    </p>
-                    <div  class="abtn_wrap clearfix" data-animation="fadeInUp" data-delay="1s">
-                      <a (click)="scrollTo(shops)" class="custom_btn bg_white text-uppercase">SHOPS</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-				</div> -->
-
-				<!-- slider progress -->
-				<!-- <div class="slick-progress">
-					<span></span>
-				</div>
-			</section> -->
+      
 			<!-- slider_section - end
 			================================================== -->
 
@@ -91,8 +53,8 @@
 									<img src="assets/images/world-wide-shipping-04.png" alt="icon_not_found">
 								</div>
 								<div class="item_content">
-									<h3 class="item_title">Worldwide Shipping</h3>
-									<p>Get free shipping over GHC65.</p>
+									<h3 class="item_title">FREE DELIVERY</h3>
+									<p>via DHL,Uber, Bolt, Bikes.</p>
 								</div>
 							</div>
 						</div>
@@ -104,7 +66,7 @@
 								</div>
 								<div class="item_content">
 									<h3 class="item_title">Free Returns</h3>
-									<p>30-days free return policy.</p>
+									<p>100% Made In Africa Products</p>
 								</div>
 							</div>
 						</div>
@@ -130,53 +92,7 @@
 
 			<!-- category_section - start
 			================================================== -->
-			<!-- <section class="category_section sec_ptb_100 pb-0 clearfix" #shops>
-				<div class="container">
-					<div class="ecommerce_category_masonry grid">
-						<div class="grid-sizer"></div>
-            <h3 class="main-heading">Shop for your everyday essentials with ease. Support local retailers</h3>
-						<div class="grid-item w_66">
-
-							<div class="ce_offer_carousel position-relative clearfix">
-								<div class="slideshow1_slider">
-
-                  <owl-carousel-o [options]="customOptions" class="slideshow1_slider">
-                    <ng-container *ngFor="let shop of featuredShops">
-                    <ng-template carouselSlide class="item">
-									    <div class="item">
-										    <div class="ce_offer_fullimage2 offer_fullimage text-white">
-
-											<img src="{{shop.featured_image}}" onerror="this.src='../../assets/images/black-women-shopping.jpg'"  alt="alternative" />
-											<div class="item_content">
-
-                        <h3 class="item_title text-white">{{shop.business_name}}</h3>
-												<p>
-													{{shop.location}}
-												</p>
-                        <a class="custom_btn bg_white text-uppercase" [routerLink]="['/shop-details',{shop: shop,storefrontmall_name:shop.storefrontmall_name,store_name:shop.business_name}]" target="_blank">View Shop</a>
-
-											</div>
-										</div>
-									  </div>
-                    </ng-template>
-                </ng-container>
-                  </owl-carousel-o>
-								</div>
-
-
-							</div>
-						</div>
-
-            <div class="grid-item1" data-aos="fade-left">
-              <div class="ecommerce_category_fullimage">
-                <img class="create-shop-wrapper" src="assets/images/undraw_web_shopping_re_owap.svg" alt="image_not_found">
-
-              </div>
-              <button type="button" onclick="window.open('https://storefront.kudigo.com/');" class="create-btn">CREATE SHOP</button>
-            </div>
-					</div>
-				</div>
-			</section> -->
+			
 
       <div class="container category-heading-wrapper mt-2">
         <h3 class="main-heading">
@@ -241,7 +157,7 @@
 						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 							<ul class="button-group filters-button-group ul_li_right clearfix ms-0">
                   <li class="large-screen-cat-nav ms-0" ><button [class.active]="selectedCategory === ''" (click)="filterCategory('',target)">All</button></li>
-                  <li class="large-screen-cat-nav"  *ngFor="let category of pGroups | slice:5:8"><button (click)="filterCategory(category?.name,target)" [class.active]="selectedCategory === category?.name" >{{category?.name}}</button></li>
+                  <li class="large-screen-cat-nav"  *ngFor="let category of pGroups | slice:0:5"><button (click)="filterCategory(category?.name,target)" [class.active]="selectedCategory === category?.name" >{{category?.name}}</button></li>
 
                   <!-- <li><span class="filter_sidebar_btn large-screen-cat-nav" ><i class="far fa-bars"></i> FILTER</span></li> -->
                   <button class="large-screen-cat-nav" mat-button [matMenuTriggerFor]="menu"><span class="" ><i class="bi bi-three-dots"></i></span></button>
@@ -256,20 +172,12 @@
 						</div>
 					</div>
 
-          <!-- <router-outlet></router-outlet> -->
-
-
-          <!-- <div class="load_more text-center clearfix large-screen-cat-nav">
-						<app-pagination *ngIf="products?.length > 0 " [dataSet]="products" [nextPage]="nextPage"
-              [prevPage]="prevPage" [totalPage]="totalPage" [requestPayload]="filterParams" [requestMethod]="'POST'"
-              (pageChanged)="onPageChanged($event)" [(isProcessing)]="isProcessing">
-            </app-pagination>
-					</div> -->
+         
           <div class="products-pagination-wrapper" style="color: white !important;" >
 
             <form style=" width: 100%; display: flex ; justify-content: space-between; align-items: center;" >
               <div class="option_select d-flex align-items-center mb-0">
-                <!-- <span class="option_title text-uppercase">Sort by:</span> -->
+                
                 <mat-form-field appearance="fill" >
                   <mat-label style="color: white !important;">Sort By Prices</mat-label>
                   <mat-select [formControl]="selectedValueCtrl" name="prices" >
@@ -366,9 +274,7 @@
 
 				</div>
 			</section>
-      <!-- <div class="load_more text-center clearfix" style="display: flex; justify-content: center; align-items: center;" *ngIf="products.length">
-        <a class="custom_btn bg_gray text-uppercase m-3" href="#!">Load More</a>
-      </div> -->
+     
 
 			<!-- product_section - end
 			================================================== -->
@@ -381,9 +287,7 @@
 					<div class="row no-gutters justify-content-lg-between">
 						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 my-3">
 							<div class="ce_offer_fullimage offer_fullimage text-white text-center"
-               data-aos="fade-right"
-              data-aos-offset="300"
-              data-aos-easing="ease-in-sine">
+              >
 								<img src="assets/images/young_black.JPG" alt="image_not_found">
 								<div class="item_content">
 									<h3 class="item_title text-white mb_15">Read the Blog</h3>
@@ -394,9 +298,7 @@
 
 						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 my-3">
 							<div class="ce_offer_fullimage offer_fullimage text-white text-center"
-              data-aos="fade-left"
-              data-aos-offset="300"
-              data-aos-easing="ease-in-sine">
+             >
 								<img src="assets/images/portrait-of-happy-black-couple-using-phone-with-sh-2022-02-17-19-50-55-utc.jpg" alt="image_not_found">
 								<div class="item_content">
 									<h3 class="item_title text-white mb_15">Follow Us On Instagram</h3>
@@ -410,78 +312,14 @@
 			<!-- offer_section - end
 			================================================== -->
 
-      <!-- <mat-toolbar color="accent">
-        <button mat-icon-button matTooltip="Application Menu" (click)="sidenav.toggle()">
-            <mat-icon>settings</mat-icon>
-        </button>
-        Account Settings
-        <span style="flex: 1 1 auto;"></span>
-        <div>
-            <button mat-icon-button matTooltip="Switch Apps">
-                <mat-icon>apps</mat-icon>
-            </button>
-            <button mat-icon-button matTooltip="Notifications">
-                <mat-icon>notifications</mat-icon>
-            </button>
-            <button mat-icon-button matTooltip="My Account" [matMenuTriggerFor]="accountMenu">
-                <mat-icon>account_circle</mat-icon>
-            </button>
-            <mat-menu #accountMenu [overlapTrigger]="false" yPosition="below">
-                <button mat-menu-item routerLink="#">
-                    <mat-icon>person</mat-icon><span>My Account</span>
-                </button>
-                <button mat-menu-item>
-                    <mat-icon>help</mat-icon><span>Help</span>
-                </button>
-                <mat-divider></mat-divider>
-                <button mat-menu-item>
-                    <mat-icon>exit_to_app</mat-icon>Logout
-                </button>
-            </mat-menu>
-        </div>
-    </mat-toolbar>
-    <mat-sidenav-container style="height: calc(100% - 64px); margin: 0;">
-        <mat-sidenav #sidenav mode="side" [class.mat-elevation-z4]="true" style="width: 240px">
-            <mat-nav-list dense>
-                <mat-list-item routerLink="#"><mat-icon>dashboard</mat-icon>Dashboard</mat-list-item>
-                <mat-list-item routerLink="#"><mat-icon>check_box</mat-icon>General</mat-list-item>
-                <mat-list-item routerLink="#"><mat-icon>person</mat-icon>Profile</mat-list-item>
-                <mat-list-item routerLink="#"><mat-icon>notification_important</mat-icon>Notification</mat-list-item>
-                <mat-expansion-panel [class.mat-elevation-z0]="true" dense>
-                    <mat-expansion-panel-header>
-                        Preference
-                    </mat-expansion-panel-header>
-                    <mat-nav-list dense>
-                        <a mat-list-item routerLink="#"><mat-icon>attach_money</mat-icon>Billing</a>
-                        <a mat-list-item routerLink="#"><mat-icon>notification_important</mat-icon>Notification</a>
-                    </mat-nav-list>
-                </mat-expansion-panel>
-                <mat-expansion-panel [class.mat-elevation-z0]="true" dense>
-                    <mat-expansion-panel-header>
-                        Privacy
-                    </mat-expansion-panel-header>
-                    <mat-nav-list dense>
-                        <a mat-list-item routerLink="#"><mat-icon>person_add</mat-icon>Partnership Request</a>
-                        <a mat-list-item routerLink="#"><mat-icon>visibility</mat-icon>Profile Visibility</a>
-                    </mat-nav-list>
-                </mat-expansion-panel>
-            </mat-nav-list>
-        </mat-sidenav>
-        <mat-sidenav-content>
-            <router-outlet>
-                <div class="container mat-body-1">
-                    Account Component
-                </div>
-            </router-outlet>
-        </mat-sidenav-content>
-    </mat-sidenav-container> -->
+      
 			<!-- newsletter_section - start
 			================================================== -->
 			<section class="newsletter_section ecommerce_newsletter sec_ptb_100 clearfix">
 				<div class="container">
 					<div class="form_wrap text-center">
 						<form [formGroup]="newsLetterFormGroup"  >
-							<h2>Start of Summer Up to 35% off on all items</h2>
+							<h2>Join Our Newsletter & Get 5% On Your First Order</h2>
 							<div class="form_item">
 								<input type="email" formControlName="email" placeholder="Your email address">
 								<button type="submit" class="bg_black_subscribe d-flex align-items-center" (click)="subscribeNews(newsLetterFormGroup.value)" > <div *ngIf="isProcessing" class="spinner-border text-light me-2" role="status">
@@ -489,7 +327,7 @@
 								  </div>Subcribe</button>
 							</div>
 							<p class="mb-0">
-								Sign up to our Newsletter and get the discount code
+								Earn Loyalty Points Whenever You Place An Order
 							</p>
 						</form>
 					</div>
@@ -508,18 +346,7 @@
 							<li *ngFor="let category of pGroups"><a (click)="filterCategory(category.name,target)" (click)="filterByCategory(category.name,target)">{{category.name}}</a></li>
 
 						</ul>
-						<!-- <ul class="ul_li_block clearfix">
-							<li><a href="#!"><span><i class="fab fa-black-tie"></i></span>Andy</a></li>
-							<li><a href="#!"><span><i class="fal fa-tshirt"></i></span>Ariadne’s Thread</a></li>
-							<li><a href="#!"><span><i class="fal fa-watch"></i></span>Black Swan</a></li>
-							<li><a href="#!"><span><i class="fal fa-compact-disc"></i></span>Disco</a></li>
-							<li><a href="#!"><span><i class="fas fa-gem"></i></span>Discovering Greece</a></li>
-							<li><a href="#!"><span><i class="fal fa-bicycle"></i></span>Folding the News</a></li>
-							<li><a href="#!"><span><i class="far fa-laptop"></i></span>George C.</a></li>
-							<li><a href="#!"><span><i class="fas fa-mobile-alt"></i></span>Helen of Troy</a></li>
-							<li><a href="#!"><span><i class="fab fa-black-tie"></i></span>Hi-Tech</a></li>
-							<li><a href="#!"><span><i class="fab fa-black-tie"></i></span>Yokoso</a></li>
-						</ul> -->
+						
 					</div>
 
 					<div class="fs_widget fs_price_list">
