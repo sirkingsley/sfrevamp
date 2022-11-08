@@ -7628,7 +7628,7 @@ button {
   line-height: 3rem;
 }
 .home-right{
-  background-image: url(../../assets/images/reg_bg_02.png);
+  background-image: url(../../assets/images/ghana-rice.png);
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -7651,7 +7651,7 @@ button {
   }
 
   .home-left{
-    background-image: url(../../assets/images/reg_bg_02.png);
+    background-image: url(../../assets/images/ghana-rice.png);
     background-size: cover;
     background-repeat: no-repeat;
     width: 100% !important;
@@ -32708,7 +32708,8 @@ button {
 	overflow: hidden;
 	position: relative;
 	>img {
-		width: 100%;
+		width: 90%;
+   height: 390px;
 		display: block;
 		transition: $default_transition;
 	}
@@ -32734,6 +32735,7 @@ button {
 	.item_title {
 		font-size: 48px;
 		font-weight: 600;
+    line-height: 1 !important;
 	}
 }
 
@@ -41385,6 +41387,7 @@ button {
 		font-size: 30px;
 		font-weight: 600;
 		margin-bottom: 40px;
+    line-height: 1.4;
 	}
 	.form_item {
 		input {
@@ -41407,6 +41410,8 @@ button {
 	}
 	p {
 		font-size: 22px;
+    line-height: 1.5;
+
 	}
 }
 /* newsletter section - end */
@@ -56805,7 +56810,20 @@ blockquote {
 /* ====================================================================================================
 6 - media screen and (max-width: 680px) - end
 ==================================================================================================== */
+@media screen and (max-width: 900px) {
 
+	/* global - start */
+  .offer_fullimage {
+		display: flex;
+		height: 300px;
+		img {
+			object-fit: cover;
+      width: 100%;
+      height: auto !important;
+		}
+	}
+
+	}
 
 /* ====================================================================================================
 7 - media screen and (max-width: 575px) - start
@@ -56942,6 +56960,7 @@ blockquote {
 		height: 300px;
 		img {
 			object-fit: cover;
+      width: 100%;
 		}
 	}
 	.ce_offer_fullimage .item_title {
