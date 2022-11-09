@@ -6126,6 +6126,7 @@ button {
 ==================================================================================================== */
 /* offer section - start */
 .offer_fullimage {
+  cursor: pointer;
   overflow: hidden;
   position: relative;
 }
@@ -7682,6 +7683,7 @@ button {
   height: 300px;
   display: block;
   transition: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  cursor: pointer;
 }
 .ecommerce_category_fullimage:hover > img {
   transform: scale(1.05);
@@ -32705,6 +32707,7 @@ button {
 
 /* offer section - start */
 .offer_fullimage {
+
 	overflow: hidden;
 	position: relative;
 	>img {
@@ -32712,6 +32715,7 @@ button {
    height: 390px;
 		display: block;
 		transition: $default_transition;
+    cursor: pointer !important;
 	}
 	&:hover {
 		>img {
@@ -59562,7 +59566,7 @@ footer a{
 
 .example-radio-group {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin-bottom: 15px;
   margin-top: 0;
   align-items: flex-start;
@@ -59942,4 +59946,9 @@ footer a{
 }
 .footer-mobile{
   display: none;
+}
+
+.view-order-details{
+  cursor: pointer !important;
+  color: $secondary-color;
 }

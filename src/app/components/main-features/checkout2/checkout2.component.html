@@ -163,6 +163,7 @@
               <label id="example-radio-group-label"></label>
               <mat-radio-group formControlName="delivery_method" aria-labelledby="example-radio-group-label"
                 class="example-radio-group" [(ngModel)]="selectedDelivery">
+               
                 <mat-radio-button class="example-radio-button" [value]="deliveryOptions?.DHL_DELIVERY" *ngIf="
                   currency !== currencies.GHS &&
                   currency !== currencies.NGN &&
@@ -170,38 +171,69 @@
                   currency !== null &&
                   currency !== ''
                 ">
-                  DHL DELIVERY
+                <div class="devlivery-info">
+                  <img src="assets/images/dhl-logo.png" alt="Momo"> 
+                 <p>DHL DELIVERY</p> 
+                </div>
+               
+
                 </mat-radio-button>
+
                 <mat-radio-button class="example-radio-button" [value]="deliveryOptions?.GH_BIKE_DELIVERY"
                   *ngIf="currency == currencies.GHS">
-                  GH BIKE DELIVERY
+                  <div class="devlivery-info">
+                  <img src="assets/images/gh_bike.svg" alt="Momo"> 
+                    <p>GH BIKE DELIVERY</p>
+                  </div>
                 </mat-radio-button>
+
                 <mat-radio-button class="example-radio-button" [value]="deliveryOptions?.NG_BIKE_DELIVERY"
                   *ngIf="currency == currencies.NGN">
-                  NG BIKE DELIVERY
+                  <div class="devlivery-info">
+                  <img src="assets/images/dhl-logo.png" alt="Momo"> 
+                 <p>NG BIKE DELIVERY</p>
+                  </div>
                 </mat-radio-button>
+
                 <mat-radio-button class="example-radio-button" [value]="deliveryOptions?.BOLT_DELIVERY" *ngIf="
                   currency == currencies.GHS ||
                   currency == currencies.NGN ||
                   currency == currencies.USD
                 ">
-                  BOLT DELIVERY
+                <div class="devlivery-info">
+                <img src="assets/images/bolt-logo.png" alt="Momo"> 
+                  <p>BOLT DELIVERY</p>
+                </div>
                 </mat-radio-button>
+
                 <mat-radio-button class="example-radio-button" [value]="deliveryOptions?.UBER_DELIVERY"
                   *ngIf="currency == currencies.GHS || currency == currencies.USD">
-                  UBER DELIVERY
+                  <div class="devlivery-info">
+                  <img src="assets/images/uber.png" alt="Momo"> 
+                  <p>UBER DELIVERY</p>
+                  </div>
                 </mat-radio-button>
+
                 <mat-radio-button class="example-radio-button" [value]="deliveryOptions?.PICKUP" *ngIf="
                   currency === currencies.GHS ||
                   currency === currencies.NGN ||
                   currency == currencies.USD
                 ">
-                  PICKUP
+                <div class="devlivery-info">
+                <img src="assets/images/pickup.svg" alt="Momo"> 
+                  <p>PICKUP</p>
+                </div>
                 </mat-radio-button>
+
                 <mat-radio-button *ngIf="fathersDay===true" class="example-radio-button"
                   [value]="deliveryOptions?.GIFT">
-                  FATHER'S DAY GIFT
+
+                  <div class="devlivery-info">
+                  <!-- <img src="assets/images/dhl-logo.png" alt="Momo">  -->
+                 <p>FATHER'S DAY GIFT</p>
+                  </div>
                 </mat-radio-button>
+
               </mat-radio-group>
             </div>
             <!-- <div>Your Selected option is: {{selectedDelivery}} </div> -->
@@ -270,11 +302,11 @@
           <h3 class="form_title mb_30">Your order</h3>
           <app-empty-record *ngIf="cartItems?.length <= 0 && !isProcessing"></app-empty-record>
           <div class="form_wrap">
-            <div class="checkout_table" *ngIf="cartItems.length > 0">
-              <table class="table text-center mb_50">
-                <thead class="text-uppercase text-uppercase">
+            <div *ngIf="cartItems.length > 0">
+              <table class="table table-striped">
+                <thead >
                   <tr>
-                    <th>Product Name</th>
+                    <th>Item(s)</th>
                     <th>Price</th>
                     <th>Quantity</th>
                     <th>Total</th>
@@ -284,12 +316,12 @@
                   <tr *ngFor="let item of cartItems; let i = index">
                     <td>
                       <div class="cart_product">
-                        <div class="item_image">
+                        <!-- <div class="item_image">
                           <img src="{{ item.item.image }}" onerror="this.src='../../assets/images/ghana-rice.png'"
                             alt="image_not_found" />
-                        </div>
+                        </div> -->
                         <div class="item_content">
-                          <h4 class="item_title mb-0">{{ item.item.name }}</h4>
+                          <p class="item_title mb-0">{{ item.item.name }}</p>
                         </div>
                       </div>
                     </td>
@@ -323,29 +355,26 @@
 
                   <tr>
                     <td>
-                      <span class="subtotal_text">Delivery Fee</span>
+                      <span> <strong>{{ selectedDelivery }}</strong></span>
                     </td>
+                   <td></td>
+                   <td></td>
                     <td>
-                      <span class="subtotal_text">{{ selectedDelivery }}</span>
+                      <span class="subtotal_text"> <strong>{{ currency }}
+                        {{ serviceCharge | number: "1.2-2" }}</strong> </span>
                     </td>
-                    <td>
-                      <!-- <span class="subtotal_text">Delivery Option</span> -->
-                    </td>
-                    <td>
-                      <span class="subtotal_text">{{ currency }}
-                        {{ serviceCharge | number: "1.2-2" }}</span>
-                    </td>
+                    
                   </tr>
 
                   <tr>
                     <td class="text-left">
-                      <span class="subtotal_text">TOTAL</span>
+                      <span> <strong>TOTAL</strong> </span>
                     </td>
                     <td></td>
                     <td></td>
                     <td>
-                      <span class="total_price">{{ currency }}
-                        {{ subTotal - discountAmount | number: "1.2-2" }}</span>
+                      <span class="total_price"> <strong>{{ currency }}
+                        {{ subTotal - discountAmount | number: "1.2-2" }}</strong> </span>
                     </td>
                   </tr>
                 </tbody>
@@ -368,31 +397,45 @@
 
               <div class="billing_payment_mathod">
                 <div class="container">
+
                   <label id="example-radio-group-label">Pick your Payment Option</label>
+
                   <mat-radio-group formControlName="payment_method" aria-labelledby="example-radio-group-label"
                     class="example-radio-group">
+                    
+                    <mat-radio-button class="example-radio-button" [value]="'CARD'"
+                    (click)="selectPaymentMethod('CARD', '', '')">
+                    <img src="assets/images/logo-visa-mastercard.png" alt="Card"> 
+                   <!-- <p>CARD PAYMENT</p>  -->
+                  </mat-radio-button>
+
                     <mat-radio-button class="example-radio-button" [value]="'MOMO'"
                       (click)="selectPaymentMethod('MOMO', 'MTN', 'MTN MOMO')">
-                      MTN MOMO
+                      <img src="assets/images/ic_mtn_money.png" alt="Momo"> 
+                      <!-- <p>MTN MOMO</p> -->
+                      
                     </mat-radio-button>
+
                     <mat-radio-button class="example-radio-button" [value]="'MOMO'" (click)="
                         selectPaymentMethod('MOMO', 'VODAF', 'VODAFONE CASH')
                       ">
-                      VODAFONE CASH
-
+                      <img src="assets/images/ic_vodafone_cash.png" alt="Vodafone"> 
+                     <!-- <p>VODAFONE CASH</p>  -->
                     </mat-radio-button>
+
                     <mat-radio-button class="example-radio-button" [value]="'ATG'" (click)="
                         selectPaymentMethod('MOMO', 'AIR', 'AIRTELTIGO CASH')
                       ">
-                      AIRTELTIGO CASH
+                      <img src="assets/images/atigo.png" alt="atigo"> 
+                      <!-- <p>AIRTELTIGO CASH</p>  -->
                     </mat-radio-button>
-                    <mat-radio-button class="example-radio-button" [value]="'CARD'"
-                      (click)="selectPaymentMethod('CARD', '', '')">
-                      CARD PAYMENT
-                    </mat-radio-button>
+
+                  
+
                   </mat-radio-group>
                 </div>
 
+                <div class="payment-instructions-wrapper">
                 <p class="mt-2" *ngIf="paymentMethod === 'MOMO'">
                   Plese provide MoMo Number and click <b>COMPLETE ORDER</b>
                   <span *ngIf="subdomain">
@@ -412,6 +455,8 @@
                     ">
                     <input type="text" placeholder="Voucher Code" numberOnly formControlName="payment_voucher_code" />
                   </div>
+
+                </div>
                 </div>
                 <!-- <button
                   type="submit"

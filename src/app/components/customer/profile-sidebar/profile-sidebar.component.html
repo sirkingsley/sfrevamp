@@ -44,7 +44,7 @@
                 <td>{{order.date_placed | date:'dd/MM/yyyy'}}</td>
                 <td>{{order.status}}</td>
                 <td>{{order.gross_total}}</td>
-                <td > <span class="btn" [routerLink]="['/profile-view/orders/details',order.id]"><mat-icon>remove_red_eye</mat-icon></span></td>
+                <td > <span class="view-order-details" [routerLink]="['/profile-view/orders/details',order.id]"><mat-icon>remove_red_eye</mat-icon></span></td>
               </tr>
               <!-- <tr>
                 <th scope="row">131426262</th>
@@ -109,7 +109,7 @@
               </div>
               <div class="mb-3">
             
-              <button class="btn btn-dark">Edit Profile  <span class="material-icons">mode_edit</span></button>
+              <!-- <button class="btn btn-dark">Edit Profile  <span class="material-icons">mode_edit</span></button> -->
               <!-- <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
               <div class="col-sm-10">
                 <input type="password" readonly  class="form-control" id="inputPassword" value="1234567">
@@ -161,7 +161,7 @@
   <div class="grid-box aside">
     <div class="profile-header ">
       <div class="profile-img-wrappar">
-
+        
       </div>
       <div class="change-pic mt-2">
         <label for="profile-pic">
