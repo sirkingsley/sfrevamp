@@ -164,6 +164,17 @@
               <mat-radio-group formControlName="delivery_method" aria-labelledby="example-radio-group-label"
                 class="example-radio-group" [(ngModel)]="selectedDelivery">
                
+                <mat-radio-button class="example-radio-button" [value]="deliveryOptions?.PICKUP" *ngIf="
+                  currency === currencies.GHS ||
+                  currency === currencies.NGN ||
+                  currency == currencies.USD
+                ">
+                <div class="devlivery-info">
+                <img src="assets/images/pickup.svg" alt="pickup"> 
+                  <p>PICKUP</p>
+                </div>
+                </mat-radio-button>
+                
                 <mat-radio-button class="example-radio-button" [value]="deliveryOptions?.DHL_DELIVERY" *ngIf="
                   currency !== currencies.GHS &&
                   currency !== currencies.NGN &&
@@ -209,20 +220,9 @@
                 <mat-radio-button class="example-radio-button" [value]="deliveryOptions?.UBER_DELIVERY"
                   *ngIf="currency == currencies.GHS || currency == currencies.USD">
                   <div class="devlivery-info">
-                  <img src="assets/images/uber.png" alt="Momo"> 
+                  <img src="assets/images/uber.png" alt="uber"> 
                   <p>UBER DELIVERY</p>
                   </div>
-                </mat-radio-button>
-
-                <mat-radio-button class="example-radio-button" [value]="deliveryOptions?.PICKUP" *ngIf="
-                  currency === currencies.GHS ||
-                  currency === currencies.NGN ||
-                  currency == currencies.USD
-                ">
-                <div class="devlivery-info">
-                <img src="assets/images/pickup.svg" alt="Momo"> 
-                  <p>PICKUP</p>
-                </div>
                 </mat-radio-button>
 
                 <mat-radio-button *ngIf="fathersDay===true" class="example-radio-button"
@@ -309,7 +309,7 @@
                     <th>Item(s)</th>
                     <th>Price</th>
                     <th>Quantity</th>
-                    <th>Total</th>
+                    <th>Total({{ currency }})</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -332,7 +332,7 @@
                           item?.country === '' ||
                           item?.country === undefined
                         ">
-                        {{ item?.item?.currency }}
+                        <!-- {{ item?.item?.currency }} -->
                         {{ item?.item?.selling_price | number: "1.2-2" }}
                       </span>
                       <span class="price_text" *ngIf="
@@ -348,8 +348,8 @@
                       <span class="quantity_text">{{ item?.quantity }}</span>
                     </td>
                     <td>
-                      <span class="total_price">{{ item?.item?.currency }}
-                        {{ item?.total_amount | number: "1.2-2" }}</span>
+                     
+                       <span> {{ item?.total_amount | number: "1.2-2" }}</span>
                     </td>
                   </tr>
 
@@ -360,7 +360,7 @@
                    <td></td>
                    <td></td>
                     <td>
-                      <span class="subtotal_text"> <strong>{{ currency }}
+                      <span class="subtotal_text"> <strong>
                         {{ serviceCharge | number: "1.2-2" }}</strong> </span>
                     </td>
                     
@@ -373,7 +373,7 @@
                     <td></td>
                     <td></td>
                     <td>
-                      <span class="total_price"> <strong>{{ currency }}
+                      <span class="total_price"> <strong>
                         {{ subTotal - discountAmount | number: "1.2-2" }}</strong> </span>
                     </td>
                   </tr>

@@ -59952,3 +59952,8 @@ footer a{
   cursor: pointer !important;
   color: $secondary-color;
 }
+
+.mat-radio-label{
+  display: flex !important;
+  justify-content: space-around !important;
+}

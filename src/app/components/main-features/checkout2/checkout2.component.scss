@@ -1,6 +1,7 @@
 .billing_form{
     padding-bottom: 30px !important;
 }
+
 .example-radio-group {
     display: flex;
     flex-direction: row;
@@ -9,25 +10,31 @@
     padding-top: 20px;
     margin-top: 0;
     align-items: flex-start;
-    justify-content: space-around;
+    justify-content: space-between;
     font-size: 12px !important;
+    
 
     img{
-        width: 100px;
-        height: 80px;
+        width: 60px;
+        height: 40px;
+        
     }
 
   }
+
+
   
   .example-radio-button {
+    
     margin: 5px;
     border: 1px solid rgba($color: #0071bc, $alpha: .3);
-    display: flex !important;
-    align-items: center;
-    justify-content: space-between;
     padding: 10px;
+    width: 20%;
+    display: flex;
+    justify-content: space-around;
 
         .devlivery-info{
+            justify-self: end;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -68,6 +75,7 @@
       
       .example-radio-button {
         margin: 5px;
+       width: 45%;
 
       }
   }
@@ -87,6 +95,5 @@
     
   }
 
-  table td{
-    //font-size: 9px !important;
-  }
+  
+ 
