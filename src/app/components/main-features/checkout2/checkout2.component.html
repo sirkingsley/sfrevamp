@@ -49,107 +49,7 @@
             <button (click)="openD()" >Open Dialog</button>
           </div> -->
 
-      <div class="row">
-        <!-- <div class="col-lg-6" *ngIf="!isLoggedIn">
-          <div class="checkout_collapse_content">
-            <mat-accordion>
-              <mat-expansion-panel hideToggle class="py-3">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <div class="wrap_heade">
-                      <p class="mb-0">
-                        Returning customer/Guest?
-                        <a class="collapsed" role="button">Login Here</a>
-                      </p>
-                    </div>
-                  </mat-panel-title>
-              
-                </mat-expansion-panel-header>
-                <div id="" class="collapse_form_wrap">
-                  <div class="card-body">
-                    <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup?.value)">
-                      <div class="row">
-                        <div class="col-lg-6" *ngIf="isGuest">
-                          <div class="form_item">
-                            <input type="text" placeholder="Full name" formControlName="customer_name" />
-                          </div>
-                        </div>
-                        <div class="col-lg-6" *ngIf="isGuest">
-                          <div class="form_item">
-                            <input type="email" placeholder="Email" formControlName="email" />
-                          </div>
-                        </div>
-                        <div class="col-lg-6">
-                          <div class="form_item" >
-                            <div style="display: flex ; flex-direction:column;" >
-                              <lac-mat-country-selector matPrefix [selectorFor]="input1"
-                              [preferredCountries]="['gh', 'ng']" class="lact-mat-selector">
-                            </lac-mat-country-selector>
-                            <lac-mat-tel-input #input1 formControlName="phone_number"></lac-mat-tel-input> <br>
-                            </div>  
-                           
-                          </div>
-                        </div>
-                        <div class="col-lg-6" *ngIf="!isGuest">
-                          <div class="form_item">
-                            <input type="password" placeholder="Password" formControlName="password" />
-                          </div>
-                        </div>
-                      </div>
-                      <mat-progress-bar *ngIf="isProcessing" class="mb-3" mode="indeterminate"></mat-progress-bar>
-                      <div class="login_button">
-                        <div class="checkbox_item">
-                          <label for="remember_checkbox"><input type="checkbox" />Show password</label>
-                        </div>
-
-                        <button [disabled]="formGroup?.invalid || isProcessing" type="submit"
-                          class="custom_btn bg_default_red">
-                          Login Now
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </mat-expansion-panel>
-            </mat-accordion>
-          </div>
-        </div> -->
-
-        <div class="col-lg-6">
-          <div class="checkout_collapse_content">
-            <mat-accordion>
-              <mat-expansion-panel hideToggle class="py-3">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <div class="wrap_heade">
-                      <p class="mb-0">
-                        <i class="ti-info-alt"></i>
-                        Have a coupon?
-                        <a class="collapsed">Enter your code here</a>
-                      </p>
-                    </div>
-                  </mat-panel-title>
-                  <!-- <mat-panel-description>
-                        This is a summary of the content
-                      </mat-panel-description> -->
-                </mat-expansion-panel-header>
-                <div id="coupon_collapse" class="collapse_form_wrap">
-                  <div class="card-body">
-                    <form [formGroup]="promoCodeFormGroup" (ngSubmit)="applyCoupon()">
-                      <div class="form_item">
-                        <input type="text" name="coupon" placeholder="Coupon Code" formControlName="promoCode" />
-                      </div>
-                      <button type="submit" class="custom_btn bg_default_red">
-                        Apply coupon
-                      </button>
-                    </form>
-                  </div>
-                </div>
-              </mat-expansion-panel>
-            </mat-accordion>
-          </div>
-        </div>
-      </div>
+    
 
       <!-- Mat Stepper -->
 
@@ -391,7 +291,109 @@
         </mat-step>
 
         <mat-step>
+
           <ng-template matStepLabel>Payment</ng-template>
+          <div class="row">
+            <!-- <div class="col-lg-6" *ngIf="!isLoggedIn">
+              <div class="checkout_collapse_content">
+                <mat-accordion>
+                  <mat-expansion-panel hideToggle class="py-3">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <div class="wrap_heade">
+                          <p class="mb-0">
+                            Returning customer/Guest?
+                            <a class="collapsed" role="button">Login Here</a>
+                          </p>
+                        </div>
+                      </mat-panel-title>
+                  
+                    </mat-expansion-panel-header>
+                    <div id="" class="collapse_form_wrap">
+                      <div class="card-body">
+                        <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup?.value)">
+                          <div class="row">
+                            <div class="col-lg-6" *ngIf="isGuest">
+                              <div class="form_item">
+                                <input type="text" placeholder="Full name" formControlName="customer_name" />
+                              </div>
+                            </div>
+                            <div class="col-lg-6" *ngIf="isGuest">
+                              <div class="form_item">
+                                <input type="email" placeholder="Email" formControlName="email" />
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="form_item" >
+                                <div style="display: flex ; flex-direction:column;" >
+                                  <lac-mat-country-selector matPrefix [selectorFor]="input1"
+                                  [preferredCountries]="['gh', 'ng']" class="lact-mat-selector">
+                                </lac-mat-country-selector>
+                                <lac-mat-tel-input #input1 formControlName="phone_number"></lac-mat-tel-input> <br>
+                                </div>  
+                               
+                              </div>
+                            </div>
+                            <div class="col-lg-6" *ngIf="!isGuest">
+                              <div class="form_item">
+                                <input type="password" placeholder="Password" formControlName="password" />
+                              </div>
+                            </div>
+                          </div>
+                          <mat-progress-bar *ngIf="isProcessing" class="mb-3" mode="indeterminate"></mat-progress-bar>
+                          <div class="login_button">
+                            <div class="checkbox_item">
+                              <label for="remember_checkbox"><input type="checkbox" />Show password</label>
+                            </div>
+    
+                            <button [disabled]="formGroup?.invalid || isProcessing" type="submit"
+                              class="custom_btn bg_default_red">
+                              Login Now
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </div> -->
+    
+            <div class="col-lg-6">
+              <div class="checkout_collapse_content">
+                <mat-accordion>
+                  <mat-expansion-panel hideToggle class="py-3">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <div class="wrap_heade">
+                          <p class="mb-0">
+                            <i class="ti-info-alt"></i>
+                            Have a coupon?
+                            <a class="collapsed">Enter your code here</a>
+                          </p>
+                        </div>
+                      </mat-panel-title>
+                      <!-- <mat-panel-description>
+                            This is a summary of the content
+                          </mat-panel-description> -->
+                    </mat-expansion-panel-header>
+                    <div id="coupon_collapse" class="collapse_form_wrap">
+                      <div class="card-body">
+                        <form [formGroup]="promoCodeFormGroup" (ngSubmit)="applyCoupon()">
+                          <div class="form_item">
+                            <input type="text" name="coupon" placeholder="Coupon Code" formControlName="promoCode" />
+                          </div>
+                          <button type="submit" class="custom_btn bg_default_red">
+                            Apply coupon
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </div>
+          </div>
           <form [formGroup]="paymentFormGroup" (ngSubmit)="placeOrder(paymentFormGroup?.value)">
             <div class="billing_form">
 
