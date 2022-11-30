@@ -190,7 +190,7 @@ import { OrderDetailsMobileComponent } from './components/customer/order-details
     { provide: ErrorHandler, useClass: SentryErrorHandlerService },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     WINDOW_PROVIDERS,
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue:{hasBackdrop: false}},
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue:{hasBackdrop: true}},
     {
       provide: STEPPER_GLOBAL_OPTIONS,
       useValue: {displayDefaultIndicatorType: false},

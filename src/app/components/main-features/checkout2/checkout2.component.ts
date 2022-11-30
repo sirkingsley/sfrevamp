@@ -30,6 +30,7 @@ import { NoopScrollStrategy } from '@angular/cdk/overlay';
 
 import AOS from 'aos';
 import { LoginMainComponent } from '../../commons/login-main/login-main.component';
+import { DataProviderService } from 'src/app/services/data-provider.service';
 
 //import Jquery
 //import * as $ from 'jquery';
@@ -109,7 +110,7 @@ export class Checkout2Component implements OnInit {
   shopHasActivePromo = false;
   cediEquivalent = 0;
   delviveryChargeUSDEquivalent = 0;
-  exchangeRate = 0;
+  exchangeRate = 1;
   featuredShops = [];
   industries = [];
   isProcessingFeaturedShops: boolean;
@@ -125,7 +126,7 @@ export class Checkout2Component implements OnInit {
   rate: number = 0;
   constructor(
 
-
+    private dataproviderService: DataProviderService,
     private formBuilder: FormBuilder,
     private sharedDataApiCallsService: SharedDataApiCallsService,
     // private mapsAPILoader: MapsAPILoader,
@@ -174,7 +175,7 @@ export class Checkout2Component implements OnInit {
   loader = true;
 
   async ngOnInit(): Promise<void> {
-
+    this.getCountry();
 
     //this.getActivePromo("gtpstore");
     AOS.init();
@@ -573,7 +574,7 @@ export class Checkout2Component implements OnInit {
         this.serviceCharge = +serviceCharge.toFixed(2);
         this.transactionFee = +transactionFee.toFixed(2);
         this.grandTotal = +this.subTotal + this.deliveryChargeAmount + this.serviceCharge + this.transactionFee;
-        //console.log("this.delieryCharge"+JSON.stringify(this.delieryCharge,null,2));
+        console.log("this.delieryCharge"+JSON.stringify(this.delieryCharge,null,2));
         //this.stepper.next();
       }
     });
@@ -1052,6 +1053,25 @@ export class Checkout2Component implements OnInit {
     }
     return 0;
   }
+
+/**
+ * Get the Country User is located
+ */
+  getCountry(){
+    this.isProcessing = true;
+      this.productsApiCalls.getCountryInfo((error, result) => {
+        this.isProcessing = false;
+        if (result !== null) {
+          this.country = result.country;
+          this.currency = (result.currency === CurrencyEnums.GHS || result.currency === CurrencyEnums.NGN) ? result.currency : CurrencyEnums.USD;
+          console.log("result.country=>"+ result.country);
+          console.log("result.currency=>"+ result.currency);
+        }
+      });
+      
+  }
+  
+
   get phone_number() { return this.formGroup.get('phone_number'); }
   get password() { return this.formGroup.get('password'); }
   get customer_name() { return this.formGroup.get('customer_name'); }

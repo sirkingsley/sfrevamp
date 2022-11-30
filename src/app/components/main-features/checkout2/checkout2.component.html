@@ -66,8 +66,7 @@
                
                 <mat-radio-button class="example-radio-button" [value]="deliveryOptions?.PICKUP" *ngIf="
                   currency === currencies.GHS ||
-                  currency === currencies.NGN ||
-                  currency == currencies.USD
+                  currency === currencies.NGN || country == countriesEnum.NG || country == countriesEnum.GH
                 ">
                 <div class="devlivery-info">
                 <img src="assets/images/pickup.svg" alt="pickup"> 
@@ -91,7 +90,7 @@
                 </mat-radio-button>
 
                 <mat-radio-button class="example-radio-button" [value]="deliveryOptions?.GH_BIKE_DELIVERY"
-                  *ngIf="currency == currencies.GHS">
+                  *ngIf="currency == currencies.GHS || country == countriesEnum.GH">
                   <div class="devlivery-info">
                   <img src="assets/images/gh_bike.svg" alt="Momo"> 
                     <p>GH BIKE DELIVERY</p>
@@ -99,7 +98,7 @@
                 </mat-radio-button>
 
                 <mat-radio-button class="example-radio-button" [value]="deliveryOptions?.NG_BIKE_DELIVERY"
-                  *ngIf="currency == currencies.NGN">
+                  *ngIf="currency == currencies.NGN || country == countriesEnum.NG">
                   <div class="devlivery-info">
                   <img src="assets/images/dhl-logo.png" alt="Momo"> 
                  <p>NG BIKE DELIVERY</p>
@@ -109,7 +108,7 @@
                 <mat-radio-button class="example-radio-button" [value]="deliveryOptions?.BOLT_DELIVERY" *ngIf="
                   currency == currencies.GHS ||
                   currency == currencies.NGN ||
-                  currency == currencies.USD
+                    country == countriesEnum.NG || country == countriesEnum.GH
                 ">
                 <div class="devlivery-info">
                 <img src="assets/images/bolt-logo.png" alt="Momo"> 
@@ -118,7 +117,7 @@
                 </mat-radio-button>
 
                 <mat-radio-button class="example-radio-button" [value]="deliveryOptions?.UBER_DELIVERY"
-                  *ngIf="currency == currencies.GHS || currency == currencies.USD">
+                  *ngIf="currency == currencies.GHS || country == countriesEnum.NG || country == countriesEnum.GH">
                   <div class="devlivery-info">
                   <img src="assets/images/uber.png" alt="uber"> 
                   <p>UBER DELIVERY</p>
@@ -249,13 +248,49 @@
                     </td>
                     <td>
                      
-                       <span> {{ item?.total_amount | number: "1.2-2" }}</span>
+                       <span 
+                       *ngIf="
+                          item?.country === countriesEnum?.GH ||
+                          item?.country === item?.countriesEnum?.NG ||
+                          item?.country === '' ||
+                          item?.country === undefined
+                        "> {{ item?.total_amount | number: "1.2-2" }}</span>
+                       <span *ngIf="
+                       item?.country !== countriesEnum?.GH &&
+                       item?.country !== item?.countriesEnum?.NG &&
+                       item?.country !== '' &&
+                       item?.country !== undefined
+                     "> {{ item?.total_amount_usd | number: "1.2-2" }}</span>
                     </td>
                   </tr>
 
                   <tr>
                     <td>
                       <span> <strong>{{ selectedDelivery }}</strong></span>
+                    </td>
+                   <td></td>
+                   <td></td>
+                    <td>
+                      <span class="subtotal_text"> <strong>
+                        {{ deliveryChargeAmount | number: "1.2-2" }}</strong> </span>
+                    </td>
+                    
+                  </tr>
+                  <tr>
+                    <td>
+                      <span> <strong>Transaction Fee</strong></span>
+                    </td>
+                   <td></td>
+                   <td></td>
+                    <td>
+                      <span class="subtotal_text"> <strong>
+                        {{ transactionFee | number: "1.2-2" }}</strong> </span>
+                    </td>
+                    
+                  </tr>
+                  <tr>
+                    <td>
+                      <span> <strong>Service Charge</strong></span>
                     </td>
                    <td></td>
                    <td></td>
@@ -274,7 +309,7 @@
                     <td></td>
                     <td>
                       <span class="total_price"> <strong>
-                        {{ subTotal - discountAmount | number: "1.2-2" }}</strong> </span>
+                        {{grandTotal | number: "1.2-2" }}</strong> </span>
                     </td>
                   </tr>
                 </tbody>

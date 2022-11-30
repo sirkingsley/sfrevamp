@@ -74,7 +74,9 @@
             </form>
           </div>
         </td>
-        <td><span class="total_price"> {{item?.item?.currency}} {{item?.total_amount | number: '1.2-2'}}</span></td>
+        <td><span class="total_price" *ngIf="item?.country === countriesEnum?.GH || item?.country === item?.countriesEnum?.NG || item?.country === '' || item?.country === undefined"> {{item?.item?.currency}} {{item?.total_amount | number: '1.2-2'}}</span>
+          <span class="total_price" *ngIf="item?.country !== countriesEnum?.GH && item?.country !== item?.countriesEnum?.NG && item?.country !== '' && item?.country !== undefined"> {{item?.item?.currency}} {{item?.total_amount_usd | number: '1.2-2'}}</span>
+        </td>
       </tr>
 
 

@@ -222,8 +222,8 @@
 						<li>
 							<span>Total:</span>
 							<span *ngIf="country==='GH'">GHS {{subTotal}}</span>
-              <span *ngIf="country==='NG'">NGN {{subTotal}}</span>
-              <span *ngIf="country===''">$ {{subTotal}}</span>
+              <span *ngIf="country==='NG'">NGN {{subTotal | number: "1.2-2"}}</span>
+              <span *ngIf="country===''">$ {{subTotal | number: "1.2-2"}}</span>
 						</li>
 					</ul>
 

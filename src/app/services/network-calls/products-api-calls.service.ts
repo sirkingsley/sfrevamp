@@ -6,6 +6,7 @@ import { ICallback } from 'src/app/classes/callback-method';
 import { ConstantValuesService } from '../constant-values.service';
 import { DataProviderService } from '../data-provider.service';
 import { NotificationsService } from '../notifications.service';
+import { getCountryCallingCode } from 'libphonenumber-js';
 
 @Injectable({
   providedIn: 'root'
@@ -238,4 +239,18 @@ export class ProductsApiCallsService {
       this.notificationService.error(this.constantValues.APP_NAME, error.detail);
     });
   }
+
+
+
+
+
+  getCountryInfo(callback: ICallback) {
+    this.dataProvider.httpGetNextPage(this.constantValues.GET_COUNTRY_INFO_URL).subscribe(result => {
+      callback(null, result);
+    }, error => {
+      callback(error, null);
+      // this.notificationService.error(this.constantValues.APP_NAME, error.detail);
+    });
+  }
 }
+

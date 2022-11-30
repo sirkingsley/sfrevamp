@@ -214,3 +214,6 @@ export class DataProviderService {
     return this.http.get(this.constantValuesService.GET_CURRENT_LOCATION);
   }
 }
+
+
+
