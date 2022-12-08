@@ -79,58 +79,10 @@ $text_white: #ffff;
     align-items: center;
 }
 
-.form-group .country-selector {
-    width: 100%;
-    display: flex;
-   // align-items: center;
-    justify-content: flex-start;
+
+
+.form-group input{
     position: relative;
-    appearance: none;
-    background: #FFFFFF;
-    box-shadow: 0 1px 4px 0 rgb(34 34 34 / 10%) inset;
-    border-color: rgba(34, 34, 34, 0.15);
-    border-style: solid;
-    border-width: 1px;
-    border-radius: 6px;
-    color: #222222;
-    overflow: visible;
-
-    .mat-input-element {
-        font-size: 16px !important;
-        background: transparent;
-        color: currentColor;
-        border: none;
-        outline: none;
-        padding: 0;
-        margin: 0;
-        width: 100%;
-        max-width: 100%;
-        vertical-align: bottom;
-        text-align: inherit;
-        box-sizing: content-box;
-    }
-    lac-mat-country-selector {
-        //position:absolute;
-        left: 0;
-        margin-right: 0px;
-        font-size: 12px !important;
-    }
-
-    lac-mat-tel-input {
-        appearance: none;
-        background: #FFFFFF;
-        color: #222222;
-        display: block;
-        font-family: inherit;
-        font-size: 12px !important;
-      
-        height: 30px;
-
-    }
-}
-
-
-.form-group input,ngx-intl-tel-input,.ngx-tel-custom {
     appearance: none;
     background: #FFFFFF;
     box-shadow: 0 1px 4px 0 rgb(34 34 34 / 10%) inset;

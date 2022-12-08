@@ -72,7 +72,35 @@
                     </div>
                     
                 </div>
-                <button type="button" class="btn btn-primary mb-5" (click)="openModal(template)">Provide Delivery Address </button>
+                
+                <div class="delivery-address-container">
+                    <h3>Your Delivery Address</h3>
+                    <div class="row" *ngIf="deliveryAddress ===null || deliveryAddress===undefined">
+                        <div class="col-8">
+                          <p>No Delivery Address Provided</p>
+
+                        </div>
+                        <div class="col-4 btn-container">
+                            <button type="button" class="btn btn-primary mb-5" (click)="openModal(template)">Add Address </button>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="deliveryAddress !==null && deliveryAddress !==undefined">
+                        <div class="col-8">
+                           <p>{{deliveryAddress?.country}}</p>
+                           <p>{{deliveryAddress?.state}}</p>
+                           <p>{{deliveryAddress?.city}}</p>
+                           <p>{{deliveryAddress?.address}}</p>
+                           <p>{{deliveryAddress?.postal_code}}</p>
+
+                        </div>
+                        <div class="col-4 btn-container">
+                            <button type="button" class="btn btn-primary mb-5" (click)="openModal(template)">Edit Address </button>
+                        </div>
+                    </div>
+                   
+                </div>
+               
 
                 <ng-template #template>
                     <div class="modal-header">

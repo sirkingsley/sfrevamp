@@ -121,7 +121,8 @@ $text_white: #ffff;
     // }
 //}
 
-.form-group input,ngx-intl-tel-input,.ngx-tel-custom {
+.form-group input{
+    position: relative;
     appearance: none;
     background: #FFFFFF;
     box-shadow: 0 1px 4px 0 rgb(34 34 34 / 10%) inset;
@@ -134,7 +135,7 @@ $text_white: #ffff;
     font-family: inherit;
     font-size: 16px !important;
     line-height: 1;
-    height: 48px;
+    height: 40px;
     outline: 3px solid transparent;
     padding-top: 9px;
     padding-bottom: 9px;

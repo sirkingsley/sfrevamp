@@ -47,6 +47,7 @@ export class CheckoutComponent implements OnInit {
 	phoneForm = new FormGroup({
 		phone: new FormControl(undefined, [Validators.required])
 	});
+  
 
 	changePreferredCountries() {
 		this.preferredCountries = [CountryISO.Ghana, CountryISO.Nigeria];
@@ -60,6 +61,7 @@ export class CheckoutComponent implements OnInit {
   payments: string[] = ['Momo', 'Vodafone', 'AirtelTiGo', 'Card']
   isLinear = false;
 
+  deliveryAddress: any;
   isGiftDelivery = false;
   deliveryOptions = DeliveryOptions;
   deliveryModes = DeliveryModeEnum;
@@ -195,7 +197,7 @@ export class CheckoutComponent implements OnInit {
     }, 1000);
     this.isLoggedIn = this.authService.isLogedIn;
     this.currentUser = this.authService.currentUser;
-
+    this.getDeliveryAddress();
 
     
     //console.log(this.currentUser);
@@ -553,11 +555,16 @@ export class CheckoutComponent implements OnInit {
         this.authService.saveUser(result.results);
         this.getDeliveryCharge(data);
         this.proceed = true;
-        this.notificationsService.success("", "Address confirmed. Scroll down to make payment");
+        this.notificationsService.success("", "Address Saved");
+        localStorage.setItem('delivery_address',JSON.stringify(data));
       }
     });
   }
   
+  getDeliveryAddress(){
+    this.deliveryAddress = JSON.parse(localStorage.getItem('delivery_address'))
+  }
+
   back() {
     this.router.navigate(['/cart'])
   }

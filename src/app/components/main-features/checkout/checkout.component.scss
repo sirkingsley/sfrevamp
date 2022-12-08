@@ -313,24 +313,27 @@ mat-option{
 Address Modal Styling
 */
 
-$primary-color: #0071bc;
-$tertiary-color:#f7931e;
-$accent-color: #f15a24;
-$secondary-color-2:#0071bc;
-$secondary-color: #f7931e;
-$primary-color-progress: #f7931e;;
-$primary-color-light: #f7931e;;
-$active-nav-bg: #ECFAED;
-$small-text-size: .9375rem;
-$stepper-text-color: #E4E4E4;
-$stepper-visited-color: #AC5D19;
-$stepper-active-color: #231F20;
-$transparent-grey: rgba(230, 230, 230, 0.5);
-$small-text-size: .9375rem;
-$bezier: cubic-bezier(.17,.67,.83,.67);
-$bg-color: #F4F5F8;
-$text-grey: #666;
-$text_white:#ffff;
+.delivery-address-container{
+    padding: 10px;
+    padding-bottom: 10px;
+    box-shadow: 0 4px 20px rgb(34 34 34 / 15%);
+    border-radius: 18px !important;
+    list-style: 0.5;
+    margin-bottom: 20px;
+    .btn-container{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+    p{
+        margin: 0 0;
+    }
+
+    button{
+        font-size: 10px;
+        background-color: $primary-color !important;
+    }
+}
 
 
 

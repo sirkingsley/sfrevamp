@@ -45,28 +45,28 @@
 						<div class="form-group mb-2">
 							<p>Phone Number</p>
 							<!-- <input type="text" placeholder="+233542893998" formControlName="phone_number" /> -->
-							<div class="country-selector">
+							
 								<ngx-intl-tel-input
-								[cssClass]="'ngx-tel-custom'"
-								[preferredCountries]="preferredCountries"
-								[enableAutoCountrySelect]="true"
-								[enablePlaceholder]="true"
-								[searchCountryFlag]="true"
-								[searchCountryField]="[
-								  SearchCountryField.Iso2,
-								  SearchCountryField.Name
-								]"
-								[selectFirstCountry]="false"
-								[selectedCountryISO]="CountryISO.Ghana"
-								[maxLength]="15"
-								[phoneValidation]="true"
-								[separateDialCode]="separateDialCode"
-								[numberFormat]="PhoneNumberFormat.National"
-								name="phone_number"
-								formControlName="phone_number"
+									[cssClass]="'ngx-tel-custom'"
+									[preferredCountries]="preferredCountries"
+									[enableAutoCountrySelect]="true"
+									[enablePlaceholder]="true"
+									[searchCountryFlag]="true"
+									[searchCountryField]="[
+									SearchCountryField.Iso2,
+									SearchCountryField.Name
+									]"
+									[selectFirstCountry]="false"
+									[selectedCountryISO]="CountryISO.Ghana"
+									[maxLength]="15"
+									[phoneValidation]="true"
+									[separateDialCode]="separateDialCode"
+									[numberFormat]="PhoneNumberFormat.National"
+									name="phone_number"
+									formControlName="phone_number"
 							  >
 							  </ngx-intl-tel-input>
-							</div>
+						
 
 							<mat-error *ngIf="email?.invalid && email?.touched">
 								Please enter your Phone Number
