@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Checkout2Component } from './checkout.component';
+import { DeliveryAddressComponent } from './delivery-address.component';
 
-describe('Checkout2Component', () => {
-  let component: Checkout2Component;
-  let fixture: ComponentFixture<Checkout2Component>;
+describe('DeliveryAddressComponent', () => {
+  let component: DeliveryAddressComponent;
+  let fixture: ComponentFixture<DeliveryAddressComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ Checkout2Component ]
+      declarations: [ DeliveryAddressComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(Checkout2Component);
+    fixture = TestBed.createComponent(DeliveryAddressComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

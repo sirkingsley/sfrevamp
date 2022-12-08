@@ -20,6 +20,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { OrderHistoryComponent } from './components/customer/order-history/order-history.component';
 import { AddressComponent } from './components/customer/address/address.component';
 import { ProfileSidebarComponent } from './components/customer/profile-sidebar/profile-sidebar.component';
+import { CheckoutComponent } from './components/main-features/checkout/checkout.component';
+import { DeliveryAddressComponent } from './components/main-features/delivery-address/delivery-address.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'supermarket', pathMatch: 'full' },
@@ -33,6 +35,7 @@ const routes: Routes = [
     ]
   },
   {path: 'profile-view/orders/details/:id', component : OrderDetailsComponent},
+  {path: 'delivery-info', component : DeliveryAddressComponent},
   {path: 'view-product', component : ViewProductComponent},
   {path: 'profile-view', component : ProfileSidebarComponent,
     children: [
@@ -58,10 +61,10 @@ const routes: Routes = [
   {path: 'sign-up', component : SignUpComponent},
   {path: 'login', component : LoginComponent},
   {path: 'shop-details', component : ShopDetailsComponent},
-  {
-    path: 'checkout2',
-    component : Checkout2Component,
-  },
+  {path: 'checkout', component : CheckoutComponent},
+ 
+  
+  {path: 'checkout2',component : Checkout2Component},
   {path: 'checkout3', component : Checkout3Component},
   {path: 'cart', component : CartComponent},
 

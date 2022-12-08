@@ -3035,7 +3035,7 @@ button {
 }
 .classic_ecommerce_header .header_bottom {
   display: flex;
-  min-height: 100px;
+  min-height: 60px !important;
   align-items: center;
 }
 .classic_ecommerce_header.stuck .header_bottom {
@@ -15852,7 +15852,7 @@ button {
   //display: block;
 }
 .mat-dialog-container{
-  height: auto !important;
+  height: fit-content !important;
 }
 .quickview_modal .item_content {
   padding: 35px;
@@ -59544,25 +59544,25 @@ footer a{
 }
 
 /* Works on Firefox */
-* {
-  scrollbar-width: 10px;
-  //scrollbar-color: blue orange;
-}
+// * {
+//   scrollbar-width: 10px;
+//   //scrollbar-color: blue orange;
+// }
 
 /* Works on Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
-  width: 10px;
-}
+// *::-webkit-scrollbar {
+//   width: 10px;
+// }
 
 // *::-webkit-scrollbar-track {
 //   background: orange;
 // }
 
-*::-webkit-scrollbar-thumb {
-  background-color: $primary-color;
-  border-radius: 20px;
-  border: 3px solid $text_white;
-}
+// *::-webkit-scrollbar-thumb {
+//   background-color: $primary-color;
+//   border-radius: 20px;
+//   border: 3px solid $text_white;
+// }
 
 .example-radio-group {
   display: flex;
@@ -59630,17 +59630,17 @@ footer a{
     .form-button {
       text-align: center; }
   }
-  .register-form .form-group input, select {
-    width: 100%;
-    display: block;
-    height: 45px;
-    font-family: "Open Sans",sans-serif !important;
-    border: none;
-    font-size: 1.5rem;
-    border-bottom: 1px solid #999;
-    padding: 0px 30px;
-    box-sizing: border-box;
-    }
+  // .register-form .form-group input, select {
+  //   width: 100%;
+  //   display: block;
+  //   height: 45px;
+  //   font-family: "Open Sans",sans-serif !important;
+  //   border: none;
+  //   font-size: 1.5rem;
+  //   border-bottom: 1px solid #999;
+  //   padding: 0px 30px;
+  //   box-sizing: border-box;
+  //   }
 .register-form .form-group label {
         position: absolute;
         left: 0;
@@ -59695,7 +59695,7 @@ footer a{
   //border-radius: 5px;
   &:hover{
    //opacity: 1;
-   background: 	#0006b1;
+   background: 	#3675b3;
   }
 }
 
@@ -59957,3 +59957,17 @@ footer a{
   display: flex !important;
   justify-content: space-around !important;
 }
+
+.country-codes-list-button {
+    border-bottom: unset;
+    height: 44px;
+    padding-top: 16px;
+    min-width: 48px;
+  }
+  .country-codes-list {
+    padding-left: unset !important;
+  }
+  .country-codes-list .flag {
+    width: 25px;
+    margin-right: 0.6rem;
+  }

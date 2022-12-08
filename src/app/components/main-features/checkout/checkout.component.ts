@@ -1,52 +1,58 @@
-
-import { Component, ElementRef, Inject, Input, NgZone, OnInit, ViewChild } from '@angular/core';
-import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { NoopScrollStrategy } from '@angular/cdk/overlay';
+import { Component, ElementRef, Input, NgZone, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
 import { Title } from '@angular/platform-browser';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-
-import { ConfirmOrderPaymentDialogComponent } from '../../commons/confirm-order-payment-dialog/confirm-order-payment-dialog.component';
+import { Router, ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/modules/user';
 import { AppUtilsService } from 'src/app/services/app-utils.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConstantValuesService } from 'src/app/services/constant-values.service';
+import { DataProviderService } from 'src/app/services/data-provider.service';
 import { DbaseUpdateService } from 'src/app/services/dbase-update.service';
 import { GetHostnameService } from 'src/app/services/get-hostname.service';
+import { LoginUpdateService } from 'src/app/services/login-update.service';
+import { CustomersApiCallsService } from 'src/app/services/network-calls/customers-api-calls.service';
 import { OrderApiCallsService } from 'src/app/services/network-calls/order-api-calls.service';
 import { ProductsApiCallsService } from 'src/app/services/network-calls/products-api-calls.service';
 import { SharedDataApiCallsService } from 'src/app/services/network-calls/shared-data-api-calls.service';
 import { ShopApiCallsService } from 'src/app/services/network-calls/shop-api-calls.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
-import { DeliveryOptions, DeliveryModeEnum, CurrencyEnums, CountryEnum, ResponseCodesEnum, CheckoutSourceEnums, PaymentMethods, PromoCodeRateTypeEnum } from 'src/app/utils/enums';
-import { OrderCompletedDialogComponent } from '../../commons/order-completed-dialog/order-completed-dialog.component';
+import { DeliveryOptions, DeliveryModeEnum, CurrencyEnums, CountryEnum, CheckoutSourceEnums, PaymentMethods, PromoCodeRateTypeEnum, ResponseCodesEnum } from 'src/app/utils/enums';
+import { ConfirmOrderPaymentDialogComponent } from '../../commons/confirm-order-payment-dialog/confirm-order-payment-dialog.component';
 import { ConfirmPhoneNumberComponent } from '../../commons/confirm-phone-number/confirm-phone-number.component';
-import { GuestUserComponent } from '../../commons/guest-user/guest-user.component';
-import { WINDOW } from 'src/app/utils/window.provider';
-import { LoginUpdateService } from 'src/app/services/login-update.service';
-import { CustomersApiCallsService } from 'src/app/services/network-calls/customers-api-calls.service';
-import { NoopScrollStrategy } from '@angular/cdk/overlay';
-
-
-import AOS from 'aos';
 import { LoginMainComponent } from '../../commons/login-main/login-main.component';
-import { DataProviderService } from 'src/app/services/data-provider.service';
+import { OrderCompletedDialogComponent } from '../../commons/order-completed-dialog/order-completed-dialog.component';
+import AOS from 'aos';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 
-//import Jquery
-//import * as $ from 'jquery';
-//JavaScript Functions
 declare const custom: any;
-// declare const main:any;
-// declare const parallaxie: any;
 declare const $;
 @Component({
-  selector: 'app-checkout2',
-  templateUrl: './checkout2.component.html',
-  styleUrls: ['./checkout2.component.scss']
+  selector: 'app-checkout',
+  templateUrl: './checkout.component.html',
+  styleUrls: ['./checkout.component.scss']
 })
 
 
-export class Checkout2Component implements OnInit {
+
+export class CheckoutComponent implements OnInit {
+  separateDialCode = false;
+	SearchCountryField = SearchCountryField;
+	CountryISO = CountryISO;
+  PhoneNumberFormat = PhoneNumberFormat;
+	preferredCountries: CountryISO[] = [CountryISO.Ghana, CountryISO.Nigeria];
+	phoneForm = new FormGroup({
+		phone: new FormControl(undefined, [Validators.required])
+	});
+
+	changePreferredCountries() {
+		this.preferredCountries = [CountryISO.Ghana, CountryISO.Nigeria];
+	}
+  modalRef?: BsModalRef;
+  selected ="";
   panelOpenState = false;
   selectedDelivery: string;
   selectedPayment: string;
@@ -153,12 +159,16 @@ export class Checkout2Component implements OnInit {
     //private dialogRef: MatDialogRef<LoginComponent>,
     private loginUpdate: LoginUpdateService,
     //@Inject(MAT_DIALOG_DATA) public data: any,
-
+    private modalService: BsModalService,
   ) {
 
   }
 
-
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template,{
+      class: 'modal-dialog-centered', 
+    });
+  }
   //  firstFormGroup = this._formBuilder.group({
   //   firstCtrl: ['', Validators.required],
   // });
@@ -185,11 +195,15 @@ export class Checkout2Component implements OnInit {
     }, 1000);
     this.isLoggedIn = this.authService.isLogedIn;
     this.currentUser = this.authService.currentUser;
+
+
+    
     //console.log(this.currentUser);
     // this.window.addEventListener('load',()=>{
     //   this.windowLoaded=true;
     //   //alert("hi");
     // })
+   
     this.getCartItems();
     this.getIndustries()
     this.getFeaturedShops({});
@@ -204,7 +218,8 @@ export class Checkout2Component implements OnInit {
 
     //Check if user is not login and alert user
     if (!this.isLoggedIn) {
-      this.dialog.open(LoginMainComponent, {
+      this.dialog.open(LoginMainComponent,{
+        panelClass: 'custom-dialog-container',
         data: {},
         disableClose: false,
         scrollStrategy: new NoopScrollStrategy(),
@@ -229,6 +244,9 @@ export class Checkout2Component implements OnInit {
       delivery_option: [this.selectedDelivery],
       delivery_mode: [DeliveryModeEnum.INSTANT],
       latitude: [''],
+      postal_code:[''],
+      country:[''],
+      full_name: [''],
       longitude: [''],
       order_items: [[this.order_items]],
       shops: [[]],
@@ -308,8 +326,8 @@ export class Checkout2Component implements OnInit {
       this.getShopInfo();
     }
 
-    console.log("Currency=>"+this.currency);
-    console.log("Country=>"+this.country);
+    // console.log("Currency=>"+this.currency);
+    // console.log("Country=>"+this.country);
   
 
 
@@ -320,8 +338,7 @@ export class Checkout2Component implements OnInit {
     // $('.search_btn').on("click",function(){
     //   $("#search_body_collapse").slideToggle("slow");
     // });
-    this.onload();
-
+    this.onload()
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required],
     });
@@ -330,10 +347,19 @@ export class Checkout2Component implements OnInit {
     });
 
    
-
+ 
   }
 
-
+ /**
+   * Country code selected
+   * @param countryInfo country info
+   */
+  onCountry(countryInfo) {
+    if (countryInfo !== undefined && countryInfo !== null) {
+      this.countryCode = '+' + (countryInfo.callingCodes[0] as string);
+    }
+  }
+  
   getFeaturedShops({ }) {
     this.isProcessingFeaturedShops = true;
     this.shopsApiCalls.getFeaturedShops({}, (error, result) => {
@@ -499,6 +525,20 @@ export class Checkout2Component implements OnInit {
       this.notificationsService.info(this.constantValues.APP_NAME, 'Please login to continue');
       return;
     }
+    // if (!this.authService.isLogedIn) {
+    //   this.dialog.open(GuestUserComponent).afterClosed().subscribe(async (isSuccess: boolean) => {
+    //     if (isSuccess) {
+    //       this.address_ctrl.setValue(this.authService.currentUser.address);
+    //       this.city_ctrl.setValue(this.authService.currentUser.city);
+    //       this.state_ctrl.setValue(this.authService.currentUser.brief);
+    //       await this.getCartItems();
+    //       return;
+    //       // this.getPromoCodeValue('', true);
+    //     }
+    //   });
+    //   return;
+    // }
+    //console.log("updateDeliveryAddress");
     if (this.cartItems.length <= 0) {
 
       this.notificationsService.info(this.constantValues.APP_NAME, 'Please add item to cart to continue');
@@ -517,12 +557,7 @@ export class Checkout2Component implements OnInit {
       }
     });
   }
-  updateDeliveryAddressTest(data) {
-
-    console.log(data);
-
-
-  }
+  
   back() {
     this.router.navigate(['/cart'])
   }
@@ -561,7 +596,7 @@ export class Checkout2Component implements OnInit {
         this.serviceCharge = +serviceCharge.toFixed(2);
         this.transactionFee = +transactionFee.toFixed(2);
         this.grandTotal = +this.subTotal + this.deliveryChargeAmount + this.serviceCharge + this.transactionFee;
-        console.log("this.delieryCharge"+JSON.stringify(this.delieryCharge,null,2));
+        //console.log("this.delieryCharge"+JSON.stringify(this.delieryCharge,null,2));
         //this.stepper.next();
       }
     });
@@ -598,6 +633,7 @@ export class Checkout2Component implements OnInit {
         if (this.cartItems.length > 0) {
           this.currency = this.cartItems[0].item.currency;
           this.country = this.cartItems[0].country;
+          this.cartItems=this.cartItems.sort(this.compare);
           // tslint:disable-next-line: max-line-length
           const deliveryCharge = this.deliveryChargeAmount;
           const serviceCharge = this.serviceCharge;
@@ -614,10 +650,10 @@ export class Checkout2Component implements OnInit {
    */
   placeOrder(data) {
 
-    if (!this.isLoggedIn) {
-      this.notificationsService.info(this.constantValues.APP_NAME, 'Please login to continue');
-      return;
-    }
+    // if (!this.isLoggedIn) {
+    //   this.notificationsService.info(this.constantValues.APP_NAME, 'Please login to continue');
+    //   return;
+    // }
     if (this.selectedDelivery === '' || this.selectedDelivery === undefined || this.selectedDelivery === null) {
       this.notificationsService.info(this.constantValues.APP_NAME, 'Please select delivery option to continue');
       return;
@@ -637,24 +673,24 @@ export class Checkout2Component implements OnInit {
       this.notificationsService.info(this.constantValues.APP_NAME, 'Please select a payment method to continue');
       return;
     }
-    if (this.paymentMethod === PaymentMethods.MOMO && data.sender_wallet_number === '') {
-      this.notificationsService.info(this.constantValues.APP_NAME, 'Please enter MoMo number to continue');
-      return;
-    }
-    if (this.paymentMethod === PaymentMethods.MOMO && data.sender_wallet_number !== '') {
-      //data.delivery_option = this.selectedDelivery;
-      //console.log(JSON.stringify(data,null,2))
-      // this.updateDeliveryAddress(this.addressFormGroup.value);
-      this.validatePhoneNumber(data.sender_wallet_number, data);
-    } else {
-      //console.log(this.addressFormGroup.value);
+    // if (this.paymentMethod === PaymentMethods.MOMO && data.sender_wallet_number === '') {
+    //   this.notificationsService.info(this.constantValues.APP_NAME, 'Please enter MoMo number to continue');
+    //   return;
+    // }
+    // if (this.paymentMethod === PaymentMethods.MOMO && data.sender_wallet_number !== '') {
+    //   //data.delivery_option = this.selectedDelivery;
+    //   //console.log(JSON.stringify(data,null,2))
+    //   // this.updateDeliveryAddress(this.addressFormGroup.value);
+    //   this.validatePhoneNumber(data.sender_wallet_number, data);
+    // }
+     else {
+      //console.log(JSON.stringify(data,null,2));
       // this.updateDeliveryAddress(this.addressFormGroup.value);
       this.processOrder(data);
     }
 
   }
   private processOrder(data: any) {
-
     this.isProcessing = true;
     data.total_amount = this.subTotal;
     // tslint:disable-next-line: max-line-length
@@ -662,6 +698,7 @@ export class Checkout2Component implements OnInit {
     data.service_charge = (this.selectedDelivery !== this.deliveryOptions.PICKUP && this.selectedDelivery !== this.deliveryOptions.GIFT) ? +this.serviceCharge : 0;
     data.transaction_fee = (this.selectedDelivery !== this.deliveryOptions.PICKUP && this.selectedDelivery !== this.deliveryOptions.GIFT) ? +this.transactionFee : 0;
     data.payment_method = this.paymentMethod;
+    data.payment_option = this.paymentMethod;
     data.payment_network = this.paymentNetwork;
     data.browser_token = this.authService.getNotificationToken;
     // tslint:disable-next-line: max-line-length
@@ -681,87 +718,93 @@ export class Checkout2Component implements OnInit {
     data.order_items = this.getOrderItems;
     data.checkout_type = '';
     data.product_variants = '';
-    if (this.constantValues.YOUNG_TEMPLATE_SUBDOMAIN.includes(this.subdomain)) {
-      data.checkout_type = 'USD_ONLY';
-      data.product_variants = this.getProductVariants;
-    }
-    //console.log(JSON.stringify(data,null,2))
+    // if (this.constantValues.YOUNG_TEMPLATE_SUBDOMAIN.includes(this.subdomain)) {
+    //   data.checkout_type = 'USD_ONLY';
+    //   data.product_variants = this.getProductVariants;
+    // }
+    console.log(JSON.stringify(data,null,2))
+   
     this.orderService.placeOrder(data, (error, result) => {
       this.isProcessing = false;
       if (result !== null && result.transaction_id !== '' && result.transaction_id !== undefined) {
+        //console.log("Results=>"+JSON.stringify(result,null,2));
         this.orderCode = result.order_code;
-        this.productsApiCalls.clearCartItem((clearCartError, clearCartResult) => {
-          if (clearCartResult !== null) {
-            this.getCartItems();
-            //this.currency = '';
-            this.grandTotal = 0;
-            this.delieryCharge = 0;
-            this.deliveryChargeAmount = 0;
-            this.serviceCharge = 0;
-            this.transactionFee = 0;
-            this.dbaseUpateService.dbaseUpdated(true);
-          }
-        });
-        if (this.paymentMethod === PaymentMethods.CARD) {
-          this.notificationsService.success(this.constantValues.APP_NAME, 'Order successfully placed. Kindly follow the action in the popup to complete Card Payment');
+        // this.productsApiCalls.clearCartItem((clearCartError, clearCartResult) => {
+        //   if (clearCartResult !== null) {
+        //     this.getCartItems();
+        //     //this.currency = '';
+        //     this.grandTotal = 0;
+        //     this.delieryCharge = 0;
+        //     this.deliveryChargeAmount = 0;
+        //     this.serviceCharge = 0;
+        //     this.transactionFee = 0;
+        //     this.dbaseUpateService.dbaseUpdated(true);
+        //   }
+        // });
+        // if (this.paymentMethod === PaymentMethods.CARD) {
+       
+          this.notificationsService.success(this.constantValues.APP_NAME, 'Order successfully placed. Kindly proceed to make Payment');
           this.redirectUrl = result.redirect_url;
-
+          
+          
           //window.location.href = `${result.redirect_url}`;
-          console.log("result.redirect_url==>"+result.redirect_url);
+          //console.log("result.redirect_url==>"+result.redirect_url);
           window.open(`${result.redirect_url}`, `_blank`);
           //console.log("result.redirect_url==>"+result.redirect_url);
-          setTimeout(() => {
-            this.router.navigate(['/profile-view/orders']);
-            // if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
-            //   this.router.navigate(['/profile-view/orders']);
-            // } else  if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
-            //   this.router.navigate(['/profile-view/orders']);
-            // }
-          }, 5000);
-        } else if (this.paymentMethod === PaymentMethods.MOMO) {
-          this.dialog.open(ConfirmOrderPaymentDialogComponent,
-            // tslint:disable-next-line: max-line-length
-            {
-              data: { payment_method: this.paymentMethod, payment_network: this.paymentNetwork, network_name: this.networkName, transaction_id: result.transaction_id },
-              disableClose: true,
-              scrollStrategy: new NoopScrollStrategy(),
-            },
-          )
-            .afterClosed().subscribe((isCompleted: boolean) => {
-              // tslint:disable-next-line: max-line-length
-              this.router.navigate(["/checkout3"]);
-              this.dialog.open(OrderCompletedDialogComponent, {
-                data: { order_code: result.order_code, transactionSuccessful: isCompleted },
-                disableClose: true,
-                scrollStrategy: new NoopScrollStrategy(),
-              })
-                .afterClosed().subscribe((isSuccess: boolean) => {
-                  if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
+          // setTimeout(() => {
+          //   this.router.navigate(['/profile-view/orders']);
+          //   // if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
+          //   //   this.router.navigate(['/profile-view/orders']);
+          //   // } else  if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
+          //   //   this.router.navigate(['/profile-view/orders']);
+          //   // }
+          // }, 5000);
+      
+        //  else if (this.paymentMethod === PaymentMethods.MOMO) {
+        //   this.dialog.open(ConfirmOrderPaymentDialogComponent,
+        //     // tslint:disable-next-line: max-line-length
+        //     {
+        //       data: { payment_method: this.paymentMethod, payment_network: this.paymentNetwork, network_name: this.networkName, transaction_id: result.transaction_id },
+        //       disableClose: true,
+        //       scrollStrategy: new NoopScrollStrategy(),
+        //     },
+        //   )
+        //     .afterClosed().subscribe((isCompleted: boolean) => {
+        //       // tslint:disable-next-line: max-line-length
+        //       this.router.navigate(["/checkout3"]);
+        //       this.dialog.open(OrderCompletedDialogComponent, {
+        //         data: { order_code: result.order_code, transactionSuccessful: isCompleted },
+        //         disableClose: true,
+        //         scrollStrategy: new NoopScrollStrategy(),
+        //       })
+        //         .afterClosed().subscribe((isSuccess: boolean) => {
+        //           if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
 
-                    this.router.navigate(['/profile-view/orders']);
-                  } else if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
+        //             this.router.navigate(['/profile-view/orders']);
+        //           } else if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
 
-                    this.router.navigate(['/profile-view/orders']);
-                  }
-                });
-            });
-        } else if (this.paymentMethod === PaymentMethods.CASH) {
-          this.dialog.open(OrderCompletedDialogComponent, {
-            data: { order_code: result.order_code },
-            disableClose: true,
-            scrollStrategy: new NoopScrollStrategy(),
-          })
-            .afterClosed().subscribe((isSuccess: boolean) => {
-              if (isSuccess) {
-                if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
-                  this.router.navigate(['/profile-view/orders']);
-                } else if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
+        //             this.router.navigate(['/profile-view/orders']);
+        //           }
+        //         });
+        //     });
+        // }
+        //  else if (this.paymentMethod === PaymentMethods.CASH) {
+        //   this.dialog.open(OrderCompletedDialogComponent, {
+        //     data: { order_code: result.order_code },
+        //     disableClose: true,
+        //     scrollStrategy: new NoopScrollStrategy(),
+        //   })
+        //     .afterClosed().subscribe((isSuccess: boolean) => {
+        //       if (isSuccess) {
+        //         if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
+        //           this.router.navigate(['/profile-view/orders']);
+        //         } else if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
 
-                  this.router.navigate(['/profile-view/orders']);
-                }
-              }
-            });
-        }
+        //           this.router.navigate(['/profile-view/orders']);
+        //         }
+        //       }
+        //     });
+        // }
       }
     });
   }
@@ -1052,13 +1095,122 @@ export class Checkout2Component implements OnInit {
         if (result !== null) {
           this.country = result.country;
           this.currency = (result.currency === CurrencyEnums.GHS || result.currency === CurrencyEnums.NGN) ? result.currency : CurrencyEnums.USD;
-          console.log("result.country=>"+ result.country);
-          console.log("result.currency=>"+ result.currency);
+          // console.log("result.country=>"+ result.country);
+          // console.log("result.currency=>"+ result.currency);
         }
       });
       
   }
+
+  async addQty(product: any) {
+    const stockQty = +product.item.new_quantity;
+    if (stockQty <= 0) {
+      this.notificationsService.error(this.constantValues.APP_NAME, product.item.name + ' Cannot further reduced');
+      return;
+    }
+    // tslint:disable-next-line: variable-name
+    const selling_price = +product.item.selling_price;
+    const selling_price_usd = +product.item.selling_price_usd;
+    // tslint:disable-next-line: variable-name
+    const total_amount = +product.total_amount;
+    const total_amount_usd = +product.total_amount_usd;
+    const quantity= +product.quantity;
+    // tslint:disable-next-line: max-line-length
+    const data = {
+      item: product.item,
+      quantity: quantity,
+      country: this.country,
+      total_amount: total_amount,
+      total_amount_usd: total_amount_usd,
+      date_added: product.date_added
+    };
+      const exists = this.cartItems.find(
+        (element: any) => element.item.id ===data.item.id
+        );
+      if (exists !== null && exists !== undefined && exists !== '') {
+        //console.log(this.cartItems[0].item.id);
+        const newQuantity = +exists.quantity + 1;
+        const newSubtotal = +exists.total_amount + +selling_price;
+        data.total_amount = newSubtotal;
+        data.quantity = newQuantity;
+        this.productsApiCalls.removeAndAddProductToCart(
+          data,
+          async (error: any, result: any) => {
+            if (result !== null) {
+              this.dbaseUpdate.dbaseUpdated(true);
+              await this.getCartItems();
+              await this.getSubTotal();
+            }
+          }
+        );
+      }
   
+  }
+  
+  async reduceQty(product: any) {
+    const stockQty = +product.quantity;
+    if (stockQty <= 1) {
+      this.notificationsService.error( "",
+        product.item.name + ' Cannot further be reduced'
+      );
+      return;
+    }
+    // tslint:disable-next-line: variable-name
+    const selling_price = +product.item.selling_price;
+    const selling_price_usd = +product.item.selling_price_usd;
+    // tslint:disable-next-line: variable-name
+    const total_amount = selling_price * 1;
+    const total_amount_usd =selling_price_usd * 1;
+    const quantity= +product.quantity;
+    // tslint:disable-next-line: max-line-length
+    const data = {
+      item: product.item,
+      quantity: quantity,
+      country: this.country,
+      total_amount: total_amount,
+      total_amount_usd: total_amount_usd,
+      date_added: product.date_added
+    };
+      const exists = this.cartItems.find(
+        (element: any) => element.item.id ===data.item.id
+        );
+      if (exists !== null && exists !== undefined && exists !== '') {
+        const newQuantity = +exists.quantity - 1;
+        const newSubtotal = +exists.total_amount - data.total_amount;
+        data.total_amount = newSubtotal;
+        data.quantity = newQuantity;
+        this.productsApiCalls.removeAndAddProductToCart(
+          data,
+          async (error: any, result: any) => {
+            if (result !== null) {
+              this.dbaseUpdate.dbaseUpdated(true);
+              await this.getCartItems();
+              await this.getSubTotal();
+            }
+          }
+        );
+      }
+  
+  }
+  
+  saveUserChoice(){
+    if (this.paymentMethod ==='' || this.paymentMethod===null || this.paymentMethod===undefined){
+      this.notificationsService.info("","Please choose payment option");
+      return;
+    }
+    if (this.selectedDelivery ==='' || this.selectedDelivery===null || this.selectedDelivery===undefined){
+      this.notificationsService.info("","Please choose a delivery option");
+      return;
+    }
+    else{
+      const user_choice={
+        payment_option: this.paymentMethod,
+        delivery_option: this.selectedDelivery
+      }
+      localStorage.setItem('user_choice',JSON.stringify(user_choice));
+      this.router.navigate(['/delivery-info']);
+    }
+  }
 
   get phone_number() { return this.formGroup.get('phone_number'); }
   get password() { return this.formGroup.get('password'); }

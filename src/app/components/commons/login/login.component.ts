@@ -37,8 +37,8 @@ export class LoginComponent implements OnInit {
     this.formGroup = new FormGroup({
       phone_number: new FormControl('', [Validators.required]),
       password: new FormControl(''),
-      email: new FormControl('', [Validators.email]),
-      customer_name: new FormControl('')
+      //email: new FormControl('', [Validators.email]),
+      //customer_name: new FormControl('')
     });
     // if (this.data !== null && this.data !== undefined) {
     //   if (this.data.guest === true && this.data.guest !== null && this.data.guest !== undefined) {

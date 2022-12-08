@@ -1,0 +1,328 @@
+<!-- header_section - start
+		================================================== -->
+<app-top-nav></app-top-nav>
+<!-- header_section - end
+                ================================================== -->
+<main class="main p-5 mt-5">
+
+    <section>
+        <div class="heading">
+            <h1>{{cartItems?.length}} Item(s) in your Cart</h1>
+            <p>Keep Shopping</p>
+        </div>
+        <div class="announce">
+            <div class="alert alert-info" role="alert">
+                Buy confidently with Kokorko's Purchase Protection program for buyers, get a full refund in the rare
+                case your item doesn't arrive, arrives
+                damaged, or isn't as described.
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-8 cart-content">
+                <app-empty-record *ngIf="cartItems?.length <= 0 && !isProcessing"></app-empty-record>
+                <div class="row cart-single-item" *ngFor="let item of cartItems; let i = index">
+                    <div class="col-sm-6 col-md-2 col-lg-2 image-wrapper">
+                        <img src="{{item.item.image}}" alt="">
+                    </div>
+                    <div class="col-sm-6 col-md-10 col-lg-10 desc-wrapper">
+                        <div class="row desc-content">
+                            <div class="col-sm-12 col-md-6 col-lg-7 desc">
+                                <p>{{item.item.name}}</p>
+                                <p class="desc-text">{{item.item.description}}</p>
+
+                                <a class="remove" (click)="removeItemFromCart(item.id)">Remove</a>
+                            </div>
+
+                            <div class="col-sm-12 col-md-6 col-lg-5 edit-qty">
+                                <div class="row pricing">
+                                    <div class="col-sm-6 col-md-6 col-lg-6">
+                                        <div class="qty-change">
+                                            <span class="minus" (click)="reduceQty(item)">-</span>
+                                            <span class="qty">{{item?.quantity}}</span>
+                                            <span class="plus" (click)="addQty(item)">+</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-6 prices my-2">
+                                        <p *ngIf="
+                                            item?.country === countriesEnum?.GH ||
+                                            item?.country === item?.countriesEnum?.NG ||
+                                            item?.country === '' ||
+                                            item?.country === undefined
+                                          ">
+                                            {{ item?.item?.currency }}
+                                            {{ item?.total_amount | number: "1.2-2" }}</p>
+                                        <p *ngIf="
+                                            item?.country !== countriesEnum?.GH &&
+                                            item?.country !== item?.countriesEnum?.NG &&
+                                            item?.country !== '' &&
+                                            item?.country !== undefined
+                                          ">
+                                            $ {{ item?.total_amount_usd | number: "1.2-2" }}
+                                        </p>
+                                        <p class="old-price"> {{ item?.item?.currency }}
+                                            {{ item?.item?.selling_price | number: "1.2-2" }}</p>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    
+                </div>
+                <button type="button" class="btn btn-primary mb-5" (click)="openModal(template)">Provide Delivery Address </button>
+
+                <ng-template #template>
+                    <div class="modal-header">
+                        <h4 class="modal-title pull-left">Enter Your Delivery Address</h4>
+                        <button type="button" class="btn-close close pull-right" aria-label="Close"
+                            (click)="modalRef?.hide()">
+                            <span aria-hidden="true" class="visually-hidden">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="signup-content pb-5">
+                            <div class="row">
+                          
+                              <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="signup-form">                          
+                                  <form class="register-form" [formGroup]="addressFormGroup" (ngSubmit)="updateDeliveryAddress(addressFormGroup?.value)">
+                                    <div mat-mat-dialog-content>
+                                      <div class="form-group mb-4">
+                                        <p>Country</p>
+                                        <input type="text"  formControlName="country" />
+                                        
+                                      </div>
+                                      <div class="form-group">
+                                        <p>Full Name</p>
+                                        <input type="text" formControlName="full_name" />
+                                        
+                                      </div>
+                                      <div class="form-group">
+                                        <p>Street Address</p>
+                                        <input type="text"  formControlName="address" />
+                                      </div>
+                        
+                                      <div class="form-group">
+                                        <p>Address line 2 (optional)</p>
+                                        <input type="text"  formControlName="location" /> 
+                                      </div>
+                        
+                                      <div class="form-group">
+                                        <div class="row">
+                                            <div class="col">
+                                                <p>City/Town</p>
+                                                <input type="text"  formControlName="city" />
+                                            </div>
+                                            <div class="col">
+                                                <p>Postal Code</p>
+                                                <input type="text"  formControlName="postal_code" /> 
+                                            </div>
+                                        </div>              
+                                      </div>
+                                      <div class="form-group">
+                                        <p>State/Region</p>
+                                        <input type="text"  formControlName="state" /> 
+                                      </div>
+                        
+                          
+                                    </div>
+                                   
+                                    <div class="login-btn-wrapper d-flex flex-column">
+                                      <mat-progress-bar *ngIf="isProcessing" class="mb-1" mode="indeterminate"></mat-progress-bar>
+                        
+                                      <button type="submit" class="login-btn" [disabled]="addressFormGroup?.invalid || isProcessing" (click)="modalRef?.hide()">Save Address</button>
+                                    </div>
+                                  </form>
+                          
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                       
+                    </div>
+                </ng-template>
+              
+            </div>
+            
+            <div class="col-sm ">
+                <div class="order-summary-content">
+                    <div class="payment-content">
+                        <form class="payment-type-form mb-3" [formGroup]="paymentFormGroup">
+                            <fieldset class="gc-chckbxrdio form-inline">
+                                <legend>Choose how to Pay</legend>
+                                <div class="label-inline label-inline1">
+                                    <input id="inlineRadio1" type="radio" name="optradio" [value]="'GTBANK'"
+                                        (click)="selectPaymentMethod('GTBANK', '', '')"
+                                        >
+                                    <label for="inlineRadio2">
+                                        <div class="option1">
+                                            GTBabk
+                                        </div>
+                                        <label for="inlineRadio1">
+                                            <div class="option">
+                                                <img src="assets/images/ic_mtn_money.png" alt="">
+                                            </div>
+                                            <div class="option">
+                                                <img src="assets/images/ic_vodafone_cash.png" alt="">
+                                            </div>
+                                            <div class="option">
+                                                <img src="assets/images/atigo.png" alt="">
+                                            </div>
+                                            <div class="card">
+                                                <img src="assets/images/logo-visa-mastercard.png" alt="">
+                                            </div>
+                                        </label>
+                                    </label>
+                                </div>
+                                <div class="label-inline" *ngIf="country ===countriesEnum.NG">
+                                    <input id="inlineRadio2" type="radio" name="optradio" [value]="'PAGA'"
+                                        (click)="selectPaymentMethod('PAGA', '', '')"
+                                        >
+                                    <label for="inlineRadio1">
+                                        <div class="option1">
+                                            Paga
+                                        </div>
+                                        <div class="option2">
+                                            <img src="assets/images/payment_methods_01.png" alt="">
+                                        </div>
+                                        <!-- <div class="option">
+                                    <img src="assets/images/ic_vodafone_cash.png" alt="">
+                                </div>
+                                <div class="option">
+                                    <img src="assets/images/atigo.png" alt="">
+                                </div> -->
+                                    </label>
+
+                                </div>
+                                <div class="label-inline">
+                                    <input id="inlineRadio3" type="radio" name="optradio" [value]="'JUNIPAY'"
+                                        (click)="selectPaymentMethod('JUNIPAY', '', '')"
+                                        >
+                                    <label for="inlineRadio3">
+                                        <div class="option1">
+                                            JuniPay
+                                        </div>
+                                        <label for="inlineRadio1">
+                                            <div class="option">
+                                                <img src="assets/images/ic_mtn_money.png" alt="">
+                                            </div>
+                                            <div class="option">
+                                                <img src="assets/images/ic_vodafone_cash.png" alt="">
+                                            </div>
+                                            <div class="option">
+                                                <img src="assets/images/atigo.png" alt="">
+                                            </div>
+                                        </label>
+                                    </label>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <!-- <p>Payment Method: {{paymentMethod}}</p> -->
+                    <div class="subtotal1">
+                        <div class="items-totel">
+                            <p>Item(s) total</p>
+                            <p>{{currency}} {{subTotal}}</p>
+                        </div>
+                        <div class="shop-discount">
+                            <p>Shop discount <span class="old-price">(20% off)</span></p>
+                            <p>-{{currency}} {{discountAmount}}</p>
+                        </div>
+
+
+                    </div>
+
+                    <div class="subtotal2">
+                        <!-- <div class="subtotal">
+                        <p>Subtotal</p>
+                        <p>{{currency}} {{subTotal}}</p>
+                    </div> -->
+                        <div class="shipping-total">
+                            <p>Service Charge</p>
+                            <p>+{{currency}} {{transactionFee +serviceCharge | number: "1.2-2"}}</p>
+                        </div>
+                    </div>
+
+
+                    <div class="delivery-option-wrapper">
+                        <mat-form-field appearance="fill" [formGroup]="deliveryMethod">
+                            <mat-label>Choose delivery option</mat-label>
+                            <mat-select [(value)]="selectedDelivery">
+                                <mat-option [value]="deliveryOptions?.PICKUP" *ngIf="
+                          currency === currencies.GHS ||
+                          currency === currencies.NGN || country == countriesEnum.NG || country == countriesEnum.GH
+                        " >Pick Up</mat-option>
+                                <mat-option [value]="deliveryOptions?.UBER_DELIVERY"
+                                    *ngIf="currency == currencies.GHS || country == countriesEnum.NG || country == countriesEnum.GH">
+                                    Uber</mat-option>
+                                <mat-option [value]="deliveryOptions?.BOLT_DELIVERY" *ngIf="
+                          currency == currencies.GHS ||
+                          currency == currencies.NGN ||
+                            country == countriesEnum.NG || country == countriesEnum.GH
+                        " >Bolt</mat-option>
+                                <mat-option [value]="deliveryOptions?.DHL_DELIVERY" *ngIf="
+                          currency !== currencies.GHS &&
+                          currency !== currencies.NGN &&
+                          currency !== undefined &&
+                          currency !== null &&
+                          currency !== ''
+                        " >DHL delivery</mat-option>
+                                <mat-option [value]="deliveryOptions?.NG_BIKE_DELIVERY"
+                                    *ngIf="currency == currencies.NGN || country == countriesEnum.NG"
+                                    >NG Bike Delivery</mat-option>
+                                <mat-option [value]="deliveryOptions?.GH_BIKE_DELIVERY"
+                                    *ngIf="currency == currencies.GHS || country == countriesEnum.GH"
+                                    >GH Bike Delivery</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <P>+ {{currency}} {{ deliveryChargeAmount | number: "1.2-2" }}</P>
+
+                    </div>
+                    <!-- <p>You Selected: {{selectedDelivery}}</p> -->
+
+                    <div class="total">
+                        <h3>Total</h3>
+                        <h3>{{currency}} {{grandTotal}}</h3>
+                    </div>
+                    <div class="checkout mb-3">
+                        <button class="checkout-btn" (click)="placeOrder(paymentFormGroup.value)">
+                            Proceed to Checkout
+                        </button>
+                    </div>
+                    <mat-accordion>
+                        <mat-expansion-panel hideToggle class="py-3">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    <div class="wrap_heade">
+                                        <p class="mb-0">
+                                            <i class="ti-info-alt"></i>
+                                            Coupon or Referal?
+                                            <a class="collapsed">Enter your code here</a>
+                                        </p>
+                                    </div>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div id="coupon_collapse" class="collapse_form_wrap">
+                                <div class="card-body">
+                                    <form [formGroup]="">
+                                        <div class="form_item">
+                                            <input type="text" name="coupon" placeholder="Enter Code"
+                                                formControlName="promoCode" />
+                                        </div>
+                                        <button type="submit" class="custom_btn bg_default_red">
+                                            Apply
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<app-footer></app-footer>

@@ -1,54 +1,78 @@
 <div class="signup-content">
   <div class="row">
 
-      <div class="col-md-12 col-sm-12 col-xs-12">
-          <div class="signup-form">
-              <h2 class="form-title d-flex justify-content-space-between" style="justify-content: space-between;" mat-dialog-title><span>{{heading}}</span> <span mat-dialog-close><mat-icon>close</mat-icon></span></h2>
-              <form class="register-form" [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup?.value)">
-                <div mat-mat-dialog-content>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="signup-form">
+        <div class="close-wrapper">
+          <span id="close" mat-dialog-close>
+            <mat-icon>close</mat-icon>
+          </span>
+        </div>
 
-                <div class="form-group" style="display:flex ;">
-                  <!-- <label ><i class="fa fa-phone"></i></label>
-                  <input type="tel" placeholder="phone number" formControlName="phone_number"/> -->
-                  <lac-mat-country-selector matPrefix [selectorFor]="input1"
-								[preferredCountries]="['gh', 'ng']" class="lact-mat-selector">
-							</lac-mat-country-selector>
-							<lac-mat-tel-input #input1 formControlName="phone_number"></lac-mat-tel-input>
-                  <mat-error *ngIf="phone_number?.invalid && phone_number?.touched" >
-                    Please enter a valid phone number
-                  </mat-error>
+        <h2 class="form-title d-flex justify-content-space-between" style="justify-content: space-between; align-items: center;"
+          mat-dialog-title><span>{{heading}}</span> <span class="signup-btn" (click)="onSignup()"
+            mat-dialog-close>Register</span></h2>
+
+        <form class="" [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup?.value)">
+          <div mat-mat-dialog-content>
+            <div class="form-group mb-4">
+              <p>Phone Number</p>
+              <!-- <input type="tel" formControlName="phone_number" /> -->
+             
+                <ngx-intl-tel-input
+                [cssClass]="'ngx-tel-custom'"
+                [preferredCountries]="preferredCountries"
+                [enableAutoCountrySelect]="true"
+                [enablePlaceholder]="true"
+                [searchCountryFlag]="true"
+                [searchCountryField]="[
+                  SearchCountryField.Iso2,
+                  SearchCountryField.Name
+                ]"
+                [selectFirstCountry]="false"
+                [selectedCountryISO]="CountryISO.Ghana"
+                [maxLength]="15"
+                [phoneValidation]="true"
+                [separateDialCode]="separateDialCode"
+                [numberFormat]="PhoneNumberFormat.National"
+                name="phone_number"
+                formControlName="phone_number"
+              >
+              </ngx-intl-tel-input>
+            
+              <mat-error *ngIf="email?.invalid && email?.touched">
+                Please enter your email
+              </mat-error>
+            </div>
+            <div class="form-group" *ngIf="!isGuest">
+              <p>Password</p>
+              <input type="password" placeholder="Password" formControlName="password" />
+              <mat-error *ngIf="password?.invalid && password?.touched">
+                Please enter a password
+              </mat-error>
+            </div>
+
+            <div class="forgot">
+              <div class="check">
+                <input type="checkbox" name="" id="check">
+                <label for="check">Stay Signed In</label>
               </div>
 
-                  <div class="form-group" *ngIf="!isGuest" >
-                      <label><i class="fa fa-lock"></i></label>
-                      <input type="password" placeholder="Password" formControlName="password"/>
-                      <mat-error *ngIf="password?.invalid && password?.touched" >
-                        Please enter a password
-                      </mat-error>
-                  </div>
-                  <div class="form-group" *ngIf="isGuest" >
-                    <label ><i class="fa fa-user"></i></label>
-                    <input type="text" placeholder="Full Name"
-                    formControlName="customer_name"/>
-                    <mat-error *ngIf="customer_name?.invalid && customer_name?.touched" >
-                      Please enter your full name
-                    </mat-error>
-                </div>
-                <div class="form-group" *ngIf="isGuest" >
-                  <label ><i class="fa fa-user"></i></label>
-                  <input type="text" placeholder="Email"
-                  formControlName="email"/>
-                  <mat-error *ngIf="email?.invalid && email?.touched" >
-                    Please enter your email
-                  </mat-error>
+              <div class="forgot-password">
+                <a>Forgot Password?</a>
               </div>
-                </div>
-                  <div class="form-group form-button full-width m-1" mat-dialog-actions>
-                    <mat-progress-bar *ngIf="isProcessing"  class="mb-0" mode="indeterminate"></mat-progress-bar>
-                    <button class="bt-link bt-yellow bt-style5 mt-0 full-width" [disabled]="formGroup?.invalid || isProcessing">{{btnText}}</button>
-                  </div>
-              </form>
+            </div>
+           
           </div>
+          <div class="login-btn-wrapper" mat-dialog-actions>
+            <mat-progress-bar *ngIf="isProcessing" class="mb-0" mode="indeterminate"></mat-progress-bar>
+            <button type="submit" class="login-btn" [disabled]="formGroup?.invalid || isProcessing">{{btnText}}</button>
+          </div> 
+          
+        </form>
+       
+
       </div>
+    </div>
   </div>
 </div>

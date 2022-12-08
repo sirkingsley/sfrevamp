@@ -1,32 +1,108 @@
-<!-- header_section - start
-		================================================== -->
+<div class="signup-content">
+	<div class="row">
 
-<!-- header_section - end
-		================================================== -->
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="signup-form">
+				<div class="close-wrapper">
+					<span id="close" mat-dialog-close>
+						<mat-icon>close</mat-icon>
+					</span>
+				</div>
+
+				<h2 class="form-title d-flex justify-content-space-between py-0 my-0"
+					style="justify-content: space-between; align-items: center;" mat-dialog-title>
+					<span class="py-0 my-0">{{heading}}</span> <span class="signup-btn py-0 my-0" (click)=" onSignIn()"
+						mat-dialog-close>Sign
+						In</span>
+				</h2>
+
+				<form class="" [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup?.value)">
+					<div mat-mat-dialog-content>
+
+						<div class="form-group mb-2">
+							<p>Email Address</p>
+							<input type="text" placeholder="Email" formControlName="email" />
+							<mat-error *ngIf="email?.invalid && email?.touched">
+								Please enter your email
+							</mat-error>
+						</div>
 
 
-<!-- main body - start
-		================================================== -->
-<main>
+						<div class="form-group mb-2">
+							<p>First Name</p>
+							<input type="text" placeholder="First Name" formControlName="first_name" />
+							<mat-error *ngIf="email?.invalid && email?.touched">
+								Please enter your First Name
+							</mat-error>
+						</div>
+						<div class="form-group mb-2">
+							<p>Last Name</p>
+							<input type="text" placeholder="Last Name" formControlName="last_name" />
+							<mat-error *ngIf="email?.invalid && email?.touched">
+								Please enter your last Name
+							</mat-error>
+						</div>
+						<div class="form-group mb-2">
+							<p>Phone Number</p>
+							<!-- <input type="text" placeholder="+233542893998" formControlName="phone_number" /> -->
+							<div class="country-selector">
+								<ngx-intl-tel-input
+								[cssClass]="'ngx-tel-custom'"
+								[preferredCountries]="preferredCountries"
+								[enableAutoCountrySelect]="true"
+								[enablePlaceholder]="true"
+								[searchCountryFlag]="true"
+								[searchCountryField]="[
+								  SearchCountryField.Iso2,
+								  SearchCountryField.Name
+								]"
+								[selectFirstCountry]="false"
+								[selectedCountryISO]="CountryISO.Ghana"
+								[maxLength]="15"
+								[phoneValidation]="true"
+								[separateDialCode]="separateDialCode"
+								[numberFormat]="PhoneNumberFormat.National"
+								name="phone_number"
+								formControlName="phone_number"
+							  >
+							  </ngx-intl-tel-input>
+							</div>
+
+							<mat-error *ngIf="email?.invalid && email?.touched">
+								Please enter your Phone Number
+							</mat-error>
+						</div>
+
+						<div class="form-group mb-2">
+							<p>Password</p>
+							<input type="password" placeholder="Password" formControlName="password" />
+							<mat-error *ngIf="password?.invalid && password?.touched"
+								style="font-size: 10px;line-height: 10px;">
+								Password must contain more than 8 characters, 1 upper case letter, number, and 1 special
+								character
+							</mat-error>
+						</div>
+						<div class="form-group mb-2">
+							<p>Confirm Password</p>
+							<input type="password" placeholder="Password" formControlName="retype_password" />
+							<mat-error *ngIf="password?.invalid && password?.touched">
+								Passwords mismatched
+							</mat-error>
+						</div>
+					</div>
+					<div class="login-btn-wrapper" mat-dialog-actions>
+						<mat-progress-bar *ngIf="isProcessing" class="mb-0" mode="indeterminate"></mat-progress-bar>
+						<button class="login-btn">{{btnText}}</button>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+</div>
 
 
-	<!-- sidebar mobile menu & sidebar cart - start
-			================================================== -->
-
-	<!-- sidebar mobile menu & sidebar cart - end
-			================================================== -->
-
-
-	<!-- breadcrumb_section - start
-			================================================== -->
-
-	<!-- breadcrumb_section - end
-			================================================== -->
-
-
-	<!-- register_section - start
-			================================================== -->
-	<section class="register_section sec_ptb_140_login parallaxie clearfix">
+<!-- <section class="register_section sec_ptb_140_login parallaxie clearfix">
 		<div class="container">
 			<div class="reg_form_wrap signup_form">
 				<form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup?.value)" autocomplete="off" >
@@ -46,9 +122,7 @@
 								Please enter your last name
 							</mat-error>
 						</div>
-						<!-- <div class="form_item">
-									<input type="text" name="company" placeholder="Company Name">
-								</div> -->
+						
 						<div class="form_item">
 							<input placeholder="Email" formControlName="email" />
 							<mat-error *ngIf="email?.invalid && email?.touched">
@@ -56,14 +130,9 @@
 							</mat-error>
 						</div>
 						<div class="form_item form_item_number ps-0">
-						
-							<lac-mat-country-selector matPrefix [selectorFor]="input1"
-								[preferredCountries]="['gh', 'ng']" class="lact-mat-selector">
-							</lac-mat-country-selector>
-							<lac-mat-tel-input #input1 formControlName="phone_number"></lac-mat-tel-input>
-							<mat-error *ngIf="phone_number?.invalid && phone_number?.touched">
-								Please enter a valid phone number
-							</mat-error>
+							<label ><i class="fa fa-phone"></i></label>
+							<input type="tel" placeholder="phone number" formControlName="phone_number"/>
+							
 						</div>
 						<div class="form_item">
 							<input type="password" placeholder="Password" formControlName="password" />
@@ -78,9 +147,7 @@
 								Passwords do not match
 							</mat-error>
 						</div>
-						<!-- <div class="checkbox_item mb_30">
-									<label for="agree_checkbox"><input id="agree_checkbox" type="checkbox"> I agree to the Terms of User</label>
-								</div> -->
+						
 						<mat-progress-bar *ngIf="isProcessing" class="mb-0" mode="indeterminate"></mat-progress-bar>
 						<button type="submit" class="bt-link bt-yellow bt-style5 mt-0 full-width"
 							[class.cursor_disabled]="formGroup?.invalid "
@@ -95,18 +162,6 @@
 				</form>
 			</div>
 		</div>
-	</section>
-	<!-- register_section - end
+	</section> -->
+<!-- register_section - end
 			================================================== -->
-
-
-</main>
-<!-- main body - end
-		================================================== -->
-
-
-<!-- footer_section - start
-		================================================== -->
-
-<!-- footer_section - end
-		================================================== -->

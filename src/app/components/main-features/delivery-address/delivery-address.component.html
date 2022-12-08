@@ -1,0 +1,63 @@
+<div class="signup-content pb-5">
+    <div class="row">
+  
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="signup-form">
+  
+          <h1 class="">Enter Your Delivery Address</h1>
+  
+          <form class="register-form" [formGroup]="addressFormGroup" (ngSubmit)="updateDeliveryAddress(addressFormGroup?.value)">
+            <div mat-mat-dialog-content>
+              <div class="form-group mb-4">
+                <p>Country</p>
+                <input type="text"  formControlName="country" />
+                
+              </div>
+              <div class="form-group">
+                <p>Full Name</p>
+                <input type="text" formControlName="full_name" />
+                
+              </div>
+              <div class="form-group">
+                <p>Street Address</p>
+                <input type="text"  formControlName="address" />
+              </div>
+
+              <div class="form-group">
+                <p>Address line 2 (optional)</p>
+                <input type="text"  formControlName="location" /> 
+              </div>
+
+              <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        <p>City/Town</p>
+                        <input type="text"  formControlName="city" />
+                    </div>
+                    <div class="col">
+                        <p>Postal Code</p>
+                        <input type="text"  formControlName="postal_code" /> 
+                    </div>
+                </div>              
+              </div>
+              <div class="form-group">
+                <p>State/Region</p>
+                <input type="text"  formControlName="state" /> 
+              </div>
+
+  
+            </div>
+           
+            <div class="login-btn-wrapper d-flex flex-column">
+              <mat-progress-bar *ngIf="isProcessing" class="mb-1" mode="indeterminate"></mat-progress-bar>
+
+              <button type="submit" class="login-btn" [disabled]="addressFormGroup?.invalid || isProcessing">Continue to Payment</button>
+            </div>
+          </form>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>

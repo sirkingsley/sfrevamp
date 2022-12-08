@@ -14,6 +14,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { CountryEnum, PromosEnum } from 'src/app/utils/enums';
 import { ConstantValuesService } from 'src/app/services/constant-values.service';
 import { ProductsFilterParams } from 'src/app/interfaces/products-filter-params';
+import { LoginMainComponent } from '../login-main/login-main.component';
 //import Jquery
 // import * as $ from 'jquery';
 //JavaScript Functions
@@ -101,7 +102,9 @@ export class TopNavComponent implements OnInit {
       $("#search_body_collapse").slideToggle("slow");
     });
     // this.onload();
-
+    $('#close-panel').on("click",function(){
+      $("#panel").slideToggle("slow");
+    });
     this.subdomain = this.getHostname.subDomain;
     // this.subdomain = this.constantValues.GTP_SUBDOMAIN;
     this.gtpSubdomin = this.constantValues.GTP_SUBDOMAIN;
@@ -141,8 +144,8 @@ export class TopNavComponent implements OnInit {
     });
   }
   onSignup() {
-    // this.dialog.open(SignUpComponent);
-    this.router.navigate(['/sign-up']);
+    this.dialog.open(SignUpComponent,{panelClass: 'custom-dialog-container'});
+    //this.router.navigate(['/sign-up']);
 
   }
   onSignOut() {
@@ -152,14 +155,14 @@ export class TopNavComponent implements OnInit {
     window.location.reload();
   }
   onSignIn() {
-    this.router.navigate(['/login']);
+    //this.router.navigate(['/login']);
 
-    // this.dialog.open(LoginComponent).afterClosed().subscribe((isSuccefull: boolean) => {
-    //   if (isSuccefull) {
-    //     this.isLoggedIn = this.authService.isLogedIn;
-    //     this.currentUser = this.authService.currentUser;
-    //   }
-    // });
+    this.dialog.open(LoginMainComponent,{panelClass: 'custom-dialog-container'}).afterClosed().subscribe((isSuccefull: boolean) => {
+      if (isSuccefull) {
+        this.isLoggedIn = this.authService.isLogedIn;
+        this.currentUser = this.authService.currentUser;
+      }
+    });
   }
   async getCartItems() {
     await this.productsApiCalls.getCartItems((error, result) => {

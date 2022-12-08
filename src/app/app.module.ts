@@ -32,7 +32,7 @@ import { DressesComponent } from './components/main-features/classic-shop/superm
 import { FallComponent } from './components/main-features/classic-shop/supermarket/fall/fall.component';
 import { BlouseComponent } from './components/main-features/classic-shop/supermarket/blouse/blouse.component';
 import { ViewProductComponent } from './components/commons/view-product/view-product.component';
-import {MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
+import {MatDialogModule, MatDialog,MatDialogRef, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
 import { Checkout2Component } from './components/main-features/checkout2/checkout2.component';
 import { Checkout3Component } from './components/main-features/checkout3/checkout3.component';
 import { CartComponent } from './components/main-features/cart/cart.component';
@@ -61,6 +61,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatTabsModule} from '@angular/material/tabs';
+ 
 
 import { ConfirmOrderPaymentDialogComponent } from './components/commons/confirm-order-payment-dialog/confirm-order-payment-dialog.component';
 import { OrderCompletedDialogComponent } from './components/commons/order-completed-dialog/order-completed-dialog.component';
@@ -89,10 +90,16 @@ import { LoginMainComponent } from './components/commons/login-main/login-main.c
 
 //import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
-import { LacMatTelInputModule } from 'lac-mat-tel-input';
+//import { LacMatTelInputModule } from 'lac-mat-tel-input';
+//import { LacMatTelInputModule } from 'lac-mat-tel-input';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { AddressComponent } from './components/customer/address/address.component';
 import { OrderDetailsMobileComponent } from './components/customer/order-details-mobile/order-details-mobile.component';
+import { CheckoutComponent } from './components/main-features/checkout/checkout.component';
+import { DeliveryAddressComponent } from './components/main-features/delivery-address/delivery-address.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { IntlCountryCodesComponent } from './components/commons/intl-country-codes/intl-country-codes.component';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 @NgModule({
   declarations: [
@@ -130,6 +137,9 @@ import { OrderDetailsMobileComponent } from './components/customer/order-details
     LoginMainComponent,
     AddressComponent,
     OrderDetailsMobileComponent,
+    CheckoutComponent,
+    DeliveryAddressComponent,
+    IntlCountryCodesComponent,
 
 
   ],
@@ -145,6 +155,8 @@ import { OrderDetailsMobileComponent } from './components/customer/order-details
       //positionClass: 'center',
       preventDuplicates: true,
     }),
+    ModalModule.forRoot(),
+    BrowserAnimationsModule,
     MatStepperModule,
     MatProgressBarModule,
     ReactiveFormsModule,
@@ -162,8 +174,12 @@ import { OrderDetailsMobileComponent } from './components/customer/order-details
     MatSelectModule,
     MatProgressSpinnerModule,
     //NgxIntlTelInputModule,
-    LacMatTelInputModule,
+    //LacMatTelInputModule,
     MatTabsModule,
+    //LacMatTelInputModule,
+    NgxIntlTelInputModule,
+   
+    
   ],
   providers:
   [
@@ -186,6 +202,7 @@ import { OrderDetailsMobileComponent } from './components/customer/order-details
     SharedDataApiCallsService,
     ShopApiCallsService,
     NgxIndexedDBService,
+    
     Title,
     { provide: ErrorHandler, useClass: SentryErrorHandlerService },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

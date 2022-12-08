@@ -63,7 +63,7 @@
                 <div class="cart_product">
                   <div class="item_image">
                     <img
-                      src="{{ item.item.image }}"
+                      src="{{item.item.image }}"
                       onerror="this.src='../../assets/images/ghana-rice.png'"
                       alt="image_not_found"
                     />
@@ -186,7 +186,7 @@
 					  <span>{{ currency }} {{ subTotal | number: "1.2-2" }}</span>
 					</li>
 				  </ul>
-				  <a routerLink="/checkout2" class="custom_btn bg_success"
+				  <a routerLink="/checkout" class="custom_btn bg_success"
 					>Proceed to Checkout</a
 				  >
 				</div>
@@ -215,7 +215,7 @@
                 <span>{{ currency }} {{ subTotal | number: "1.2-2" }}</span>
               </li>
             </ul>
-            <a routerLink="/checkout2" class="custom_btn bg_success"
+            <a routerLink="/checkout" class="custom_btn bg_success"
               >Proceed to Checkout</a
             >
           </div>

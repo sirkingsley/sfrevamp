@@ -4,10 +4,12 @@ import { ConstantValuesService } from './../../../services/constant-values.servi
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 //import { passwordMatch } from 'src/app/utils/validator';
 import { Router, ActivatedRoute } from '@angular/router';
 import { passwordMatch } from 'src/app/utils/validator';
+import { LoginMainComponent } from '../login-main/login-main.component';
+import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 
 @Component({
   selector: 'app-sign-up',
@@ -15,19 +17,40 @@ import { passwordMatch } from 'src/app/utils/validator';
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
+  separateDialCode = false;
+	SearchCountryField = SearchCountryField;
+	CountryISO = CountryISO;
+  PhoneNumberFormat = PhoneNumberFormat;
+	preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
+	phoneForm = new FormGroup({
+		phone: new FormControl(undefined, [Validators.required])
+	});
+
+	changePreferredCountries() {
+		this.preferredCountries = [CountryISO.India, CountryISO.Canada];
+	}
+  btnText = 'SIGN UP';
+  heading = 'Register';
   formGroup: FormGroup;
   isProcessing = false;
+  isGuest = false;
+  currentUser: any;
+  isLoggedIn: boolean;
   constructor(
     private notificationsService: NotificationsService,
     private customersApiCalls: CustomersApiCallsService,
     private constantValues: ConstantValuesService,
-    //private dialogRef: MatDialogRef<SignUpComponent>,
+    private dialogRef: MatDialogRef<SignUpComponent>,
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-  ) { }
+    private dialog: MatDialog,
+  ) { 
+    dialogRef.disableClose = true;
+  }
 
   ngOnInit(): void {
+   
     this.formGroup = new FormGroup({
       first_name: new FormControl('', [Validators.required]),
       last_name: new FormControl('', [Validators.required]),
@@ -62,14 +85,35 @@ export class SignUpComponent implements OnInit {
     console.log(country);
   }
 
+  onSignIn() {
+    //this.router.navigate(['/login']);
+
+    this.dialog.open(LoginMainComponent,{panelClass: 'custom-dialog-container'}).afterClosed().subscribe((isSuccefull: boolean) => {
+      if (isSuccefull) {
+        this.isLoggedIn = this.authService.isLogedIn;
+        this.currentUser = this.authService.currentUser;
+      }
+    });
+  }
+
   /**
    *
    * @param data
    */
   onSubmit(data) {
+    // const dataTest={
+    //     first_name: "Margi",
+    //     last_name:"Sumara",
+    //     email: "",
+    //     phone_number: "0240857690",
+    //     password: "123456",
+    //     retype_password: "123456",
+    //     }
     if (this.formGroup.valid) {
       //console.log("Data-->"+JSON.stringify(data,null,2));
-      data.phone_number=data.phone_number.replace(/\s/g, "").trim();
+      //data.phone_number=data.phone_number.replace(/\s/g, "").trim();
+      //data.phone_number=data.phone_number.internationalNumber.replace(/\s/g, "").trim();
+      data.phone_number=data.phone_number.e164Number;
       this.isProcessing = true;
 
       this.customersApiCalls.create(data, (error, result) => {
@@ -82,10 +126,10 @@ export class SignUpComponent implements OnInit {
           this.authService.saveToken(result.results.auth_token);
           //this.dialogRef.close(true);
           this.router.navigate(['/supermarket']);
-        }else{
-          console.log("Fail to create");
         }
       });
+    }else{
+      this.notificationsService.info(this.constantValues.APP_NAME, 'Fill all fields');
     }
   }
   get first_name() { return this.formGroup.get('first_name'); }

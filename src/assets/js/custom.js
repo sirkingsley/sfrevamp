@@ -136,20 +136,14 @@ function custom(){
       mobile: true
     }).init()
   }
-  wowAnimation();
+  //wowAnimation();
   // wow animation - end
   // --------------------------------------------------
 
 
   // masoney grid layout - start
   // --------------------------------------------------
-  var $grid = $('.grid').imagesLoaded( function() {
-    $grid.masonry({
-      itemSelector: '.grid-item',
-      percentPosition: true,
-      columnWidth: '.grid-sizer'
-    });
-  });
+
   // masoney grid layout - end
   // --------------------------------------------------
 
@@ -1314,20 +1308,14 @@ function custom(){
       mobile: true
     }).init()
   }
-  wowAnimation();
+  //wowAnimation();
   // wow animation - end
   // --------------------------------------------------
 
 
   // masoney grid layout - start
   // --------------------------------------------------
-  var $grid = $('.grid').imagesLoaded( function() {
-    $grid.masonry({
-      itemSelector: '.grid-item',
-      percentPosition: true,
-      columnWidth: '.grid-sizer'
-    });
-  });
+ 
   // masoney grid layout - end
   // --------------------------------------------------
 

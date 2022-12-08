@@ -3,10 +3,12 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NotificationsService } from 'src/app/services/notifications.service';
 import { CustomersApiCallsService } from 'src/app/services/network-calls/customers-api-calls.service';
 import { ConstantValuesService } from 'src/app/services/constant-values.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoginUpdateService } from 'src/app/services/login-update.service';
 import { ProductsApiCallsService } from 'src/app/services/network-calls/products-api-calls.service';
+import { SignUpComponent } from '../sign-up/sign-up.component';
+import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 
 @Component({
   selector: 'app-login-main',
@@ -14,28 +16,54 @@ import { ProductsApiCallsService } from 'src/app/services/network-calls/products
   styleUrls: ['./login-main.component.scss']
 })
 export class LoginMainComponent implements OnInit {
+  separateDialCode = false;
+
+	SearchCountryField = SearchCountryField;
+	CountryISO = CountryISO;
+  PhoneNumberFormat = PhoneNumberFormat;
+	preferredCountries: CountryISO[] = [CountryISO.Ghana, CountryISO.Nigeria];
+	phoneForm = new FormGroup({
+		phone: new FormControl(undefined, [Validators.required])
+	});
+
+	changePreferredCountries() {
+		this.preferredCountries = [CountryISO.Ghana, CountryISO.Nigeria];
+	}
 
   formGroup: FormGroup;
   isProcessing = false;
   isGuest = false;
   btnText = 'SIGN IN';
   heading = 'Sign In';
+  hide = true;
+  partnerHide = true;
+  isPartner = false;
+  loginFormGroup: FormGroup;
+  partnerLoginFormGroup: FormGroup;
+  countries = [];
+  countryCode = '';
+  phoneNumber = '';
   constructor(
+    
     private notificationsService: NotificationsService,
     private customersApiCalls: CustomersApiCallsService,
     private constantValues: ConstantValuesService,
     private dialogRef: MatDialogRef<LoginMainComponent>,
+    private dialog: MatDialog,
     private loginUpdate: LoginUpdateService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private authService: AuthService,
     private productService: ProductsApiCallsService
-  ) { }
+  ) {
+    dialogRef.disableClose = true;
+   }
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
-      phone_number: new FormControl('', [Validators.required]),
-      password: new FormControl(''),
-      email: new FormControl('', [Validators.email]),
+      phone_number: new FormControl('',[Validators.required]),
+      password: new FormControl('',Validators.required),
+      // email: new FormControl('', [Validators.email]),
+      email: new FormControl(''),
       customer_name: new FormControl('')
     });
     if (this.data !== null && this.data !== undefined) {
@@ -48,12 +76,39 @@ export class LoginMainComponent implements OnInit {
       }
     }
   }
-  onCountryChanged(country) {
+   /**
+   * Country code selected
+   * @param countryInfo country info
+   */
+    onCountry(countryInfo) {
+      if (countryInfo !== undefined && countryInfo !== null) {
+        this.countryCode = '+' + (countryInfo.callingCodes[0] as string);
+        console.log("This.country_codes="+this.countryCode)
+      }
+    }
+
+  onSignup() {
+    this.dialog.open(SignUpComponent,{panelClass: 'custom-dialog-container'});
+    //this.router.navigate(['/sign-up']);
+
   }
+
+  /**
+   * Submit data and valid user to login
+   * @param data Sign In payload, email and password required
+   */
   onSubmit(data) {
+    // const dataTest={
+    //   phone_number:"0240857690",
+    //   password: "123456",
+    //   email: "",+
+    //   customer_name: ""
+    // }
+    //console.log("Data-->"+JSON.stringify(data,null,2));
     if (this.formGroup.valid) {
-      data.phone_number=data.phone_number.replace(/\s/g, "").trim();
-      console.log("Data-->"+JSON.stringify(data,null,2));
+      // data.phone_number=data.phone_number.internationalNumber.replace(/\s/g, "").trim();
+      data.phone_number=data.phone_number.e164Number;
+      //console.log("Data-->"+JSON.stringify(data,null,2));
       this.isProcessing = true;
       this.customersApiCalls.signIn(data, (error, result) => {
         this.isProcessing = false;
@@ -68,7 +123,7 @@ export class LoginMainComponent implements OnInit {
             this.loginUpdate.isUpdated(true);
             //console.log("Data-->"+JSON.stringify(data,null,2));
         
-
+            //Guest
           } else {
             this.notificationsService.success(this.constantValues.APP_NAME, 'Sign Up successful');
             this.authService.increaseLoggedInCount();
@@ -80,7 +135,7 @@ export class LoginMainComponent implements OnInit {
 
 
           }
-          if (this.authService.isLogedIn) {
+          if (this.authService.isLogedIn) { //Login Success, so sync cart with user cart items in database
             this.productService.getCartItems((error, result) => {
               const items: any[] = result.map(data => "" + data.item.id + ":" + data.quantity + ":" + data.total_amount);
               if (items.length > 0) {

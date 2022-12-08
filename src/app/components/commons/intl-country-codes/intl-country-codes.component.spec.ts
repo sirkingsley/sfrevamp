@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Checkout2Component } from './checkout.component';
+import { IntlCountryCodesComponent } from './intl-country-codes.component';
 
-describe('Checkout2Component', () => {
-  let component: Checkout2Component;
-  let fixture: ComponentFixture<Checkout2Component>;
+describe('IntlCountryCodesComponent', () => {
+  let component: IntlCountryCodesComponent;
+  let fixture: ComponentFixture<IntlCountryCodesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ Checkout2Component ]
+      declarations: [ IntlCountryCodesComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(Checkout2Component);
+    fixture = TestBed.createComponent(IntlCountryCodesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
