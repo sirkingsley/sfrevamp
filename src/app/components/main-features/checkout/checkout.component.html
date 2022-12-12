@@ -59,8 +59,8 @@
                                           ">
                                             $ {{ item?.total_amount_usd | number: "1.2-2" }}
                                         </p>
-                                        <p class="old-price"> {{ item?.item?.currency }}
-                                            {{ item?.item?.selling_price | number: "1.2-2" }}</p>
+                                        <!-- <p class="old-price"> {{ item?.item?.currency }}
+                                            {{ item?.item?.selling_price | number: "1.2-2" }}</p> -->
                                     </div>
                                 </div>
 
@@ -73,7 +73,7 @@
                     
                 </div>
                 
-                <div class="delivery-address-container">
+                <div class="delivery-address-container" *ngIf="this.isLoggedIn">
                     <h3>Your Delivery Address</h3>
                     <div class="row" *ngIf="deliveryAddress ===null || deliveryAddress===undefined">
                         <div class="col-8">
@@ -187,7 +187,8 @@
                             <p>{{currency}} {{subTotal}}</p>
                         </div>
                         <div class="shop-discount">
-                            <p>Shop discount <span class="old-price">(20% off)</span></p>
+                            <!-- <p>Shop discount <span class="old-price">(20% off)</span></p> -->
+                            <p>Shop discount</p>
                             <p>-{{currency}} {{discountAmount}}</p>
                         </div>
 

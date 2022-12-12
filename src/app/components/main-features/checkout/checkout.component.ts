@@ -663,14 +663,11 @@ export class CheckoutComponent implements OnInit {
    */
   placeOrder(data) {
 
-    // if (!this.isLoggedIn) {
-    //   this.notificationsService.info(this.constantValues.APP_NAME, 'Please login to continue');
-    //   return;
-    // }
-    if (this.selectedDelivery === '' || this.selectedDelivery === undefined || this.selectedDelivery === null) {
-      this.notificationsService.info(this.constantValues.APP_NAME, 'Please select delivery option to continue');
+    if (!this.isLoggedIn) {
+      this.notificationsService.info(this.constantValues.APP_NAME, 'Please login to continue');
       return;
     }
+    
 
     if (this.selectedDelivery !== this.deliveryOptions.PICKUP && this.deliveryAddress ===null) {
       this.notificationsService.info(this.constantValues.APP_NAME, 'Please provide delivery address to continue');
@@ -684,6 +681,10 @@ export class CheckoutComponent implements OnInit {
 
     if (this.paymentMethod === '' || this.paymentMethod === undefined || this.paymentMethod === null) {
       this.notificationsService.info(this.constantValues.APP_NAME, 'Please select a payment method to continue');
+      return;
+    }
+    if (this.selectedDelivery === '' || this.selectedDelivery === undefined || this.selectedDelivery === null) {
+      this.notificationsService.info(this.constantValues.APP_NAME, 'Please add a delivery option to continue');
       return;
     }
     // if (this.paymentMethod === PaymentMethods.MOMO && data.sender_wallet_number === '') {
