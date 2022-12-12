@@ -15,6 +15,8 @@ import { CountryEnum, PromosEnum } from 'src/app/utils/enums';
 import { ConstantValuesService } from 'src/app/services/constant-values.service';
 import { ProductsFilterParams } from 'src/app/interfaces/products-filter-params';
 import { LoginMainComponent } from '../login-main/login-main.component';
+import { LoginUpdateService } from 'src/app/services/login-update.service';
+import { Subscription } from 'rxjs';
 //import Jquery
 // import * as $ from 'jquery';
 //JavaScript Functions
@@ -69,7 +71,7 @@ export class TopNavComponent implements OnInit {
   searchQuery: string;
   tag: string;
   isProcessingFeaturedShops: boolean;
-
+  istest=false;
   constructor(
     private shopsApiCalls: ShopApiCallsService,
     private getHostname: GetHostnameService,
@@ -79,7 +81,8 @@ export class TopNavComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private constantValues: ConstantValuesService,
-    private productsApiCalls: ProductsApiCallsService
+    private productsApiCalls: ProductsApiCallsService,
+    private loginUpdateSerivice: LoginUpdateService,
   ) { }
  //Call JavaScript functions onload
 //  onload(){
@@ -87,13 +90,18 @@ export class TopNavComponent implements OnInit {
 //   main();
 //   parallaxie();
 
-
+  subscription: Subscription;
 
   async ngOnInit(): Promise<void> {
- 
+    this.subscription=this.loginUpdateSerivice.updateStatus().subscribe(login=>{
+     // console.log("ISLogin: "+ login);
+      this.isLoggedIn = this.authService.isLogedIn;
+      this.currentUser = this.authService.currentUser;
+      //this.isLoggedIn=login;
+    });
     this.getFeaturedShops({});
     this.getIndustries();
-    // console.log("Products: _->");
+    // console.log("Products: ->");
     $('.user_btn').on("click",function(){
       $("#panel").slideToggle("slow");
     });
@@ -109,6 +117,7 @@ export class TopNavComponent implements OnInit {
     // this.subdomain = this.constantValues.GTP_SUBDOMAIN;
     this.gtpSubdomin = this.constantValues.GTP_SUBDOMAIN;
     // console.log(this.suddomain);
+
     this.isLoggedIn = this.authService.isLogedIn;
     this.currentUser = this.authService.currentUser;
     //console.log("Current User-->"+ JSON.stringify( this.currentUser,null,2));

@@ -102,76 +102,7 @@
                 </div>
                
 
-                <ng-template #template>
-                    <div class="modal-header">
-                        <h4 class="modal-title pull-left">Enter Your Delivery Address</h4>
-                        <button type="button" class="btn-close close pull-right" aria-label="Close"
-                            (click)="modalRef?.hide()">
-                            <span aria-hidden="true" class="visually-hidden">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="signup-content pb-5">
-                            <div class="row">
-                          
-                              <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="signup-form">                          
-                                  <form class="register-form" [formGroup]="addressFormGroup" (ngSubmit)="updateDeliveryAddress(addressFormGroup?.value)">
-                                    <div mat-mat-dialog-content>
-                                      <div class="form-group mb-4">
-                                        <p>Country</p>
-                                        <input type="text"  formControlName="country" />
-                                        
-                                      </div>
-                                      <div class="form-group">
-                                        <p>Full Name</p>
-                                        <input type="text" formControlName="full_name" />
-                                        
-                                      </div>
-                                      <div class="form-group">
-                                        <p>Street Address</p>
-                                        <input type="text"  formControlName="address" />
-                                      </div>
-                        
-                                      <div class="form-group">
-                                        <p>Address line 2 (optional)</p>
-                                        <input type="text"  formControlName="location" /> 
-                                      </div>
-                        
-                                      <div class="form-group">
-                                        <div class="row">
-                                            <div class="col">
-                                                <p>City/Town</p>
-                                                <input type="text"  formControlName="city" />
-                                            </div>
-                                            <div class="col">
-                                                <p>Postal Code</p>
-                                                <input type="text"  formControlName="postal_code" /> 
-                                            </div>
-                                        </div>              
-                                      </div>
-                                      <div class="form-group">
-                                        <p>State/Region</p>
-                                        <input type="text"  formControlName="state" /> 
-                                      </div>
-                        
-                          
-                                    </div>
-                                   
-                                    <div class="login-btn-wrapper d-flex flex-column">
-                                      <mat-progress-bar *ngIf="isProcessing" class="mb-1" mode="indeterminate"></mat-progress-bar>
-                        
-                                      <button type="submit" class="login-btn" [disabled]="addressFormGroup?.invalid || isProcessing" (click)="modalRef?.hide()">Save Address</button>
-                                    </div>
-                                  </form>
-                          
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                       
-                    </div>
-                </ng-template>
+             
               
             </div>
             
@@ -187,7 +118,7 @@
                                         >
                                     <label for="inlineRadio2">
                                         <div class="option1">
-                                            GTBabk
+                                            GTBank
                                         </div>
                                         <label for="inlineRadio1">
                                             <div class="option">
@@ -351,6 +282,76 @@
                 </div>
             </div>
         </div>
+        <ng-template #template>
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Enter Your Delivery Address</h4>
+                <button type="button" class="btn-close close pull-right" aria-label="Close"
+                    (click)="modalRef?.hide()">
+                    <span aria-hidden="true" class="visually-hidden">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="signup-content pb-5">
+                    <div class="row">
+                  
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="signup-form">                          
+                          <form class="register-form" [formGroup]="addressFormGroup" (ngSubmit)="updateDeliveryAddress(addressFormGroup?.value)">
+                            <div mat-mat-dialog-content>
+                              <div class="form-group mb-4">
+                                <p>Country</p>
+                                <input type="text"  formControlName="country" />
+                                
+                              </div>
+                              <div class="form-group">
+                                <p>Full Name</p>
+                                <input type="text" formControlName="full_name" />
+                                
+                              </div>
+                              <div class="form-group">
+                                <p>Street Address</p>
+                                <input type="text"  formControlName="address" />
+                              </div>
+                
+                              <div class="form-group">
+                                <p>Address line 2 (optional)</p>
+                                <input type="text"  formControlName="location" /> 
+                              </div>
+                
+                              <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <p>City/Town</p>
+                                        <input type="text"  formControlName="city" />
+                                    </div>
+                                    <div class="col">
+                                        <p>Postal Code</p>
+                                        <input type="text"  formControlName="postal_code" /> 
+                                    </div>
+                                </div>              
+                              </div>
+                              <div class="form-group">
+                                <p>State/Region</p>
+                                <input type="text"  formControlName="state" /> 
+                              </div>
+                
+                  
+                            </div>
+                           
+                            <div class="login-btn-wrapper d-flex flex-column">
+                              <mat-progress-bar *ngIf="isProcessing" class="mb-1" mode="indeterminate"></mat-progress-bar>
+                
+                              <button type="submit" class="login-btn" [disabled]="addressFormGroup?.invalid || isProcessing" (click)="modalRef?.hide()">Save Address</button>
+                            </div>
+                          </form>
+                  
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+               
+            </div>
+        </ng-template>
     </section>
 </main>
 <app-footer></app-footer>

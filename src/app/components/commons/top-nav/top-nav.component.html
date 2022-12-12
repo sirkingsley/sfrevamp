@@ -62,6 +62,7 @@
 										<div class="container">
 											<div class="row mt__30">
 												<div class="page_links">
+													<h3 *ngIf="istest">Istest</h3>
 													<h3 class="title_text"
 														[routerLink]="['/display-products', {pageSec: 'section2', category: ''}]"
 														(click)="filterCategory('',target)"

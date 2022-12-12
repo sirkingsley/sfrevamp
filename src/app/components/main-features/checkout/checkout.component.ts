@@ -27,6 +27,7 @@ import { OrderCompletedDialogComponent } from '../../commons/order-completed-dia
 import AOS from 'aos';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
+import { Subscription } from 'rxjs';
 
 declare const custom: any;
 declare const $;
@@ -165,7 +166,8 @@ export class CheckoutComponent implements OnInit {
   ) {
 
   }
-
+  subscription: Subscription;
+  isDeliveryAddressProvided = false;
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template,{
       class: 'modal-dialog-centered', 
@@ -187,6 +189,14 @@ export class CheckoutComponent implements OnInit {
   loader = true;
 
   async ngOnInit(): Promise<void> {
+
+    this.subscription=this.loginUpdate.updateAddress.subscribe(address =>{
+      this.deliveryAddress = address;
+      this.isDeliveryAddressProvided=true;
+    
+      //this.getDeliveryAddress();
+      
+    })
     this.getCountry();
 
     //this.getActivePromo("gtpstore");
@@ -220,24 +230,18 @@ export class CheckoutComponent implements OnInit {
 
     //Check if user is not login and alert user
     if (!this.isLoggedIn) {
-      this.dialog.open(LoginMainComponent,{
-        panelClass: 'custom-dialog-container',
-        data: {},
-        disableClose: false,
-        scrollStrategy: new NoopScrollStrategy(),
-      })
-        .afterClosed().subscribe((isSuccess: boolean) => {
-          if (isSuccess) {
-            if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
-              this.router.navigate(['/checkout2']);
-            } else if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
-
-              this.router.navigate(['/checkout2']);
-            }
-          }
-        });
-    } //Login popup end
-
+      this.dialog.open(LoginMainComponent,{panelClass: 'custom-dialog-container'}).afterClosed().subscribe((isSuccefull: boolean) => {
+        if (isSuccefull) {
+          this.isLoggedIn = this.authService.isLogedIn;
+          this.currentUser = this.authService.currentUser;
+          this.loginUpdate.isUpdated(true);
+          
+          //window.location.reload();
+        
+        }
+      });
+      //login popup end
+    }
     this.addressFormGroup = this.formBuilder.group({
       address: ['', Validators.required],
       city: ['', Validators.required],
@@ -438,7 +442,7 @@ export class CheckoutComponent implements OnInit {
    * On Map Marker dragged
    * @param $event marker drag end event data
    */
-  markerDragEnd($event) {
+    markerDragEnd($event) {
     this.latitude = $event.coords.lat;
     this.longitude = $event.coords.lng;
     this.getAddress(this.latitude, this.longitude);
@@ -555,6 +559,8 @@ export class CheckoutComponent implements OnInit {
         this.authService.saveUser(result.results);
         this.getDeliveryCharge(data);
         this.proceed = true;
+        this.loginUpdate.AddressIsUpdated(data);
+        this.isDeliveryAddressProvided=true;
         this.notificationsService.success("", "Address Saved");
         localStorage.setItem('delivery_address',JSON.stringify(data));
       }
@@ -666,7 +672,7 @@ export class CheckoutComponent implements OnInit {
       return;
     }
 
-    if (this.selectedDelivery !== this.deliveryOptions.PICKUP && this.addressFormGroup.invalid) {
+    if (this.selectedDelivery !== this.deliveryOptions.PICKUP && this.deliveryAddress ===null) {
       this.notificationsService.info(this.constantValues.APP_NAME, 'Please provide delivery address to continue');
       return;
     }
@@ -729,7 +735,7 @@ export class CheckoutComponent implements OnInit {
     //   data.checkout_type = 'USD_ONLY';
     //   data.product_variants = this.getProductVariants;
     // }
-    console.log(JSON.stringify(data,null,2))
+    //console.log(JSON.stringify(data,null,2))
    
     this.orderService.placeOrder(data, (error, result) => {
       this.isProcessing = false;
@@ -754,10 +760,11 @@ export class CheckoutComponent implements OnInit {
           this.redirectUrl = result.redirect_url;
           
           
-          //window.location.href = `${result.redirect_url}`;
+          window.location.href = `${result.redirect_url}`;
           //console.log("result.redirect_url==>"+result.redirect_url);
-          window.open(`${result.redirect_url}`, `_blank`);
+          //window.open(`${result.redirect_url}`, `_blank`);
           //console.log("result.redirect_url==>"+result.redirect_url);
+          this.router.navigate(['/profile-view/orders']);
           // setTimeout(() => {
           //   this.router.navigate(['/profile-view/orders']);
           //   // if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {

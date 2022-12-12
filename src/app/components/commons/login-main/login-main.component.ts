@@ -98,12 +98,7 @@ export class LoginMainComponent implements OnInit {
    * @param data Sign In payload, email and password required
    */
   onSubmit(data) {
-    // const dataTest={
-    //   phone_number:"0240857690",
-    //   password: "123456",
-    //   email: "",+
-    //   customer_name: ""
-    // }
+   
     //console.log("Data-->"+JSON.stringify(data,null,2));
     if (this.formGroup.valid) {
       // data.phone_number=data.phone_number.internationalNumber.replace(/\s/g, "").trim();
