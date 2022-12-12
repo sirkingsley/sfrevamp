@@ -24,7 +24,7 @@ import { CheckoutComponent } from './components/main-features/checkout/checkout.
 import { DeliveryAddressComponent } from './components/main-features/delivery-address/delivery-address.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'supermarket', pathMatch: 'full' },
+  { path: '', redirectTo: 'display-products', pathMatch: 'full' },
   {
     path: 'supermarket', component : SupermarketComponent,
     children: [

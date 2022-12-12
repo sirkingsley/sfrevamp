@@ -7748,7 +7748,7 @@ button {
   background-color: #f9f9f9;
 }
 .ecommerce_product_grid .item_image img {
-  height: 200px;
+  height: 174px;
   width: auto;
 }
 .ecommerce_product_grid .tab-content {
@@ -41291,7 +41291,7 @@ button {
 
 	.item_image {
 		display: flex;
-		min-height: 270px;
+		min-height: 180px;
 		align-items: center;
 		justify-content: center;
 		background-color: #f9f9f9;
@@ -41350,7 +41350,7 @@ button {
 		>a {
 			display: table;
 			color: #000000;
-			font-size: 18px;
+			font-size: 12px;
 			font-weight: 600;
 		}
 	}
@@ -59849,11 +59849,16 @@ footer a{
     
   }
   @media screen and (max-width: 999px) {
+    .ecommerce_product_grid .item_image img {
+      height: 120px;
+      width: auto;
+    }
+    
     .mobile-bread_crumb{
       display: block !important;
     }
     .ecommerce_product_grid .item_title > a {
-      font-size: 15px !important;
+      font-size: 12px !important;
       font-weight: 600;
     }
     .profile-grid{

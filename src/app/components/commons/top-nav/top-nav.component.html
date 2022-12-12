@@ -62,7 +62,6 @@
 										<div class="container">
 											<div class="row mt__30">
 												<div class="page_links">
-													<h3 *ngIf="istest">Istest</h3>
 													<h3 class="title_text"
 														[routerLink]="['/display-products', {pageSec: 'section2', category: ''}]"
 														(click)="filterCategory('',target)"
@@ -185,6 +184,7 @@
 <div class="sidebar-menu-wrapper">
 	<div class="cart_sidebar">
 		<button type="button" class="close_btn"><i class="fal fa-times"></i></button>
+		<app-empty-record *ngIf="cartItems.length<1"></app-empty-record>
 
 		<ul class="cart_items_list ul_li_block mb_30 clearfix">
 			<li *ngFor="let item of cartItems; let i =index">
@@ -228,7 +228,7 @@
 						</li> -->
 		</ul>
 
-		<ul class="total_price ul_li_block mb_30 clearfix">
+		<ul class="total_price ul_li_block mb_30 clearfix" *ngIf="cartItems.length">
 			<li>
 				<span>Subtotal:</span>
 				<span>{{currency}} {{subTotal}}</span>
@@ -249,10 +249,11 @@
 			</li>
 		</ul>
 
-		<ul class="btns_group ul_li_block clearfix">
+		<ul class="btns_group ul_li_block clearfix" *ngIf="cartItems.length">
 			<li routerLink="cart-main"> <a routerLink="/cart">View Cart</a> </li>
 			<li routerLink="/checkout"><a routerLink="/checkout">Checkout</a></li>
 		</ul>
+		
 	</div>
 
 	<div class="sidebar_mobile_menu">

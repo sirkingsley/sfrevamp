@@ -1,442 +1,456 @@
-
 <div *ngIf="loader" style="display: flex; justify-content: center; align-items:center; width:100%; height:100%;">
-  <div class="spinner-grow"  role="status" >
-    <span class="visually-hidden">Loading...</span>
-  </div>
+	<div class="spinner-grow" role="status">
+		<span class="visually-hidden">Loading...</span>
+	</div>
 </div>
 
 
-		<!-- backtotop - start -->
-		<!-- <div id="thetop"></div>
+<!-- backtotop - start -->
+<!-- <div id="thetop"></div>
 		<div class="backtotop" data-bg-color="#000000">
 			<a href="#" class="scroll">
 				<i class="far fa-arrow-up"></i>
 			</a>
 		</div> -->
-		<!-- backtotop - end -->
+<!-- backtotop - end -->
 
-		<!-- preloader - start -->
-		<!-- <div id="preloader"></div> -->
-		<!-- preloader - end -->
+<!-- preloader - start -->
+<!-- <div id="preloader"></div> -->
+<!-- preloader - end -->
 
 
-	<!-- header_section - start
+<!-- header_section - start
 		================================================== -->
 
-      <app-top-nav></app-top-nav>
+<app-top-nav></app-top-nav>
 
 
-		<!-- header_section - end
+<!-- header_section - end
 		================================================== -->
 
-		<!-- main body - start
+<!-- main body - start
 		================================================== -->
-		<main *ngIf="!loader">
+<main *ngIf="!loader">
 
-			<!-- slider_section - start
+	<!-- slider_section - start
 			================================================== -->
-      <app-landing-page *ngIf="!loader" ></app-landing-page>
-      
-			<!-- slider_section - end
+	<app-landing-page *ngIf="!loader"></app-landing-page>
+
+	<!-- slider_section - end
 			================================================== -->
 
 
-			<!-- policy_section - start
+	<!-- policy_section - start
 			================================================== -->
-			<section class="classic_ecommerce_policy d-flex align-items-center clearfix" data-bg-color="#f8f8f8">
-				<div class="container">
-					<div class="row mt__50">
+	<section class="classic_ecommerce_policy d-flex align-items-center clearfix" data-bg-color="#f8f8f8">
+		<div class="container">
+			<div class="row mt__50">
 
-						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-							<div class="ecommerce_policy_item" data-aos="fade-left">
-								<div class="item_icon">
-									<img src="assets/images/world-wide-shipping-04.png" alt="icon_not_found">
-								</div>
-								<div class="item_content">
-									<h3 class="item_title">FREE DELIVERY</h3>
-									<p>via DHL,Uber, Bolt, Bikes.</p>
-								</div>
-							</div>
+				<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+					<div class="ecommerce_policy_item" data-aos="fade-left">
+						<div class="item_icon">
+							<img src="assets/images/world-wide-shipping-04.png" alt="icon_not_found">
 						</div>
-
-						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-							<div class="ecommerce_policy_item" data-aos="fade-right">
-								<div class="item_icon">
-									<img src="assets/images/FREE-RETURNS-03.png" alt="icon_not_found">
-								</div>
-								<div class="item_content">
-									<h3 class="item_title">QUALITY QUARANTEED</h3>
-									<p>100% Made In Africa Products</p>
-								</div>
-							</div>
+						<div class="item_content">
+							<h3 class="item_title">FREE DELIVERY</h3>
+							<p>via DHL,Uber, Bolt, Bikes.</p>
 						</div>
-
-						<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-							<div class="ecommerce_policy_item" data-aos="fade-left">
-								<div class="item_icon">
-									<img src="assets/images/SECURED-PAYMENT-01.png" alt="icon_not_found">
-								</div>
-								<div class="item_content">
-									<h3 class="item_title">Secured payments</h3>
-									<p>Accept all major credit cards.</p>
-								</div>
-							</div>
-						</div>
-
 					</div>
 				</div>
-			</section>
-			<!-- policy_section - end
-			================================================== -->
 
-
-			<!-- category_section - start
-			================================================== -->
-			
-
-      <div class="container category-heading-wrapper mt-2">
-        <h3 class="main-heading">
-          Popular Categories
-        </h3>
-      </div>
-      <div class="container category-wrapper" >
-        <div class=" category-item " data-aos="fade-left">
-          <div class="ecommerce_category_fullimage ">
-            <img src="assets/images/Textiles-discounts.png" alt="Category" (click)="filterByCategory(pGroups[0]?.name,target)">
-            <h3 class="item_title">
-              <!-- <a (click)="filterByCategory(pGroups[0]?.name,target)">{{pGroups[0]?.name}}</a> -->
-            </h3>
-          </div>
-        </div>
-
-        <div class=" category-item" data-aos="flip-right">
-          <div class="ecommerce_category_fullimage ">
-            <img src="assets/images/ghana-rice.png" alt="Category" (click)="filterByCategory(pGroups[1]?.name,target)">
-            <h3 class="item_title">
-              <!-- <a (click)="filterByCategory(pGroups[1]?.name,target)">{{pGroups[1]?.name}}</a> -->
-            </h3>
-          </div>
-        </div>
-
-        <div class=" category-item" data-aos="fade-down-left">
-          <div class="ecommerce_category_fullimage ">
-            <img src="assets/images/drinks.png" alt="Category" (click)="filterByCategory(pGroups[3]?.name,target)">
-            <h3 class="item_title">
-              <!-- <a (click)="filterByCategory(pGroups[3]?.name,target)">{{pGroups[3]?.name}}</a> -->
-            </h3>
-          </div>
-        </div>
-
-        <div class=" category-item" id="cat_hide">
-          <div class="ecommerce_category_fullimage ">
-            <img src="assets/images/ghana-rice.png" alt="Category" (click)="filterByCategory(pGroups[4]?.name,target)">
-            <h3 class="item_title">
-              <!-- <a (click)="filterByCategory(pGroups[4]?.name,target)">{{pGroups[4]?.name}}</a> -->
-            </h3>
-          </div>
-        </div>
-
-
-      </div>
-			<!-- category_section - end
-			================================================== -->
-
-
-			<!-- product_section - start
-			================================================== -->
-			<section class="product_section sec_ptb_100 clearfix">
-				<div class="container">
-          <div class="row mb_30 align-items-center justify-content-lg-between">
-						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-							<div class="ecommerce_section_title" #container>
-								<h2 class="title_text mb-0"  #target></h2>
-							</div>
-
+				<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+					<div class="ecommerce_policy_item" data-aos="fade-right">
+						<div class="item_icon">
+							<img src="assets/images/FREE-RETURNS-03.png" alt="icon_not_found">
 						</div>
-
-						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-							<ul class="button-group filters-button-group ul_li_right clearfix ms-0">
-                  <li class="large-screen-cat-nav ms-0" ><button [class.active]="selectedCategory === ''" (click)="filterCategory('',target)">All</button></li>
-                  <li class="large-screen-cat-nav"  *ngFor="let category of pGroups | slice:0:3"><button (click)="filterCategory(category?.name,target)" [class.active]="selectedCategory === category?.name" >{{category?.name}}</button></li>
-
-                  <!-- <li><span class="filter_sidebar_btn large-screen-cat-nav" ><i class="far fa-bars"></i> FILTER</span></li> -->
-                  <button class="large-screen-cat-nav" mat-button [matMenuTriggerFor]="menu"><span class="" ><i class="bi bi-three-dots"></i></span></button>
-                  <mat-menu #menu="matMenu">
-                    <ul class="ul_li_block clearfix">
-                      <li mat-menu-item><a (click)="filterCategory('',target)" > All </a> </li>
-                      <li mat-menu-item *ngFor="let category of pGroups"><a (click)="filterCategory(category?.name,target)">{{category.name}}</a></li>
-
-                    </ul>
-                  </mat-menu>
-                </ul>
+						<div class="item_content">
+							<h3 class="item_title">QUALITY QUARANTEED</h3>
+							<p>100% Made In Africa Products</p>
 						</div>
 					</div>
+				</div>
 
-         
-          <div class="products-pagination-wrapper" style="color: white !important;" >
+				<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+					<div class="ecommerce_policy_item" data-aos="fade-left">
+						<div class="item_icon">
+							<img src="assets/images/SECURED-PAYMENT-01.png" alt="icon_not_found">
+						</div>
+						<div class="item_content">
+							<h3 class="item_title">Secured payments</h3>
+							<p>Accept all major credit cards.</p>
+						</div>
+					</div>
+				</div>
 
-            <form style=" width: 100%; display: flex ; justify-content: space-between; align-items: center;" >
-              <div class="option_select d-flex align-items-center mb-0">
-                
-                <mat-form-field appearance="fill" >
-                  <mat-label style="color: white !important;">Sort By Prices</mat-label>
-                  <mat-select [formControl]="selectedValueCtrl" name="prices" >
-                    <mat-option value="" (click)="filterByPrice(selectedValueCtrl.value)">
-                      Sort By All Prices
-                    </mat-option>
-                    <mat-option  [value]="priceSorting.LOW_TO_HIGH_PRICING" (click)="filterByPrice(selectedValueCtrl.value)">
-                      Prices from Lowest to Highest
-                    </mat-option>
-                    <mat-option  [value]="priceSorting.HIGH_TO_LOW_PRICING" (click)="filterByPrice(selectedValueCtrl.value)">
-                      Prices from Highest to Lowest
-                    </mat-option>
-
-                  </mat-select>
-
-                </mat-form-field>
-
-              </div>
-              <div class="large-screen-cat-nav" style="width: fit-content ;">
-                <app-pagination *ngIf="products?.length  > 0 "  [dataSet]="products" [nextPage]="nextPage"
-                  [prevPage]="prevPage" [totalPage]="totalPage" [requestPayload]="filterParams" [requestMethod]="'POST'"
-                  (pageChanged)="onPageChanged($event)" [(isProcessing)]="isProcessing">
-                </app-pagination>
-              </div>
-              <button mat-button [matMenuTriggerFor]="menu"><span class="" ><i class="bi bi-filter"></i> Categories</span></button>
-            </form>
-        
-
-          </div>
-          <div *ngIf="isProcessing"  class="container spinner-wrapper">
-            <mat-spinner class="custom-spinner-color"></mat-spinner>
-          </div>
-          <div *ngIf="products?.length <= 0 && !isProcessing" class="container mt-5" >
-            <app-empty-record *ngIf="products?.length <= 0 && !isProcessing"></app-empty-record>
-
-          </div>
-
-          <div  class="element-grid column4_element_grid mb_50" >
+			</div>
+		</div>
+	</section>
+	<!-- policy_section - end
+			================================================== -->
 
 
-            <div class="element-item " *ngFor="let item of products" >
-              <!-- <div class="ecommerce_product_grid" data-aos="zoom-in-down"> -->
-                <div class="ecommerce_product_grid">
-                <ul *ngIf="item?.new_quantity<=0" class="product_label ul_li clearfix">
-                  <li class="out-of-stock">Out of Stock</li>
-                </ul>
-                <div class="tab-content">
-                  <div id="ptab1_1" class="tab-pane fade active">
-                    <div class="item_image">
-                      <img src="{{item.image}}" onerror="this.src='../../assets/images/ghana-rice.png'" alt="image_not_found">
-                    </div>
-                  </div>
-                  <div id="ptab1_2" class="tab-pane fade">
-                    <div class="item_image">
-                      <img src="assets/images/ghana-rice.png" alt="image_not_found">
-                    </div>
-                  </div>
-                  <div id="ptab1_3" class="tab-pane fade">
-                    <div class="item_image">
-                      <img src="{{item.image}}" onerror="this.src='../../assets/images/ghana-rice.png'" alt="image_not_found">
-                    </div>
-                  </div>
-                  <ul class="product_action_btns ul_li_center clearfix">
-                    <!-- <li><a class="tooltips" data-placement="top" title="Add To Wishlist" href="#!"><i class="fal fa-heart"></i></a></li> -->
-                    <li><a class="tooltips"  title="Add To Cart" (click)="addProductToCart(item)" ><i class="fal fa-shopping-basket"></i></a></li>
-                    <li><a class="tooltips q-v" title="Quick View" (click)="openDialog(item)" ><i class="fal fa-eye"></i></a></li>
-                  </ul>
-                </div>
-                <div class="item_content">
-                  <h3 class="item_title" (click)="openDialog(item)">
-                    <!-- <a >{{item.name | truncate:2}}</a> -->
-					<a >{{item.name}}</a>
-                  </h3>
-                  <!-- <ul class="product_color ul_li nav clearfix">
+	<!-- category_section - start
+			================================================== -->
+
+
+	<div class="container category-heading-wrapper mt-2">
+		<h3 class="main-heading">
+			Popular Categories
+		</h3>
+	</div>
+	<div class="container category-wrapper">
+		<div class=" category-item " data-aos="fade-left">
+			<div class="ecommerce_category_fullimage ">
+				<img src="assets/images/Textiles-discounts.png" alt="Category"
+					(click)="filterByCategory(pGroups[0]?.name,target)">
+				<h3 class="item_title">
+					<!-- <a (click)="filterByCategory(pGroups[0]?.name,target)">{{pGroups[0]?.name}}</a> -->
+				</h3>
+			</div>
+		</div>
+
+		<div class=" category-item" data-aos="flip-right">
+			<div class="ecommerce_category_fullimage ">
+				<img src="assets/images/ghana-rice.png" alt="Category"
+					(click)="filterByCategory(pGroups[1]?.name,target)">
+				<h3 class="item_title">
+					<!-- <a (click)="filterByCategory(pGroups[1]?.name,target)">{{pGroups[1]?.name}}</a> -->
+				</h3>
+			</div>
+		</div>
+
+		<div class=" category-item" data-aos="fade-down-left">
+			<div class="ecommerce_category_fullimage ">
+				<img src="assets/images/drinks.png" alt="Category" (click)="filterByCategory(pGroups[3]?.name,target)">
+				<h3 class="item_title">
+					<!-- <a (click)="filterByCategory(pGroups[3]?.name,target)">{{pGroups[3]?.name}}</a> -->
+				</h3>
+			</div>
+		</div>
+
+		<div class=" category-item" id="cat_hide">
+			<div class="ecommerce_category_fullimage ">
+				<img src="assets/images/ghana-rice.png" alt="Category"
+					(click)="filterByCategory(pGroups[4]?.name,target)">
+				<h3 class="item_title">
+					<!-- <a (click)="filterByCategory(pGroups[4]?.name,target)">{{pGroups[4]?.name}}</a> -->
+				</h3>
+			</div>
+		</div>
+
+
+	</div>
+	<!-- category_section - end
+			================================================== -->
+
+
+	<!-- product_section - start
+			================================================== -->
+	<section class="product_section sec_ptb_100 clearfix">
+		<div class="container">
+			<div class="row mb_30 align-items-center justify-content-lg-between">
+				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+					<div class="ecommerce_section_title" #container>
+						<h2 class="title_text mb-0" #target></h2>
+					</div>
+				</div>
+
+				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+					<ul class="button-group filters-button-group ul_li_right clearfix ms-0">
+						<li class="large-screen-cat-nav ms-0"><button [class.active]="selectedCategory === ''"
+								(click)="filterCategory('',target)">All</button></li>
+						<li class="large-screen-cat-nav" *ngFor="let category of pGroups | slice:0:3"><button
+								(click)="filterCategory(category?.name,target)"
+								[class.active]="selectedCategory === category?.name">{{category?.name}}</button></li>
+
+						<!-- <li><span class="filter_sidebar_btn large-screen-cat-nav" ><i class="far fa-bars"></i> FILTER</span></li> -->
+						<button class="large-screen-cat-nav" mat-button [matMenuTriggerFor]="menu"><span class=""><i
+									class="bi bi-three-dots"></i></span></button>
+						<mat-menu #menu="matMenu">
+							<ul class="ul_li_block clearfix">
+								<li mat-menu-item><a (click)="filterCategory('',target)"> All </a> </li>
+								<li mat-menu-item *ngFor="let category of pGroups"><a
+										(click)="filterCategory(category?.name,target)">{{category.name}}</a></li>
+
+							</ul>
+						</mat-menu>
+					</ul>
+				</div>
+			</div>
+
+
+			<div class="products-pagination-wrapper" style="color: white !important;">
+
+				<form style=" width: 100%; display: flex ; justify-content: space-between; align-items: center;">
+					<div class="option_select d-flex align-items-center mb-0">
+
+						<mat-form-field appearance="fill">
+							<mat-label style="color: white !important;">Sort By Prices</mat-label>
+							<mat-select [formControl]="selectedValueCtrl" name="prices">
+								<mat-option value="" (click)="filterByPrice(selectedValueCtrl.value)">
+									Sort By All Prices
+								</mat-option>
+								<mat-option [value]="priceSorting.LOW_TO_HIGH_PRICING"
+									(click)="filterByPrice(selectedValueCtrl.value)">
+									Prices from Lowest to Highest
+								</mat-option>
+								<mat-option [value]="priceSorting.HIGH_TO_LOW_PRICING"
+									(click)="filterByPrice(selectedValueCtrl.value)">
+									Prices from Highest to Lowest
+								</mat-option>
+
+							</mat-select>
+
+						</mat-form-field>
+
+					</div>
+					<div class="large-screen-cat-nav" style="width: fit-content ;">
+						<app-pagination *ngIf="products?.length  > 0 " [dataSet]="products" [nextPage]="nextPage"
+							[prevPage]="prevPage" [totalPage]="totalPage" [requestPayload]="filterParams"
+							[requestMethod]="'POST'" (pageChanged)="onPageChanged($event)"
+							[(isProcessing)]="isProcessing">
+						</app-pagination>
+					</div>
+					<button mat-button [matMenuTriggerFor]="menu"><span class=""><i class="bi bi-filter"></i>
+							Categories</span></button>
+				</form>
+
+
+			</div>
+			<div *ngIf="isProcessing" class="container spinner-wrapper">
+				<mat-spinner class="custom-spinner-color"></mat-spinner>
+			</div>
+			<div *ngIf="products?.length <= 0 && !isProcessing" class="container mt-5">
+				<app-empty-record *ngIf="products?.length <= 0 && !isProcessing"></app-empty-record>
+
+			</div>
+
+			<div class="element-grid column4_element_grid mb_50">
+
+
+				<div class="element-item " *ngFor="let item of products">
+					<!-- <div class="ecommerce_product_grid" data-aos="zoom-in-down"> -->
+					<div class="ecommerce_product_grid">
+						<ul *ngIf="item?.new_quantity<=0" class="product_label ul_li clearfix">
+							<li class="out-of-stock">Out of Stock</li>
+						</ul>
+						<div class="tab-content">
+							<div id="ptab1_1" class="tab-pane fade active">
+								<div class="item_image">
+									<img src="{{item.image}}" onerror="this.src='../../assets/images/ghana-rice.png'"
+										alt="image_not_found">
+								</div>
+							</div>
+							<div id="ptab1_2" class="tab-pane fade">
+								<div class="item_image">
+									<img src="assets/images/ghana-rice.png" alt="image_not_found">
+								</div>
+							</div>
+							<div id="ptab1_3" class="tab-pane fade">
+								<div class="item_image">
+									<img src="{{item.image}}" onerror="this.src='../../assets/images/ghana-rice.png'"
+										alt="image_not_found">
+								</div>
+							</div>
+							<ul class="product_action_btns ul_li_center clearfix">
+								<!-- <li><a class="tooltips" data-placement="top" title="Add To Wishlist" href="#!"><i class="fal fa-heart"></i></a></li> -->
+								<li><a class="tooltips" title="Add To Cart" (click)="addProductToCart(item)"><i
+											class="fal fa-shopping-basket"></i></a></li>
+								<li><a class="tooltips q-v" title="Quick View" (click)="openDialog(item)"><i
+											class="fal fa-eye"></i></a></li>
+							</ul>
+						</div>
+						<div class="item_content">
+							<h3 class="item_title" (click)="openDialog(item)">
+								<!-- <a >{{item.name | truncate:2}}</a> -->
+								<a>{{item.name}}</a>
+							</h3>
+							<!-- <ul class="product_color ul_li nav clearfix">
                     <li class="active"><a class="pbg_brown" data-toggle="tab" ></a></li>
                     <li><a class="pbg_olivegreen" data-toggle="tab" ></a></li>
                     <li><a class="pbg_gray" data-toggle="tab" ></a></li>
                   </ul> -->
-                  <!-- <span class="item_price"><strong>{{item.currency}} {{item.price_list[0]?.selling_price}} </strong> <del >{{item.currency}} {{item.price_list[0]?.selling_price*2}}</del></span> -->
-                  <span class="item_price"><strong>{{item.currency}} {{item?.selling_price}} </strong></span>
-                  <div class="add-to-wrapper">
-                    <button class="mat-button-wrapper mt-3 add-to-cart" (click)="addProductToCart(item)" >ADD TO CART</button>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </div>
-          <app-pagination *ngIf="products?.length > 0 " [dataSet]="products" [nextPage]="nextPage"
-            [prevPage]="prevPage" [totalPage]="totalPage" [requestPayload]="filterParams" [requestMethod]="'POST'"
-            (pageChanged)="onPageChanged($event)" [(isProcessing)]="isProcessing">
-          </app-pagination>
-
-
-
-				</div>
-			</section>
-     
-
-			<!-- product_section - end
-			================================================== -->
-
-
-			<!-- offer_section - start
-			================================================== -->
-			<section class="offer_section clearfix">
-				<div class="container">
-					<div class="row no-gutters justify-content-lg-between">
-						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 my-3">
-							<div class="ce_offer_fullimage offer_fullimage text-white text-center"
-              >
-								<img src="assets/images/Textiles-discounts.png" alt="image_not_found">
-								<div class="item_content">
-									<!-- <h3 class="item_title text-white mb_15">African Fashion</h3> -->
-									<!--<a class="text_btn text-uppercase" href="https://medium.com/kudigo" target="_blank"><span>View all Posts</span></a> -->
-								</div>
+							<!-- <span class="item_price"><strong>{{item.currency}} {{item.price_list[0]?.selling_price}} </strong> <del >{{item.currency}} {{item.price_list[0]?.selling_price*2}}</del></span> -->
+							<span class="item_price"><strong>{{item.currency}} {{item?.selling_price}} </strong></span>
+							<div class="add-to-wrapper">
+								<button class="mat-button-wrapper mt-3 add-to-cart" (click)="addProductToCart(item)">ADD
+									TO CART</button>
 							</div>
-						</div>
 
-						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 my-3">
-							<div class="ce_offer_fullimage offer_fullimage text-white text-center"
-             >
-								<img src="assets/images/portrait-of-happy-black-couple-using-phone-with-sh-2022-02-17-19-50-55-utc.jpg" alt="image_not_found">
-								<div class="item_content">
-									<h3 class="item_title text-white mb_15">Discounts & Deals</h3>
-									<!-- <a class="text_btn text-uppercase" href="https://www.instagram.com/kudigoinc/" target="_blank"><span>@Kudigo_inc</span></a> -->
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-			<!-- offer_section - end
-			================================================== -->
-
-      
-			<!-- newsletter_section - start
-			================================================== -->
-			<section class="newsletter_section ecommerce_newsletter sec_ptb_100 clearfix">
-				<div class="container">
-					<div class="form_wrap text-center">
-						<form [formGroup]="newsLetterFormGroup"  >
-							<h2>Join Our Newsletter & Get 5% On Your First Order</h2>
-							<div class="form_item">
-								<input type="email" formControlName="email" placeholder="Your email address">
-								<button type="submit" class="bg_black_subscribe d-flex align-items-center" (click)="subscribeNews(newsLetterFormGroup.value)" > <div *ngIf="isProcessing" class="spinner-border text-light me-2" role="status">
-									<span class="visually-hidden">Loading...</span>
-								  </div>Subcribe</button>
-							</div>
-							<p class="mb-0">
-								Earn Loyalty Points Whenever You Place An Order
-							</p>
-						</form>
-					</div>
-				</div>
-			</section>
-			<!-- newsletter_section - end
-			================================================== -->
-
-
-			<div class="sidebar-menu-wrapper">
-				<div class="filter_sidebar">
-					<button type="button" class="close_btn mb_50"><i class="fal fa-times"></i></button>
-					<div class="fs_widget fs_category_list">
-						<h3 class="fs_widget_title text-uppercase">Top Categories</h3>
-            <ul class="ul_li_block clearfix">
-							<li *ngFor="let category of pGroups"><a (click)="filterCategory(category.name,target)" (click)="filterByCategory(category.name,target)">{{category.name}}</a></li>
-
-						</ul>
-						
-					</div>
-
-					<div class="fs_widget fs_price_list">
-						<h3 class="fs_widget_title text-uppercase">Price filter</h3>
-						<form action="#">
-							<ul class="ul_li_block clearfix">
-								<li>
-									<input id="fs_price_1" type="radio" name="fs_price_wroup" checked>
-									<label for="fs_price_1">$25 - $100</label>
-								</li>
-								<li>
-									<input id="fs_price_2" type="radio" name="fs_price_wroup">
-									<label for="fs_price_2">$100 - $200</label>
-								</li>
-								<li>
-									<input id="fs_price_3" type="radio" name="fs_price_wroup">
-									<label for="fs_price_3">$200 - $300</label>
-								</li>
-								<li>
-									<input id="fs_price_4" type="radio" name="fs_price_wroup">
-									<label for="fs_price_4">$400 - $500</label>
-								</li>
-								<li>
-									<input id="fs_price_5" type="radio" name="fs_price_wroup">
-									<label for="fs_price_5">$500 - $1000</label>
-								</li>
-							</ul>
-						</form>
-					</div>
-
-
-
-					<div class="fs_widget fs_realted_post">
-						<h3 class="fs_widget_title text-uppercase">Your may also like</h3>
-						<div class="small_blog">
-							<a href="blog_details.html" class="item_image">
-								<img src="assets/images/ghana-rice.png" alt="image_not_found">
-							</a>
-							<div class="item_content">
-								<h3 class="item_title">
-									<a href="blog_details.html">
-										A Sound Way To Treat Hearing Loss
-									</a>
-								</h3>
-								<span class="post_date">March 12, 2020</span>
-							</div>
-						</div>
-
-						<div class="small_blog">
-							<a href="blog_details.html" class="item_image">
-								<img src="assets/images/ghana-rice.png" alt="image_not_found">
-							</a>
-							<div class="item_content">
-								<h3 class="item_title">
-									<a href="blog_details.html">
-										A Sound Way To Treat Hearing Loss
-									</a>
-								</h3>
-								<span class="post_date">March 12, 2020</span>
-							</div>
-						</div>
-
-						<div class="small_blog">
-							<a href="blog_details.html" class="item_image">
-								<img src="assets/images/ghana-rice.png" alt="image_not_found">
-							</a>
-							<div class="item_content">
-								<h3 class="item_title">
-									<a href="blog_details.html">
-										A Sound Way To Treat Hearing Loss
-									</a>
-								</h3>
-								<span class="post_date">March 12, 2020</span>
-							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</main>
-		<!-- main body - end
+			<app-pagination *ngIf="products?.length > 0 " [dataSet]="products" [nextPage]="nextPage"
+				[prevPage]="prevPage" [totalPage]="totalPage" [requestPayload]="filterParams" [requestMethod]="'POST'"
+				(pageChanged)="onPageChanged($event)" [(isProcessing)]="isProcessing">
+			</app-pagination>
+
+
+
+		</div>
+	</section>
+
+
+	<!-- product_section - end
+			================================================== -->
+
+
+	<!-- offer_section - start
+			================================================== -->
+	<section class="offer_section clearfix">
+		<div class="container">
+			<div class="row no-gutters justify-content-lg-between">
+				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 my-3">
+					<div class="ce_offer_fullimage offer_fullimage text-white text-center">
+						<img src="assets/images/Textiles-discounts.png" alt="image_not_found">
+						<div class="item_content">
+							<!-- <h3 class="item_title text-white mb_15">African Fashion</h3> -->
+							<!--<a class="text_btn text-uppercase" href="https://medium.com/kudigo" target="_blank"><span>View all Posts</span></a> -->
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 my-3">
+					<div class="ce_offer_fullimage offer_fullimage text-white text-center">
+						<img src="assets/images/portrait-of-happy-black-couple-using-phone-with-sh-2022-02-17-19-50-55-utc.jpg"
+							alt="image_not_found">
+						<div class="item_content">
+							<h3 class="item_title text-white mb_15">Discounts & Deals</h3>
+							<!-- <a class="text_btn text-uppercase" href="https://www.instagram.com/kudigoinc/" target="_blank"><span>@Kudigo_inc</span></a> -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- offer_section - end
+			================================================== -->
+
+
+	<!-- newsletter_section - start
+			================================================== -->
+	<section class="newsletter_section ecommerce_newsletter sec_ptb_100 clearfix">
+		<div class="container">
+			<div class="form_wrap text-center">
+				<form [formGroup]="newsLetterFormGroup">
+					<h2>Join Our Newsletter & Get 5% On Your First Order</h2>
+					<div class="form_item">
+						<input type="email" formControlName="email" placeholder="Your email address">
+						<button type="submit" class="bg_black_subscribe d-flex align-items-center"
+							(click)="subscribeNews(newsLetterFormGroup.value)">
+							<div *ngIf="isProcessing" class="spinner-border text-light me-2" role="status">
+								<span class="visually-hidden">Loading...</span>
+							</div>Subcribe
+						</button>
+					</div>
+					<p class="mb-0">
+						Earn Loyalty Points Whenever You Place An Order
+					</p>
+				</form>
+			</div>
+		</div>
+	</section>
+	<!-- newsletter_section - end
+			================================================== -->
+
+
+	<div class="sidebar-menu-wrapper">
+		<div class="filter_sidebar">
+			<button type="button" class="close_btn mb_50"><i class="fal fa-times"></i></button>
+			<div class="fs_widget fs_category_list">
+				<h3 class="fs_widget_title text-uppercase">Top Categories</h3>
+				<ul class="ul_li_block clearfix">
+					<li *ngFor="let category of pGroups"><a (click)="filterCategory(category.name,target)"
+							(click)="filterByCategory(category.name,target)">{{category.name}}</a></li>
+
+				</ul>
+
+			</div>
+
+			<div class="fs_widget fs_price_list">
+				<h3 class="fs_widget_title text-uppercase">Price filter</h3>
+				<form action="#">
+					<ul class="ul_li_block clearfix">
+						<li>
+							<input id="fs_price_1" type="radio" name="fs_price_wroup" checked>
+							<label for="fs_price_1">$25 - $100</label>
+						</li>
+						<li>
+							<input id="fs_price_2" type="radio" name="fs_price_wroup">
+							<label for="fs_price_2">$100 - $200</label>
+						</li>
+						<li>
+							<input id="fs_price_3" type="radio" name="fs_price_wroup">
+							<label for="fs_price_3">$200 - $300</label>
+						</li>
+						<li>
+							<input id="fs_price_4" type="radio" name="fs_price_wroup">
+							<label for="fs_price_4">$400 - $500</label>
+						</li>
+						<li>
+							<input id="fs_price_5" type="radio" name="fs_price_wroup">
+							<label for="fs_price_5">$500 - $1000</label>
+						</li>
+					</ul>
+				</form>
+			</div>
+
+
+
+			<div class="fs_widget fs_realted_post">
+				<h3 class="fs_widget_title text-uppercase">Your may also like</h3>
+				<div class="small_blog">
+					<a href="blog_details.html" class="item_image">
+						<img src="assets/images/ghana-rice.png" alt="image_not_found">
+					</a>
+					<div class="item_content">
+						<h3 class="item_title">
+							<a href="blog_details.html">
+								A Sound Way To Treat Hearing Loss
+							</a>
+						</h3>
+						<span class="post_date">March 12, 2020</span>
+					</div>
+				</div>
+
+				<div class="small_blog">
+					<a href="blog_details.html" class="item_image">
+						<img src="assets/images/ghana-rice.png" alt="image_not_found">
+					</a>
+					<div class="item_content">
+						<h3 class="item_title">
+							<a href="blog_details.html">
+								A Sound Way To Treat Hearing Loss
+							</a>
+						</h3>
+						<span class="post_date">March 12, 2020</span>
+					</div>
+				</div>
+
+				<div class="small_blog">
+					<a href="blog_details.html" class="item_image">
+						<img src="assets/images/ghana-rice.png" alt="image_not_found">
+					</a>
+					<div class="item_content">
+						<h3 class="item_title">
+							<a href="blog_details.html">
+								A Sound Way To Treat Hearing Loss
+							</a>
+						</h3>
+						<span class="post_date">March 12, 2020</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+<!-- main body - end
 		================================================== -->
 
 
-		<!-- footer_section - start
+<!-- footer_section - start
 		================================================== -->
-	<app-footer *ngIf="!loader"></app-footer>
-		<!-- footer_section - end
+<app-footer *ngIf="!loader"></app-footer>
+<!-- footer_section - end
 		================================================== -->
-
-
-
-
