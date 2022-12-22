@@ -502,7 +502,7 @@ export class CheckoutComponent implements OnInit {
     }
     
 
-    if (this.selectedDelivery !== this.deliveryOptions.PICKUP && this.deliveryAddress ===null) {
+    if (this.selectedDelivery !== this.deliveryOptions.PICKUP && this.deliveryAddress ===null || this.deliveryAddress ===true || this.deliveryAddress ===false) {
       this.notificationsService.info(this.constantValues.APP_NAME, 'Please provide delivery address to continue');
       return;
     }
@@ -555,7 +555,7 @@ export class CheckoutComponent implements OnInit {
     data.order_items = this.getOrderItems;
     data.checkout_type = '';
     data.product_variants = '';   
-    console.log("Order payload=>"+JSON.stringify(data,null,2));
+    //console.log("Order payload=>"+JSON.stringify(data,null,2));
     this.orderService.placeOrder(data, (error, result) => {
       this.isProcessing = false;
       if (result !== null && result.transaction_id !== '' && result.transaction_id !== undefined) {
@@ -579,22 +579,26 @@ export class CheckoutComponent implements OnInit {
           this.redirectUrl = result.redirect_url;
           const transactionId = result?.transaction_id;
         
-          //window.location.href = `${result.redirect_url}`;
-          window.open(result.redirect_url,'_blank');
+          window.location.href = `${result.redirect_url}`;
+          this.router.navigate(['/profile-view/orders']);
+          //window.open(result.redirect_url,'_blank');
           //console.log("Results"+ JSON.stringify(result,null,2))
+          // setTimeout(() => {
+          //   this.router.navigate(['/profile-view/orders']);
+          // }, 2000);
 
-          if(this.paymentMethod ==='MOMO'){
-          this.dialog.open(ConfirmOrderPaymentDialogComponent,
-            // tslint:disable-next-line: max-line-length
-            { data: { payment_method: this.paymentMethod, payment_network: this.paymentNetwork, network_name: this.networkName, transaction_id: transactionId, payment_option: this.paymentMethod }, disableClose: true })
-            .afterClosed().subscribe((isCompleted: boolean) => {
+          // if(this.paymentMethod ==='MOMO'){
+          // this.dialog.open(ConfirmOrderPaymentDialogComponent,
+          //   // tslint:disable-next-line: max-line-length
+          //   { data: { payment_method: this.paymentMethod, payment_network: this.paymentNetwork, network_name: this.networkName, transaction_id: transactionId, payment_option: this.paymentMethod }, disableClose: true })
+          //   .afterClosed().subscribe((isCompleted: boolean) => {
       
-            });
-          }else{
-             setTimeout(() => {
-            this.router.navigate(['/profile-view/orders']);
-          }, 2000);
-          }
+          //   });
+          // }else{
+          //   setTimeout(() => {
+          //   this.router.navigate(['/profile-view/orders']);
+          // }, 2000);
+          // }
           //console.log("result.redirect_url==>"+result.redirect_url);
           //window.open(`${result.redirect_url}`, `_blank`);
           //console.log("result.redirect_url==>"+result.redirect_url);
