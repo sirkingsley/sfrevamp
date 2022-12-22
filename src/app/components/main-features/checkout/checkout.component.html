@@ -76,7 +76,7 @@
 
                 <div class="delivery-address-container">
                     <h3>Your Delivery Address</h3>
-                    <div class="row" *ngIf="deliveryAddress ===null || deliveryAddress===undefined">
+                    <div class="row" *ngIf="deliveryAddress ===null || deliveryAddress===undefined || deliveryAddress ===false">
                         <div class="col-8">
                             <p>No Delivery Address Provided</p>
 
@@ -87,7 +87,7 @@
                         </div>
                     </div>
 
-                    <div class="row" *ngIf="deliveryAddress !==null && deliveryAddress !==undefined">
+                    <div class="row" *ngIf="deliveryAddress !==null && deliveryAddress !==undefined && deliveryAddress !==false">
                         <div class="col-8">
                             <p>{{deliveryAddress?.country}}</p>
                             <p>{{deliveryAddress?.state}}</p>
@@ -117,7 +117,7 @@
                                 <legend>Choose how to Pay</legend>
                                 <div class="label-inline label-inline1">
                                     <input id="inlineRadio1" type="radio" [value]="'GTBANK'"
-                                        (click)="selectPaymentMethod('GTBANK', '', '')" formControlName="payment_option">
+                                        (click)="selectPaymentMethod('CARD', '', '','GTBANK')" formControlName="payment_option">
                                     <label for="inlineRadio2">
                                         <div class="option1">
                                             GTBank
@@ -140,7 +140,7 @@
                                 </div>
                                 <div class="label-inline" *ngIf="country ===countriesEnum.NG">
                                     <input id="inlineRadio2" type="radio" [value]="'PAGA'"
-                                        (click)="selectPaymentMethod('PAGA', '', '')" formControlName="payment_option">
+                                        (click)="selectPaymentMethod('CARD', '','' ,'PAGA')" formControlName="payment_option">
                                     <label for="inlineRadio1">
                                         <div class="option1">
                                             Paga
@@ -159,7 +159,7 @@
                                 </div>
                                 <div class="label-inline">
                                     <input id="inlineRadio3" type="radio"  [value]="'JUNIPAY'"
-                                        (click)="selectPaymentMethod('JUNIPAY', '', '')" formControlName="payment_option">
+                                        (click)="selectPaymentMethod('MOMO', '', '','JUNIPAY')" formControlName="payment_option">
                                     <label for="inlineRadio3">
                                         <div class="option1">
                                             JuniPay

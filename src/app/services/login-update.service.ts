@@ -9,10 +9,11 @@ export class LoginUpdateService {
   private datasource = new BehaviorSubject(false);
   currentData = this.datasource.asObservable();
 
-  private addressUpdated = new BehaviorSubject(false);
+  public addressUpdated = new BehaviorSubject(false);
   updateAddress = this.addressUpdated.asObservable();
 
   public subject: Subject<boolean> = new Subject();
+  public address: Subject<boolean> = new Subject();
 
   constructor() { }
 
@@ -28,7 +29,7 @@ updateStatus(): Observable<boolean> {
 
 AddressIsUpdated(isUpdated: any) {
   this.addressUpdated.next(isUpdated);
-  this.subject.next(isUpdated);
+  this.address.next(isUpdated);
 }
 
 updateAddressStatus(): Observable<boolean> {

@@ -69,6 +69,7 @@ export class CheckoutComponent implements OnInit {
   zoom: number;
   countryCode = '';
   paymentMethod = '';
+  payment_option='';
   paymentNetwork = '';
   networkName = '';
   redirectUrl = '';
@@ -176,7 +177,7 @@ export class CheckoutComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
 
-    this.subscription=this.loginUpdate.updateAddress.subscribe(address =>{
+    this.subscription=this.loginUpdate.addressUpdated.subscribe(address =>{
       this.deliveryAddress = address;
       this.isDeliveryAddressProvided=true; 
       //console.log(this.deliveryAddress);    
@@ -254,6 +255,7 @@ export class CheckoutComponent implements OnInit {
     this.paymentFormGroup = this.formBuilder.group({
       payment_method: [''],
       payment_option: [''],
+      platform: ['KOKORKO'],
       checkout_origin: [this.checkoutSoure],
       delivery_option: [''],
       payment_network: [''],
@@ -320,13 +322,14 @@ export class CheckoutComponent implements OnInit {
    * @param paymentNetwork payment network when method is MOMO
    * @param networkFullName payment network full name
    */
-  selectPaymentMethod(paymentMethod, paymentNetwork, networkFullName) {
+  selectPaymentMethod(paymentMethod, paymentNetwork, networkFullName,payment_option) {
     this.paymentMethod = '';
     this.paymentNetwork = '';
     this.networkName = '';
     this.paymentMethod = paymentMethod;
     this.paymentNetwork = paymentNetwork;
     this.networkName = networkFullName;
+    this.payment_option =payment_option;
   
     if (paymentMethod === PaymentMethods.MOMO && this.constantValues.YOUNG_TEMPLATE_SUBDOMAIN.includes(this.getHostname.subDomain)) {
       this.getShopInfo();
@@ -531,9 +534,10 @@ export class CheckoutComponent implements OnInit {
     data.service_charge = (this.selectedDelivery !== this.deliveryOptions.PICKUP && this.selectedDelivery !== this.deliveryOptions.GIFT) ? +this.serviceCharge : 0;
     data.transaction_fee = (this.selectedDelivery !== this.deliveryOptions.PICKUP && this.selectedDelivery !== this.deliveryOptions.GIFT) ? +this.transactionFee : 0;
     data.payment_method = this.paymentMethod;
-    data.payment_option = this.paymentMethod;
+    data.payment_option = this.payment_option;
     data.payment_network = this.paymentNetwork;
     data.browser_token = this.authService.getNotificationToken;
+    data.platform = 'KOKORKO';
     // tslint:disable-next-line: max-line-length
     if (this.shopHasActivePromo && this.promoCodeFormCtrl.value !== null && this.promoCodeFormCtrl.value !== '' && this.promoCodeFormCtrl.value !== undefined) {
       data.total_amount = (this.subTotal - this.discountAmount);
@@ -551,6 +555,7 @@ export class CheckoutComponent implements OnInit {
     data.order_items = this.getOrderItems;
     data.checkout_type = '';
     data.product_variants = '';   
+    console.log("Order payload=>"+JSON.stringify(data,null,2));
     this.orderService.placeOrder(data, (error, result) => {
       this.isProcessing = false;
       if (result !== null && result.transaction_id !== '' && result.transaction_id !== undefined) {
@@ -573,15 +578,23 @@ export class CheckoutComponent implements OnInit {
           this.notificationsService.success(this.constantValues.APP_NAME, 'Order successfully placed. Kindly proceed to make Payment');
           this.redirectUrl = result.redirect_url;
           const transactionId = result?.transaction_id;
-          
+        
           //window.location.href = `${result.redirect_url}`;
           window.open(result.redirect_url,'_blank');
+          //console.log("Results"+ JSON.stringify(result,null,2))
+
+          if(this.paymentMethod ==='MOMO'){
           this.dialog.open(ConfirmOrderPaymentDialogComponent,
             // tslint:disable-next-line: max-line-length
             { data: { payment_method: this.paymentMethod, payment_network: this.paymentNetwork, network_name: this.networkName, transaction_id: transactionId, payment_option: this.paymentMethod }, disableClose: true })
             .afterClosed().subscribe((isCompleted: boolean) => {
       
             });
+          }else{
+             setTimeout(() => {
+            this.router.navigate(['/profile-view/orders']);
+          }, 2000);
+          }
           //console.log("result.redirect_url==>"+result.redirect_url);
           //window.open(`${result.redirect_url}`, `_blank`);
           //console.log("result.redirect_url==>"+result.redirect_url);

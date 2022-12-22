@@ -45,6 +45,7 @@ export class ConfirmOrderPaymentDialogComponent implements OnInit, OnDestroy {
       this.paymentNetwork = this.data.payment_network;
       this.networkName = this.data.network_name;
       this.pollOrderPaymentTransactionStatus(this.data.transaction_id);
+      //console.log("This.data"+JSON.stringify(this.data,null,2))
     }
   }
   ngOnDestroy() {
@@ -62,6 +63,7 @@ export class ConfirmOrderPaymentDialogComponent implements OnInit, OnDestroy {
   }
 
   checkMoMoStatus(transactionId) {
+    console.log("Transaction_id:"+ transactionId);
     this.isProcessing = true;
     this.refreshInterval = setInterval(() => {
       // tslint:disable-next-line: max-line-length

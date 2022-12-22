@@ -3,7 +3,8 @@ export const environment = {
   //BASE_URL: 'https://api.cudigo.com/api/v7.0/mall/',
   BASE_URL: 'https://api.cudigo.com/api/v7.0/mall/', //Live API
   //BASE_URL: 'https://testapi.cudigo.com/api/v7.0/mall/',
-  BASE_URL_KOKORKO: 'https://testapi.cudigo.com/api/v1.0/',
+  //BASE_URL_KOKORKO: 'https://testapi.cudigo.com/api/v1.0/', //test
+  BASE_URL_KOKORKO: 'https://api.cudigo.com/api/v1.0/', //live
   NEW_ACCOUNT_BASE_URL: 'https://testapi.cudigo.com/api/v1.0/',
   NEWS_LETTER_URL: 'https://storefront-features.herokuapp.com/',
   

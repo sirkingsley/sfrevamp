@@ -10,7 +10,7 @@
           <swiper class="" [config]="config4" *ngIf="productDetail?.extra_images.length">
             <ng-template swiperSlide *ngFor="let image of productDetail?.extra_images">
               <div class="product-image-wrapper">
-                <img src="{{image?.image}}" onerror="this.src='../../assets/images/ghana-rice.png'" alt="image_not_found">
+                <img src="{{image?.image}}" alt="image_not_found">
               </div>
             </ng-template>
             <ng-template swiperSlide *ngFor="let image of productDetail?.extra_images">
