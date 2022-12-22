@@ -3,6 +3,7 @@ import { get } from 'jquery';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray } from '@angular/forms';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConstantValuesService } from 'src/app/services/constant-values.service';
@@ -13,9 +14,11 @@ import { NotificationsService } from 'src/app/services/notifications.service';
 import { SEOService } from 'src/app/services/seo.service';
 import { CountryEnum } from 'src/app/utils/enums';
 import { CartPopUpComponent } from '../cart-pop-up/cart-pop-up.component';
-
-
-
+import { config,config2,config3,config4 } from 'src/app/utils/swiper-configs';
+// import Swiper core and required modules
+import SwiperCore, { A11y, EffectFade, Navigation, Pagination, Scrollbar } from 'swiper';
+declare const custom:any;
+declare const main:any;
 /**
  * @title Injecting data when opening a dialog
  */
@@ -30,18 +33,19 @@ export class ViewProductComponent implements OnInit {
   totalSellingPrice: any;
   appUtils: any;
   formGroup: any;
+  isSearching: boolean;
+  ProductsTitle: string;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
     private productsApiCalls: ProductsApiCallsService,
-    private route: ActivatedRoute,
     private constantValues: ConstantValuesService,
     private dbaseUpdate: DbaseUpdateService,
     private notificationsService: NotificationsService,
     private dialog: MatDialog,
-    private getHostname: GetHostnameService,
     private seoService: SEOService,
-    private router: Router,
-    private title: Title
+    private title: Title,
+    private route: ActivatedRoute,
+    private productsService: ProductsApiCallsService,
     ) {}
 
     productId:number;
@@ -57,15 +61,20 @@ export class ViewProductComponent implements OnInit {
     extraImages = [];
     quantities = [];
     item:any;
-
+    product_slug:any;
+    product_id:any;
     isProcessingRelatedProducts: boolean;
     country = '';
     countriesEnum = CountryEnum;
     currentUrl = '';
     quantityRemaining = 1;
+    config=config;
+    config3=config3;
+    config2=config2;
+    config4=config4;
 
   ngOnInit() {
-
+    SwiperCore.use([Navigation, Pagination, Scrollbar, A11y,EffectFade]);
     this.title.setTitle(this.constantValues.APP_NAME + ' Product Detail');
     this.country = this.constantValues.COUNTRY;
     this.protocol = this.constantValues.STOREFRONT_MALL_URL_PROTOCOL;
@@ -73,7 +82,18 @@ export class ViewProductComponent implements OnInit {
     this.getCartItems();
 
 
-
+    this.route.queryParams.subscribe(param => {
+      if(param['slug']){
+        const product_slug = param['slug'];
+        //console.log(param['slug']);
+        this.product_slug=product_slug;
+        this.getProductBySlug(param['slug']);
+      }else{
+        //console.log("no slug");
+      }
+    
+      
+    });
 
 
     // this.route.params.subscribe(param => {
@@ -82,10 +102,18 @@ export class ViewProductComponent implements OnInit {
     //   // this.getProductBySlug(this.slug);
     //   // this.getRelatedProducts(this.slug, '');
     // });
-    this.getProductBySlug(this.data.item.slug);
+    // this.getProductBySlug(this.data.item.slug);
 
+    
+    this.onload();
   }
 
+   //Call JavaScript functions onload
+   onload(){
+    custom();
+   
+   
+  }
    /**
    * Get product by slug
    * @param slug product slug
@@ -96,6 +124,7 @@ export class ViewProductComponent implements OnInit {
         this.isProcessing = false;
         if (result !== null && result.response_code === '100') {
           this.productDetail = result.results;
+          //console.log("Product-Details" + JSON.stringify(this.productDetail,null,2));
           this.extraImages = this.productDetail.extra_images;
           this.compressedImage = this.productDetail.compressed_image;
           this.image = this.productDetail.image;
@@ -153,70 +182,85 @@ export class ViewProductComponent implements OnInit {
       });
     }
 
+    // async getCartItems() {
+    //   await this.productsApiCalls.getCartItems((error, result) => {
+    //     if (result !== null) {
+    //       this.cartItems = result;
+    //       this.cartItems = result.sort(this.compare);
+    //      //console.log("Cart-->"+ JSON.stringify(this.cartItems,null,2));
+    //       if (this.cartItems.length > 0) {
+    //         this.currency = this.cartItems[0].item.currency;
+    //         this.country = this.cartItems[0].country;
+    //           console.log('Greauer');
+    //           const exists = this.cartItems.find(
+    //           (element: any) => element.item.id ===this.data.item.id
+    //           );
+    //           if (exists !== null && exists !== undefined && exists !== '') {
+    //             console.log('Exists');
+    //             const data = {
+    //               item: this.data.item,
+    //               quantity: exists.quantity,
+    //               country: this.country,
+    //               total_amount: exists.total_amount,
+    //               total_amount_usd: exists.total_amount_usd,
+    //               date_added: exists.product.date_added
+    //             };
+    //           //console.log(this.cartItems[0].item.id);
+    //           const newQuantity = +exists.quantity + 1;
+    //           const newSubtotal = +exists.total_amount + +this.data.item.selling_price;
+    //           data.total_amount = newSubtotal;
+    //           data.quantity = newQuantity;
+    //           this.productsApiCalls.removeAndAddProductToCart(
+    //             data,
+    //             async (error: any, result: any) => {
+    //               if (result !== null) {
+    //                 this.dbaseUpdate.dbaseUpdated(true);
+
+
+    //                 await this.getSubTotal();
+    //                 this.item=exists;
+    //               }
+    //             }
+    //           );
+
+    //           }else{
+    //             console.log('Not Exists');
+    //             const data = {
+    //               item: this.data.item,
+    //               quantity: 1,
+    //               country: this.country,
+    //               total_amount: this.data.item.selling_price,
+    //               total_amount_usd: this.data.item.total_amount_usd,
+    //               date_added: Date(),
+    //             };
+
+    //            this.item=data;
+    //            console.log('This.item-->'+JSON.stringify(this.item,null,2));
+    //            console.log('This.q-->'+ this.item.quantity);
+
+    //           }
+
+    //       }
+    //       this.getSubTotal();
+    //     }
+    //   });
+    // }
+
     async getCartItems() {
-      await this.productsApiCalls.getCartItems((error, result) => {
+      await this.productsService.getCartItems((error, result) => {
         if (result !== null) {
           this.cartItems = result;
           this.cartItems = result.sort(this.compare);
-         //console.log("Cart-->"+ JSON.stringify(this.cartItems,null,2));
+          //console.log("Cart length-->"+this.cartItems.length);
+          //console.log("Cart-->"+ JSON.stringify(this.cartItems,null,2));
           if (this.cartItems.length > 0) {
             this.currency = this.cartItems[0].item.currency;
             this.country = this.cartItems[0].country;
-              console.log('Greauer');
-              const exists = this.cartItems.find(
-              (element: any) => element.item.id ===this.data.item.id
-              );
-              if (exists !== null && exists !== undefined && exists !== '') {
-                console.log('Exists');
-                const data = {
-                  item: this.data.item,
-                  quantity: exists.quantity,
-                  country: this.country,
-                  total_amount: exists.total_amount,
-                  total_amount_usd: exists.total_amount_usd,
-                  date_added: exists.product.date_added
-                };
-              //console.log(this.cartItems[0].item.id);
-              const newQuantity = +exists.quantity + 1;
-              const newSubtotal = +exists.total_amount + +this.data.item.selling_price;
-              data.total_amount = newSubtotal;
-              data.quantity = newQuantity;
-              this.productsApiCalls.removeAndAddProductToCart(
-                data,
-                async (error: any, result: any) => {
-                  if (result !== null) {
-                    this.dbaseUpdate.dbaseUpdated(true);
-
-
-                    await this.getSubTotal();
-                    this.item=exists;
-                  }
-                }
-              );
-
-              }else{
-                console.log('Not Exists');
-                const data = {
-                  item: this.data.item,
-                  quantity: 1,
-                  country: this.country,
-                  total_amount: this.data.item.selling_price,
-                  total_amount_usd: this.data.item.total_amount_usd,
-                  date_added: Date(),
-                };
-
-               this.item=data;
-               console.log('This.item-->'+JSON.stringify(this.item,null,2));
-               console.log('This.q-->'+ this.item.quantity);
-
-              }
-
           }
           this.getSubTotal();
         }
       });
     }
-
 
 
 

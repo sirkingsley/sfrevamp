@@ -118,7 +118,7 @@ export class ProfileSidebarComponent implements OnInit {
       this.isProcessing = false;
       if (result !== null && result.response_code === '100') {
         this.orders = result.results;
-        console.log("this.orders-->"+ JSON.stringify(this.orders,null,2));
+        //console.log("this.orders-->"+ JSON.stringify(this.orders,null,2));
       }
     });
   }

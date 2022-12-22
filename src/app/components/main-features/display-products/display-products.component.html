@@ -26,150 +26,158 @@
 		<app-section-banner></app-section-banner>
 		<!-- product_section - start
 				================================================== -->
-				<section class="product_section sec_ptb_100 clearfix">
-					<div class="container">
-						<div class="row mb_30 align-items-center justify-content-lg-between">
-							<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-								<div class="ecommerce_section_title" #container>
-									<h2 class="title_text mb-0" #target></h2>
+		<section class="product_section sec_ptb_100 clearfix">
+			<div class="container">
+				<div class="row mb_30 align-items-center justify-content-lg-between">
+					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+						<div class="ecommerce_section_title" #container>
+							<h2 class="title_text mb-0" #target></h2>
+						</div>
+					</div>
+
+					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+						<ul class="button-group filters-button-group ul_li_right clearfix ms-0">
+							<li class="large-screen-cat-nav ms-0"><button [class.active]="selectedCategory === ''"
+									(click)="filterCategory('',target)">All</button></li>
+							<li class="large-screen-cat-nav" *ngFor="let category of pGroups | slice:0:3"><button
+									(click)="filterCategory(category?.name,target)"
+									[class.active]="selectedCategory === category?.name"
+									*ngIf="pGroups.length">{{category?.name}}</button></li>
+
+							<!-- <li><span class="filter_sidebar_btn large-screen-cat-nav" ><i class="far fa-bars"></i> FILTER</span></li> -->
+							<button class="large-screen-cat-nav" mat-button [matMenuTriggerFor]="menu"
+								*ngIf="pGroups.length"><span class=""><i class="bi bi-three-dots"></i></span></button>
+							<mat-menu #menu="matMenu">
+								<ul class="ul_li_block clearfix">
+									<li mat-menu-item><a (click)="filterCategory('',target)"> All </a> </li>
+									<li mat-menu-item *ngFor="let category of pGroups"><a
+											(click)="filterCategory(category?.name,target)">{{category.name}}</a></li>
+
+								</ul>
+							</mat-menu>
+						</ul>
+					</div>
+				</div>
+
+
+				<div class="products-pagination-wrapper" style="color: white !important;">
+
+					<form style=" width: 100%; display: flex ; justify-content: space-between; align-items: center;">
+						<div class="option_select d-flex align-items-center mb-0">
+
+							<mat-form-field appearance="fill">
+								<mat-label style="color: white !important;">Sort By Prices</mat-label>
+								<mat-select [formControl]="selectedValueCtrl" name="prices">
+									<mat-option value="" (click)="filterByPrice(selectedValueCtrl.value)">
+										Sort By All Prices
+									</mat-option>
+									<mat-option [value]="priceSorting.LOW_TO_HIGH_PRICING"
+										(click)="filterByPrice(selectedValueCtrl.value)">
+										Prices from Lowest to Highest
+									</mat-option>
+									<mat-option [value]="priceSorting.HIGH_TO_LOW_PRICING"
+										(click)="filterByPrice(selectedValueCtrl.value)">
+										Prices from Highest to Lowest
+									</mat-option>
+
+								</mat-select>
+
+							</mat-form-field>
+
+						</div>
+						<div class="large-screen-cat-nav" style="width: fit-content ;">
+							<app-pagination *ngIf="products?.length  > 0 " [dataSet]="products" [nextPage]="nextPage"
+								[prevPage]="prevPage" [totalPage]="totalPage" [requestPayload]="filterParams"
+								[requestMethod]="'POST'" (pageChanged)="onPageChanged($event)"
+								[(isProcessing)]="isProcessing">
+							</app-pagination>
+						</div>
+						<button mat-button [matMenuTriggerFor]="menu"><span class=""><i class="bi bi-filter"></i>
+								Categories</span></button>
+					</form>
+
+
+				</div>
+				<div *ngIf="isProcessing" class="container spinner-wrapper">
+					<mat-spinner class="custom-spinner-color"></mat-spinner>
+				</div>
+				<div *ngIf="products?.length <= 0 && !isProcessing" class="container mt-5">
+					<app-empty-record *ngIf="products?.length <= 0 && !isProcessing"></app-empty-record>
+
+				</div>
+
+				<div class="element-grid column4_element_grid mb_50">
+
+
+					<div class="element-item " *ngFor="let item of products">
+						<!-- <div class="ecommerce_product_grid" data-aos="zoom-in-down"> -->
+						<div class="ecommerce_product_grid">
+							<ul *ngIf="item?.new_quantity<=0" class="product_label ul_li clearfix">
+								<li class="out-of-stock">Out of Stock</li>
+							</ul>
+							<div class="tab-content">
+								<div id="ptab1_1" class="tab-pane fade active">
+									<div class="item_image">
+										<img src="{{item.image}}"
+											onerror="this.src='../../assets/images/ghana-rice.png'"
+											alt="image_not_found">
+									</div>
 								</div>
-							</div>
-			
-							<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-								<ul class="button-group filters-button-group ul_li_right clearfix ms-0">
-									<li class="large-screen-cat-nav ms-0"><button [class.active]="selectedCategory === ''"
-											(click)="filterCategory('',target)">All</button></li>
-									<li class="large-screen-cat-nav" *ngFor="let category of pGroups | slice:0:3"><button
-											(click)="filterCategory(category?.name,target)"
-											[class.active]="selectedCategory === category?.name" *ngIf="pGroups.length">{{category?.name}}</button></li>
-			
-									<!-- <li><span class="filter_sidebar_btn large-screen-cat-nav" ><i class="far fa-bars"></i> FILTER</span></li> -->
-									<button class="large-screen-cat-nav" mat-button [matMenuTriggerFor]="menu" *ngIf="pGroups.length"><span class=""><i
-												class="bi bi-three-dots"></i></span></button>
-									<mat-menu #menu="matMenu">
-										<ul class="ul_li_block clearfix">
-											<li mat-menu-item><a (click)="filterCategory('',target)"> All </a> </li>
-											<li mat-menu-item *ngFor="let category of pGroups"><a
-													(click)="filterCategory(category?.name,target)">{{category.name}}</a></li>
-			
-										</ul>
-									</mat-menu>
+								<div id="ptab1_2" class="tab-pane fade">
+									<div class="item_image">
+										<img src="assets/images/ghana-rice.png" alt="image_not_found">
+									</div>
+								</div>
+								<div id="ptab1_3" class="tab-pane fade">
+									<div class="item_image">
+										<img src="{{item.image}}"
+											onerror="this.src='../../assets/images/ghana-rice.png'"
+											alt="image_not_found">
+									</div>
+								</div>
+								<ul class="product_action_btns ul_li_center clearfix">
+									<!-- <li><a class="tooltips" data-placement="top" title="Add To Wishlist" href="#!"><i class="fal fa-heart"></i></a></li> -->
+									<li><a class="tooltips" title="Add To Cart" (click)="addProductToCart(item)"><i
+												class="fal fa-shopping-basket"></i></a></li>
+									<!-- <li><a class="tooltips q-v" title="Quick View" (click)="openDialog(item)"><i
+														class="fal fa-eye"></i></a></li> -->
+									<li><a class="tooltips q-v" title="Quick View"[routerLink]="['/product-details']" [queryParams]=" {slug: item.slug}"
+										queryParamsHandling="merge" ><i
+												class="fal fa-eye"></i></a></li>
 								</ul>
 							</div>
-						</div>
-			
-			
-						<div class="products-pagination-wrapper" style="color: white !important;">
-			
-							<form style=" width: 100%; display: flex ; justify-content: space-between; align-items: center;">
-								<div class="option_select d-flex align-items-center mb-0">
-			
-									<mat-form-field appearance="fill">
-										<mat-label style="color: white !important;">Sort By Prices</mat-label>
-										<mat-select [formControl]="selectedValueCtrl" name="prices">
-											<mat-option value="" (click)="filterByPrice(selectedValueCtrl.value)">
-												Sort By All Prices
-											</mat-option>
-											<mat-option [value]="priceSorting.LOW_TO_HIGH_PRICING"
-												(click)="filterByPrice(selectedValueCtrl.value)">
-												Prices from Lowest to Highest
-											</mat-option>
-											<mat-option [value]="priceSorting.HIGH_TO_LOW_PRICING"
-												(click)="filterByPrice(selectedValueCtrl.value)">
-												Prices from Highest to Lowest
-											</mat-option>
-			
-										</mat-select>
-			
-									</mat-form-field>
-			
-								</div>
-								<div class="large-screen-cat-nav" style="width: fit-content ;">
-									<app-pagination *ngIf="products?.length  > 0 " [dataSet]="products" [nextPage]="nextPage"
-										[prevPage]="prevPage" [totalPage]="totalPage" [requestPayload]="filterParams"
-										[requestMethod]="'POST'" (pageChanged)="onPageChanged($event)"
-										[(isProcessing)]="isProcessing">
-									</app-pagination>
-								</div>
-								<button mat-button [matMenuTriggerFor]="menu"><span class=""><i class="bi bi-filter"></i>
-										Categories</span></button>
-							</form>
-			
-			
-						</div>
-						<div *ngIf="isProcessing" class="container spinner-wrapper">
-							<mat-spinner class="custom-spinner-color"></mat-spinner>
-						</div>
-						<div *ngIf="products?.length <= 0 && !isProcessing" class="container mt-5">
-							<app-empty-record *ngIf="products?.length <= 0 && !isProcessing"></app-empty-record>
-			
-						</div>
-			
-						<div class="element-grid column4_element_grid mb_50">
-			
-			
-							<div class="element-item " *ngFor="let item of products">
-								<!-- <div class="ecommerce_product_grid" data-aos="zoom-in-down"> -->
-								<div class="ecommerce_product_grid">
-									<ul *ngIf="item?.new_quantity<=0" class="product_label ul_li clearfix">
-										<li class="out-of-stock">Out of Stock</li>
-									</ul>
-									<div class="tab-content">
-										<div id="ptab1_1" class="tab-pane fade active">
-											<div class="item_image">
-												<img src="{{item.image}}" onerror="this.src='../../assets/images/ghana-rice.png'"
-													alt="image_not_found">
-											</div>
-										</div>
-										<div id="ptab1_2" class="tab-pane fade">
-											<div class="item_image">
-												<img src="assets/images/ghana-rice.png" alt="image_not_found">
-											</div>
-										</div>
-										<div id="ptab1_3" class="tab-pane fade">
-											<div class="item_image">
-												<img src="{{item.image}}" onerror="this.src='../../assets/images/ghana-rice.png'"
-													alt="image_not_found">
-											</div>
-										</div>
-										<ul class="product_action_btns ul_li_center clearfix">
-											<!-- <li><a class="tooltips" data-placement="top" title="Add To Wishlist" href="#!"><i class="fal fa-heart"></i></a></li> -->
-											<li><a class="tooltips" title="Add To Cart" (click)="addProductToCart(item)"><i
-														class="fal fa-shopping-basket"></i></a></li>
-											<li><a class="tooltips q-v" title="Quick View" (click)="openDialog(item)"><i
-														class="fal fa-eye"></i></a></li>
-										</ul>
-									</div>
-									<div class="item_content">
-										<h3 class="item_title" (click)="openDialog(item)">
-											<!-- <a >{{item.name | truncate:2}}</a> -->
-											<a>{{item.name}}</a>
-										</h3>
-										<!-- <ul class="product_color ul_li nav clearfix">
+							<div class="item_content">
+								<h3 class="item_title" [routerLink]="['/product-details']" [queryParams]=" {slug: item.slug}">
+									<!-- <a >{{item.name | truncate:2}}</a> -->
+									<a>{{item.name}}</a>
+								</h3>
+								<!-- <ul class="product_color ul_li nav clearfix">
 								<li class="active"><a class="pbg_brown" data-toggle="tab" ></a></li>
 								<li><a class="pbg_olivegreen" data-toggle="tab" ></a></li>
 								<li><a class="pbg_gray" data-toggle="tab" ></a></li>
 							  </ul> -->
-										<!-- <span class="item_price"><strong>{{item.currency}} {{item.price_list[0]?.selling_price}} </strong> <del >{{item.currency}} {{item.price_list[0]?.selling_price*2}}</del></span> -->
-										<span class="item_price"><strong>{{item.currency}} {{item?.selling_price}} </strong></span>
-										<div class="add-to-wrapper">
-											<button class="mat-button-wrapper mt-3 add-to-cart" (click)="addProductToCart(item)">ADD
-												TO CART</button>
-										</div>
-			
-									</div>
+								<!-- <span class="item_price"><strong>{{item.currency}} {{item.price_list[0]?.selling_price}} </strong> <del >{{item.currency}} {{item.price_list[0]?.selling_price*2}}</del></span> -->
+								<span class="item_price"><strong>{{item.currency}} {{item?.selling_price}}
+									</strong></span>
+								<div class="add-to-wrapper">
+									<button class="mat-button-wrapper mt-3 add-to-cart"
+										(click)="addProductToCart(item)">ADD
+										TO CART</button>
 								</div>
+
 							</div>
 						</div>
-						<app-pagination *ngIf="products?.length > 0 " [dataSet]="products" [nextPage]="nextPage"
-							[prevPage]="prevPage" [totalPage]="totalPage" [requestPayload]="filterParams" [requestMethod]="'POST'"
-							(pageChanged)="onPageChanged($event)" [(isProcessing)]="isProcessing">
-						</app-pagination>
-			
-			
-			
 					</div>
-				</section>
+				</div>
+				<app-pagination *ngIf="products?.length > 0 " [dataSet]="products" [nextPage]="nextPage"
+					[prevPage]="prevPage" [totalPage]="totalPage" [requestPayload]="filterParams"
+					[requestMethod]="'POST'" (pageChanged)="onPageChanged($event)" [(isProcessing)]="isProcessing">
+				</app-pagination>
+
+
+
+			</div>
+		</section>
 		<!-- modern container - end -->
 	</div>
 

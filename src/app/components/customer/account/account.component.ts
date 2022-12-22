@@ -91,7 +91,7 @@ export class AccountComponent implements OnInit {
    //Call JavaScript functions onload
    onload(){
     custom();
-    main();
+ 
     // parallaxie();
   }
   user:any;

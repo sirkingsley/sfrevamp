@@ -87,6 +87,8 @@ import { DisplayProductsComponent } from './components/main-features/display-pro
 import { CartPopUpComponent } from './components/commons/cart-pop-up/cart-pop-up.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { LoginMainComponent } from './components/commons/login-main/login-main.component';
+import { SwiperModule } from 'swiper/angular';
+
 
 //import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
@@ -100,6 +102,7 @@ import { DeliveryAddressComponent } from './components/main-features/delivery-ad
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { IntlCountryCodesComponent } from './components/commons/intl-country-codes/intl-country-codes.component';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { ConfirmCodeComponent } from './components/commons/confirm-code/confirm-code.component';
 
 @NgModule({
   declarations: [
@@ -140,6 +143,7 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
     CheckoutComponent,
     DeliveryAddressComponent,
     IntlCountryCodesComponent,
+    ConfirmCodeComponent,
 
 
   ],
@@ -178,7 +182,7 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
     MatTabsModule,
     //LacMatTelInputModule,
     NgxIntlTelInputModule,
-   
+    SwiperModule,
     
   ],
   providers:
@@ -213,7 +217,8 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
       useValue: {displayDefaultIndicatorType: false},
     },
 
-
+    { provide: MAT_DIALOG_DATA,  useValue:{hasBackdrop: true} },
+    { provide: MatDialogRef,  useValue:{hasBackdrop: true} }
   ],
   bootstrap: [AppComponent]
 })

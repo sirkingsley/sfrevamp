@@ -19,7 +19,7 @@ import { ProductsApiCallsService } from 'src/app/services/network-calls/products
 import { SharedDataApiCallsService } from 'src/app/services/network-calls/shared-data-api-calls.service';
 import { ShopApiCallsService } from 'src/app/services/network-calls/shop-api-calls.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
-import { DeliveryOptions, DeliveryModeEnum, CurrencyEnums, CountryEnum, CheckoutSourceEnums, PaymentMethods, PromoCodeRateTypeEnum, ResponseCodesEnum } from 'src/app/utils/enums';
+import { DeliveryOptions, DeliveryModeEnum, CurrencyEnums, CountryEnum, CheckoutSourceEnums, PaymentMethods, PromoCodeRateTypeEnum, ResponseCodesEnum, TransactionStatusEnums } from 'src/app/utils/enums';
 import { ConfirmOrderPaymentDialogComponent } from '../../commons/confirm-order-payment-dialog/confirm-order-payment-dialog.component';
 import { ConfirmPhoneNumberComponent } from '../../commons/confirm-phone-number/confirm-phone-number.component';
 import { LoginMainComponent } from '../../commons/login-main/login-main.component';
@@ -27,7 +27,7 @@ import { OrderCompletedDialogComponent } from '../../commons/order-completed-dia
 import AOS from 'aos';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 declare const custom: any;
 declare const $;
@@ -40,19 +40,7 @@ declare const $;
 
 
 export class CheckoutComponent implements OnInit {
-  separateDialCode = false;
-	SearchCountryField = SearchCountryField;
-	CountryISO = CountryISO;
-  PhoneNumberFormat = PhoneNumberFormat;
-	preferredCountries: CountryISO[] = [CountryISO.Ghana, CountryISO.Nigeria];
-	phoneForm = new FormGroup({
-		phone: new FormControl(undefined, [Validators.required])
-	});
   
-
-	changePreferredCountries() {
-		this.preferredCountries = [CountryISO.Ghana, CountryISO.Nigeria];
-	}
   modalRef?: BsModalRef;
   selected ="";
   panelOpenState = false;
@@ -91,7 +79,7 @@ export class CheckoutComponent implements OnInit {
   transactionFee = 0;
   deliveryChargeAmount = 0;
   private geoCoder;
-  //currentUser: User;
+  
   cartItems = [];
   currency = '';
   subTotal = 0;
@@ -100,9 +88,6 @@ export class CheckoutComponent implements OnInit {
   country = '';
   @Input() checkoutSoure: CheckoutSourceEnums;
   subdomain = '';
-
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
 
   @ViewChild('location')
   public searchElementRef: ElementRef;
@@ -133,13 +118,24 @@ export class CheckoutComponent implements OnInit {
   proceed = false;
   promos: any = [];
   rate: number = 0;
+
+  pollingCount = 0;
+  user1:any;
+  isProcessingTransaction = false;
+  momoTransactionStatusObservable: Observable<any>;
+  refreshInterval;
+  isFailed: boolean;
+  isTransactionStatusDelayed: boolean;
+  needsRetry = false;
+  transactionId;
+  orderId;
+  pendingCountr = 0;
+
+  
   constructor(
 
-    private dataproviderService: DataProviderService,
+   
     private formBuilder: FormBuilder,
-    private sharedDataApiCallsService: SharedDataApiCallsService,
-    // private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone,
     private orderService: OrderApiCallsService,
     private authService: AuthService,
     private shopApiCalls: ShopApiCallsService,
@@ -154,14 +150,9 @@ export class CheckoutComponent implements OnInit {
     private getHostname: GetHostnameService,
     private shopsApiCalls: ShopApiCallsService,
     private constantValues: ConstantValuesService,
-    private _formBuilder: FormBuilder,
     private dbaseUpdate: DbaseUpdateService,
-    //@Inject(WINDOW) public window: Window,
     private customersApiCalls: CustomersApiCallsService,
-
-    //private dialogRef: MatDialogRef<LoginComponent>,
     private loginUpdate: LoginUpdateService,
-    //@Inject(MAT_DIALOG_DATA) public data: any,
     private modalService: BsModalService,
   ) {
 
@@ -173,12 +164,7 @@ export class CheckoutComponent implements OnInit {
       class: 'modal-dialog-centered', 
     });
   }
-  //  firstFormGroup = this._formBuilder.group({
-  //   firstCtrl: ['', Validators.required],
-  // });
-  // secondFormGroup = this._formBuilder.group({
-  //   secondCtrl: ['', Validators.required],
-  // });
+
   isEditable = false;
   //Call JavaScript functions onload
   onload() {
@@ -192,13 +178,13 @@ export class CheckoutComponent implements OnInit {
 
     this.subscription=this.loginUpdate.updateAddress.subscribe(address =>{
       this.deliveryAddress = address;
-      this.isDeliveryAddressProvided=true;
-    
-      //this.getDeliveryAddress();
-      
+      this.isDeliveryAddressProvided=true; 
+      //console.log(this.deliveryAddress);    
     })
     this.getCountry();
-
+    this.user1 = JSON.parse(localStorage.getItem('user1'));
+    //console.log(JSON.stringify(this.user1,null,2));
+    //console.log(localStorage.getItem('token1'));
     //this.getActivePromo("gtpstore");
     AOS.init();
     //Loader variable set false after page load
@@ -207,19 +193,11 @@ export class CheckoutComponent implements OnInit {
     }, 1000);
     this.isLoggedIn = this.authService.isLogedIn;
     this.currentUser = this.authService.currentUser;
-    this.getDeliveryAddress();
-
-    
-    //console.log(this.currentUser);
-    // this.window.addEventListener('load',()=>{
-    //   this.windowLoaded=true;
-    //   //alert("hi");
-    // })
    
     this.getCartItems();
-    this.getIndustries()
-    this.getFeaturedShops({});
-    //this.setCurrentLocation();
+ 
+
+  
     this.title.setTitle(this.constantValues.APP_NAME + ' Checkout Payment');
     this.subdomain = this.getHostname.subDomain;
     this.currentUser = this.authService.currentUser;
@@ -288,31 +266,9 @@ export class CheckoutComponent implements OnInit {
       order_items: [[]]
     });
 
-    this.formGroup = new FormGroup({
-      phone_number: new FormControl('', [Validators.required]),
-      password: new FormControl(''),
-      email: new FormControl('', [Validators.email]),
-      customer_name: new FormControl('')
-    });
 
 
-    // if (!this.authService.isLogedIn) {
-    //   this.dialog.open(GuestUserComponent).afterClosed().subscribe(async (isSuccess: boolean) => {
-    //     if (isSuccess) {
-    //       this.address_ctrl.setValue(this.authService.currentUser.address);
-    //       this.city_ctrl.setValue(this.authService.currentUser.city);
-    //       this.state_ctrl.setValue(this.authService.currentUser.brief);
-    //       await this.getCartItems();
-    //       // this.getPromoCodeValue('', true);
-    //     }
-    //   });
-    // } else {
-    //   this.address_ctrl.setValue(this.authService.currentUser.address);
-    //   this.city_ctrl.setValue(this.authService.currentUser.city);
-    //   this.state_ctrl.setValue(this.authService.currentUser.brief);
-    //   await this.getCartItems();
-    //   // this.getPromoCodeValue('', true);
-    // }
+   
     if (this.getHostname.isShopMall) {
       this.getActivePromo(this.getHostname.subDomain);
     }
@@ -332,50 +288,22 @@ export class CheckoutComponent implements OnInit {
       this.getShopInfo();
     }
 
-    // console.log("Currency=>"+this.currency);
-    // console.log("Country=>"+this.country);
-  
-
-
-    // $('#flip').on("click",function(){
-    //   $("#panel").slideToggle("slow");
-    // });
-
-    // $('.search_btn').on("click",function(){
-    //   $("#search_body_collapse").slideToggle("slow");
-    // });
     this.onload()
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required],
-    });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required],
-    });
-
+ 
    
  
   }
 
+
+
+ 
  /**
    * Country code selected
    * @param countryInfo country info
    */
-  onCountry(countryInfo) {
-    if (countryInfo !== undefined && countryInfo !== null) {
-      this.countryCode = '+' + (countryInfo.callingCodes[0] as string);
-    }
-  }
+ 
   
-  getFeaturedShops({ }) {
-    this.isProcessingFeaturedShops = true;
-    this.shopsApiCalls.getFeaturedShops({}, (error, result) => {
-      this.isProcessingFeaturedShops = false;
-      if (result !== null) {
-        this.featuredShops = result.results;
-        //console.log("this.featuredShops-->"+ JSON.stringify(this.featuredShops));
-      }
-    });
-  }
+ 
 
   getIndustries() {
     this.shopsApiCalls.getIndustries((error, result) => {
@@ -383,70 +311,8 @@ export class CheckoutComponent implements OnInit {
       //console.log("this.industries "+ JSON.stringify(this.industries) );
     });
   }
-  getDeliveryOption() {
-    console.log(this.deliveryOptionsFormCtrl.value);
-  }
-  // ngAfterViewInit() {
-  //   this.setCurrentLocation();
-  //   this.mapsAPILoader.load().then(() => {
-  //     this.setCurrentLocation();
-  //     // tslint:disable-next-line: new-parens
-  //     this.geoCoder = new google.maps.Geocoder();
 
-  //     const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
 
-  //     autocomplete.addListener('place_changed', () => {
-  //       this.ngZone.run(() => {
-  //         // get the place result
-  //         const place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-  //         // verify result
-  //         if (place.geometry === undefined || place.geometry === null) {
-  //           return;
-  //         }
-  //         this.gift_recipient_address.setValue(this.searchElementRef.nativeElement.value);
-  //         this.location.setValue(this.searchElementRef.nativeElement.value);
-  //         // set latitude, longitude and zoom
-  //         this.latitude = place.geometry.location.lat();
-  //         this.longitude = place.geometry.location.lng();
-  //         this.zoom = 12;
-  //         this.address = this.searchElementRef.nativeElement.value;
-  //         this.locationFormCtrl.setValue(this.address);
-  //         this.location.setValue(this.address);
-  //         this.latitude_ctrl.setValue(this.latitude);
-  //         this.longitude_ctrl.setValue(this.longitude);
-
-  //         this.gift_recipient_address.setValue(this.address);
-  //         this.gift_recipient_latitude.setValue(this.latitude);
-  //         this.gift_recipient_longitude.setValue(this.longitude);
-  //       });
-  //     });
-  //   });
-  // }
-  /**
-   * Set current locaiton on map. This only happens when user allows location access in browser
-   */
-  private setCurrentLocation() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-        this.zoom = 15;
-
-        console.log("LAT,LOG: " + this.latitude + " " + this.longitude);
-        //this.getAddress(position.coords.latitude, position.coords.longitude);
-      });
-    }
-  }
-  /**
-   * On Map Marker dragged
-   * @param $event marker drag end event data
-   */
-    markerDragEnd($event) {
-    this.latitude = $event.coords.lat;
-    this.longitude = $event.coords.lng;
-    this.getAddress(this.latitude, this.longitude);
-  }
 
   /**
    * When payment method is selected
@@ -465,63 +331,51 @@ export class CheckoutComponent implements OnInit {
     if (paymentMethod === PaymentMethods.MOMO && this.constantValues.YOUNG_TEMPLATE_SUBDOMAIN.includes(this.getHostname.subDomain)) {
       this.getShopInfo();
     }
-
-    // console.log('pm--'+this.paymentMethod);
-    // console.log('pn--'+this.paymentNetwork);
-    // console.log('networkName--'+this.networkName);
   }
-  // showPaymentPrompt() {
-  //   if (this.paymentMethod === PaymentMethods.CARD) {
-  //     this.redirectUrl = '';
-  //     this.isProcessing = true;
-
-  //   } else {
-
-  //   }
-  // }
+ 
   /**
    * Get road name (address) of a location by latitude and longitude
    * @param latitude latitude
    * @param longitude longitude
    */
-  getAddress(latitude, longitude) {
-    this.geoCoder.geocod({ location: { lat: latitude, lng: longitude } }, (results, status) => {
-      if (status === 'OK') {
-        console.log("LAT,LOG: " + this.latitude + " " + this.longitude);
-        if (results[0]) {
-          this.zoom = 12;
-          this.address = results[0].formatted_address;
-          this.locationFormCtrl.setValue(this.address);
-          this.location.setValue(this.address);
-          this.latitude_ctrl.setValue(this.latitude);
-          this.longitude_ctrl.setValue(this.longitude);
+  // getAddress(latitude, longitude) {
+  //   this.geoCoder.geocod({ location: { lat: latitude, lng: longitude } }, (results, status) => {
+  //     if (status === 'OK') {
+  //       console.log("LAT,LOG: " + this.latitude + " " + this.longitude);
+  //       if (results[0]) {
+  //         this.zoom = 12;
+  //         this.address = results[0].formatted_address;
+  //         this.locationFormCtrl.setValue(this.address);
+  //         this.location.setValue(this.address);
+  //         this.latitude_ctrl.setValue(this.latitude);
+  //         this.longitude_ctrl.setValue(this.longitude);
 
-          this.gift_recipient_address.setValue(this.address);
-          this.gift_recipient_latitude.setValue(this.latitude);
-          this.gift_recipient_longitude.setValue(this.longitude);
-        } else {
-          this.location.setValue('Unnamed Road');
-          this.latitude_ctrl.setValue(this.latitude);
-          this.longitude_ctrl.setValue(this.longitude);
+  //         this.gift_recipient_address.setValue(this.address);
+  //         this.gift_recipient_latitude.setValue(this.latitude);
+  //         this.gift_recipient_longitude.setValue(this.longitude);
+  //       } else {
+  //         this.location.setValue('Unnamed Road');
+  //         this.latitude_ctrl.setValue(this.latitude);
+  //         this.longitude_ctrl.setValue(this.longitude);
 
-          this.locationFormCtrl.setValue(this.address);
-          this.gift_recipient_address.setValue(this.address);
-          this.gift_recipient_latitude.setValue(this.latitude);
-          this.gift_recipient_longitude.setValue(this.longitude);
-        }
-      } else {
-        this.location.setValue('Unnamed Road');
-        this.latitude_ctrl.setValue(this.latitude);
-        this.longitude_ctrl.setValue(this.longitude);
+  //         this.locationFormCtrl.setValue(this.address);
+  //         this.gift_recipient_address.setValue(this.address);
+  //         this.gift_recipient_latitude.setValue(this.latitude);
+  //         this.gift_recipient_longitude.setValue(this.longitude);
+  //       }
+  //     } else {
+  //       this.location.setValue('Unnamed Road');
+  //       this.latitude_ctrl.setValue(this.latitude);
+  //       this.longitude_ctrl.setValue(this.longitude);
 
-        this.locationFormCtrl.setValue(this.address);
-        this.gift_recipient_address.setValue(this.address);
-        this.gift_recipient_latitude.setValue(this.latitude);
-        this.gift_recipient_longitude.setValue(this.longitude);
-      }
+  //       this.locationFormCtrl.setValue(this.address);
+  //       this.gift_recipient_address.setValue(this.address);
+  //       this.gift_recipient_latitude.setValue(this.latitude);
+  //       this.gift_recipient_longitude.setValue(this.longitude);
+  //     }
 
-    });
-  }
+  //   });
+  // }
   /**
    * Update customer's delivery address on server
    * @param data request payload
@@ -531,19 +385,7 @@ export class CheckoutComponent implements OnInit {
       this.notificationsService.info(this.constantValues.APP_NAME, 'Please login to continue');
       return;
     }
-    // if (!this.authService.isLogedIn) {
-    //   this.dialog.open(GuestUserComponent).afterClosed().subscribe(async (isSuccess: boolean) => {
-    //     if (isSuccess) {
-    //       this.address_ctrl.setValue(this.authService.currentUser.address);
-    //       this.city_ctrl.setValue(this.authService.currentUser.city);
-    //       this.state_ctrl.setValue(this.authService.currentUser.brief);
-    //       await this.getCartItems();
-    //       return;
-    //       // this.getPromoCodeValue('', true);
-    //     }
-    //   });
-    //   return;
-    // }
+   
     //console.log("updateDeliveryAddress");
     if (this.cartItems.length <= 0) {
 
@@ -555,8 +397,6 @@ export class CheckoutComponent implements OnInit {
     this.orderService.updateDeliveryAddress(data, (error, result) => {
       //console.log("orderService.updateDeliveryAddress---");
       if (result !== null) {
-        //console.log("orderService.updateDeliveryAddress not null");
-        this.authService.saveUser(result.results);
         this.getDeliveryCharge(data);
         this.proceed = true;
         this.loginUpdate.AddressIsUpdated(data);
@@ -567,16 +407,9 @@ export class CheckoutComponent implements OnInit {
     });
   }
   
-  getDeliveryAddress(){
-    this.deliveryAddress = JSON.parse(localStorage.getItem('delivery_address'))
-  }
+ 
 
-  back() {
-    this.router.navigate(['/cart'])
-  }
-  Guest() {
-    this.isGuest = !this.isGuest;
-  }
+
   /**
    * Get delivery charge basd on the location provided
    * @param data request payload
@@ -594,8 +427,7 @@ export class CheckoutComponent implements OnInit {
       this.isProcessing = false;
       if (result !== null) {
         this.delieryCharge = result;
-        // console.log("D-->"+JSON.stringify(this.delieryCharge,null,2) )
-        //console.log("Selec-->"+this.selectedDelivery )
+    
         // tslint:disable-next-line: max-line-length
         let deliveryCharge = (this.delieryCharge !== null && this.delieryCharge !== '' && this.delieryCharge !== undefined) ? +this.delieryCharge.delivery_fee : 0;
         let serviceCharge = (this.delieryCharge !== null && this.delieryCharge !== '' && this.delieryCharge !== undefined) ? +this.delieryCharge.service_charge : 0;
@@ -609,8 +441,6 @@ export class CheckoutComponent implements OnInit {
         this.serviceCharge = +serviceCharge.toFixed(2);
         this.transactionFee = +transactionFee.toFixed(2);
         this.grandTotal = +this.subTotal + this.deliveryChargeAmount + this.serviceCharge + this.transactionFee;
-        //console.log("this.delieryCharge"+JSON.stringify(this.delieryCharge,null,2));
-        //this.stepper.next();
       }
     });
   }
@@ -687,19 +517,8 @@ export class CheckoutComponent implements OnInit {
       this.notificationsService.info(this.constantValues.APP_NAME, 'Please add a delivery option to continue');
       return;
     }
-    // if (this.paymentMethod === PaymentMethods.MOMO && data.sender_wallet_number === '') {
-    //   this.notificationsService.info(this.constantValues.APP_NAME, 'Please enter MoMo number to continue');
-    //   return;
-    // }
-    // if (this.paymentMethod === PaymentMethods.MOMO && data.sender_wallet_number !== '') {
-    //   //data.delivery_option = this.selectedDelivery;
-    //   //console.log(JSON.stringify(data,null,2))
-    //   // this.updateDeliveryAddress(this.addressFormGroup.value);
-    //   this.validatePhoneNumber(data.sender_wallet_number, data);
-    // }
+    
      else {
-      //console.log(JSON.stringify(data,null,2));
-      // this.updateDeliveryAddress(this.addressFormGroup.value);
       this.processOrder(data);
     }
 
@@ -731,13 +550,7 @@ export class CheckoutComponent implements OnInit {
     }
     data.order_items = this.getOrderItems;
     data.checkout_type = '';
-    data.product_variants = '';
-    // if (this.constantValues.YOUNG_TEMPLATE_SUBDOMAIN.includes(this.subdomain)) {
-    //   data.checkout_type = 'USD_ONLY';
-    //   data.product_variants = this.getProductVariants;
-    // }
-    //console.log(JSON.stringify(data,null,2))
-   
+    data.product_variants = '';   
     this.orderService.placeOrder(data, (error, result) => {
       this.isProcessing = false;
       if (result !== null && result.transaction_id !== '' && result.transaction_id !== undefined) {
@@ -759,13 +572,20 @@ export class CheckoutComponent implements OnInit {
        
           this.notificationsService.success(this.constantValues.APP_NAME, 'Order successfully placed. Kindly proceed to make Payment');
           this.redirectUrl = result.redirect_url;
+          const transactionId = result?.transaction_id;
           
-          
-          window.location.href = `${result.redirect_url}`;
+          //window.location.href = `${result.redirect_url}`;
+          window.open(result.redirect_url,'_blank');
+          this.dialog.open(ConfirmOrderPaymentDialogComponent,
+            // tslint:disable-next-line: max-line-length
+            { data: { payment_method: this.paymentMethod, payment_network: this.paymentNetwork, network_name: this.networkName, transaction_id: transactionId, payment_option: this.paymentMethod }, disableClose: true })
+            .afterClosed().subscribe((isCompleted: boolean) => {
+      
+            });
           //console.log("result.redirect_url==>"+result.redirect_url);
           //window.open(`${result.redirect_url}`, `_blank`);
           //console.log("result.redirect_url==>"+result.redirect_url);
-          this.router.navigate(['/profile-view/orders']);
+          //this.router.navigate(['/profile-view/orders']);
           // setTimeout(() => {
           //   this.router.navigate(['/profile-view/orders']);
           //   // if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
@@ -824,6 +644,7 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
+ 
   /**
    * Get order items in cart, this will added place_order payload as order_items
    */
@@ -852,13 +673,7 @@ export class CheckoutComponent implements OnInit {
       }
     });
   }
-  shopNow() {
-    if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
-      this.router.navigate(['/']);
-    } else if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
-      this.router.navigate(['/mall']);
-    }
-  }
+ 
   getActivePromo(onlineAddress) {
     this.shopApiCalls.checkActivePromo(onlineAddress, (error, result) => {
       //console.log("shopHas->"+result)
@@ -921,64 +736,6 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  openD() {
-    this.dialog.open(OrderCompletedDialogComponent, {
-      scrollStrategy: new NoopScrollStrategy(),
-    });
-  }
-
-  getDaddress() {
-    console.log(this.addressFormGroup.value);
-  }
-
-  onSubmit(data) {
-    if (this.formGroup.valid) {
-      this.isProcessing = true;
-      this.customersApiCalls.signIn(data, (error, result) => {
-        this.isProcessing = false;
-        this.loginUpdate.isUpdated(true);
-        if (result !== null) {
-          if (!this.isGuest) {
-            this.notificationsService.success(this.constantValues.APP_NAME, 'Login successful');
-            this.authService.increaseLoggedInCount();
-            this.authService.removeUserAndToken();
-            this.authService.saveUser(result);
-            this.authService.saveToken(result.auth_token);
-            this.loginUpdate.isUpdated(true);
-            this.isLoggedIn = true;
-            this.currentUser = this.authService.currentUser;
-            window.location.reload();
-            //console.log("Data-->"+JSON.stringify(data,null,2));
-            //this.router.navigate(['/supermarket']);
-
-          } else {
-            this.notificationsService.success(this.constantValues.APP_NAME, 'Sign Up successful');
-            this.authService.increaseLoggedInCount();
-            this.authService.removeUserAndToken();
-            this.authService.saveUser(result.results);
-            this.authService.saveToken(result.results.auth_token);
-            this.loginUpdate.isUpdated(true);
-            window.location.reload();
-            //this.router.navigate(['/supermarket']);
-
-
-          }
-          if (this.authService.isLogedIn) {
-            this.productsApiCalls.getCartItems((error, result) => {
-              const items: any[] = result.map(data => "" + data.item.id + ":" + data.quantity + ":" + data.total_amount);
-              if (items.length > 0) {
-                this.productsApiCalls.syncCartItems({ items: items.join(',') }, (er, res) => {
-
-                });
-              }
-            });
-          }
-          //this.dialogRef.close(true);
-        }
-      }, this.isGuest);
-    }
-  }
-
   getShopPromos() {
     let i = 0;
     // const payload2 = {
@@ -1004,21 +761,8 @@ export class CheckoutComponent implements OnInit {
       });
     });
 
-    // console.log("promos->"+this.promos)
+    
   }
-
-  // checkPromoUsage(payload:any) {
-  //   this.isProcessing = true;
-  //   this.shopApiCallService.CheckPromoUsage(payload,(error, result) => {
-  //     if (
-  //       result !== null &&
-  //       result.response_code === ResponseCodesEnum.CODE_100
-  //     ) {
-  //       console.log(JSON.stringify(result, null, ' '));
-  //       this.isProcessing = false;
-  //     }
-  //   });
-  // }
 
   async applyCoupon() {
     // console.log("Conde entered: "+this.promoCodeFormCtrl.value)
@@ -1029,67 +773,17 @@ export class CheckoutComponent implements OnInit {
 
     if (found !== null && found !== undefined && found !== '') {
       this.getPromoCodeValue(found?.promo);
-      // const rate = found.promo.rate_value;
-      // this.cartItems.forEach(async (element: any) => {
-      //   if (element.item.myshop.id === found.shopId && element.promo === 0) {
-      //     const discount=(element.total_amount * rate) / 100;
-      //     element.price_before=element.total_amount;
-      //     element.total_amount =element.total_amount -discount;
-      //     element.promo = rate;
-      //     element.promo_code=this.promoCodeFormCtrl.value;
-
-      //     this.rate = parseInt(element.promo);
-
-      //     this.productsApiCalls.removeAndAddProductToCart(
-      //       element,
-      //       async (error: any, result: any) => {
-      //         if (result !== null) {
-      //           this.dbaseUpdate.dbaseUpdated(true);
-      //           await this.getCartItems();
-      //           this.cartItems=this.cartItems.sort(this.compare);
-      //           await this.getSubTotal();
-      //         }
-      //       }
-      //     );
-
-      //     this.notificationsService.success('',
-      //       'Promo Successfuly applied'
-      //     );
-      //     //this.promos=[];
-      //   } else {
-      //     this.notificationsService.info('',
-      //       'No promo for selected product(s)'
-      //     );
-      //   }
-      // });
+      
       this.notificationsService.success('',
         'Promo Successfuly applied'
       );
     } else {
-      console.log("Not Found")
+      //console.log("Not Found")
       this.notificationsService.info('', 'Invalid Promo Code');
     }
   }
 
-  loginPrompt(){
-    if (!this.isLoggedIn) {
-      this.dialog.open(LoginMainComponent, {
-        data: {},
-        disableClose: false,
-        scrollStrategy: new NoopScrollStrategy(),
-      })
-        .afterClosed().subscribe((isSuccess: boolean) => {
-          if (isSuccess) {
-            if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
-              this.router.navigate(['/checkout2']);
-            } else if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
-
-              this.router.navigate(['/checkout2']);
-            }
-          }
-        });
-    } //Login popup end
-  }
+  
   compare(a: any, b: any) {
     if (a.item.name < b.item.name) {
       return -1;
@@ -1225,7 +919,7 @@ export class CheckoutComponent implements OnInit {
       localStorage.setItem('user_choice',JSON.stringify(user_choice));
       this.router.navigate(['/delivery-info']);
     }
-  }
+  }  
 
   get phone_number() { return this.formGroup.get('phone_number'); }
   get password() { return this.formGroup.get('password'); }
@@ -1256,7 +950,5 @@ export class CheckoutComponent implements OnInit {
   get order_note() { return this.giftRecipientAddressFormGroup.get('order_note'); }
   get gift_recipient_latitude() { return this.giftRecipientAddressFormGroup.get('gift_recipient_latitude'); }
   get gift_recipient_longitude() { return this.giftRecipientAddressFormGroup.get('gift_recipient_longitude'); }
-
-
 
 }

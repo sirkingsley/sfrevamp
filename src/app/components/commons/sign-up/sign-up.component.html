@@ -11,17 +11,17 @@
 
 				<h2 class="form-title d-flex justify-content-space-between py-0 my-0"
 					style="justify-content: space-between; align-items: center;" mat-dialog-title>
-					<span class="py-0 my-0">{{heading}}</span> <span class="signup-btn py-0 my-0" (click)=" onSignIn()"
+					<span class="py-0 my-0">{{heading}}</span> <span class="signup-btn py-0 my-0" (click)="onSignIn()"
 						mat-dialog-close>Sign
 						In</span>
 				</h2>
 
-				<form class="" [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup?.value)">
+				<form class="" [formGroup]="formGroup" (ngSubmit)="onSubmit2(formGroup?.value)">
 					<div mat-mat-dialog-content>
 
 						<div class="form-group mb-2">
 							<p>Email Address</p>
-							<input type="text" placeholder="Email" formControlName="email" />
+							<input type="text"  formControlName="email" />
 							<mat-error *ngIf="email?.invalid && email?.touched">
 								Please enter your email
 							</mat-error>
@@ -30,14 +30,14 @@
 
 						<div class="form-group mb-2">
 							<p>First Name</p>
-							<input type="text" placeholder="First Name" formControlName="first_name" />
+							<input type="text" formControlName="first_name" />
 							<mat-error *ngIf="email?.invalid && email?.touched">
 								Please enter your First Name
 							</mat-error>
 						</div>
 						<div class="form-group mb-2">
 							<p>Last Name</p>
-							<input type="text" placeholder="Last Name" formControlName="last_name" />
+							<input type="text" formControlName="last_name" />
 							<mat-error *ngIf="email?.invalid && email?.touched">
 								Please enter your last Name
 							</mat-error>
@@ -68,27 +68,27 @@
 							  </ngx-intl-tel-input>
 						
 
-							<mat-error *ngIf="email?.invalid && email?.touched">
+							<mat-error *ngIf="phone_number?.invalid && phone_number?.touched">
 								Please enter your Phone Number
 							</mat-error>
 						</div>
 
-						<div class="form-group mb-2">
+						<!-- <div class="form-group mb-2">
 							<p>Password</p>
-							<input type="password" placeholder="Password" formControlName="password" />
+							<input type="password" formControlName="password" />
 							<mat-error *ngIf="password?.invalid && password?.touched"
 								style="font-size: 10px;line-height: 10px;">
 								Password must contain more than 8 characters, 1 upper case letter, number, and 1 special
 								character
 							</mat-error>
-						</div>
-						<div class="form-group mb-2">
+						</div> -->
+						<!-- <div class="form-group mb-2">
 							<p>Confirm Password</p>
-							<input type="password" placeholder="Password" formControlName="retype_password" />
+							<input type="password" formControlName="retype_password" />
 							<mat-error *ngIf="password?.invalid && password?.touched">
 								Passwords mismatched
 							</mat-error>
-						</div>
+						</div> -->
 					</div>
 					<div class="login-btn-wrapper" mat-dialog-actions>
 						<mat-progress-bar *ngIf="isProcessing" class="mb-0" mode="indeterminate"></mat-progress-bar>

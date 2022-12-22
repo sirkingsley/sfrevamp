@@ -180,17 +180,7 @@ onload(){
   //parallaxie();
 }
 
-// ngAfterInit (){
-//   this.route.params.subscribe(param => {
-//     alert(param['pageSec'])
-//     if(param['pageSec']){
-//       const section = this.container.nativeElement.querySelector(`#${param['pageSec']}`)
-//       console.log("section=>"+section)
 
-//       section?.scrollIntoView()
-//     }
-//   })
-// }
 
   async ngOnInit(): Promise<void> {
     this.getShopsWithPromo();
@@ -200,10 +190,7 @@ onload(){
     setTimeout(()=>{
       this.loader = false;
   }, 1000);
-    // this.window.addEventListener('load',()=>{
-    //   this.windowLoaded=true;
-    //   // alert("hi");
-    // })
+ 
     this.subdomain = this.getHostname.subDomain;
     // this.subdomain = this.constantValues.GTP_SUBDOMAIN;
     this.gtpSubdomin = this.constantValues.GTP_SUBDOMAIN;
@@ -256,25 +243,7 @@ onload(){
       }
     });
     await this.getCartItems();
-    //after full window load including image src css file
-    // $(window).load(function() {
-    //   alert("hi 2");
-    // });
-    // alert("hi 2");
-
-    // $('.filter_sidebar_btn').on('click', function () {
-    //   $('.filter_sidebar').addClass('active');
-    //   $('.overlay').addClass('active');
-    // });
-
-    // $('#flip').on("click",function(){
-    //   $("#panel").slideToggle("slow");
-    // });
-
-    // $('.search_btn').on("click",function(){
-    //   $("#search_body_collapse").slideToggle("slow");
-    // });
-
+    
 
     this.newsLetterFormGroup=new FormGroup({
       email: new FormControl('',[Validators.required]),
@@ -283,8 +252,8 @@ onload(){
     })
     this.onload();
 
-    console.log("Currency=>"+this.currency);
-    console.log("Country=>"+this.country);
+    //console.log("Currency=>"+this.currency);
+    //console.log("Country=>"+this.country);
 
   }
 
@@ -327,8 +296,7 @@ pagefullyLoaded:Boolean=false;
     this.selectedPriceSorting = priceSort;
     // tslint:disable-next-line: max-line-length
     this.getProducts({ sorting: this.selectedPriceSorting, product_group_id: this.selectedCategoryId, search_text: this.searchQuery, tag: this.tag, storefrontmall_name: 'kokorko' });
-    //console.log("Price-->"+this.selectedValueCtrl);
-    //alert('price sorted to '+this.selectedValueCtrl);
+   
   }
 /**
    * Get products by filter parameters
@@ -384,7 +352,7 @@ getIndustries() {
 }
 getActivePromo(onlineAddress) {
   this.shopsApiCalls.checkActivePromo(onlineAddress, (error, result) => {
-    console.log("shopHas->"+result)
+    //console.log("shopHas->"+result)
     if (result !== null && result.response_code === '100') {
       this.shopHasActivePromo = result.results;
       if (this.shopHasActivePromo) {
@@ -398,7 +366,7 @@ getActivePromo(onlineAddress) {
   });
 }
 getPromoCodeValue(promoCode, isFirstLoad = false) {
-  console.log(promoCode);
+  //console.log(promoCode);
   this.isProcessing = true;
   this.orderService.getPromoCodeValue(promoCode, isFirstLoad, (error, result) => {
     this.isProcessing = false;

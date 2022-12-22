@@ -15,14 +15,17 @@ export class DataProviderService {
   options;
   optionsForFormData;
   optionsNoToken;
+  token:any;
   constructor(
     private http: HttpClient,
     private constantValuesService: ConstantValuesService,
     private handleNetworkErrorsService: NetworkErrorHandlerService) {
+    this.token=localStorage.getItem('token');
     this.headers = new HttpHeaders();
     this.headersNoToken = new HttpHeaders();
     this.headersForFormData = new HttpHeaders();
     this.headers = this.headers.set('Authorization', 'Token');
+    //this.headers=this.headers.set('Authorization',`Token ${this.token}`);
     this.headers = this.headers.set('Content-Type', 'application/json');
     this.headersNoToken = this.headersNoToken.set('Content-Type', 'application/json');
     this.headersForFormData = this.headersForFormData.append('Authorization', 'Token');
@@ -112,6 +115,7 @@ export class DataProviderService {
         map((response) => response)
       );
   }
+  
   /**
    * HTTP POST request to submit data
    * @param endPoint Endpoint
@@ -119,6 +123,13 @@ export class DataProviderService {
    */
   createNoToken(endPoint: string, resource?: any): Observable<any> {
     return this.http.post(this.constantValuesService.BASE_URL + endPoint, JSON.stringify(resource), this.optionsNoToken)
+      .pipe(
+        catchError(this.handleNetworkErrorsService.handleError),
+        map((response) => response)
+      );
+  }
+  createNoToken2(endPoint: string, resource?: any): Observable<any> {
+    return this.http.post(this.constantValuesService.BASE_URL_KOKORKO + endPoint, JSON.stringify(resource), this.optionsNoToken)
       .pipe(
         catchError(this.handleNetworkErrorsService.handleError),
         map((response) => response)

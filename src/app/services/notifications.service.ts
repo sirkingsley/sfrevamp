@@ -126,12 +126,7 @@ export class NotificationsService {
   */
   progress(title: any, message: any) {
     this.toastService.success(message);
-    // Lobibox.progress('progress', {
-    //   position: 'top right',
-    //   sound: false,
-    //   title: title,
-    //   label: message
-    // });
+   
   }
   /**
  *Shows an info alert that blocks the whole page
@@ -139,7 +134,7 @@ export class NotificationsService {
   */
   infoAlert(message: any) {
     this.toastService.info(message);
-    // Lobibox.alert('info', { msg: message });
+ 
   }
   /**
  *Shows a success alert that blocks the whole page
@@ -147,7 +142,7 @@ export class NotificationsService {
   */
   successAlert(message: any) {
     this.toastService.success(message);
-    // Lobibox.alert('success', { msg: message });
+
   }
   /**
  *Shows an error alert that blocks the whole page
@@ -155,7 +150,7 @@ export class NotificationsService {
   */
   errorAlert(message: any) {
     this.toastService.error(message);
-    // Lobibox.alert('error', { msg: message });
+  
   }
   /**
   *Shows a warning alert that blocks the whole page
@@ -163,7 +158,7 @@ export class NotificationsService {
    */
   warningAlert(message: any) {
     this.toastService.warning(message);
-    // Lobibox.alert('warning', { msg: message });
+  
   }
   /**
    * Warning message position to center top

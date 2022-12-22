@@ -36,7 +36,6 @@ const routes: Routes = [
   },
   {path: 'profile-view/orders/details/:id', component : OrderDetailsComponent},
   {path: 'delivery-info', component : DeliveryAddressComponent},
-  {path: 'view-product', component : ViewProductComponent},
   {path: 'profile-view', component : ProfileSidebarComponent,
     children: [
       {path: '', component : OrderHistoryComponent},
@@ -47,7 +46,7 @@ const routes: Routes = [
 
     ]
   },
-
+  {path: 'product-details', component : ViewProductComponent},
   /**
    * Testing pages
    */

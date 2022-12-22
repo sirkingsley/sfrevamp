@@ -22,7 +22,9 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css");
 //@import "assets/css/jquery-ui.css";
 //@import "assets/css/style.css.map";
-
+@import 'swiper/scss';
+@import 'swiper/scss/navigation';
+@import 'swiper/scss/pagination';
 
 
 html, body { height: 100%; }
@@ -93,4 +95,33 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     width: 16.5em !important;
      
   }
+}
+
+
+.product-image-wrapper {
+  img {
+      width: 80%;
+      height: auto;
+      //border: 1px solid blue;
+  }
+}
+
+.item_content{
+  display: flex;
+  flex-direction: column;
+  
+  //align-items: center;
+
+  h2{
+    margin: 0 !important;
+    
+  }
+}
+
+.item_price{
+  font-size: 20px;
+}
+
+.view-product{
+  min-height: 100vh !important;
 }

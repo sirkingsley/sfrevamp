@@ -17,8 +17,8 @@ export class Checkout3Component implements OnInit {
    //Call JavaScript functions onload
    onload(){
     custom();
-    main();
-    parallaxie();
+    // main();
+    // parallaxie();
   }
   ngOnInit(): void {
 

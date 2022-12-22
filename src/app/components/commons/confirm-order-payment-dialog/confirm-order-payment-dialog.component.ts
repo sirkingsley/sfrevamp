@@ -14,6 +14,7 @@ import { Observable } from 'rxjs';
 })
 export class ConfirmOrderPaymentDialogComponent implements OnInit, OnDestroy {
   paymentMethod = '';
+  payment_option='';
   paymentNetwork = '';
   networkName = '';
   pollingCount = 0;
@@ -39,6 +40,7 @@ export class ConfirmOrderPaymentDialogComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.data !== null && this.data.transaction_id !== '' && this.data.transaction_id !== undefined) {
       this.transactionId = this.data.transaction_id;
+      this.payment_option = this.data.payment_option;
       this.paymentMethod = this.data.payment_method;
       this.paymentNetwork = this.data.payment_network;
       this.networkName = this.data.network_name;

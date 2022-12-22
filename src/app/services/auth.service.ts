@@ -41,7 +41,7 @@ export class AuthService {
    */
   increaseLoggedInCount() {
     let count: number = this.getLogedInCount;
-    if (count !== undefined && count !== NaN && count !== null) {
+    if (count !== undefined && !Number.isNaN(count) && count !== null) {
       count += 1;
       localStorage.setItem(this.logedInCount, count.toString());
     }

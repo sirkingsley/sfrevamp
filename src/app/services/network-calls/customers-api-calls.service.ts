@@ -27,6 +27,32 @@ export class CustomersApiCallsService {
       this.notificationService.error(this.constantValues.APP_NAME, error.detail);
     });
   }
+   /**
+   * Create a new customer
+   * @param payload payload to submit to server
+   * @param callback ICallback function that returns an error or result
+   */
+   signup(payload: any, callback: ICallback) {
+    this.dataProvider.createNoToken2(this.constantValues.SIGNUP_ENDPOINT, payload).subscribe(result => {
+      callback(null, result);
+    }, error => {
+      callback(error, null);
+      this.notificationService.error(this.constantValues.APP_NAME, error.detail);
+    });
+  }
+   /**
+   * Create a new customer
+   * @param payload payload to submit to server
+   * @param callback ICallback function that returns an error or result
+   */
+   verifyEmail(payload: any, callback: ICallback) {
+    this.dataProvider.createNoToken2(this.constantValues.VERIFY_EMAIL_ENDPOINT, payload).subscribe(result => {
+      callback(null, result);
+    }, error => {
+      callback(error, null);
+      this.notificationService.error(this.constantValues.APP_NAME, error.detail);
+    });
+  }
   /**
    * Sign In a customer into StoreFront Mall
    * @param payload payload of credential to sign in
@@ -38,6 +64,38 @@ export class CustomersApiCallsService {
       endpoint = this.constantValues.GUEST_CUSTOMER_SIGNIN_ENDPOINT;
     }
     this.dataProvider.createNoToken(endpoint, payload).subscribe(result => {
+      callback(null, result);
+    }, error => {
+      callback(error, null);
+      this.notificationService.error(this.constantValues.APP_NAME, error.detail);
+    });
+  }
+
+  /**
+   * Sign In a customer into StoreFront Mall
+   * @param payload payload of credential to sign in
+   * @param callback ICallback function that returns an error or result
+   */
+  signInKokorko(payload: any, callback: ICallback, isGuest: boolean = false) {
+   
+    this.dataProvider.createNoToken2(this.constantValues.LOGIN_ENDPOINT, payload).subscribe(result => {
+      callback(null, result);
+    }, error => {
+      callback(error, null);
+      this.notificationService.error(this.constantValues.APP_NAME, error.detail);
+    });
+  }
+   /**
+   * Sign In a customer into StoreFront Mall
+   * @param payload payload of credential to sign in
+   * @param callback ICallback function that returns an error or result
+   */
+   getLoginCodeKokorko(payload: any, callback: ICallback, isGuest: boolean = false) {
+    let endpoint = this.constantValues.LOGIN_CODE_ENPOINT;
+    if (isGuest) {
+      endpoint = this.constantValues.LOGIN_CODE_ENPOINT;
+    }
+    this.dataProvider.createNoToken2(endpoint, payload).subscribe(result => {
       callback(null, result);
     }, error => {
       callback(error, null);

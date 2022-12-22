@@ -22,8 +22,9 @@ export class ConstantValuesService {
   get DATE_FORMAT() { return 'DD-MM-YYYY'; }
   get DATE_TIME_FORMAT() { return 'DD/MM/YYYY, hh:mm:ss A'; }
   get COUNTRY() { return localStorage.getItem(LocalStorageActionsEnum.COUNTRY); }
-  get APP_NAME() { return 'Kokorko '; }
+  get APP_NAME() { return 'Kokorko'; }
   get BASE_URL() { return environment.BASE_URL; }
+  get BASE_URL_KOKORKO(){return environment.BASE_URL_KOKORKO;}
   get ADMIN_BASE_URL() { return environment.ADMIN_BASE_URL; }
   get NEWS_LETTER_URL(){ return environment.NEWS_LETTER_URL;}
   get GET_COUNTRY_INFO_URL() {return 'https://ipapi.co/json/'; }
@@ -55,10 +56,25 @@ export class ConstantValuesService {
   get VALIDATE_PHONE_ENDPOINT() { return 'validate_phone_number_sms/'; }
   get CONFIRM_PHONE_NUMBER_ENDPOINT() { return 'validate_phone_number/'; }
   get SUBSCRIBE_NEWS_LETTER_ENDPOINT(){return 'subscribe'}
+  
 
 
   // tslint:disable-next-line: adjacent-overload-signatures
   set COUNTRY(v: string) {
     localStorage.setItem(LocalStorageActionsEnum.COUNTRY, v);
   }
+
+  /**
+   * New Endpoint of sign up and login
+   */
+    get SIGNUP_ENDPOINT(){return 'kokorko/signup/'}
+    get CONFIRN_SIGNUP_CODE_ENDPOINT(){return 'kokorko/email_verification/'}
+
+    get LOGIN_CODE_ENPOINT(){return 'kokorko/code/get/'}
+    get LOGIN_ENDPOINT(){return 'kokorko/code/login/'}
+    get VERIFY_EMAIL_ENDPOINT(){return 'kokorko/email_verification/'}
+
+    get GET_RESET_PASWORD_ENDPOINT(){return 'kokorko/reset_password/get_code/'}
+    get CONFIRM_RESET_PASSWORD_CODE_ENDPOINT(){return 'kokorko/reset_password/confirm_code/'}
+    get CONFIRM_PASSWORD_ENDPINT(){return 'kokorko/reset_password/confirm_reset/'}
 }

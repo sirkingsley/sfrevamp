@@ -17,6 +17,7 @@
                 damaged, or isn't as described.
             </div>
         </div>
+        <!-- <button (click)="openDialog()">Open</button> -->
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-8 cart-content">
                 <app-empty-record *ngIf="cartItems?.length <= 0 && !isProcessing"></app-empty-record>
@@ -70,42 +71,44 @@
                         </div>
 
                     </div>
-                    
+
                 </div>
-                
-                <div class="delivery-address-container" *ngIf="this.isLoggedIn">
+
+                <div class="delivery-address-container">
                     <h3>Your Delivery Address</h3>
                     <div class="row" *ngIf="deliveryAddress ===null || deliveryAddress===undefined">
                         <div class="col-8">
-                          <p>No Delivery Address Provided</p>
+                            <p>No Delivery Address Provided</p>
 
                         </div>
                         <div class="col-4 btn-container">
-                            <button type="button" class="btn btn-primary mb-5" (click)="openModal(template)">Add Address </button>
+                            <button type="button" class="btn btn-primary mb-5" (click)="openModal(template)">Add Address
+                            </button>
                         </div>
                     </div>
 
                     <div class="row" *ngIf="deliveryAddress !==null && deliveryAddress !==undefined">
                         <div class="col-8">
-                           <p>{{deliveryAddress?.country}}</p>
-                           <p>{{deliveryAddress?.state}}</p>
-                           <p>{{deliveryAddress?.city}}</p>
-                           <p>{{deliveryAddress?.address}}</p>
-                           <p>{{deliveryAddress?.postal_code}}</p>
+                            <p>{{deliveryAddress?.country}}</p>
+                            <p>{{deliveryAddress?.state}}</p>
+                            <p>{{deliveryAddress?.city}}</p>
+                            <p>{{deliveryAddress?.address}}</p>
+                            <p>{{deliveryAddress?.postal_code}}</p>
 
                         </div>
                         <div class="col-4 btn-container">
-                            <button type="button" class="btn btn-primary mb-5" (click)="openModal(template)">Edit Address </button>
+                            <button type="button" class="btn btn-primary mb-5" (click)="openModal(template)">Edit
+                                Address </button>
                         </div>
                     </div>
-                   
-                </div>
-               
 
-             
-              
+                </div>
+
+
+
+
             </div>
-            
+
             <div class="col-sm ">
                 <div class="order-summary-content">
                     <div class="payment-content">
@@ -113,9 +116,8 @@
                             <fieldset class="gc-chckbxrdio form-inline">
                                 <legend>Choose how to Pay</legend>
                                 <div class="label-inline label-inline1">
-                                    <input id="inlineRadio1" type="radio" name="optradio" [value]="'GTBANK'"
-                                        (click)="selectPaymentMethod('GTBANK', '', '')"
-                                        >
+                                    <input id="inlineRadio1" type="radio" [value]="'GTBANK'"
+                                        (click)="selectPaymentMethod('GTBANK', '', '')" formControlName="payment_option">
                                     <label for="inlineRadio2">
                                         <div class="option1">
                                             GTBank
@@ -137,9 +139,8 @@
                                     </label>
                                 </div>
                                 <div class="label-inline" *ngIf="country ===countriesEnum.NG">
-                                    <input id="inlineRadio2" type="radio" name="optradio" [value]="'PAGA'"
-                                        (click)="selectPaymentMethod('PAGA', '', '')"
-                                        >
+                                    <input id="inlineRadio2" type="radio" [value]="'PAGA'"
+                                        (click)="selectPaymentMethod('PAGA', '', '')" formControlName="payment_option">
                                     <label for="inlineRadio1">
                                         <div class="option1">
                                             Paga
@@ -157,9 +158,8 @@
 
                                 </div>
                                 <div class="label-inline">
-                                    <input id="inlineRadio3" type="radio" name="optradio" [value]="'JUNIPAY'"
-                                        (click)="selectPaymentMethod('JUNIPAY', '', '')"
-                                        >
+                                    <input id="inlineRadio3" type="radio"  [value]="'JUNIPAY'"
+                                        (click)="selectPaymentMethod('JUNIPAY', '', '')" formControlName="payment_option">
                                     <label for="inlineRadio3">
                                         <div class="option1">
                                             JuniPay
@@ -214,7 +214,7 @@
                                 <mat-option [value]="deliveryOptions?.PICKUP" *ngIf="
                           currency === currencies.GHS ||
                           currency === currencies.NGN || country == countriesEnum.NG || country == countriesEnum.GH
-                        " >Pick Up</mat-option>
+                        ">Pick Up</mat-option>
                                 <mat-option [value]="deliveryOptions?.UBER_DELIVERY"
                                     *ngIf="currency == currencies.GHS || country == countriesEnum.NG || country == countriesEnum.GH">
                                     Uber</mat-option>
@@ -222,20 +222,20 @@
                           currency == currencies.GHS ||
                           currency == currencies.NGN ||
                             country == countriesEnum.NG || country == countriesEnum.GH
-                        " >Bolt</mat-option>
+                        ">Bolt</mat-option>
                                 <mat-option [value]="deliveryOptions?.DHL_DELIVERY" *ngIf="
                           currency !== currencies.GHS &&
                           currency !== currencies.NGN &&
                           currency !== undefined &&
                           currency !== null &&
                           currency !== ''
-                        " >DHL delivery</mat-option>
+                        ">DHL delivery</mat-option>
                                 <mat-option [value]="deliveryOptions?.NG_BIKE_DELIVERY"
-                                    *ngIf="currency == currencies.NGN || country == countriesEnum.NG"
-                                    >NG Bike Delivery</mat-option>
+                                    *ngIf="currency == currencies.NGN || country == countriesEnum.NG">NG Bike
+                                    Delivery</mat-option>
                                 <mat-option [value]="deliveryOptions?.GH_BIKE_DELIVERY"
-                                    *ngIf="currency == currencies.GHS || country == countriesEnum.GH"
-                                    >GH Bike Delivery</mat-option>
+                                    *ngIf="currency == currencies.GHS || country == countriesEnum.GH">GH Bike
+                                    Delivery</mat-option>
                             </mat-select>
                         </mat-form-field>
                         <P>+ {{currency}} {{ deliveryChargeAmount | number: "1.2-2" }}</P>
@@ -267,7 +267,7 @@
                             </mat-expansion-panel-header>
                             <div id="coupon_collapse" class="collapse_form_wrap">
                                 <div class="card-body">
-                                    <form [formGroup]="">
+                                    <form [formGroup]="promoCodeFormGroup" (ngSubmit)="applyCoupon()">
                                         <div class="form_item">
                                             <input type="text" name="coupon" placeholder="Enter Code"
                                                 formControlName="promoCode" />
@@ -286,71 +286,74 @@
         <ng-template #template>
             <div class="modal-header">
                 <h4 class="modal-title pull-left">Enter Your Delivery Address</h4>
-                <button type="button" class="btn-close close pull-right" aria-label="Close"
-                    (click)="modalRef?.hide()">
+                <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
                     <span aria-hidden="true" class="visually-hidden">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="signup-content pb-5">
                     <div class="row">
-                  
-                      <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="signup-form">                          
-                          <form class="register-form" [formGroup]="addressFormGroup" (ngSubmit)="updateDeliveryAddress(addressFormGroup?.value)">
-                            <div mat-mat-dialog-content>
-                              <div class="form-group mb-4">
-                                <p>Country</p>
-                                <input type="text"  formControlName="country" />
-                                
-                              </div>
-                              <div class="form-group">
-                                <p>Full Name</p>
-                                <input type="text" formControlName="full_name" />
-                                
-                              </div>
-                              <div class="form-group">
-                                <p>Street Address</p>
-                                <input type="text"  formControlName="address" />
-                              </div>
-                
-                              <div class="form-group">
-                                <p>Address line 2 (optional)</p>
-                                <input type="text"  formControlName="location" /> 
-                              </div>
-                
-                              <div class="form-group">
-                                <div class="row">
-                                    <div class="col">
-                                        <p>City/Town</p>
-                                        <input type="text"  formControlName="city" />
+
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="signup-form">
+                                <form class="register-form" [formGroup]="addressFormGroup"
+                                    (ngSubmit)="updateDeliveryAddress(addressFormGroup?.value)">
+                                    <div mat-mat-dialog-content>
+                                        <div class="form-group mb-4">
+                                            <p>Country</p>
+                                            <input type="text" formControlName="country" />
+
+                                        </div>
+                                        <div class="form-group">
+                                            <p>Full Name</p>
+                                            <input type="text" formControlName="full_name" />
+
+                                        </div>
+                                        <div class="form-group">
+                                            <p>Street Address</p>
+                                            <input type="text" formControlName="address" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <p>Address line 2</p>
+                                            <input type="text" formControlName="location" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <p>City/Town</p>
+                                                    <input type="text" formControlName="city" />
+                                                </div>
+                                                <div class="col">
+                                                    <p>Postal Code</p>
+                                                    <input type="text" formControlName="postal_code" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <p>State/Region</p>
+                                            <input type="text" formControlName="state" />
+                                        </div>
+
+
                                     </div>
-                                    <div class="col">
-                                        <p>Postal Code</p>
-                                        <input type="text"  formControlName="postal_code" /> 
+
+                                    <div class="login-btn-wrapper d-flex flex-column">
+                                        <mat-progress-bar *ngIf="isProcessing" class="mb-1"
+                                            mode="indeterminate"></mat-progress-bar>
+
+                                        <button type="submit" class="login-btn"
+                                            [disabled]="addressFormGroup?.invalid || isProcessing"
+                                            (click)="modalRef?.hide()">Save Address</button>
                                     </div>
-                                </div>              
-                              </div>
-                              <div class="form-group">
-                                <p>State/Region</p>
-                                <input type="text"  formControlName="state" /> 
-                              </div>
-                
-                  
+                                </form>
+
                             </div>
-                           
-                            <div class="login-btn-wrapper d-flex flex-column">
-                              <mat-progress-bar *ngIf="isProcessing" class="mb-1" mode="indeterminate"></mat-progress-bar>
-                
-                              <button type="submit" class="login-btn" [disabled]="addressFormGroup?.invalid || isProcessing" (click)="modalRef?.hide()">Save Address</button>
-                            </div>
-                          </form>
-                  
                         </div>
-                      </div>
                     </div>
-                  </div>
-               
+                </div>
+
             </div>
         </ng-template>
     </section>

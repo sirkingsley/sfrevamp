@@ -1,17 +1,35 @@
-	<!-- product quick view - start -->
-  <div>
-  <div class="quickview_modal" id="quickview_modal">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content clearfix">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" mat-dialog-close>
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <div class="item_image view-popup-image">
-          <img src="{{data.item.image}}" onerror="this.src='../../assets/images/ghana-rice.png'" alt="image_not_found">
+
+<app-top-nav ></app-top-nav>
+<!-- product quick view - start -->
+<div class="pt-5"></div>
+<main class="container view-product pt-5">
+   
+      <div class="row">
+        <div class="col-sm-5">
+          <div class="product_images">
+          <swiper class="" [config]="config4" *ngIf="productDetail?.extra_images.length">
+            <ng-template swiperSlide *ngFor="let image of productDetail?.extra_images">
+              <div class="product-image-wrapper">
+                <img src="{{image?.image}}" onerror="this.src='../../assets/images/ghana-rice.png'" alt="image_not_found">
+              </div>
+            </ng-template>
+            <ng-template swiperSlide *ngFor="let image of productDetail?.extra_images">
+              <div class="product-image-wrapper">
+                <img src="{{image?.image}}" onerror="this.src='../../assets/images/ghana-rice.png'" alt="image_not_found">
+              </div>
+            </ng-template>
+          </swiper>
+          <div class="item_image view-popup-image" *ngIf="!productDetail?.extra_images?.length">
+            <img src="{{productDetail?.image}}" onerror="this.src='../../assets/images/ghana-rice.png'"
+              alt="image_not_found">
+          </div>
+          </div>
         </div>
+
+       <div class="col-sm">
         <div class="item_content">
-          <h2 class="item_title mb_15"> {{data.item.name}}</h2>
-          <div class="rating_star mb_30 clearfix">
+          <h2 class="item_title"> {{productDetail?.name}}</h2>
+          <!-- <div class="rating_star mb_30 clearfix">
             <ul class="float-left ul_li me-2">
               <li class="active"><i class="las la-star"></i></li>
               <li class="active"><i class="las la-star"></i></li>
@@ -19,22 +37,27 @@
               <li class="active"><i class="las la-star"></i></li>
               <li><i class="las la-star"></i></li>
             </ul>
-          </div>
-          <span class="item_price mb_15">{{data.item.currency}} {{data.item?.selling_price | number: '1.2-2'}}</span>
-          <p class="mb_30">
-            {{data.item?.description}}
+          </div> -->
+          <p class="mb_30 my-2">
+            {{productDetail?.description}}
           </p>
-          <p *ngIf="!data.item.description" class="mb_30">
-           No description!
+          <p *ngIf="!productDetail?.description" class="mb_30">
+            No description!
           </p>
-          <ul class="btns_group ul_li mb_30 clearfix" style="display:flex; justify-content: flex-start !important;">
-            <li><a class="custom_btn bg_carparts_red" (click)="addProductToCart(data.item)" mat-dialog-close>Add to Cart</a></li>
+          <span class="item_price my-3">{{productDetail?.currency}} {{productDetail?.selling_price | number:
+            '1.2-2'}}</span>
 
+          <ul class="btns_group ul_li mb_30 clearfix" style="display:flex; justify-content: flex-start !important;">
+            <li><a class="custom_btn bg_carparts_red" (click)="addProductToCart(productDetail)">Add to
+                Cart</a></li>
           </ul>
 
         </div>
+       </div>
+        
       </div>
-    </div>
-  </div>
-  </div>
-  <!-- product quick view - end -->
+  
+
+    </main>
+<!-- product quick view - end -->
+<app-footer></app-footer>

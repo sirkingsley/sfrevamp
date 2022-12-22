@@ -79,7 +79,7 @@ export class CartPopUpComponent implements OnInit {
         this.cartItems = result;
         this.cartItems = result.sort(this.compare);
         //console.log("Cart-->"+ JSON.stringify(this.cartItems,null,2));
-        console.log("len-->"+this.cartItems.length)
+        //console.log("len-->"+this.cartItems.length)
         if (this.cartItems.length > 0) {
           this.currency = this.cartItems[0].item.currency;
           this.country = this.cartItems[0].country;
@@ -114,10 +114,7 @@ export class CartPopUpComponent implements OnInit {
 
   onQuantityChanged(data, id) {
     this.formGroup.get("qty").valueChanges.subscribe(selectedValue => {
-      //alert('firstname value changed');
-      //alert(selectedValue);
-     // alert(this.formGroup.get("qty").value);
-      //alert(this.formGroup.value);
+      
       this.qty=selectedValue;
 
     });

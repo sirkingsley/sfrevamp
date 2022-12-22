@@ -67,8 +67,8 @@ export class CartComponent implements OnInit {
    //Call JavaScript functions onload
    onload(){
     custom();
-    main();
-    parallaxie();
+    // main();
+    // parallaxie();
   }
   loader=true
   async ngOnInit(): Promise<void> {
@@ -96,9 +96,7 @@ export class CartComponent implements OnInit {
     this.onload();
   }
 
-  onSubmit(data){
-    //alert(data.qty);
-  }
+ 
 
 
 
@@ -142,10 +140,7 @@ export class CartComponent implements OnInit {
 
   onQuantityChanged(data, id) {
     this.formGroup.get("qty").valueChanges.subscribe(selectedValue => {
-      //alert('firstname value changed');
-      //alert(selectedValue);
-     // alert(this.formGroup.get("qty").value);
-      //alert(this.formGroup.value);
+    
       this.qty=selectedValue;
 
     });

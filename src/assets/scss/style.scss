@@ -15826,31 +15826,9 @@ button {
   border-radius: 0px;
   background-color: #ffffff;
 }
-.quickview_modal .close {
-  top: -17px !important;
-  right: -21px !important;
-  margin: 0px;
-  padding: 0px;
-  line-height: 1;
-  position: absolute;
-  display: inline-block;
-  background: $accent-color !important;
-  width: 45px;
-  height: 45px;
-  border-radius: 100%;
-  color: #fff;
-}
-.quickview_modal .item_image {
-  float: left;
-  padding: 30px;
-  //width: 430px;
-}
-.quickview_modal .item_image > img {
-  width: 250px !important;
-  height: auto !important;
 
   //display: block;
-}
+
 .mat-dialog-container{
   height: fit-content !important;
 }
@@ -24952,15 +24930,7 @@ blockquote .blockquote_title {
     margin: 0px auto;
   }
 
-  .quickview_modal .item_image {
-    float: none;
-    width: 100%;
-  }
 
-  .quickview_modal .item_content {
-    padding: 30px;
-    display: block;
-  }
 
   /* quick view - end */
 }
@@ -29554,7 +29524,7 @@ $default_transition: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 	}
 
 	.item_title {
-		font-size: 24px;
+		font-size: 15px;
 		font-weight: 400;
 	}
 
@@ -55164,19 +55134,7 @@ blockquote {
 	}
 	/* motorcycle shop - end */
 
-	/* quick view - start */
-	.quickview_modal .modal-dialog .modal-content {
-		max-width: 400px;
-		margin: 0px auto;
-	}
-	.quickview_modal .item_image {
-		float: none;
-		width: 100%;
-	}
-	.quickview_modal .item_content {
-		padding: 30px;
-		display: block;
-	}
+
 	/* quick view - end */
 
 }
@@ -59977,3 +59935,5 @@ footer a{
     width: 25px;
     margin-right: 0.6rem;
   }
+
+  

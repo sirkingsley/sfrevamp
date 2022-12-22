@@ -23,13 +23,14 @@ $text_white: #ffff;
 .mat-dialog-container {
     display: block;
     padding: 24px;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
     border-radius: 4px;
     box-sizing: border-box;
     overflow: auto;
     outline: 0;
     height: fit-content !important;
     overflow-y: hidden !important;
-    border-radius: 50px;
 
 }
 
@@ -47,7 +48,15 @@ $text_white: #ffff;
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 0px;
-    padding-bottom: 20px;
+    padding-bottom: 0px;
+    line-height: 1;
+
+    p {
+        padding: 0;
+        margin-bottom: 5px;
+        margin-top: 10px;
+
+    }
 
 }
 
@@ -56,71 +65,23 @@ $text_white: #ffff;
 .signup-btn {
     font-size: 10px;
     line-height: 1.4;
-    min-height: fit-content;
-    min-width: fit-content;
+    min-height: 30px;
+    min-width: 30px;
     padding-top: 9px;
     padding-bottom: 9px;
     padding-left: 5px;
     padding-right: 5px;
     border-radius: 24px;
     border: 2px solid $primary-color;
-    width: 80px;
+    width: fit-content;
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
+}
+.code-desc{
+    font-size: 12px !important ;
 }
 
-// .form-group .country-selector {
-//     width: 100%;
-//     display: flex;
-//     // align-items: center;
-//     justify-content: flex-start;
-//     position: relative;
-//     appearance: none;
-//     background: #FFFFFF;
-//     box-shadow: 0 1px 4px 0 rgb(34 34 34 / 10%) inset;
-//     border-color: rgba(34, 34, 34, 0.15);
-//     border-style: solid;
-//     border-width: 1px;
-//     border-radius: 6px;
-//     color: #222222;
-//     overflow: visible;
-
-    // .mat-input-element {
-    //     font-size: 16px !important;
-    //     background: transparent;
-    //     color: currentColor;
-    //     border: none;
-    //     outline: none;
-    //     padding: 0;
-    //     margin: 0;
-    //     width: 100%;
-    //     max-width: 100%;
-    //     vertical-align: bottom;
-    //     text-align: inherit;
-    //     box-sizing: content-box;
-    // }
-
-    // lac-mat-country-selector {
-    //     //position:absolute;
-    //     left: 0;
-    //     margin-right: 0px;
-    //     font-size: 12px !important;
-    // }
-
-    // lac-mat-tel-input {
-    //     appearance: none;
-    //     background: #FFFFFF;
-    //     color: #222222;
-    //     display: block;
-    //     font-family: inherit;
-    //     font-size: 12px !important;
-
-    //     height: 30px;
-
-    // }
-//}
 
 .form-group input{
     position: relative;
@@ -167,15 +128,12 @@ $text_white: #ffff;
     justify-content: flex-end;
     align-items: center;
     overflow: visible;
-    height: 0px;
-    padding: 0;
-    margin: 0;
 
 }
 
 mat-dialog-close,
 #close {
-    top: -40px;
+    top: -30px;
     right: -10px;
     position: absolute;
     color: #FFFFFF;
@@ -211,6 +169,8 @@ mat-dialog-close,
     }
 }
 
+
+
 @media screen and (max-width: 700px) {
     .close-wrapper {
         position: relative;
@@ -224,8 +184,9 @@ mat-dialog-close,
 
     mat-dialog-close,
     #close {
-        top: -50px;
-        right: -8px;
+
+        top: -55px;
+        right: -5px;
         position: absolute;
         color: #FFFFFF;
         width: 30px;
@@ -238,6 +199,7 @@ mat-dialog-close,
         justify-content: center;
         z-index: 100;
         transition: 0.3s;
+
     }
 
     .signup-content {

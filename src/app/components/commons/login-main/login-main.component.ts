@@ -9,6 +9,7 @@ import { LoginUpdateService } from 'src/app/services/login-update.service';
 import { ProductsApiCallsService } from 'src/app/services/network-calls/products-api-calls.service';
 import { SignUpComponent } from '../sign-up/sign-up.component';
 import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
+import { ConfirmCodeComponent } from '../confirm-code/confirm-code.component';
 
 @Component({
   selector: 'app-login-main',
@@ -43,6 +44,9 @@ export class LoginMainComponent implements OnInit {
   countries = [];
   countryCode = '';
   phoneNumber = '';
+  codeSent=false;
+  loginPayload:any=null;
+  loginCode:any='';
   constructor(
     
     private notificationsService: NotificationsService,
@@ -60,21 +64,13 @@ export class LoginMainComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
-      phone_number: new FormControl('',[Validators.required]),
-      password: new FormControl('',Validators.required),
+      // phone_number: new FormControl('',[Validators.required]),
+      // password: new FormControl('',Validators.required),
       // email: new FormControl('', [Validators.email]),
-      email: new FormControl(''),
-      customer_name: new FormControl('')
+      email: new FormControl('',Validators.email),
+      code: new FormControl(this.loginCode)
+      // customer_name: new FormControl('')
     });
-    if (this.data !== null && this.data !== undefined) {
-      if (this.data.guest === true && this.data.guest !== null && this.data.guest !== undefined) {
-        this.isGuest = true;
-        this.heading = 'Sign Up As Guest';
-        this.btnText = 'Sign Up As Guest';
-        this.customer_name.setValidators([]);
-        this.customer_name.updateValueAndValidity();
-      }
-    }
   }
    /**
    * Country code selected
@@ -83,7 +79,7 @@ export class LoginMainComponent implements OnInit {
     onCountry(countryInfo) {
       if (countryInfo !== undefined && countryInfo !== null) {
         this.countryCode = '+' + (countryInfo.callingCodes[0] as string);
-        console.log("This.country_codes="+this.countryCode)
+        //console.log("This.country_codes="+this.countryCode)
       }
     }
 
@@ -107,9 +103,11 @@ export class LoginMainComponent implements OnInit {
       this.isProcessing = true;
       this.customersApiCalls.signIn(data, (error, result) => {
         this.isProcessing = false;
+        
         this.loginUpdate.isUpdated(true);
         if (result !== null) {
           if (!this.isGuest) {
+            
             this.notificationsService.success(this.constantValues.APP_NAME, 'Login successful');
             this.authService.increaseLoggedInCount();
             this.authService.removeUserAndToken();
@@ -126,8 +124,6 @@ export class LoginMainComponent implements OnInit {
             this.authService.saveUser(result.results);
             this.authService.saveToken(result.results.auth_token);
             this.loginUpdate.isUpdated(true);
-            
-
 
           }
           if (this.authService.isLogedIn) { //Login Success, so sync cart with user cart items in database
@@ -145,8 +141,93 @@ export class LoginMainComponent implements OnInit {
       }, this.isGuest);
     }
   }
-  get phone_number() { return this.formGroup.get('phone_number'); }
-  get password() { return this.formGroup.get('password'); }
-  get customer_name() { return this.formGroup.get('customer_name'); }
+
+  
+  /**
+   * Submit data and valid user to login
+   * @param data Sign In payload, email and password required
+   */
+  onSubmit2(data) {
+   data.code = this.code.value;
+   data.email = this.loginPayload.email;
+    //console.log("Data-->"+JSON.stringify(data,null,2));
+  
+    if (this.code.value !==null || this.code.value !== undefined || this.code.value !== '') {
+     
+      //console.log("Data-->"+JSON.stringify(data,null,2));
+      this.isProcessing = true;
+      this.customersApiCalls.signInKokorko(data, (error, result) => {
+        this.isProcessing = false;
+        
+        this.loginUpdate.isUpdated(true);
+        if (result !== null) {
+          if (!this.isGuest) {
+            
+            this.notificationsService.success(this.constantValues.APP_NAME, 'Login successful');
+            localStorage.removeItem('user1')
+            localStorage.removeItem('token1');
+            this.authService.increaseLoggedInCount();
+            this.authService.removeUserAndToken();
+            this.authService.saveUser(result);
+            this.authService.saveToken(result.auth_token);
+            localStorage.setItem('user1', JSON.stringify(result));
+            localStorage.setItem('token1', result.auth_token);
+            
+            this.loginUpdate.isUpdated(true);
+            //console.log("Data-->"+JSON.stringify(data,null,2));
+        
+            //Guest
+          }
+          if (this.authService.isLogedIn) { //Login Success, so sync cart with user cart items in database
+            this.productService.getCartItems((error, result) => {
+              const items: any[] = result.map(data => "" + data.item.id + ":" + data.quantity + ":" + data.total_amount);
+              if (items.length > 0) {
+                //console.log("Item:"+ JSON.stringify(items.join(','),null,2));
+                this.productService.syncCartItems({items: items.join(',')}, (er, res) => {
+
+                });
+              }
+            });
+          }
+          this.dialogRef.close(true);
+        }
+      }, this.isGuest);
+    }
+  }
+
+  
+  getLoginCode(data){
+    const payload ={
+      email: data.email,
+    }
+    this.loginPayload ={
+      code: '',
+      email: this.email.value
+    }
+    
+    this.isProcessing = true;
+    this.customersApiCalls.getLoginCodeKokorko(payload,(results,error)=>{
+      this.isProcessing = false;
+      //console.log("This.login get code results: "+ JSON.stringify(results,null,2));
+      this.codeSent = true;
+      if(results !==null){
+       
+        //console.log("Payload: "+ JSON.stringify(payload,null,2));
+        //console.log("This.login get code results: "+ JSON.stringify(results,null,2));
+        //this.loginCode = results.code;
+      }
+    })
+  }
+
+  resendCode(){
+    this.codeSent =!this.codeSent;
+  }
+  // openCode(){
+  //   this.dialog.open(ConfirmCodeComponent)
+  // }
+  // get phone_number() { return this.formGroup.get('phone_number'); }
+  // get password() { return this.formGroup.get('password'); }
+  // get customer_name() { return this.formGroup.get('customer_name'); }
+  get code(){return this.formGroup.get('code');}
   get email() { return this.formGroup.get('email'); }
 }

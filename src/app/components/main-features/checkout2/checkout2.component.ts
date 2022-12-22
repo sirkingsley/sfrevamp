@@ -185,11 +185,7 @@ export class Checkout2Component implements OnInit {
     }, 1000);
     this.isLoggedIn = this.authService.isLogedIn;
     this.currentUser = this.authService.currentUser;
-    //console.log(this.currentUser);
-    // this.window.addEventListener('load',()=>{
-    //   this.windowLoaded=true;
-    //   //alert("hi");
-    // })
+   
     this.getCartItems();
     this.getIndustries()
     this.getFeaturedShops({});
@@ -308,8 +304,8 @@ export class Checkout2Component implements OnInit {
       this.getShopInfo();
     }
 
-    console.log("Currency=>"+this.currency);
-    console.log("Country=>"+this.country);
+    //console.log("Currency=>"+this.currency);
+    //console.log("Country=>"+this.country);
   
 
 
@@ -352,7 +348,7 @@ export class Checkout2Component implements OnInit {
     });
   }
   getDeliveryOption() {
-    console.log(this.deliveryOptionsFormCtrl.value);
+    //console.log(this.deliveryOptionsFormCtrl.value);
   }
   // ngAfterViewInit() {
   //   this.setCurrentLocation();
@@ -401,7 +397,7 @@ export class Checkout2Component implements OnInit {
         this.longitude = position.coords.longitude;
         this.zoom = 15;
 
-        console.log("LAT,LOG: " + this.latitude + " " + this.longitude);
+        //console.log("LAT,LOG: " + this.latitude + " " + this.longitude);
         //this.getAddress(position.coords.latitude, position.coords.longitude);
       });
     }
@@ -455,7 +451,7 @@ export class Checkout2Component implements OnInit {
   getAddress(latitude, longitude) {
     this.geoCoder.geocod({ location: { lat: latitude, lng: longitude } }, (results, status) => {
       if (status === 'OK') {
-        console.log("LAT,LOG: " + this.latitude + " " + this.longitude);
+        //console.log("LAT,LOG: " + this.latitude + " " + this.longitude);
         if (results[0]) {
           this.zoom = 12;
           this.address = results[0].formatted_address;
@@ -519,7 +515,7 @@ export class Checkout2Component implements OnInit {
   }
   updateDeliveryAddressTest(data) {
 
-    console.log(data);
+    //console.log(data);
 
 
   }
@@ -561,7 +557,7 @@ export class Checkout2Component implements OnInit {
         this.serviceCharge = +serviceCharge.toFixed(2);
         this.transactionFee = +transactionFee.toFixed(2);
         this.grandTotal = +this.subTotal + this.deliveryChargeAmount + this.serviceCharge + this.transactionFee;
-        console.log("this.delieryCharge"+JSON.stringify(this.delieryCharge,null,2));
+        //console.log("this.delieryCharge"+JSON.stringify(this.delieryCharge,null,2));
         //this.stepper.next();
       }
     });
@@ -707,7 +703,7 @@ export class Checkout2Component implements OnInit {
           this.redirectUrl = result.redirect_url;
 
           //window.location.href = `${result.redirect_url}`;
-          console.log("result.redirect_url==>"+result.redirect_url);
+          //console.log("result.redirect_url==>"+result.redirect_url);
           window.open(`${result.redirect_url}`, `_blank`);
           //console.log("result.redirect_url==>"+result.redirect_url);
           setTimeout(() => {
@@ -726,8 +722,7 @@ export class Checkout2Component implements OnInit {
               disableClose: true,
               scrollStrategy: new NoopScrollStrategy(),
             },
-          )
-            .afterClosed().subscribe((isCompleted: boolean) => {
+          ).afterClosed().subscribe((isCompleted: boolean) => {
               // tslint:disable-next-line: max-line-length
               this.router.navigate(["/checkout3"]);
               this.dialog.open(OrderCompletedDialogComponent, {
@@ -870,7 +865,7 @@ export class Checkout2Component implements OnInit {
   }
 
   getDaddress() {
-    console.log(this.addressFormGroup.value);
+    //console.log(this.addressFormGroup.value);
   }
 
   onSubmit(data) {
@@ -1008,7 +1003,7 @@ export class Checkout2Component implements OnInit {
         'Promo Successfuly applied'
       );
     } else {
-      console.log("Not Found")
+      //console.log("Not Found")
       this.notificationsService.info('', 'Invalid Promo Code');
     }
   }

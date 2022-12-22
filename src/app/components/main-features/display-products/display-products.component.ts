@@ -145,8 +145,8 @@ export class DisplayProductsComponent implements OnInit {
     //Call JavaScript functions onload
     onload(){
       custom();
-      main();
-      parallaxie();
+      // main();
+      // parallaxie();
     }
   async ngOnInit(): Promise<void> {
     this.scroller.scrollToAnchor("productsView");
@@ -159,7 +159,9 @@ export class DisplayProductsComponent implements OnInit {
     this.gtpSubdomin = this.constantValues.GTP_SUBDOMAIN;
     // console.log(this.suddomain);
     this.isLoggedIn = this.authService.isLogedIn;
+    
     this.currentUser = this.authService.currentUser;
+    
     this.authService.setPromoCode(this.route.snapshot.queryParams['promoCode']);
     this.dbaseUpdate.updateStatus().subscribe(async isUpdated => {
       if (isUpdated) {
@@ -185,7 +187,7 @@ export class DisplayProductsComponent implements OnInit {
     this.subdomain = this.getHostname.subDomain;
     this.gtpSubdomain = this.constantValues.GTP_SUBDOMAIN;
     this.woodinSubdomain = this.constantValues.WOODIN_SUBDOMAIN;
-
+   
     this.route.queryParams.subscribe(param => {
       this.tag =(  param['tag'] !== null &&  param['tag']  !== '' &&  param['tag']  !== undefined) ?  param['tag'] : '';
       this.selectedCategory =( param['category'] !== null && param['category'] !== '' && param['category'] !== undefined) ? param['category'] : '';
@@ -227,7 +229,7 @@ export class DisplayProductsComponent implements OnInit {
     });
 
 
-
+    //console.log("User:"+JSON.stringify(this.currentUser,null,2));
 
     this.getIndustries()
     this.getFeaturedShops({});
@@ -311,7 +313,7 @@ getProducts(filterParams: ProductsFilterParams) {
       this.totalPage = result.count;
       this.product_groups = result.product_groups;
       this.constantValues.COUNTRY = this.country;
-      //console.log("this.products-->"+JSON.stringify(this.products,null,2));
+      console.log("this.products-->"+JSON.stringify(this.products,null,2));
       //console.log(this.country);
       //console.log(this.product_groups);
     }

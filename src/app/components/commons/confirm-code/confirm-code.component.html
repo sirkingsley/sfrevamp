@@ -1,0 +1,39 @@
+<div class="signup-content">
+	<div class="row">
+
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="signup-form">
+				<div class="close-wrapper">
+					<span id="close" mat-dialog-close>
+						<mat-icon>close</mat-icon>
+					</span>
+				</div>
+                <h2 class="form-title d-flex justify-content-space-between py-0 my-0"
+					style="justify-content: space-between; align-items: center;" mat-dialog-title>
+                    <span class="py-0 my-0 code-desc">Code sent to your email</span><span class="signup-btn py-0 my-0"
+						mat-dialog-close>Resend Code</span>
+				</h2>
+
+				<form class="" [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup?.value)">
+					<div mat-mat-dialog-content>
+
+						<div class="form-group mb-2">
+							<p>Enter Code</p>
+							<input type="text"  formControlName="code" value="cached_email"/>
+							<mat-error *ngIf="code?.invalid && code?.touched">
+								Invalid Code
+							</mat-error>
+						</div>
+					</div>
+					<div class="login-btn-wrapper" mat-dialog-actions>
+						<mat-progress-bar *ngIf="isProcessing" class="mb-0" mode="indeterminate"></mat-progress-bar>
+						<button class="login-btn">{{btnText}}</button>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+

@@ -332,9 +332,7 @@ filterByPrice(priceSort) {
   this.selectedPriceSorting = priceSort;
   // tslint:disable-next-line: max-line-length
   this.getProducts({sorting: this.selectedPriceSorting, tag: this.tag,search_text: this.searchQuery, storefrontmall_name: this.storefrontmall_name });
-  //this.getProducts({ sorting: this.selectedPriceSorting, product_group_id: this.selectedCategory, search_text: this.searchQuery, tag: this.tag, storefrontmall_name: this.subdomain });
-  //console.log("Price-->"+this.selectedValueCtrl);
-  //alert('price sorted to '+this.selectedValueCtrl);
+
 }
 
 getActivePromo(onlineAddress) {
@@ -376,7 +374,7 @@ async getCartItems() {
   });
 }
 getPromoCodeValue(promoCode, isFirstLoad = false) {
-  console.log(promoCode);
+  //console.log(promoCode);
   this.isProcessing = true;
   this.orderService.getPromoCodeValue(promoCode, isFirstLoad, (error, result) => {
     this.isProcessing = false;
