@@ -313,7 +313,7 @@ getProducts(filterParams: ProductsFilterParams) {
       this.totalPage = result.count;
       this.product_groups = result.product_groups;
       this.constantValues.COUNTRY = this.country;
-      console.log("this.products-->"+JSON.stringify(this.products,null,2));
+      //console.log("this.products-->"+JSON.stringify(this.products,null,2));
       //console.log(this.country);
       //console.log(this.product_groups);
     }
