@@ -164,14 +164,12 @@ export class LoginMainComponent implements OnInit {
           if (!this.isGuest) {
             
             this.notificationsService.success(this.constantValues.APP_NAME, 'Login successful');
-            localStorage.removeItem('user1')
-            localStorage.removeItem('token1');
+           
             this.authService.increaseLoggedInCount();
             this.authService.removeUserAndToken();
             this.authService.saveUser(result);
             this.authService.saveToken(result.auth_token);
-            localStorage.setItem('user1', JSON.stringify(result));
-            localStorage.setItem('token1', result.auth_token);
+            
             
             this.loginUpdate.isUpdated(true);
             //console.log("Data-->"+JSON.stringify(data,null,2));

@@ -11,6 +11,7 @@ import { passwordMatch } from 'src/app/utils/validator';
 import { LoginMainComponent } from '../login-main/login-main.component';
 import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 import { ConfirmCodeComponent } from '../confirm-code/confirm-code.component';
+import { LoginUpdateService } from 'src/app/services/login-update.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -46,6 +47,7 @@ export class SignUpComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
+    private loginUpdate: LoginUpdateService,
   ) {
     dialogRef.disableClose = true;
   }
@@ -149,6 +151,7 @@ export class SignUpComponent implements OnInit {
           this.authService.removeUserAndToken();
           this.authService.saveUser(result.results);
           this.authService.saveToken(result.results.auth_token);
+          this.loginUpdate.isUpdated(true);
           //this.dialogRef.close(true);
           this.dialog.closeAll();
           this.dialog.open(ConfirmCodeComponent,{

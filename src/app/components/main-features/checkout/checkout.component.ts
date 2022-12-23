@@ -184,9 +184,7 @@ export class CheckoutComponent implements OnInit {
       //console.log(this.deliveryAddress);    
     })
     this.getCountry();
-    this.user1 = JSON.parse(localStorage.getItem('user1'));
-    //console.log(JSON.stringify(this.user1,null,2));
-    //console.log(localStorage.getItem('token1'));
+   
     //this.getActivePromo("gtpstore");
     AOS.init();
     //Loader variable set false after page load

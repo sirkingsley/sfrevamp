@@ -10,7 +10,7 @@
         </div>
 
         <h2 class="form-title d-flex justify-content-space-between" style="justify-content: space-between; align-items: center;"
-          mat-dialog-title><span>{{heading}}</span> <span *ngIf="!codeSent" class="signup-btn" (click)="onSignup()"
+          mat-dialog-title><span *ngIf="!codeSent">Sign In</span> <span class="codeSentSpan" *ngIf="codeSent">Code sent to your mail</span> <span *ngIf="!codeSent" class="signup-btn" (click)="onSignup()"
             mat-dialog-close>Register</span>  <span *ngIf="codeSent" class="signup-btn" (click)="resendCode()"
             >Resend Code</span></h2>
 
