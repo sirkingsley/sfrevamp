@@ -56,6 +56,7 @@ export class DisplayProductsComponent implements OnInit {
   ) { }
 
   events: string[] = [];
+  productsShimmer =[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
   opened: boolean;
   @Input() shopName = 'StoreFront Mall';
   shopInfo: any;
@@ -439,7 +440,7 @@ filterByCategory(category: string) {
   }
   getProductGroups() {
     // TODO:
-    this.productsService.getProducts({storefrontmall_name: this.subdomain}, (error, result) => {
+    this.productsService.getProducts({storefrontmall_name: "kokorko"}, (error, result) => {
       if (result !== null && result.response_code === '100' && result.product_groups.length > 0) {
         this.pGroups = result.product_groups;
       }

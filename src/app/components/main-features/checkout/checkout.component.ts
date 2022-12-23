@@ -82,6 +82,7 @@ export class CheckoutComponent implements OnInit {
   private geoCoder;
   
   cartItems = [];
+  cartItemsShimmer=[1,2,3,4];
   currency = '';
   subTotal = 0;
   totalSellingPrice = 0;

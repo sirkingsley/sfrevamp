@@ -98,17 +98,52 @@
 
 
 				</div>
-				<div *ngIf="isProcessing" class="container spinner-wrapper">
+
+				<!-- <div *ngIf="isProcessing" class="container spinner-wrapper">
 					<mat-spinner class="custom-spinner-color"></mat-spinner>
-				</div>
+				</div> -->
 				<div *ngIf="products?.length <= 0 && !isProcessing" class="container mt-5">
 					<app-empty-record *ngIf="products?.length <= 0 && !isProcessing"></app-empty-record>
 
 				</div>
 
-				<div class="element-grid column4_element_grid mb_50">
 
+				<div class="element-grid column4_element_grid mb_50" *ngIf="isProcessing">
 
+					<!--Shimmer loading Start-->
+
+					<div class="element-item element-item_shimmer" *ngFor="let item of productsShimmer">
+						<div class="ecommerce_product_grid ecommerce_product_grid_shimmer animate">
+							<ul class="product_label ul_li clearfix">
+								<li class="out-of-stock"></li>
+							</ul>
+							<div class="tab-content">
+								<div id="ptab1_1" class="tab-pane fade active">
+									<div class="item_image">
+
+									</div>
+								</div>
+
+								<ul class="product_action_btns ul_li_center clearfix">
+								</ul>
+							</div>
+							<div class="item_content">
+								<h3 class="item_title">
+									<a></a>
+								</h3>
+								<span class="item_price"><strong>
+									</strong></span>
+								<div class="add-to-wrapper">
+
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+					<!--Shimmer loading end-->
+				</div>
+				<div class="element-grid column4_element_grid mb_50" >
 					<div class="element-item " *ngFor="let item of products">
 						<!-- <div class="ecommerce_product_grid" data-aos="zoom-in-down"> -->
 						<div class="ecommerce_product_grid">
@@ -141,15 +176,16 @@
 												class="fal fa-shopping-basket"></i></a></li>
 									<!-- <li><a class="tooltips q-v" title="Quick View" (click)="openDialog(item)"><i
 														class="fal fa-eye"></i></a></li> -->
-									<li><a class="tooltips q-v" title="Quick View"[routerLink]="['/product-details']" [queryParams]=" {slug: item.slug}"
-										queryParamsHandling="merge" ><i
+									<li><a class="tooltips q-v" title="Quick View" [routerLink]="['/product-details']"
+											[queryParams]=" {slug: item.slug}" queryParamsHandling="merge"><i
 												class="fal fa-eye"></i></a></li>
 								</ul>
 							</div>
 							<div class="item_content">
-								<h3 class="item_title" [routerLink]="['/product-details']" [queryParams]=" {slug: item.slug}">
+								<h3 class="item_title" [routerLink]="['/product-details']"
+									[queryParams]=" {slug: item.slug}">
 									<!-- <a >{{item.name | truncate:2}}</a> -->
-									<a>{{item.name}}</a>
+									<a>{{item.name | truncate: 4}}</a>
 								</h3>
 								<!-- <ul class="product_color ul_li nav clearfix">
 								<li class="active"><a class="pbg_brown" data-toggle="tab" ></a></li>

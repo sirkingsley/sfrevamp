@@ -50,6 +50,7 @@ export class ViewProductComponent implements OnInit {
 
     productId:number;
     productDetail;
+    productDetailShimmer=[1,2,3]
     compressedImage = '';
     image = '';
     isProcessing: boolean;

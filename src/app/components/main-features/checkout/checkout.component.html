@@ -21,6 +21,7 @@
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-8 cart-content">
                 <app-empty-record *ngIf="cartItems?.length <= 0 && !isProcessing"></app-empty-record>
+                <div *ngIf="!isProcessing">
                 <div class="row cart-single-item" *ngFor="let item of cartItems; let i = index">
                     <div class="col-sm-6 col-md-2 col-lg-2 image-wrapper">
                         <img src="{{item.item.image}}" alt="">
@@ -73,6 +74,45 @@
                     </div>
 
                 </div>
+                </div>
+
+                <!--Shimmer Start-->
+                <div *ngIf="isProcessing">
+                <div class="row cart-single-item" *ngFor="let item of cartItemsShimmer; let i = index">
+                    <div class="col-sm-6 col-md-2 col-lg-2 image-wrapper animate">
+                        
+                    </div>
+                    <div class="col-sm-6 col-md-10 col-lg-10 desc-wrapper">
+                        <div class="row desc-content ">
+                            <div class="col-sm-12 col-md-6 col-lg-7 desc">
+                                <p></p>
+                                <p class="desc-text animate" style="height: 100px; width: 100%;"></p>
+
+                                <a class="remove" ></a>
+                            </div>
+
+                            <div class="col-sm-12 col-md-6 col-lg-5 edit-qty">
+                                <div class="row pricing">
+                                    <div class="col-sm-6 col-md-6 col-lg-6">
+                                        <div class="qty-change">
+                                
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-6 prices my-2">
+                                       
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                </div>
+                <!--Shimmer End-->
 
                 <div class="delivery-address-container">
                     <h3>Your Delivery Address</h3>

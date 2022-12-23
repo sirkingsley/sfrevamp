@@ -125,3 +125,53 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .view-product{
   min-height: 100vh !important;
 }
+
+.view_grid{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  //background: blue;
+}
+
+/**
+
+SHIMMER LOADING STYLES
+**/
+
+.br {
+  border-radius: 8px;  
+}
+.w80 {
+   width: 80%;
+}
+
+
+
+@keyframes fullView {
+  100% {
+    width: 100%;
+  }
+}
+
+.animate {
+  animation : shimmer 2s infinite;
+  background: linear-gradient(to right, #eff1f3 4%, #e2e2e2 25%, #eff1f3 36%);
+  background-size: 1000px 100%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.item_content_shimmer{
+  height: 300px !important;
+  .mb_30_shimmer{
+    height: 150px !important;
+  }
+}

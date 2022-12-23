@@ -3,8 +3,40 @@
 <!-- product quick view - start -->
 <div class="pt-5"></div>
 <main class="container view-product pt-5">
+<!--Shimmer start-->
+  <div class="row" *ngIf="isProcessing">
+    <div class="col-sm-5 animate">
+      <div class="product_images bg-white">
+     
+      <div class="item_image view-popup-image animate" >
+      
+      </div>
+      </div>
+    </div>
+
+   <div class="col-sm">
+    <div class="item_content_shimmer">
+      <h2 class="item_title"> </h2>
+
+      <p class="mb_30_shimmer my-2 animate">
+      
+      </p>
+      <p  class="mb_30 animate">
+      
+      </p>
+      <span class="item_price my-3"></span>
+
+      <ul class="btns_group ul_li mb_30 clearfix" style="display:flex; justify-content: flex-start !important;">
+        <li><a></a></li>
+      </ul>
+
+    </div>
+   </div>
+    
+  </div>
+  <!--Shimmer end-->
    
-      <div class="row">
+      <div class="row" *ngIf="!isProcessing">
         <div class="col-sm-5">
           <div class="product_images">
           <swiper class="" [config]="config4" *ngIf="productDetail?.extra_images.length">
@@ -15,29 +47,21 @@
             </ng-template>
             <ng-template swiperSlide *ngFor="let image of productDetail?.extra_images">
               <div class="product-image-wrapper">
-                <img src="{{image?.image}}" onerror="this.src='../../assets/images/ghana-rice.png'" alt="image_not_found">
+                <img src="{{image?.image}}" alt="image_not_found">
               </div>
             </ng-template>
           </swiper>
           <div class="item_image view-popup-image" *ngIf="!productDetail?.extra_images?.length">
-            <img src="{{productDetail?.image}}" onerror="this.src='../../assets/images/ghana-rice.png'"
+            <img src="{{productDetail?.image}}"
               alt="image_not_found">
           </div>
           </div>
         </div>
 
-       <div class="col-sm">
+       <div class="col-sm view_grid">
         <div class="item_content">
           <h2 class="item_title"> {{productDetail?.name}}</h2>
-          <!-- <div class="rating_star mb_30 clearfix">
-            <ul class="float-left ul_li me-2">
-              <li class="active"><i class="las la-star"></i></li>
-              <li class="active"><i class="las la-star"></i></li>
-              <li class="active"><i class="las la-star"></i></li>
-              <li class="active"><i class="las la-star"></i></li>
-              <li><i class="las la-star"></i></li>
-            </ul>
-          </div> -->
+
           <p class="mb_30 my-2">
             {{productDetail?.description}}
           </p>
