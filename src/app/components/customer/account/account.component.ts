@@ -101,7 +101,7 @@ export class AccountComponent implements OnInit {
     this.getFeaturedShops({});
     this.getMyOrders();
 
-    console.log("USER->"+JSON.stringify(this.user,null,2));
+    //console.log("USER->"+JSON.stringify(this.user,null,2));
     this.title.setTitle(this.constantValues.APP_NAME + ' | Cart');
 
 

@@ -17,7 +17,7 @@ import { PackageStatusHistoryComponent } from '../../commons/package-status-hist
 import { PaymentDialogComponent } from '../../commons/payment-dialog/payment-dialog.component';
 import { LoginMainComponent } from '../../commons/login-main/login-main.component';
 import { LoginUpdateService } from 'src/app/services/login-update.service';
-
+declare const custom: any;
 @Component({
   selector: 'app-profile-sidebar',
   templateUrl: './profile-sidebar.component.html',
@@ -80,17 +80,22 @@ export class ProfileSidebarComponent implements OnInit {
 
   isLoggedIn = false;
   
-
+  onload() {
+    custom();
+    //main();
+    //parallaxie();
+  }
 
   ngOnInit(): void {
     
-      //login popup end
+    //login popup end
     this.getIndustries()
     this.getFeaturedShops({});
     this.getMyOrders();
     this.title.setTitle(this.constantValues.APP_NAME + ' | Account');
 
     this.user = this.authService.currentUser;
+    this.onload();
   }
 
   logOut() {
