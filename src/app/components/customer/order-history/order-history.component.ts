@@ -107,7 +107,7 @@ export class OrderHistoryComponent implements OnInit {
     this.getIndustries()
     this.getFeaturedShops({});
     this.getMyOrders();
-    this.title.setTitle(this.constantValues.APP_NAME + ' | Cart');
+    this.title.setTitle(this.constantValues.APP_NAME + ' | Account');
 
     // $('#flip').on("click",function(){
     //   $("#panel").slideToggle("slow");

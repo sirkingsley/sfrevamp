@@ -88,7 +88,7 @@ export class ProfileSidebarComponent implements OnInit {
     this.getIndustries()
     this.getFeaturedShops({});
     this.getMyOrders();
-    this.title.setTitle(this.constantValues.APP_NAME + ' | Cart');
+    this.title.setTitle(this.constantValues.APP_NAME + ' | Account');
 
     this.user = this.authService.currentUser;
   }
