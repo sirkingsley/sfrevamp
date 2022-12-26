@@ -15,10 +15,10 @@
     </thead>
     <tbody>
       <tr *ngFor="let order of orders">
-        <th scope="row">{{order.id}}</th>
-        <td>{{order.date_placed |date:'dd/MM/yyyy'}}</td>
-        <td>{{order.status}}</td>
-        <td>{{order.gross_total}}</td>
+        <th scope="row">{{order?.id}}</th>
+        <td>{{order?.date_placed |date:'dd/MM/yyyy'}}</td>
+        <td>{{order?.status}}</td>
+        <td>{{order?.gross_total}}</td>
         <td > <span class="view-order-details" [routerLink]="['/profile-view/detail',order.id]"><mat-icon>remove_red_eye</mat-icon></span></td>
       </tr>
       <!-- <tr>

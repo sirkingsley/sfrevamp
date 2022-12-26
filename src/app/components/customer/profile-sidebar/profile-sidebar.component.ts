@@ -15,6 +15,8 @@ import { NotificationsService } from 'src/app/services/notifications.service';
 import { CountryEnum } from 'src/app/utils/enums';
 import { PackageStatusHistoryComponent } from '../../commons/package-status-history/package-status-history.component';
 import { PaymentDialogComponent } from '../../commons/payment-dialog/payment-dialog.component';
+import { LoginMainComponent } from '../../commons/login-main/login-main.component';
+import { LoginUpdateService } from 'src/app/services/login-update.service';
 
 @Component({
   selector: 'app-profile-sidebar',
@@ -25,19 +27,18 @@ export class ProfileSidebarComponent implements OnInit {
   currentUser: User;
   user:any;
   constructor(
-    private productsApiCalls: ProductsApiCallsService,
-    private notificationsService: NotificationsService,
-    private dbaseUpdate: DbaseUpdateService,
-    private appUtils: AppUtilsService,
+
     private title: Title,
     private constantValues: ConstantValuesService,
-    private formBuilder: FormBuilder,
+  
     private shopsApiCalls: ShopApiCallsService,
     private router: Router,
     private route: ActivatedRoute,
     private orderApiCalls: OrderApiCallsService,
     private dialog: MatDialog,
-    private authService: AuthService
+    private authService: AuthService,
+    private loginUpdate: LoginUpdateService,
+   
   ) { 
     this.orderId = this.route.snapshot.params['id'];
     if (this.orderId !== null && this.orderId !== '' && this.orderId !== undefined) {
@@ -77,10 +78,13 @@ export class ProfileSidebarComponent implements OnInit {
   orders = [];
   rootRoute = 'account/orders';
 
-
+  isLoggedIn = false;
+  
 
 
   ngOnInit(): void {
+    
+      //login popup end
     this.getIndustries()
     this.getFeaturedShops({});
     this.getMyOrders();

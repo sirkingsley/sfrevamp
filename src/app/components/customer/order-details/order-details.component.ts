@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
+import { User } from 'src/app/modules/user';
+import { AuthService } from 'src/app/services/auth.service';
+import { LoginUpdateService } from 'src/app/services/login-update.service';
 import { OrderApiCallsService } from 'src/app/services/network-calls/order-api-calls.service';
+import { LoginMainComponent } from '../../commons/login-main/login-main.component';
 import { PackageStatusHistoryComponent } from '../../commons/package-status-history/package-status-history.component';
 import { PaymentDialogComponent } from '../../commons/payment-dialog/payment-dialog.component';
 
@@ -20,13 +24,16 @@ export class OrderDetailsComponent implements OnInit {
   orderId = '';
   orderDetail;
   orderItems = [];
+  isLoggedIn = false;
+  currentUser: User;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private orderApiCalls: OrderApiCallsService,
-
+    private loginUpdate: LoginUpdateService,
+    private authService: AuthService,
   ) {
     this.orderId = this.route.snapshot.params['id'];
     if (this.orderId !== null && this.orderId !== '' && this.orderId !== undefined) {
@@ -41,6 +48,8 @@ export class OrderDetailsComponent implements OnInit {
   //}
 
   ngOnInit(): void {
+    this.isLoggedIn = this.authService.isLogedIn;
+    this.currentUser = this.authService.currentUser;
 
     // $('#flip').on("click",function(){
     //   $("#panel").slideToggle("slow");
@@ -50,6 +59,21 @@ export class OrderDetailsComponent implements OnInit {
     //   $("#search_body_collapse").slideToggle("slow");
     // });
     // this.onload();
+
+     //Check if user is not login and alert user
+     if (!this.isLoggedIn) {
+      this.dialog.open(LoginMainComponent,{panelClass: 'custom-dialog-container'}).afterClosed().subscribe((isSuccefull: boolean) => {
+        if (isSuccefull) {
+          this.isLoggedIn = this.authService.isLogedIn;
+          this.currentUser = this.authService.currentUser;
+          this.loginUpdate.isUpdated(true);
+          
+          window.location.reload();
+        
+        }
+      });
+    }
+      //login popup end
   }
   getMallOrderDetail(id) {
     this.isProcessing = true;

@@ -1,26 +1,12 @@
-<!-- <div class="user-profile">
 
-  <div class="user-image-container">
-    {{currentUser?.first_name | uppercase | slice:0:1}} {{currentUser?.last_name | uppercase | slice:0:1}}
-  </div>
-  <p class="user-name">{{currentUser?.first_name}} {{currentUser?.last_name}} </p>
-  <div class="log-out-div">
-      <a class="btn-signout" (click)="logOut()" >Sign out<i class="bi bi-box-arrow-right"></i></a>
-  </div>
+<app-top-nav></app-top-nav>
+<div class="container pt-4">
 
-  <nav class="user-navs">
-      <a routerLink='/user-info'>My Account</a>
-      <a [routerLink]="['/profile-view/orders/detail']">My Orders</a>
-      <a  id="last-nav-link" [routerLink]="['/checkout']">Delivery Address</a>
-     
-  </nav>
-
-</div> -->
-
+</div>
 <section class="my-3 profile-view">
-  <div class="container">
-    <p><span class="me-2" [routerLink]="['']" style="cursor: pointer;">Home</span> / <span style="color: black;">Account</span></p>
-  </div>
+  <!-- <div class="container">
+    <p><span class="me-2" [routerLink]="['/']" style="cursor: pointer;">Home</span> / <span style="color: black;">Account</span></p>
+  </div> -->
 
   <div class="container">
     <mat-tab-group mat-align-tabs="cstart">
@@ -40,26 +26,13 @@
             </thead>
             <tbody>
               <tr *ngFor="let order of orders">
-                <th scope="row">{{order.id}}</th>
-                <td>{{order.date_placed | date:'dd/MM/yyyy'}}</td>
-                <td>{{order.status}}</td>
-                <td>{{order.gross_total}}</td>
-                <td > <span class="view-order-details" [routerLink]="['/profile-view/orders/details',order.id]"><mat-icon>remove_red_eye</mat-icon></span></td>
+                <th scope="row">{{order?.id}}</th>
+                <td>{{order?.date_placed | date:'dd/MM/yyyy'}}</td>
+                <td>{{order?.status}}</td>
+                <td>{{order?.gross_total}}</td>
+                <td > <span class="view-order-details" [routerLink]="['/profile-view/orders/details',order?.id]"><mat-icon>remove_red_eye</mat-icon></span></td>
               </tr>
-              <!-- <tr>
-                <th scope="row">131426262</th>
-                <td>01/12/2022</td>
-                <td>placed</td>
-                <td>50</td>
-                <td><i class="material-icons">more_vert</i></td>
-              </tr>
-              <tr>
-                <th scope="row">131426262</th>
-                <td>01/12/2022</td>
-                <td>placed</td>
-                <td>50</td>
-                <td><i class="material-icons">more_vert</i></td>
-              </tr> -->
+            
             </tbody>
           </table>
         </div>
@@ -86,25 +59,25 @@
             <div class="mb-3 row">
               <label for="staticEmail" class="col-sm-2 col-form-label">First Name</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user.first_name}}">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user?.first_name}}">
               </div>
               </div>
               <div class="mb-3 row">
               <label for="staticEmail" class="col-sm-2 col-form-label">Last Name</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user.last_name}}">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user?.last_name}}">
               </div>
               </div>
               <div class="mb-3 row">
               <label for="staticEmail" class="col-sm-2 col-form-label">Phone Number</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user.phone_number}}">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user?.phone_number}}">
               </div>
               </div>
               <div class="mb-3 row">
               <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
               <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user.email}}">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user?.email}}">
               </div>
               </div>
               <div class="mb-3">
@@ -121,38 +94,7 @@
 
 
       </mat-tab>
-      <!-- <mat-tab label="Address">
-        <div class="container my-3">
-
-          <div class="mb-3 row">
-            <label for="staticEmail" class="col col-form-label">Address</label>
-            <div class="col">
-              <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user.first_name}}">
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label for="staticEmail" class="col col-form-label">Town/City</label>
-            <div class="col">
-              <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user.last_name}}">
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label for="staticEmail" class="col col-form-label">Region/State</label>
-            <div class="col">
-              <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{user.phone_number}}">
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label for="staticEmail" class="col col-form-label">Location</label>
-            <div class="col">
-              <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="">
-            </div>
-          </div>
-          <div class="mb-3">
-            <button class="btn">Edit Address</button>
-          </div>
-        </div>
-      </mat-tab> -->
+     
     </mat-tab-group>
 
   </div>
@@ -173,7 +115,7 @@
         <input type="file" placeholder="edit photo" name="" id="profile-pic">
       </div>
       <h3 class="profile-name-title mt-3"> {{user?.first_name}} {{user?.last_name}}</h3>
-      <p class="d-flex"> <span><i class="material-icons">phone</i></span>{{user.phone_number}}</p>
+      <p class="d-flex"> <span><i class="material-icons">phone</i></span>{{user?.phone_number}}</p>
     </div>
     <div class="tabs-wrapper">
       <mat-selection-list  [multiple]="false" class="ps-0 ms-0">

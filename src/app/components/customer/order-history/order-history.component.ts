@@ -17,6 +17,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { OrderApiCallsService } from 'src/app/services/network-calls/order-api-calls.service';
+import { LoginMainComponent } from '../../commons/login-main/login-main.component';
+import { AuthService } from 'src/app/services/auth.service';
+import { User } from 'src/app/modules/user';
+import { LoginUpdateService } from 'src/app/services/login-update.service';
 
 
 
@@ -34,18 +38,16 @@ import { OrderApiCallsService } from 'src/app/services/network-calls/order-api-c
 export class OrderHistoryComponent implements OnInit {
 
   constructor(
-    private productsApiCalls: ProductsApiCallsService,
-    private notificationsService: NotificationsService,
-    private dbaseUpdate: DbaseUpdateService,
-    private appUtils: AppUtilsService,
     private title: Title,
     private constantValues: ConstantValuesService,
-    private formBuilder: FormBuilder,
+    
     private shopsApiCalls: ShopApiCallsService,
     private router: Router,
     private route: ActivatedRoute,
     private orderApiCalls: OrderApiCallsService,
     private dialog: MatDialog,
+    private loginUpdate: LoginUpdateService,
+    private authService: AuthService
   ) {
     this.orderId = this.route.snapshot.params['id'];
     if (this.orderId !== null && this.orderId !== '' && this.orderId !== undefined) {
@@ -93,10 +95,15 @@ export class OrderHistoryComponent implements OnInit {
   orders = [];
   rootRoute = 'account/orders';
 
-
+  isLoggedIn = false;
+  
+  currentUser: User;
 
 
   ngOnInit(): void {
+    this.isLoggedIn = this.authService.isLogedIn;
+    this.currentUser = this.authService.currentUser;
+   
     this.getIndustries()
     this.getFeaturedShops({});
     this.getMyOrders();
@@ -110,6 +117,21 @@ export class OrderHistoryComponent implements OnInit {
     //   $("#search_body_collapse").slideToggle("slow");
     // });
     // this.onload();
+
+     //Check if user is not login and alert user
+     if (!this.isLoggedIn) {
+      this.dialog.open(LoginMainComponent,{panelClass: 'custom-dialog-container'}).afterClosed().subscribe((isSuccefull: boolean) => {
+        if (isSuccefull) {
+          this.isLoggedIn = this.authService.isLogedIn;
+          this.currentUser = this.authService.currentUser;
+          this.loginUpdate.isUpdated(true);
+          console.log("This isLogined=:"+ this.isLoggedIn);
+          window.location.reload();
+        
+        }
+      });
+     }
+      //login popup end
   }
 
 
