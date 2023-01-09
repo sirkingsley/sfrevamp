@@ -703,7 +703,7 @@ export class CheckoutComponent implements OnInit {
           //   this.getPromoCodeValue(promoCode);
           // }
         }
-        console.log(this.promosList);
+        //console.log(this.promosList);
       }
     });
   }
