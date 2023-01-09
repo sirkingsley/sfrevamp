@@ -224,12 +224,12 @@
                     <div class="subtotal1">
                         <div class="items-totel">
                             <p>Item(s) total</p>
-                            <p>{{currency}} {{subTotal}}</p>
+                            <p>{{currency}} {{subTotal | number: "1.2-2"}}</p>
                         </div>
                         <div class="shop-discount">
                             <!-- <p>Shop discount <span class="old-price">(20% off)</span></p> -->
                             <p>Shop discount</p>
-                            <p>-{{currency}} {{discountAmount}}</p>
+                            <p>-{{currency}} {{discountAmount | number: "1.2-2"}}</p>
                         </div>
 
 
@@ -285,7 +285,7 @@
 
                     <div class="total">
                         <h3>Total</h3>
-                        <h3>{{currency}} {{grandTotal}}</h3>
+                        <h3>{{currency}} {{grandTotal | number: "1.2-2"}}</h3>
                     </div>
                     <div class="checkout mb-3">
                         <button class="checkout-btn" (click)="placeOrder(paymentFormGroup.value)">
