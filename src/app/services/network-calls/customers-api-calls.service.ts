@@ -119,4 +119,24 @@ export class CustomersApiCallsService {
       );
   }
 
+  /**
+   * 
+   * @param payload - Referal Code (eg. YY125)
+   */
+  getReferalCodeDetails(payload:any,callback: any){
+    this.dataProvider.httpGetAllNoTokenReferal(this.constantValues.REFERAL_CODE_DETAILS_ENDPOINT,payload).subscribe(
+      {
+        next: (response) => {
+          callback(response);
+        },
+        complete: () => {
+          //console.log('complete fetch categories');
+        },
+        error: (error) => {
+          //this.notificationService.alertError("Error fetching categories");
+          console.log(error);
+        }
+      }
+      );
+  }
 }

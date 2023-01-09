@@ -82,6 +82,17 @@ export class DataProviderService {
   }
   /**
    * HTTP GET request to fetch data
+   * @param endPoint Endpoint
+   */
+  httpGetAllNoTokenReferal(endPoint: string,payload:any): Observable<any> {
+    return this.http.get(this.constantValuesService.REFERAL_CODE_URL + endPoint+`?code=${payload}`, this.optionsNoToken)
+      .pipe(
+        catchError(this.handleNetworkErrorsService.handleError),
+        map((response) => response)
+      );
+  }
+  /**
+   * HTTP GET request to fetch data
    * @param url URL
    */
   httpGetNextPage(url: string): Observable<any> {
@@ -138,6 +149,13 @@ export class DataProviderService {
 
   createNoTokenNews(endPoint: string, resource?: any): Observable<any> {
     return this.http.post(this.constantValuesService.NEWS_LETTER_URL + endPoint, JSON.stringify(resource), this.optionsNoToken).
+    pipe(
+      map((response)=>response),
+      catchError(err => err))
+  }
+
+  createNoTokenReferal(endPoint: string, resource?: any): Observable<any> {
+    return this.http.post(this.constantValuesService.REFERAL_CODE_URL + endPoint, JSON.stringify(resource), this.optionsNoToken).
     pipe(
       map((response)=>response),
       catchError(err => err))

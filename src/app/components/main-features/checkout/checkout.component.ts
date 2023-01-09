@@ -119,6 +119,7 @@ export class CheckoutComponent implements OnInit {
   heading = 'Sign In';
   proceed = false;
   promos: any = [];
+  promosList: any = [];
   rate: number = 0;
 
   pollingCount = 0;
@@ -134,9 +135,7 @@ export class CheckoutComponent implements OnInit {
   pendingCountr = 0;
 
   
-  constructor(
-
-   
+  constructor(   
     private formBuilder: FormBuilder,
     private orderService: OrderApiCallsService,
     private authService: AuthService,
@@ -161,6 +160,7 @@ export class CheckoutComponent implements OnInit {
   }
   subscription: Subscription;
   isDeliveryAddressProvided = false;
+
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template,{
       class: 'modal-dialog-centered', 
@@ -176,7 +176,10 @@ export class CheckoutComponent implements OnInit {
   }
   loader = true;
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
+    this.getCartItems();
+
+    this.deliveryAddress = JSON.parse(localStorage.getItem('delivery_address'));
 
     this.subscription=this.loginUpdate.addressUpdated.subscribe(address =>{
       this.deliveryAddress = address;
@@ -184,20 +187,16 @@ export class CheckoutComponent implements OnInit {
       //console.log(this.deliveryAddress);    
     })
     this.getCountry();
-   
+   //console.log(this.deliveryAddress); 
     //this.getActivePromo("gtpstore");
     AOS.init();
     //Loader variable set false after page load
     setTimeout(() => {
       this.loader = false;
+      this.getDeliveryCharge(this.deliveryAddress);
     }, 1000);
     this.isLoggedIn = this.authService.isLogedIn;
     this.currentUser = this.authService.currentUser;
-   
-    this.getCartItems();
- 
-
-  
     this.title.setTitle(this.constantValues.APP_NAME + ' Checkout Payment');
     this.subdomain = this.getHostname.subDomain;
     this.currentUser = this.authService.currentUser;
@@ -205,7 +204,7 @@ export class CheckoutComponent implements OnInit {
     this.promoCodeFormGroup = this.formBuilder.group({
       promoCode: ['', Validators.required]
     })
-
+    
     //Check if user is not login and alert user
     if (!this.isLoggedIn) {
       this.dialog.open(LoginMainComponent,{panelClass: 'custom-dialog-container'}).afterClosed().subscribe((isSuccefull: boolean) => {
@@ -220,6 +219,8 @@ export class CheckoutComponent implements OnInit {
       });
       //login popup end
     }
+
+   
     this.addressFormGroup = this.formBuilder.group({
       address: ['', Validators.required],
       city: ['', Validators.required],
@@ -267,32 +268,35 @@ export class CheckoutComponent implements OnInit {
       order_items: [[]]
     });
 
-
-
+    //console.log(this.currentUser);
+    this.getActivePromo('kokorko');
    
-    if (this.getHostname.isShopMall) {
-      this.getActivePromo(this.getHostname.subDomain);
-    }
-    this.getShopPromos();
+    // if (this.getHostname.isShopMall) {
+    //   this.getActivePromo(this.getHostname.subDomain);
+    // }
+    // this.getShopPromos();
     // this.getActivePromo('lgenterprise');
-    this.route.queryParams.subscribe(param => {
-      const promoCode = param['promoCode'];
-      if (promoCode !== null && promoCode !== undefined && promoCode !== '') {
-        this.authService.setPromoCode(promoCode);
-        if (this.getHostname.isShopMall) {
-          this.getActivePromo(this.getHostname.subDomain);
-        }
-        // this.getActivePromo('lgenterprise');
-      }
-    });
-    if (this.constantValues.YOUNG_TEMPLATE_SUBDOMAIN.includes(this.getHostname.subDomain)) {
-      this.getShopInfo();
-    }
+    // this.route.queryParams.subscribe(param => {
+    //   const promoCode = param['promoCode'];
+    //   if (promoCode !== null && promoCode !== undefined && promoCode !== '') {
+    //     this.authService.setPromoCode(promoCode);
+    //     if (this.getHostname.isShopMall) {
+    //       this.getActivePromo(this.getHostname.subDomain);
+    //     }
+    //     // this.getActivePromo('lgenterprise');
+    //   }
+    // });
+    // if (this.constantValues.YOUNG_TEMPLATE_SUBDOMAIN.includes(this.getHostname.subDomain)) {
+    //   this.getShopInfo();
+    // }
 
     this.onload()
  
    
- 
+    if(this.isLoggedIn && this.deliveryAddress !== null){
+      this.getCartItems();
+      this.getDeliveryCharge(this.deliveryAddress);
+    }
   }
 
 
@@ -302,11 +306,7 @@ export class CheckoutComponent implements OnInit {
    * Country code selected
    * @param countryInfo country info
    */
- 
-  
- 
-
-  getIndustries() {
+ getIndustries() {
     this.shopsApiCalls.getIndustries((error, result) => {
       this.industries = result;
       //console.log("this.industries "+ JSON.stringify(this.industries) );
@@ -387,13 +387,11 @@ export class CheckoutComponent implements OnInit {
       this.notificationsService.info(this.constantValues.APP_NAME, 'Please login to continue');
       return;
     }
-   
     //console.log("updateDeliveryAddress");
-    if (this.cartItems.length <= 0) {
-
-      this.notificationsService.info(this.constantValues.APP_NAME, 'Please add item to cart to continue');
-      return;
-    }
+    // if (this.cartItems.length <= 0) {
+    //   this.notificationsService.info(this.constantValues.APP_NAME, 'Please add item to cart to continue');
+    //   return;
+    // }
     this.isProcessing = true;
     //console.log("Items in Cart");
     this.orderService.updateDeliveryAddress(data, (error, result) => {
@@ -442,7 +440,8 @@ export class CheckoutComponent implements OnInit {
         this.deliveryChargeAmount = +deliveryCharge.toFixed(2);
         this.serviceCharge = +serviceCharge.toFixed(2);
         this.transactionFee = +transactionFee.toFixed(2);
-        this.grandTotal = +this.subTotal + this.deliveryChargeAmount + this.serviceCharge + this.transactionFee;
+        // this.grandTotal = (+this.subTotal + this.deliveryChargeAmount + this.serviceCharge + this.transactionFee) - this.discountAmount ;
+        this.getSubTotal();
       }
     });
   }
@@ -450,7 +449,6 @@ export class CheckoutComponent implements OnInit {
    * Compute sub total of items in cart
    */
   getSubTotal() {
-
     if (this.country === this.countriesEnum.GH || this.country === this.countriesEnum.NG || this.country === undefined || this.country === '') {
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount), 0);
       this.totalSellingPrice = this.cartItems.reduce((acc, value) => acc + parseFloat(value.item.selling_price), 0);
@@ -459,13 +457,15 @@ export class CheckoutComponent implements OnInit {
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount_usd), 0);
       this.totalSellingPrice = this.cartItems.reduce((acc, value) => acc + parseFloat(value.item.selling_price_usd), 0);
     }
-    this.grandTotal = this.subTotal;
+    //this.grandTotal = this.subTotal;
     if (this.discountRateType === PromoCodeRateTypeEnum.FLAT) {
       this.discountAmount = this.discountRateValue;
     } else if (this.discountRateType === PromoCodeRateTypeEnum.PERCENTAGE) {
       const percentage = this.discountRateValue;
       this.discountAmount = (percentage / 100) * this.subTotal;
     }
+    //this.grandTotal = this.subTotal - this.discountAmount;
+    this.grandTotal = (+this.subTotal + this.deliveryChargeAmount + this.serviceCharge + this.transactionFee) - this.discountAmount ;
   }
   /**
    * Get Items in cart
@@ -480,10 +480,10 @@ export class CheckoutComponent implements OnInit {
           this.country = this.cartItems[0].country;
           this.cartItems=this.cartItems.sort(this.compare);
           // tslint:disable-next-line: max-line-length
-          const deliveryCharge = this.deliveryChargeAmount;
-          const serviceCharge = this.serviceCharge;
-          const transactionCharge = this.transactionFee;
-          this.grandTotal = this.subTotal + deliveryCharge + serviceCharge + transactionCharge;
+          // const deliveryCharge = this.deliveryChargeAmount;
+          // const serviceCharge = this.serviceCharge;
+          // const transactionCharge = this.transactionFee;
+          // this.grandTotal = this.subTotal + deliveryCharge + serviceCharge + transactionCharge;
         }
         this.getSubTotal();
       }
@@ -696,21 +696,23 @@ export class CheckoutComponent implements OnInit {
       if (result !== null && result.response_code === '100') {
         this.shopHasActivePromo = result.results;
         if (this.shopHasActivePromo) {
-          const promoCode = this.authService.getPromoCode;
-          if (promoCode !== null && promoCode !== undefined && promoCode !== '') {
-            this.promoCodeFormCtrl.setValue(promoCode);
-            this.getPromoCodeValue(promoCode);
-          }
+          this.promosList = result?.codes;
+          // const promoCode = this.authService.getPromoCode;
+          // if (promoCode !== null && promoCode !== undefined && promoCode !== '') {
+          //   this.promoCodeFormCtrl.setValue(promoCode);
+          //   this.getPromoCodeValue(promoCode);
+          // }
         }
+        console.log(this.promosList);
       }
     });
   }
   getPromoCodeValue(promoCode, isFirstLoad = false) {
     //console.log(promoCode);
-    this.isProcessing = true;
+    //this.isProcessing = true;
     //this.discountAmount = (10 / 100) * this.subTotal;
     this.orderService.getPromoCodeValue(promoCode, isFirstLoad, (error, result) => {
-      this.isProcessing = false;
+      //this.isProcessing = false;
       if (result !== null) {
         this.discountRateType = result.rate_type;
         this.discountRateValue = +result.rate_value;
@@ -720,9 +722,13 @@ export class CheckoutComponent implements OnInit {
           const percentage = +result.rate_value;
           this.discountAmount = (percentage / 100) * this.subTotal;
         }
+
+        this.getSubTotal();
       }
     });
   }
+
+
   getShopInfo() {
     // const suddomain = (this.getHostname.subDomain === 'localhost') ? environment.pluto : this.getHostname.subDomain;
     this.shopsApiCalls.getShopByOnlineAddress(this.getHostname.subDomain, (error, result) => {
@@ -781,18 +787,21 @@ export class CheckoutComponent implements OnInit {
   }
 
   async applyCoupon() {
+    if (this.selectedDelivery !== this.deliveryOptions.PICKUP && this.deliveryAddress ===null || this.deliveryAddress ===true || this.deliveryAddress ===false) {
+      this.notificationsService.info(this.constantValues.APP_NAME, 'Please provide delivery address to continue');
+      return;
+    }
     // console.log("Conde entered: "+this.promoCodeFormCtrl.value)
     // console.log("promos=>"+JSON.stringify(this.promos,null,2))
-    const found = this.promos.find(
-      (element: any) => element.promo.code === this.promoCodeFormCtrl.value
+    const found = this.promosList.find(
+      (element: any) => element.code === this.promoCodeFormCtrl.value
+      
     );
 
     if (found !== null && found !== undefined && found !== '') {
-      this.getPromoCodeValue(found?.promo);
+      this.getPromoCodeValue(found?.code);
+      this.notificationsService.success('','Promo Successfuly applied');
       
-      this.notificationsService.success('',
-        'Promo Successfuly applied'
-      );
     } else {
       //console.log("Not Found")
       this.notificationsService.info('', 'Invalid Promo Code');

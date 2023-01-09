@@ -7,6 +7,7 @@ export const environment = {
   BASE_URL_KOKORKO: 'https://api.cudigo.com/api/v1.0/', //live
   NEW_ACCOUNT_BASE_URL: 'https://testapi.cudigo.com/api/v1.0/',
   NEWS_LETTER_URL: 'https://storefront-features.herokuapp.com/',
+  REFERAL_CODE_URL: 'https://kokorko-api.herokuapp.com/',
   
   ADMIN_BASE_URL: 'https://testapi.cudigo.com/api/v3.0/dashboard/',
   trackingId: 'UA-127382827-2',

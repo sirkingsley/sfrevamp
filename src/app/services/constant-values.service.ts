@@ -27,6 +27,7 @@ export class ConstantValuesService {
   get BASE_URL_KOKORKO(){return environment.BASE_URL_KOKORKO;}
   get ADMIN_BASE_URL() { return environment.ADMIN_BASE_URL; }
   get NEWS_LETTER_URL(){ return environment.NEWS_LETTER_URL;}
+  get REFERAL_CODE_URL(){return environment.REFERAL_CODE_URL;}
   get GET_COUNTRY_INFO_URL() {return 'https://ipapi.co/json/'; }
   get USER_PROFILE_ENDPOINT() { return 'users/me/'; }
   get CUSTOMER_SIGNUP_ENDPOINT() { return 'customer_signup/'; }
@@ -77,4 +78,11 @@ export class ConstantValuesService {
     get GET_RESET_PASWORD_ENDPOINT(){return 'kokorko/reset_password/get_code/'}
     get CONFIRM_RESET_PASSWORD_CODE_ENDPOINT(){return 'kokorko/reset_password/confirm_code/'}
     get CONFIRM_PASSWORD_ENDPINT(){return 'kokorko/reset_password/confirm_reset/'}
+
+
+    /**
+     * REFER & EARN ENDPOINTS
+     */
+
+    get REFERAL_CODE_DETAILS_ENDPOINT(){return 'referral/details'}
 }

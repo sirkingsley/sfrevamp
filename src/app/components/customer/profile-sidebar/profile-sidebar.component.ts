@@ -17,6 +17,7 @@ import { PackageStatusHistoryComponent } from '../../commons/package-status-hist
 import { PaymentDialogComponent } from '../../commons/payment-dialog/payment-dialog.component';
 import { LoginMainComponent } from '../../commons/login-main/login-main.component';
 import { LoginUpdateService } from 'src/app/services/login-update.service';
+import { CustomersApiCallsService } from 'src/app/services/network-calls/customers-api-calls.service';
 declare const custom: any;
 @Component({
   selector: 'app-profile-sidebar',
@@ -38,6 +39,7 @@ export class ProfileSidebarComponent implements OnInit {
     private dialog: MatDialog,
     private authService: AuthService,
     private loginUpdate: LoginUpdateService,
+    private customerApIService: CustomersApiCallsService,
    
   ) { 
     this.orderId = this.route.snapshot.params['id'];
@@ -77,7 +79,7 @@ export class ProfileSidebarComponent implements OnInit {
 
   orders = [];
   rootRoute = 'account/orders';
-
+  referalCodeDetails:any;
   isLoggedIn = false;
   
   onload() {
@@ -93,11 +95,22 @@ export class ProfileSidebarComponent implements OnInit {
     this.getFeaturedShops({});
     this.getMyOrders();
     this.title.setTitle(this.constantValues.APP_NAME + ' | Account');
-
     this.user = this.authService.currentUser;
     this.onload();
+    this.user=this.authService.currentUser;
+    this.getReferalCodeDetails('YYB536');
   }
 
+  getReferalCodeDetails(code){
+    this.isProcessing = true;
+    this.customerApIService.getReferalCodeDetails(code,results=>{
+      if(results !==null || results !== undefined){
+        this.referalCodeDetails = results?.data;
+        console.log(JSON.stringify(results,null,2));
+        console.log(this.referalCodeDetails?.amount);
+      }
+    })
+  }
   logOut() {
     this.logOut();
   }

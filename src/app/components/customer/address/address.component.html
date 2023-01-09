@@ -1,9 +1,29 @@
 
   
   <div class=" alert alert-info">
-    <p>Address</p>
+    <p>Referal Points. Share <b>{{this.referalCodeDetails?.code}}</b> to love ones and earn more!</p>
   </div>
-  
+
+  <div class="points-wrapper">
+    <div class="accumulated-title">
+        <h1>Discount</h1>
+    </div>
+    <div class="accumulated-points">
+      <h1>{{this.referalCodeDetails?.discount}}</h1> 
+    </div>
+
+  </div>
+  <div class="money-wrapper">
+    <h3>Amount Earned</h3>
+    <div class="money-earned">
+      GHC {{this.referalCodeDetails?.amount}}
+    </div>
+  </div>
+
+  <div class="redeem">
+    <button class="btn-redeem">Redeem</button>
+  </div>
+<!--   
    <div class="mb-3 row">
     <label for="staticEmail" class="col-sm-2 col-form-label">Address</label>
     <div class="col-sm-10">
@@ -29,6 +49,6 @@
     </div>
   </div>
   <div class="mb-3">
-    <!-- <button class="btn btn-dark">Edit Address</button> -->
-  </div>
+   
+  </div> -->
   

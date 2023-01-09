@@ -8,8 +8,8 @@ export class LoginUpdateService {
   
   private datasource = new BehaviorSubject(false);
   currentData = this.datasource.asObservable();
-
-  public addressUpdated = new BehaviorSubject(false);
+  addr:any=this.getAddress;
+  public addressUpdated = new BehaviorSubject(this.addr);
   updateAddress = this.addressUpdated.asObservable();
 
   public subject: Subject<boolean> = new Subject();
@@ -36,5 +36,9 @@ updateAddressStatus(): Observable<boolean> {
   this.addressUpdated.next(false);
   return this.subject.asObservable();
 
+}
+
+get getAddress(){
+  return (JSON.parse(localStorage.getItem('delivery_address')) !== null || JSON.parse(localStorage.getItem('delivery_address')) !== undefined || JSON.parse(localStorage.getItem('delivery_address')) !== '' || JSON.parse(localStorage.getItem('delivery_address')) !==false)?JSON.parse(localStorage.getItem('delivery_address')):false; 
 }
 }
