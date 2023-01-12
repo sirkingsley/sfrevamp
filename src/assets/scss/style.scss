@@ -19576,8 +19576,8 @@ blockquote .blockquote_title {
 }
 .checkout_step .activated a {
   color: #ffffff;
-  border-color: $accent-color;
-  background-color: $accent-color !important;
+  border-color: grey;
+  background-color: grey !important;
 }
 .checkout_step .activated a span {
   opacity: 0.39;
@@ -19718,13 +19718,15 @@ blockquote .blockquote_title {
   padding: 30px;
   min-height: 180px;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   border: 2px solid #e6e6e6;
+  flex-direction: column;
+
 }
 .order_complete_alart h2 {
   margin: 0px;
   color: #333333;
-  font-size: 28px;
+  font-size: 18px;
 }
 .order_complete_alart h2 strong {
   color: #ce0b2b;
@@ -59560,13 +59562,15 @@ footer a{
   font-weight: 600;
 }
 .confirm-order-payment-heading-desc {
-  text-align: center;
+  // text-align: center;
   color: #666666;
+  
 }
 .spinner-img {
   width: 100px;
 }
 .order-payment-instruction-desc {
+ 
   color: #666666;
 }
 

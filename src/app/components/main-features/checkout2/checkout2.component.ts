@@ -724,7 +724,7 @@ export class Checkout2Component implements OnInit {
             },
           ).afterClosed().subscribe((isCompleted: boolean) => {
               // tslint:disable-next-line: max-line-length
-              this.router.navigate(["/checkout3"]);
+              this.router.navigate(["/completed"]);
               this.dialog.open(OrderCompletedDialogComponent, {
                 data: { order_code: result.order_code, transactionSuccessful: isCompleted },
                 disableClose: true,

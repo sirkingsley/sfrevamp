@@ -64,7 +64,7 @@ const routes: Routes = [
  
   
   {path: 'checkout2',component : Checkout2Component},
-  {path: 'checkout3', component : Checkout3Component},
+  {path: 'completed', component : Checkout3Component},
   {path: 'cart', component : CartComponent},
 
 ];

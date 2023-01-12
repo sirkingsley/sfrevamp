@@ -22,101 +22,102 @@
             <div class="col-sm-12 col-md-12 col-lg-8 cart-content">
                 <app-empty-record *ngIf="cartItems?.length <= 0 && !isProcessing"></app-empty-record>
                 <div *ngIf="!isProcessing">
-                <div class="row cart-single-item" *ngFor="let item of cartItems; let i = index">
-                    <div class="col-sm-6 col-md-2 col-lg-2 image-wrapper">
-                        <img src="{{item.item.image}}" alt="">
-                    </div>
-                    <div class="col-sm-6 col-md-10 col-lg-10 desc-wrapper">
-                        <div class="row desc-content">
-                            <div class="col-sm-12 col-md-6 col-lg-7 desc">
-                                <p>{{item.item.name}}</p>
-                                <p class="desc-text">{{item.item.description}}</p>
+                    <div class="row cart-single-item" *ngFor="let item of cartItems; let i = index">
+                        <div class="col-sm-6 col-md-2 col-lg-2 image-wrapper">
+                            <img src="{{item.item.image}}" alt="">
+                        </div>
+                        <div class="col-sm-6 col-md-10 col-lg-10 desc-wrapper">
+                            <div class="row desc-content">
+                                <div class="col-sm-12 col-md-6 col-lg-7 desc">
+                                    <p>{{item.item.name}}</p>
+                                    <p class="desc-text">{{item.item.description}}</p>
 
-                                <a class="remove" (click)="removeItemFromCart(item.id)">Remove</a>
-                            </div>
+                                    <a class="remove" (click)="removeItemFromCart(item.id)">Remove</a>
+                                </div>
 
-                            <div class="col-sm-12 col-md-6 col-lg-5 edit-qty">
-                                <div class="row pricing">
-                                    <div class="col-sm-6 col-md-6 col-lg-6">
-                                        <div class="qty-change">
-                                            <span class="minus" (click)="reduceQty(item)">-</span>
-                                            <span class="qty">{{item?.quantity}}</span>
-                                            <span class="plus" (click)="addQty(item)">+</span>
+                                <div class="col-sm-12 col-md-6 col-lg-5 edit-qty">
+                                    <div class="row pricing">
+                                        <div class="col-sm-6 col-md-6 col-lg-6">
+                                            <div class="qty-change">
+                                                <span class="minus" (click)="reduceQty(item)">-</span>
+                                                <span class="qty">{{item?.quantity}}</span>
+                                                <span class="plus" (click)="addQty(item)">+</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-6 prices my-2">
-                                        <p *ngIf="
+                                        <div class="col-sm-6 col-md-6 col-lg-6 prices my-2">
+                                            <p *ngIf="
                                             item?.country === countriesEnum?.GH ||
                                             item?.country === item?.countriesEnum?.NG ||
                                             item?.country === '' ||
                                             item?.country === undefined
                                           ">
-                                            {{ item?.item?.currency }}
-                                            {{ item?.total_amount | number: "1.2-2" }}</p>
-                                        <p *ngIf="
+                                                {{ item?.item?.currency }}
+                                                {{ item?.total_amount | number: "1.2-2" }}</p>
+                                            <p *ngIf="
                                             item?.country !== countriesEnum?.GH &&
                                             item?.country !== item?.countriesEnum?.NG &&
                                             item?.country !== '' &&
                                             item?.country !== undefined
                                           ">
-                                            $ {{ item?.total_amount_usd | number: "1.2-2" }}
-                                        </p>
-                                        <!-- <p class="old-price"> {{ item?.item?.currency }}
+                                                $ {{ item?.total_amount_usd | number: "1.2-2" }}
+                                            </p>
+                                            <!-- <p class="old-price"> {{ item?.item?.currency }}
                                             {{ item?.item?.selling_price | number: "1.2-2" }}</p> -->
+                                        </div>
                                     </div>
-                                </div>
 
+
+                                </div>
 
                             </div>
 
                         </div>
 
                     </div>
-
-                </div>
                 </div>
 
                 <!--Shimmer Start-->
                 <div *ngIf="isProcessing">
-                <div class="row cart-single-item" *ngFor="let item of cartItemsShimmer; let i = index">
-                    <div class="col-sm-6 col-md-2 col-lg-2 image-wrapper animate">
-                        
-                    </div>
-                    <div class="col-sm-6 col-md-10 col-lg-10 desc-wrapper">
-                        <div class="row desc-content ">
-                            <div class="col-sm-12 col-md-6 col-lg-7 desc">
-                                <p></p>
-                                <p class="desc-text animate" style="height: 100px; width: 100%;"></p>
+                    <div class="row cart-single-item" *ngFor="let item of cartItemsShimmer; let i = index">
+                        <div class="col-sm-6 col-md-2 col-lg-2 image-wrapper animate">
 
-                                <a class="remove" ></a>
-                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-10 col-lg-10 desc-wrapper">
+                            <div class="row desc-content ">
+                                <div class="col-sm-12 col-md-6 col-lg-7 desc">
+                                    <p></p>
+                                    <p class="desc-text animate" style="height: 100px; width: 100%;"></p>
 
-                            <div class="col-sm-12 col-m d-6 col-lg-5 edit-qty">
-                                <div class="row pricing">
-                                    <div class="col-sm-6 col-md-6 col-lg-6">
-                                        <div class="qty-change">
-                                
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-6 prices my-2">
-                                       
-                                    </div>
+                                    <a class="remove"></a>
                                 </div>
 
+                                <div class="col-sm-12 col-m d-6 col-lg-5 edit-qty">
+                                    <div class="row pricing">
+                                        <div class="col-sm-6 col-md-6 col-lg-6">
+                                            <div class="qty-change">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-lg-6 prices my-2">
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
 
                             </div>
 
                         </div>
 
                     </div>
-
-                </div>
                 </div>
                 <!--Shimmer End-->
 
                 <div class="delivery-address-container">
                     <h3>Your Delivery Address</h3>
-                    <div class="row" *ngIf="deliveryAddress ===null || deliveryAddress===undefined || deliveryAddress ===false">
+                    <div class="row"
+                        *ngIf="deliveryAddress ===null || deliveryAddress===undefined || deliveryAddress ===false">
                         <div class="col-8">
                             <p>No Delivery Address Provided</p>
 
@@ -127,7 +128,8 @@
                         </div>
                     </div>
 
-                    <div class="row" *ngIf="deliveryAddress !==null && deliveryAddress !==undefined && deliveryAddress !==false">
+                    <div class="row"
+                        *ngIf="deliveryAddress !==null && deliveryAddress !==undefined && deliveryAddress !==false">
                         <div class="col-8">
                             <p>{{deliveryAddress?.country}}</p>
                             <p>{{deliveryAddress?.state}}</p>
@@ -155,9 +157,10 @@
                         <form class="payment-type-form mb-3" [formGroup]="paymentFormGroup">
                             <fieldset class="gc-chckbxrdio form-inline">
                                 <legend>Choose how to Pay</legend>
-                                <div class="label-inline label-inline1">
+                                <div class="label-inline label-inline1" *ngIf="country ===countriesEnum.GH">
                                     <input id="inlineRadio1" type="radio" [value]="'GTBANK'"
-                                        (click)="selectPaymentMethod('CARD', '', '','GTBANK')" formControlName="payment_option">
+                                        (click)="selectPaymentMethod('CARD', '', '','GTBANK')"
+                                        formControlName="payment_option">
                                     <label for="inlineRadio2">
                                         <div class="option1">
                                             GTBank
@@ -180,7 +183,8 @@
                                 </div>
                                 <div class="label-inline" *ngIf="country ===countriesEnum.NG">
                                     <input id="inlineRadio2" type="radio" [value]="'PAGA'"
-                                        (click)="selectPaymentMethod('CARD', '','' ,'PAGA')" formControlName="payment_option">
+                                        (click)="selectPaymentMethod('CARD', '','' ,'PAGA')"
+                                        formControlName="payment_option">
                                     <label for="inlineRadio1">
                                         <div class="option1">
                                             Paga
@@ -197,9 +201,10 @@
                                     </label>
 
                                 </div>
-                                <div class="label-inline">
-                                    <input id="inlineRadio3" type="radio"  [value]="'JUNIPAY'"
-                                        (click)="selectPaymentMethod('MOMO', '', '','JUNIPAY')" formControlName="payment_option">
+                                <div class="label-inline" *ngIf="country ===countriesEnum.GH">
+                                    <input id="inlineRadio3" type="radio" [value]="'JUNIPAY'"
+                                        (click)="selectPaymentMethod('MOMO', '', '','JUNIPAY')"
+                                        formControlName="payment_option">
                                     <label for="inlineRadio3">
                                         <div class="option1">
                                             JuniPay
@@ -214,6 +219,28 @@
                                             <div class="option">
                                                 <img src="assets/images/atigo.png" alt="">
                                             </div>
+                                        </label>
+                                    </label>
+                                </div>
+                                <div class="label-inline"
+                                    *ngIf="country !==countriesEnum.NG && country !==countriesEnum.GH">
+                                    <input id="inlineRadio3" type="radio" [value]="'STRIPE'"
+                                        (click)="selectPaymentMethod('CARD', '', '','STRIPE')"
+                                        formControlName="payment_option">
+                                    <label for="inlineRadio3">
+                                        <div class="option1">
+                                            Stripe
+                                        </div>
+                                        <label for="inlineRadio1">
+                                            <div class="card1">
+                                                <img src="assets/images/stripe.png" alt="">
+                                            </div>
+                                            <!-- <div class="option">
+                                                <img src="assets/images/ic_vodafone_cash.png" alt="">
+                                            </div>
+                                            <div class="option">
+                                                <img src="assets/images/atigo.png" alt="">
+                                            </div> -->
                                         </label>
                                     </label>
                                 </div>
@@ -248,9 +275,9 @@
 
 
                     <div class="delivery-option-wrapper">
-                        <mat-form-field appearance="fill" [formGroup]="deliveryMethod">
-                            <mat-label>Choose delivery option</mat-label>
-                            <mat-select [(value)]="selectedDelivery">
+                        <mat-form-field appearance="fill" [formGroup]="deliveryMethod" >
+                            <mat-label >Choose delivery option</mat-label>
+                            <mat-select [(value)]="selectedDelivery" (click)="getDCharge(isLoggedIn)" >
                                 <mat-option [value]="deliveryOptions?.PICKUP" *ngIf="
                           currency === currencies.GHS ||
                           currency === currencies.NGN || country == countriesEnum.NG || country == countriesEnum.GH
@@ -398,4 +425,5 @@
         </ng-template>
     </section>
 </main>
+
 <app-footer></app-footer>

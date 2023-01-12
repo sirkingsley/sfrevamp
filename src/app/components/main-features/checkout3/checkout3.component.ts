@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 //import Jquery
 import * as $ from 'jquery';
 //JavaScript Functions
@@ -12,7 +13,7 @@ declare const parallaxie: any;
 })
 export class Checkout3Component implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
    //Call JavaScript functions onload
    onload(){
@@ -31,5 +32,7 @@ export class Checkout3Component implements OnInit {
     });
     this.onload();
   }
-
+  viewMyOrders() {
+    this.router.navigate(['/profile-view/orders']);
+  }
 }

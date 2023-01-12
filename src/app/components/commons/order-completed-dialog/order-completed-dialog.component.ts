@@ -32,6 +32,6 @@ transactionSuccessful = false;
   }
 
   viewMyOrders() {
-    this.router.navigate(['account/orders']);
+    this.router.navigate(['/profile-view/orders']);
   }
 }

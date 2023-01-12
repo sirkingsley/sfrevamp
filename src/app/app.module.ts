@@ -103,6 +103,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { IntlCountryCodesComponent } from './components/commons/intl-country-codes/intl-country-codes.component';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { ConfirmCodeComponent } from './components/commons/confirm-code/confirm-code.component';
+import { StripePaymentComponent } from './components/commons/stripe-payment/stripe-payment.component';
 
 @NgModule({
   declarations: [
@@ -144,6 +145,7 @@ import { ConfirmCodeComponent } from './components/commons/confirm-code/confirm-
     DeliveryAddressComponent,
     IntlCountryCodesComponent,
     ConfirmCodeComponent,
+    StripePaymentComponent,
 
 
   ],

@@ -300,7 +300,11 @@ export class CheckoutComponent implements OnInit {
   }
 
 
-
+  getDCharge(isMeLogIn:Boolean){
+    if(this.isLoggedIn && this.deliveryAddress !== null){
+      this.getDeliveryCharge(this.deliveryAddress);
+    }
+  }
  
  /**
    * Country code selected
@@ -579,7 +583,7 @@ export class CheckoutComponent implements OnInit {
           const transactionId = result?.transaction_id;
         
           window.location.href = `${result.redirect_url}`;
-          this.router.navigate(['/profile-view/orders']);
+          this.router.navigate(['/completed']);
           //window.open(result.redirect_url,'_blank');
           //console.log("Results"+ JSON.stringify(result,null,2))
           // setTimeout(() => {
@@ -622,7 +626,7 @@ export class CheckoutComponent implements OnInit {
         //   )
         //     .afterClosed().subscribe((isCompleted: boolean) => {
         //       // tslint:disable-next-line: max-line-length
-        //       this.router.navigate(["/checkout3"]);
+        //       this.router.navigate(["/completed"]);
         //       this.dialog.open(OrderCompletedDialogComponent, {
         //         data: { order_code: result.order_code, transactionSuccessful: isCompleted },
         //         disableClose: true,
@@ -945,7 +949,9 @@ export class CheckoutComponent implements OnInit {
       this.router.navigate(['/delivery-info']);
     }
   }  
-
+test(){
+  this.dialog.open(OrderCompletedDialogComponent)
+}
   get phone_number() { return this.formGroup.get('phone_number'); }
   get password() { return this.formGroup.get('password'); }
   get customer_name() { return this.formGroup.get('customer_name'); }

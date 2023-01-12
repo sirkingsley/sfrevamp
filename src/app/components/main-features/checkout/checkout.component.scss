@@ -191,7 +191,7 @@ h3,h2,h1{
             cursor: pointer;
             display: flex;
             justify-content: space-evenly;
-            
+            align-items: center;
             .option1{
                 width: 50px;
                 //border: 1px solid rgba(34, 34, 34, 0.15) !important;
@@ -227,6 +227,13 @@ h3,h2,h1{
             .card{
                 width: 50px;
                 height: 30px;
+                border: 1px solid rgba(34, 34, 34, 0.15) !important; 
+                margin-left: 10px;
+            }
+
+            .card1{
+                width: 85px;
+                height: 25px;
                 border: 1px solid rgba(34, 34, 34, 0.15) !important; 
                 margin-left: 10px;
             }
