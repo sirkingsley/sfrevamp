@@ -6,8 +6,28 @@
       <div class="medical_offer_carousel">
   <owl-carousel-o [options]="sectionOptions">
     <ng-container >
+      <ng-template carouselSlide [id]="banners[2]?.image">
+        <div class="item" style="background: url('../../assets/images/back.gif'); color: #fff !important;">
+          <div class="row align-items-center justify-content-lg-between">
+            <div class="col-lg-6 col-md-6 order-last">
+              <div class="item_image">
+                <img src="{{banners[2]?.image}}" alt="image_not_found">
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+              <div class="item_content item_content1">
+                <!-- <strong class="offer_text" style="color: #ffffff;">10%off</strong> -->
+                <h3 class="item_title mb_15" style="color: #ffffff;"> Get rewarded while you shop; share the love with everyone.</h3>
+                <p class="mb-2 " style="color: #ffffff;">
+                 Get cash back whenever your referral code is used.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
       <ng-template carouselSlide [id]="banners[0]?.image">
-        <div class="item" style="background-color: rgb(235, 235, 235);">
+        <div class="item" style="background: url('../../assets/images/celeb.gif');">
           <div class="row align-items-center justify-content-lg-between">
             <div class="col-lg-6 col-md-6 order-last">
               <div class="item_image">
@@ -15,7 +35,7 @@
               </div>
             </div>
             <div class="col-lg-6 col-md-6">
-              <div class="item_content">
+              <div class="item_content item_content1">
                 <!-- <strong class="offer_text">10%off</strong> -->
                 <h3 class="item_title mb_15"> Step Out in Style With African Swag; </h3>
                 <p class="mb-2">
@@ -27,7 +47,8 @@
         </div>
       </ng-template>
       <ng-template carouselSlide [id]="banners[1]?.image">
-        <div class="item" style="background-color: #B6F0B9;">
+        <div class="item" style="background: url('../../assets/images/love2.gif'); background-repeat: no-repeat;
+       background-size: cover;">
           <div class="row align-items-center justify-content-lg-between">
             <div class="col-lg-6 col-md-6 order-last">
               <div class="item_image">
@@ -35,7 +56,7 @@
               </div>
             </div>
             <div class="col-lg-6 col-md-6">
-              <div class="item_content">
+              <div class="item_content item_content1">
                 <!-- <strong class="offer_text">10%off</strong> -->
                 <h3 class="item_title mb_15">Shirts For Him, Shirts For Her, No one gets left behind;
                  </h3>
@@ -47,26 +68,7 @@
           </div>
         </div>
       </ng-template>
-      <ng-template carouselSlide [id]="banners[2]?.image">
-        <div class="item" style="background-color: #363636; color: #fff !important;">
-          <div class="row align-items-center justify-content-lg-between">
-            <div class="col-lg-6 col-md-6 order-last">
-              <div class="item_image">
-                <img src="{{banners[2]?.image}}" alt="image_not_found">
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-              <div class="item_content">
-                <!-- <strong class="offer_text" style="color: #ffffff;">10%off</strong> -->
-                <h3 class="item_title mb_15" style="color: #ffffff;"> Get rewarded while you shop; share the love with everyone.</h3>
-                <p class="mb-2 " style="color: #ffffff;">
-                 Get cash back whenever your referral code is used.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ng-template>
+      
     </ng-container>
 
   </owl-carousel-o>

@@ -23,14 +23,14 @@ export class Checkout3Component implements OnInit {
   }
   ngOnInit(): void {
 
-    $('#flip').on("click",function(){
-      $("#panel").slideToggle("slow");
-    });
+  //   $('#flip').on("click",function(){
+  //     $("#panel").slideToggle("slow");
+  //   });
 
-    $('.search_btn').on("click",function(){
-      $("#search_body_collapse").slideToggle("slow");
-    });
-    this.onload();
+  //   $('.search_btn').on("click",function(){
+  //     $("#search_body_collapse").slideToggle("slow");
+  //   });
+  //   this.onload();
   }
   viewMyOrders() {
     this.router.navigate(['/profile-view/orders']);

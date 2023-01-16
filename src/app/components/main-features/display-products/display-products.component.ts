@@ -230,7 +230,7 @@ export class DisplayProductsComponent implements OnInit {
     });
 
 
-    //console.log("User:"+JSON.stringify(this.currentUser,null,2));
+    console.log("User:"+JSON.stringify(this.currentUser,null,2));
 
     this.getIndustries()
     this.getFeaturedShops({});
