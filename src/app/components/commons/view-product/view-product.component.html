@@ -68,7 +68,11 @@
           <p *ngIf="!productDetail?.description" class="mb_30">
             No description!
           </p>
-          <span class="item_price my-3">{{productDetail?.currency}} {{productDetail?.selling_price | number:
+          <span class="item_price my-3" *ngIf="country===countriesEnum.GH">{{currency}} {{productDetail?.selling_price | number:
+            '1.2-2'}}</span>
+            <span class="item_price my-3" *ngIf="country===countriesEnum.NG">{{currency}} {{productDetail?.selling_price_ngn | number:
+              '1.2-2'}}</span>
+          <span class="item_price my-3" *ngIf="country!==countriesEnum.GH && country!==countriesEnum.GH">{{currency}} {{productDetail?.selling_price_usd | number:
             '1.2-2'}}</span>
 
           <ul class="btns_group ul_li mb_30 clearfix" style="display:flex; justify-content: flex-start !important;">

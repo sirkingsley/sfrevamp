@@ -13,7 +13,7 @@ import { GetHostnameService } from 'src/app/services/get-hostname.service';
 import { ProductsApiCallsService } from 'src/app/services/network-calls/products-api-calls.service';
 import { ShopApiCallsService } from 'src/app/services/network-calls/shop-api-calls.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
-import { CountryEnum, PriceSortingEnums, PromosEnum } from 'src/app/utils/enums';
+import { CountryEnum, PriceSortingEnums, PromosEnum,CurrencyEnums } from 'src/app/utils/enums';
 import { servicesCarouselConfig } from 'src/app/utils/owl-config';
 import { CartPopUpComponent } from '../../commons/cart-pop-up/cart-pop-up.component';
 import { ViewProductComponent } from '../../commons/view-product/view-product.component';
@@ -79,6 +79,7 @@ export class DisplayProductsComponent implements OnInit {
   @Output() onProductGroupSelected = new EventEmitter();
 
   countriesEnum = CountryEnum;
+  currenciesEnum: CurrencyEnums;
   country = '';
   selectedCategory = '';
   isSearching = false;
@@ -150,7 +151,7 @@ export class DisplayProductsComponent implements OnInit {
       // parallaxie();
     }
   async ngOnInit(): Promise<void> {
-    this.scroller.scrollToAnchor("productsView");
+    //this.scroller.scrollToAnchor("productsView");
     setTimeout(()=>{
       this.loader = false;
   }, 1000);
@@ -191,7 +192,7 @@ export class DisplayProductsComponent implements OnInit {
    
     this.route.queryParams.subscribe(param => {
       this.tag =(  param['tag'] !== null &&  param['tag']  !== '' &&  param['tag']  !== undefined) ?  param['tag'] : '';
-      this.selectedCategory =( param['category'] !== null && param['category'] !== '' && param['category'] !== undefined) ? param['category'] : '';
+      this.selectedCategory =( param['product_group_id'] !== null && param['product_group_id'] !== '' && param['product_group_id'] !== undefined) ? param['product_group_id'] : '';
       this.searchQuery = (param['q'] !== null && param['q'] !== '' && param['q'] !== undefined) ? param['q'] : '';
       //console.log("this.searchQuery-->"+param['q']);
       if (this.searchQuery !== '') {
@@ -202,9 +203,9 @@ export class DisplayProductsComponent implements OnInit {
           this.isSearching = false;
         }
         this.productSearchFormControl.setValue(this.searchQuery);
-        this.getProducts({storefrontmall_name:"kokorko" , search_text: this.searchQuery, tag: this.tag, industry: this.selectedCategory });
+        this.getProducts({storefrontmall_name:"kokorko" , search_text: this.searchQuery, tag: this.tag, product_group_id: this.selectedCategory });
        // console.log("Filter Params-->"+ JSON.stringify({ search_text: this.searchQuery, tag: this.tag, industry: this.selectedCategory }));
-        this.scroller.scrollToAnchor("productsView");
+        //this.scroller.scrollToAnchor("productsView");
         // document.getElementById("products").scrollIntoView({
         //   behavior: "smooth",
         //   block: "start",
@@ -215,11 +216,13 @@ export class DisplayProductsComponent implements OnInit {
         this.route.params.subscribe(param => {
           this.isSearching = false;
           const pageSec=(param['pageSec'] !== null && param['pageSec'] !== '' &&  param['pageSec'] !== undefined) ? param['pageSec'] : '';
-          if (pageSec){
-          this.selectedCategory=param['category'];
+          if (param['pageSec'] !== null && param['pageSec'] !== '' &&  param['pageSec'] !== undefined){
+          this.selectedCategory=param['product_group_id'];
           this.productListTitle = this.selectedCategory+ ' Products';
-          this.getProducts({storefrontmall_name:"kokorko", sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
+          this.getProducts({storefrontmall_name:"kokorko", sorting: this.selectedPriceSorting, product_group_id: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
           this.scroller.scrollToAnchor("productsView");
+          //this.target.nativeElement.scrollIntoView({behavior: 'smooth'});
+          
         }else{
           this.getProducts({storefrontmall_name:"kokorko"});
         }
@@ -230,7 +233,7 @@ export class DisplayProductsComponent implements OnInit {
     });
 
 
-    console.log("User:"+JSON.stringify(this.currentUser,null,2));
+    //console.log("User:"+JSON.stringify(this.currentUser,null,2));
 
     this.getIndustries()
     this.getFeaturedShops({});
@@ -246,28 +249,7 @@ export class DisplayProductsComponent implements OnInit {
     this.onload();
   }
 
-  ngAfterViewInit(): void {
-
-    // this.route.params.subscribe(param => {
-    //   this.tag = param['tag'];
-    //   this.selectedCategory = param['category'];
-    //   this.searchQuery = (param['q'] !== null && param['q'] !== '' && param['q'] !== undefined) ? param['q'] : '';
-    //   if (this.searchQuery !== '') {
-    //     this.productListTitle = 'SEARCH RESULTS';
-    //     this.isSearching = true;
-    //     if (this.searchQuery === '') {
-    //       this.productListTitle = 'TRENDING PRODUCTS';
-    //       this.isSearching = false;
-    //     }
-    //     this.productSearchFormControl.setValue(this.searchQuery);
-    //   }
-    //   this.getProducts({ search_text: this.searchQuery, tag: this.tag, industry: this.selectedCategory });
-    //   console.log("Filter Params-->"+ JSON.stringify({ search_text: this.searchQuery, tag: this.tag, industry: this.selectedCategory }));
-    // });
-
-
-
-  }
+ 
 openDialog(item) {
   this.dialog.open(ViewProductComponent, {
 
@@ -317,6 +299,14 @@ getProducts(filterParams: ProductsFilterParams) {
       //console.log("this.products-->"+JSON.stringify(this.products,null,2));
       //console.log(this.country);
       //console.log(this.product_groups);
+      if(this.country === this.countriesEnum.GH){
+        this.currency = CurrencyEnums.GHS;
+      }
+      else if(this.country === this.countriesEnum.NG){
+        this.currency = CurrencyEnums.NGN;
+      }else{
+        this.currency = CurrencyEnums.USD;
+      }
     }
   });
 }
@@ -335,7 +325,7 @@ filterCategory(category: string,el: HTMLElement) {
   this.selectedCategory = category;
   this.ProductsTitle=category +" Products";
 
-  this.getProducts({storefrontmall_name:"kokorko" , sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
+  this.getProducts({storefrontmall_name:"kokorko" , sorting: this.selectedPriceSorting, product_group_id: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
 
       el.scrollIntoView({behavior: 'smooth'});
   }
@@ -345,7 +335,7 @@ filterByCategory(category: string) {
     this.ProductsTitle=category +" Products";
     this.selectedCategory = category;
 
-    this.getProducts({ storefrontmall_name:"kokorko" , sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
+    this.getProducts({ storefrontmall_name:"kokorko" , sorting: this.selectedPriceSorting, product_group_id: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
     this.target.nativeElement.scrollIntoView({behavior: 'smooth'});
   }
 
@@ -362,21 +352,35 @@ filterByCategory(category: string) {
 
       return;
     }
-    const selling_price = +product.selling_price;
-    const selling_price_usd = +product.selling_price_usd;
+    const selling_price = +product?.selling_price;
+    const selling_price_usd = +product?.selling_price_usd;
+    const selling_price_ngn = +product?.selling_price_ngn;
     // tslint:disable-next-line: variable-name
     const total_amount = selling_price;
     const total_amount_usd = selling_price_usd;
+    const total_amount_ngn = selling_price_ngn;
     // tslint:disable-next-line: max-line-length
     const data = {
       item: product,
       quantity: 1,
       total_amount,
+      total_amount_ngn,
       total_amount_usd,
       date_added: new Date(),
-      country: this.country
+      country: this.country,
+      currency: this.currency
       };
-    //console.log("Started adding-->");
+
+      if(this.country ===this.countriesEnum.GH){
+        data.total_amount =total_amount;
+      }
+      else if(this.country ===this.countriesEnum.NG){
+        data.total_amount =total_amount_ngn;
+      }else{
+        data.total_amount =total_amount_usd;
+      }
+
+    console.log("Started adding-->"+data.total_amount);
     await this.productsService.addProductToCart(data, (error, result) => {
       //console.log("adding ing service-->");
       if (result !== null) {
@@ -395,11 +399,11 @@ filterByCategory(category: string) {
         this.cartItems = result;
         this.cartItems = result.sort(this.compare);
         //console.log("Cart length-->"+this.cartItems.length);
-        //console.log("Cart-->"+ JSON.stringify(this.cartItems,null,2));
-        if (this.cartItems.length > 0) {
-          this.currency = this.cartItems[0].item.currency;
-          this.country = this.cartItems[0].country;
-        }
+        console.log("Cart-->"+ JSON.stringify(this.cartItems,null,2));
+        // if (this.cartItems.length > 0) {
+        //   this.currency = this.cartItems[0].item.currency;
+        //   this.country = this.cartItems[0].country;
+        // }
         this.getSubTotal();
       }
     });
@@ -408,7 +412,7 @@ filterByCategory(category: string) {
   filterByPrice(priceSort) {
     this.selectedPriceSorting = priceSort;
     // tslint:disable-next-line: max-line-length
-    this.getProducts({ storefrontmall_name:"kokorko" , sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
+    this.getProducts({ storefrontmall_name:"kokorko" , sorting: this.selectedPriceSorting, product_group_id: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
   }
   /**
    * Remove item from cart

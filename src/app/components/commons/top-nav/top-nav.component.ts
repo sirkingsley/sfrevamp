@@ -280,7 +280,7 @@ export class TopNavComponent implements OnInit {
     this.selectedCategory = category;
     this.ProductsTitle=category +" Products";
 
-    this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
+    this.getProducts({ sorting: this.selectedPriceSorting, product_group_id: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
 
         el.scrollIntoView({behavior: 'smooth'});
     }
@@ -290,7 +290,7 @@ export class TopNavComponent implements OnInit {
       this.ProductsTitle=category +" Products";
       this.selectedCategory = category;
 
-      this.getProducts({ sorting: this.selectedPriceSorting, industry: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
+      this.getProducts({ sorting: this.selectedPriceSorting, product_group_id: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
       el.scrollIntoView({behavior: 'smooth'});
     }
 

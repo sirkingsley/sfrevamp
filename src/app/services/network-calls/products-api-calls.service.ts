@@ -76,7 +76,11 @@ export class ProductsApiCallsService {
         if (exists !== null && exists !== undefined && exists !== '') {
           const newQuantity = +exists.quantity + +data.quantity;
           const newSubtotal = +exists.total_amount + +data.total_amount;
+          const newSubtotal_usd = +exists.total_amount_usd + +data.total_amount_usd;
+          const newSubtotal_ngn = +exists.total_amount_ngn + +data.total_amount_ngn;
           data.total_amount = newSubtotal;
+          data.total_amount_usd =newSubtotal_usd;
+          data.total_amount_ngn =newSubtotal_ngn;
           data.quantity = newQuantity;
           if (newQuantity > data.item.new_quantity) {
             // tslint:disable-next-line: max-line-length

@@ -37,7 +37,7 @@ export enum PriceSortingEnums {
 export enum CurrencyEnums {
   GHS = 'GHS',
   NGN = 'NGN',
-  USD = 'USD'
+  USD = '$'
 }
 export enum CheckoutSourceEnums {
   SHOP_MALL = 'SHOP_MALL',

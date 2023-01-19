@@ -12,7 +12,7 @@ import { GetHostnameService } from 'src/app/services/get-hostname.service';
 import { ProductsApiCallsService } from 'src/app/services/network-calls/products-api-calls.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
 import { SEOService } from 'src/app/services/seo.service';
-import { CountryEnum } from 'src/app/utils/enums';
+import { CountryEnum, CurrencyEnums } from 'src/app/utils/enums';
 import { CartPopUpComponent } from '../cart-pop-up/cart-pop-up.component';
 import { config,config2,config3,config4 } from 'src/app/utils/swiper-configs';
 // import Swiper core and required modules
@@ -48,6 +48,8 @@ export class ViewProductComponent implements OnInit {
     private productsService: ProductsApiCallsService,
     ) {}
 
+    countriesEnum = CountryEnum;
+    currenciesEnum: CurrencyEnums;
     productId:number;
     productDetail;
     productDetailShimmer=[1,2,3]
@@ -66,7 +68,6 @@ export class ViewProductComponent implements OnInit {
     product_id:any;
     isProcessingRelatedProducts: boolean;
     country = '';
-    countriesEnum = CountryEnum;
     currentUrl = '';
     quantityRemaining = 1;
     config=config;
@@ -82,7 +83,7 @@ export class ViewProductComponent implements OnInit {
     this.url = this.constantValues.STOREFRONT_MALL_URL;
     this.getCartItems();
 
-
+    this.getCountry();
     this.route.queryParams.subscribe(param => {
       if(param['slug']){
         const product_slug = param['slug'];
@@ -115,6 +116,32 @@ export class ViewProductComponent implements OnInit {
    
    
   }
+
+  /**
+ * Get the Country User is located
+ */
+  getCountry(){
+    this.isProcessing = true;
+      this.productsApiCalls.getCountryInfo((error, result) => {
+        this.isProcessing = false;
+        if (result !== null) {
+          this.country = result.country;
+          if(this.country ===this.countriesEnum.GH){
+            this.currency = CurrencyEnums.GHS;
+          }
+          else if(this.country ===this.countriesEnum.NG){
+            this.currency = CurrencyEnums.NGN;
+          }else{
+            this.currency = CurrencyEnums.USD;
+          }
+          //this.currency = (result.currency === CurrencyEnums.GHS || result.currency === CurrencyEnums.NGN) ? result.currency : CurrencyEnums.USD;
+          //console.log("result.country=>"+ result.country);
+          // console.log("result.currency=>"+ result.currency);
+        }
+      });
+      
+  }
+
    /**
    * Get product by slug
    * @param slug product slug
@@ -163,18 +190,42 @@ export class ViewProductComponent implements OnInit {
       if (stockQty <= 0) {
         //this.toastr.error('Out of Stock!');
         this.notificationsService.error(this.constantValues.APP_NAME, product.name + ' has run out of stock');
-
+  
         return;
       }
-      const selling_price = +product.selling_price;
-      const selling_price_usd = +product.selling_price_usd;
+      const selling_price = +product?.selling_price;
+      const selling_price_usd = +product?.selling_price_usd;
+      const selling_price_ngn = +product?.selling_price_ngn;
       // tslint:disable-next-line: variable-name
-      const total_amount = selling_price * 1;
-      const total_amount_usd = selling_price_usd * 1;
+      const total_amount = selling_price;
+      const total_amount_usd = selling_price_usd;
+      const total_amount_ngn = selling_price_ngn;
       // tslint:disable-next-line: max-line-length
-      const data = { item: product, quantity: 1, total_amount, total_amount_usd, date_added: new Date(), country: this.country };
-      await this.productsApiCalls.addProductToCart(data, (error, result) => {
+      const data = {
+        item: product,
+        quantity: 1,
+        total_amount,
+        total_amount_ngn,
+        total_amount_usd,
+        date_added: new Date(),
+        country: this.country,
+        currency: this.currency
+        };
+  
+        if(this.country ===this.countriesEnum.GH){
+          data.total_amount =total_amount;
+        }
+        else if(this.country ===this.countriesEnum.NG){
+          data.total_amount =total_amount_ngn;
+        }else{
+          data.total_amount =total_amount_usd;
+        }
+  
+      console.log("Started adding-->"+data.total_amount);
+      await this.productsService.addProductToCart(data, (error, result) => {
+        //console.log("adding ing service-->");
         if (result !== null) {
+          //console.log("added");
           this.dbaseUpdate.dbaseUpdated(true);
           //this.toastr.success(product.name + ' has been successfully added to cart');
           this.notificationsService.success(this.constantValues.APP_NAME, product.name + ' has been successfully added to cart');
@@ -182,7 +233,6 @@ export class ViewProductComponent implements OnInit {
         }
       });
     }
-
     // async getCartItems() {
     //   await this.productsApiCalls.getCartItems((error, result) => {
     //     if (result !== null) {

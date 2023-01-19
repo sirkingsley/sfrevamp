@@ -46,11 +46,14 @@
             <div class="item_content">
               <h4 class="item_title">{{item.item.name}}</h4>
               <!-- <span class="item_type" [routerLink]="['/shop-details',{shop: item.item.myShop,storefrontmall_name:item.item.myshop.storefrontmall_name,store_name:item.item.myshop.business_name}]" mat-dialog-close style="cursor: pointer;" >{{item.item.myshop.business_name}}</span> -->
-              <span class="price_text"*ngIf="item?.country === countriesEnum?.GH || item?.country === item?.countriesEnum?.NG || item?.country === '' || item?.country === undefined">
-                {{item?.item?.currency}} {{item?.item?.selling_price | number: '1.2-2'}}
+              <span class="price_text" *ngIf="item?.country === countriesEnum?.GH">
+                {{item?.currency}} {{item?.item?.selling_price | number: '1.2-2'}}
+              </span>
+              <span class="price_text"*ngIf="item?.country === item?.countriesEnum?.NG">
+                {{item?.currency}} {{item?.item?.selling_price_ngn | number: '1.2-2'}}
               </span>
               <span class="price_text"  *ngIf="item?.country !== countriesEnum?.GH && item?.country !== item?.countriesEnum?.NG && item?.country !== '' && item?.country !== undefined">
-                $ {{item?.item?.selling_price_usd | number: '1.2-2'}}
+              {{item?.currency}} {{item?.item?.selling_price_usd | number: '1.2-2'}}
               </span>
             </div>
             <button type="button" class="remove_btn" (click)="removeItemFromCart(item.id)">
@@ -74,8 +77,10 @@
             </form>
           </div>
         </td>
-        <td><span class="total_price" *ngIf="item?.country === countriesEnum?.GH || item?.country === item?.countriesEnum?.NG || item?.country === '' || item?.country === undefined"> {{item?.item?.currency}} {{item?.total_amount | number: '1.2-2'}}</span>
-          <span class="total_price" *ngIf="item?.country !== countriesEnum?.GH && item?.country !== item?.countriesEnum?.NG && item?.country !== '' && item?.country !== undefined"> {{item?.item?.currency}} {{item?.total_amount_usd | number: '1.2-2'}}</span>
+        <td>
+          <span class="total_price" *ngIf="item?.country === countriesEnum?.GH"> {{item?.currency}} {{item?.total_amount | number: '1.2-2'}}</span>
+          <span class="total_price" *ngIf="item?.country === countriesEnum?.NG"> {{item?.currency}} {{item?.total_amount_usd | number: '1.2-2'}}</span>
+          <span class="total_price" *ngIf="item?.country !== countriesEnum?.GH && item?.country !== item?.countriesEnum?.NG && item?.country !== '' && item?.country !== undefined"> {{item?.currency}} {{item?.total_amount_usd | number: '1.2-2'}}</span>
         </td>
       </tr>
 

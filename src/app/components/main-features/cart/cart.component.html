@@ -70,7 +70,7 @@
                   </div>
                   <div class="item_content">
                     <h4 class="item_title">{{ item.item.name }}</h4>
-                    <span
+                    <!-- <span
                       class="item_type"
                       [routerLink]="[
                         '/shop-details',
@@ -82,7 +82,7 @@
                         }
                       ]"
                       >{{ item.item.myshop.business_name }}</span
-                    >
+                    > -->
                   </div>
                   <button
                     type="button"
@@ -97,26 +97,24 @@
                 <span
                   class="price_text"
                   *ngIf="
-                    item?.country === countriesEnum?.GH ||
-                    item?.country === item?.countriesEnum?.NG ||
-                    item?.country === '' ||
-                    item?.country === undefined
-                  "
+                    item?.country !== countriesEnum?.GH &&
+                    item?.country !== item?.countriesEnum?.NG"
                 >
-                  {{ item?.item?.currency }}
-                  {{ item?.item?.selling_price | number: "1.2-2" }}
+                  {{ item?.currency }}
+                  {{ item?.item?.selling_price_usd | number: "1.2-2" }}
                 </span>
                 <span
                   class="price_text"
-                  *ngIf="
-                    item?.country !== countriesEnum?.GH &&
-                    item?.country !== item?.countriesEnum?.NG &&
-                    item?.country !== '' &&
-                    item?.country !== undefined
-                  "
+                  *ngIf="item?.country === countriesEnum?.GH"
                 >
-                  $ {{ item?.item?.selling_price_usd | number: "1.2-2" }}
+                 {{ item?.currency }} {{ item?.item?.selling_price | number: "1.2-2" }}
                 </span>
+                <span
+                class="price_text"
+                *ngIf="item?.country === countriesEnum?.NG"
+              >
+               {{ item?.currency }} {{ item?.item?.selling_price_ngn | number: "1.2-2" }}
+              </span>
               </td>
               <td>
                 <div class="quantity_input">
@@ -135,10 +133,17 @@
                 </div>
               </td>
               <td>
-                <span class="total_price">
-                  {{ item?.item?.currency }}
-                  {{ item?.total_amount | number: "1.2-2" }}</span
-                >
+                <span class="total_price" *ngIf="item?.country === countriesEnum?.NG">
+                  {{ item?.currency }}
+                  {{ item?.total_amount_ngn | number: "1.2-2" }}</span>
+
+                  <span class="total_price" *ngIf="item?.country === countriesEnum?.GH">
+                    {{ item?.currency }}
+                    {{ item?.total_amount | number: "1.2-2" }}</span>
+
+                    <span class="total_price" *ngIf="item?.country !== countriesEnum?.GH && item?.country !== countriesEnum?.GH">
+                      {{ item?.currency }}
+                      {{ item?.total_amount_usd | number: "1.2-2" }}</span>
               </td>
             </tr>
           </tbody>
@@ -178,13 +183,13 @@
 				  </h3>
 				  <ul class="ul_li_block clearfix">
 					<li>
-					  <span>Subtotal</span>
-					  <span>{{ currency }} {{ subTotal | number: "1.2-2" }}</span>
+					  <span>Item(s) total</span>
+					  <span class="text-dark">{{ currency }} {{ subTotal | number: "1.2-2" }}</span>
 					</li>
-					<li>
+					<!-- <li>
 					  <span>Total</span>
 					  <span>{{ currency }} {{ subTotal | number: "1.2-2" }}</span>
-					</li>
+					</li> -->
 				  </ul>
 				  <a routerLink="/checkout" class="custom_btn bg_success"
 					>Proceed to Checkout</a

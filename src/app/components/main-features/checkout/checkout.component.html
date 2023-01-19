@@ -51,7 +51,7 @@
                                             item?.country === '' ||
                                             item?.country === undefined
                                           ">
-                                                {{ item?.item?.currency }}
+                                                {{ currency }}
                                                 {{ item?.total_amount | number: "1.2-2" }}</p>
                                             <p *ngIf="
                                             item?.country !== countriesEnum?.GH &&
@@ -59,7 +59,7 @@
                                             item?.country !== '' &&
                                             item?.country !== undefined
                                           ">
-                                                $ {{ item?.total_amount_usd | number: "1.2-2" }}
+                                                {{currency}} {{ item?.total_amount_usd | number: "1.2-2" }}
                                             </p>
                                             <!-- <p class="old-price"> {{ item?.item?.currency }}
                                             {{ item?.item?.selling_price | number: "1.2-2" }}</p> -->
@@ -255,7 +255,8 @@
                         </div>
                         <div class="shop-discount">
                             <!-- <p>Shop discount <span class="old-price">(20% off)</span></p> -->
-                            <p>Shop discount</p>
+                            <p>Shop discount (<span class="text-danger" *ngIf="discountRateType=== 'PERCENTAGE'">{{discountRateValue}}%</span> <span class="text-danger" *ngIf="discountRateType=== 'FLAT'">{{currency}}{{discountRateValue}}</span>
+                                <span class="text-danger" *ngIf="discountRateType !== 'PERCENTAGE' && discountRateType !== 'FLAT'">{{discountRateValue}}</span>)</p>
                             <p>-{{currency}} {{discountAmount | number: "1.2-2"}}</p>
                         </div>
 

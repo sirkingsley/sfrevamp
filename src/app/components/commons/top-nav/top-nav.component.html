@@ -64,8 +64,7 @@
 												<div class="page_links">
 													<h3 class="title_text"
 														[routerLink]="['/display-products', {pageSec: 'section2', category: ''}]"
-														(click)="filterCategory('',target)"
-														(click)="filterByCategory('',target)">All</h3>
+													>All</h3>
 
 												</div>
 												<div class="col-lg-3" *ngFor="let category of pGroups">
@@ -78,9 +77,9 @@
 													<div class="page_links">
 														<!-- <h3 class="title_text" [routerLink] = "['/supermarket', {pageSec: 'section2', category: category.name}]" (click)="filterCategory(category.name,target)" (click)="filterByCategory(category.name,target)">{{category.name}}</h3> -->
 														<h3 class="title_text" id="top-category-title"
-															[routerLink]="['/display-products', {pageSec: 'section2', category: category?.name}]"
-															(click)="filterCategory('',target)"
-															(click)="filterByCategory('',target)">{{category.name}}</h3>
+															[routerLink]="['/display-products', {pageSec: 'section2', product_group_id: category?.id}]"
+														
+															>{{category?.name}}</h3>
 														<!-- <ul class="ul_li_block">
 																	<li><a href="carparts_shop.html">Shop Page</a></li>
 																	<li><a href="carparts_shop_grid.html">Shop Grid</a></li>
@@ -230,7 +229,7 @@
 
 		<ul class="total_price ul_li_block mb_30 clearfix" *ngIf="cartItems.length">
 			<li>
-				<span>Subtotal:</span>
+				<span>Item(s) total:</span>
 				<span>{{currency}} {{subTotal}}</span>
 			</li>
 			<!-- <li>
@@ -241,12 +240,12 @@
 							<span>Discount 20%:</span>
 							<span>- $18.9</span>
 						</li> -->
-			<li>
+			<!-- <li>
 				<span>Total:</span>
 				<span *ngIf="country==='GH'">GHS {{subTotal}}</span>
 				<span *ngIf="country==='NG'">NGN {{subTotal | number: "1.2-2"}}</span>
 				<span *ngIf="country===''">$ {{subTotal | number: "1.2-2"}}</span>
-			</li>
+			</li> -->
 		</ul>
 
 		<ul class="btns_group ul_li_block clearfix" *ngIf="cartItems.length">
@@ -348,7 +347,7 @@
 						</mat-expansion-panel-header>
 						<mat-nav-list dense *ngFor="let category of pGroups">
 							<a mat-list-item
-								[routerLink]="['/display-products', {pageSec: 'section2', category: category.name}]">{{category.name}}</a>
+								[routerLink]="['/display-products', {pageSec: 'section2', product_group_id: category?.id}]">{{category.name}}</a>
 						</mat-nav-list>
 						<!-- <mat-nav-list dense>
                 <a mat-list-item  [routerLink] = "['/display-products']" >Clothing & Accessories</a>

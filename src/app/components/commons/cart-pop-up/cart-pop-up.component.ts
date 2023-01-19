@@ -148,20 +148,32 @@ export class CartPopUpComponent implements OnInit {
   }
   // tslint:disable-next-line: variable-name
   const selling_price = +product.item.selling_price;
-  const selling_price_usd = +product.item.selling_price_usd;
+  const selling_price_usd = +product.item?.selling_price_usd;
+  const selling_price_ngn = +product.item?.selling_price_ngn;
   // tslint:disable-next-line: variable-name
   const total_amount = +product.total_amount;
+  const total_amount_ngn = +product.total_amount_ngn;
   const total_amount_usd = +product.total_amount_usd;
   const quantity= +product.quantity;
   // tslint:disable-next-line: max-line-length
   const data = {
     item: product.item,
     quantity: quantity,
-    country: this.country,
     total_amount: total_amount,
+    total_amount_ngn: total_amount_ngn,
     total_amount_usd: total_amount_usd,
-    date_added: product.date_added
+    date_added: product.date_added,
+    country: this.country,
+    currency:this.currency,
   };
+  if(this.country ===this.countriesEnum.GH){
+    data.total_amount =total_amount;
+  }
+  else if(this.country ===this.countriesEnum.NG){
+    data.total_amount =total_amount_ngn;
+  }else{
+    data.total_amount =total_amount_usd;
+  }
     const exists = this.cartItems.find(
       (element: any) => element.item.id ===data.item.id
       );
@@ -169,7 +181,11 @@ export class CartPopUpComponent implements OnInit {
       //console.log(this.cartItems[0].item.id);
       const newQuantity = +exists.quantity + 1;
       const newSubtotal = +exists.total_amount + +selling_price;
+      const newSubtotal_ngn = +exists.total_amount_ngn + +selling_price_ngn;
+      const newSubtotal_usd = +exists.total_amount_usd + +selling_price_usd;
       data.total_amount = newSubtotal;
+      data.total_amount_ngn = newSubtotal_ngn;
+      data.total_amount_usd = newSubtotal_usd;
       data.quantity = newQuantity;
       this.productsApiCalls.removeAndAddProductToCart(
         data,
@@ -195,27 +211,43 @@ async reduceQty(product: any) {
   }
   // tslint:disable-next-line: variable-name
   const selling_price = +product.item.selling_price;
+  const selling_price_ngn = +product.item?.selling_price_ngn;
   const selling_price_usd = +product.item.selling_price_usd;
   // tslint:disable-next-line: variable-name
   const total_amount = selling_price * 1;
+  const total_amount_ngn = selling_price_ngn *1;
   const total_amount_usd =selling_price_usd * 1;
   const quantity= +product.quantity;
   // tslint:disable-next-line: max-line-length
   const data = {
     item: product.item,
     quantity: quantity,
-    country: this.country,
     total_amount: total_amount,
+    total_amount_ngn: total_amount_ngn,
     total_amount_usd: total_amount_usd,
-    date_added: product.date_added
+    date_added: product.date_added,
+    country: this.country,
+    currency:this.currency,
   };
+  if(this.country ===this.countriesEnum.GH){
+    data.total_amount =total_amount;
+  }
+  else if(this.country ===this.countriesEnum.NG){
+    data.total_amount =total_amount_ngn;
+  }else{
+    data.total_amount =total_amount_usd;
+  }
     const exists = this.cartItems.find(
       (element: any) => element.item.id ===data.item.id
       );
     if (exists !== null && exists !== undefined && exists !== '') {
       const newQuantity = +exists.quantity - 1;
       const newSubtotal = +exists.total_amount - data.total_amount;
+      const newSubtotal_ngn = +exists.total_amount_ngn - data.total_amount_ngn;
+      const newSubtotal_usd = +exists.total_amount_usd - data.total_amount_usd;
       data.total_amount = newSubtotal;
+      data.total_amount_ngn = newSubtotal_ngn;
+      data.total_amount_usd = newSubtotal_usd;
       data.quantity = newQuantity;
       this.productsApiCalls.removeAndAddProductToCart(
         data,
@@ -230,6 +262,7 @@ async reduceQty(product: any) {
     }
 
 }
+
 
 getFeaturedShops({ }) {
   this.isProcessingFeaturedShops = true;
