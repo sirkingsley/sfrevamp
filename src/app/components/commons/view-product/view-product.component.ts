@@ -221,7 +221,7 @@ export class ViewProductComponent implements OnInit {
           data.total_amount =total_amount_usd;
         }
   
-      console.log("Started adding-->"+data.total_amount);
+      //console.log("Started adding-->"+data.total_amount);
       await this.productsService.addProductToCart(data, (error, result) => {
         //console.log("adding ing service-->");
         if (result !== null) {

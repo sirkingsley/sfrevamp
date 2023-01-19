@@ -109,7 +109,7 @@ export class CustomersApiCallsService {
         next: (response) => {
           callback(response);
         },error: (error) => {
-          console.log(error)
+          //console.log(error)
           //console.log(JSON.stringify(error,null,2))
           this.notificationService.error(this.constantValues.APP_NAME,"Failed to subscribe");
          

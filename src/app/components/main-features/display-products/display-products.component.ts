@@ -380,7 +380,7 @@ filterByCategory(category: string) {
         data.total_amount =total_amount_usd;
       }
 
-    console.log("Started adding-->"+data.total_amount);
+    //console.log("Started adding-->"+data.total_amount);
     await this.productsService.addProductToCart(data, (error, result) => {
       //console.log("adding ing service-->");
       if (result !== null) {
@@ -399,7 +399,7 @@ filterByCategory(category: string) {
         this.cartItems = result;
         this.cartItems = result.sort(this.compare);
         //console.log("Cart length-->"+this.cartItems.length);
-        console.log("Cart-->"+ JSON.stringify(this.cartItems,null,2));
+        //console.log("Cart-->"+ JSON.stringify(this.cartItems,null,2));
         // if (this.cartItems.length > 0) {
         //   this.currency = this.cartItems[0].item.currency;
         //   this.country = this.cartItems[0].country;

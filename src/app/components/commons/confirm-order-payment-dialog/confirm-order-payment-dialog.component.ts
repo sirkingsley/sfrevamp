@@ -63,7 +63,7 @@ export class ConfirmOrderPaymentDialogComponent implements OnInit, OnDestroy {
   }
 
   checkMoMoStatus(transactionId) {
-    console.log("Transaction_id:"+ transactionId);
+    //console.log("Transaction_id:"+ transactionId);
     this.isProcessing = true;
     this.refreshInterval = setInterval(() => {
       // tslint:disable-next-line: max-line-length

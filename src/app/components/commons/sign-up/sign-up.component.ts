@@ -86,7 +86,7 @@ export class SignUpComponent implements OnInit {
   //   }
 
   onCountryChanged(country) {
-    console.log(country);
+    //console.log(country);
   }
 
   onSignIn() {

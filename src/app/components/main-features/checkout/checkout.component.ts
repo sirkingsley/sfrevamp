@@ -191,9 +191,13 @@ export class CheckoutComponent implements OnInit {
     //this.getActivePromo("gtpstore");
     AOS.init();
     //Loader variable set false after page load
+   
+      
     setTimeout(() => {
       this.loader = false;
-      this.getDeliveryCharge(this.deliveryAddress);
+      if(this.isLoggedIn && this.deliveryAddress !== null){
+        this.getDeliveryCharge(this.deliveryAddress);
+      }
     }, 1000);
     this.isLoggedIn = this.authService.isLogedIn;
     this.currentUser = this.authService.currentUser;
@@ -479,7 +483,7 @@ export class CheckoutComponent implements OnInit {
     await this.productsApiCalls.getCartItems((error, result) => {
       if (result !== null) {
         this.cartItems = result;
-        console.log("cart-->"+JSON.stringify(this.cartItems,null,2));
+        //console.log("cart-->"+JSON.stringify(this.cartItems,null,2));
         if (this.cartItems.length > 0) {
           this.currency = this.cartItems[0].item.currency;
           this.country = this.cartItems[0].country;

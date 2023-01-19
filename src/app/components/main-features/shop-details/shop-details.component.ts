@@ -337,7 +337,7 @@ filterByPrice(priceSort) {
 
 getActivePromo(onlineAddress) {
   this.shopsApiCalls.checkActivePromo(onlineAddress, (error, result) => {
-    console.log("shopHas->"+result)
+    //console.log("shopHas->"+result)
     if (result !== null && result.response_code === '100') {
       this.shopHasActivePromo = result.results;
       if (this.shopHasActivePromo) {

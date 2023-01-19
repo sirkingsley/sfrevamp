@@ -27,8 +27,8 @@ export class AddressComponent implements OnInit {
     this.customerApIService.getReferalCodeDetails(code,results=>{
       if(results !==null || results !== undefined){
         this.referalCodeDetails = results?.data;
-        console.log(JSON.stringify(results,null,2));
-        console.log(this.referalCodeDetails?.amount);
+        // console.log(JSON.stringify(results,null,2));
+        // console.log(this.referalCodeDetails?.amount);
       }
     })
   }

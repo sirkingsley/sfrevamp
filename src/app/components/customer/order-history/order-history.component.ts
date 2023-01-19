@@ -125,7 +125,7 @@ export class OrderHistoryComponent implements OnInit {
           this.isLoggedIn = this.authService.isLogedIn;
           this.currentUser = this.authService.currentUser;
           this.loginUpdate.isUpdated(true);
-          console.log("This isLogined=:"+ this.isLoggedIn);
+          //console.log("This isLogined=:"+ this.isLoggedIn);
           window.location.reload();
         
         }
