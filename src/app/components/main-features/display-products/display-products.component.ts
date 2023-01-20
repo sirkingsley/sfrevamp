@@ -297,7 +297,7 @@ getProducts(filterParams: ProductsFilterParams) {
       this.product_groups = result.product_groups;
       this.constantValues.COUNTRY = this.country;
       //console.log("this.products-->"+JSON.stringify(this.products,null,2));
-      console.log("Backend Country: "+this.country);
+      //console.log("Backend Country: "+this.country);
       //console.log(this.product_groups);
       if(this.country === this.countriesEnum.GH){
         this.currency = CurrencyEnums.GHS;
@@ -363,9 +363,9 @@ filterByCategory(category: string) {
     const data = {
       item: product,
       quantity: 1,
-      total_amount,
-      total_amount_ngn,
-      total_amount_usd,
+      total_amount:total_amount,
+      total_amount_ngn:total_amount_ngn,
+      total_amount_usd: total_amount_usd,
       date_added: new Date(),
       country: this.country,
       currency: this.currency
@@ -427,8 +427,11 @@ filterByCategory(category: string) {
     });
   }
   getSubTotal() {
-    if (this.country === this.countriesEnum.GH || this.country === this.countriesEnum.NG || this.country === undefined || this.country === '') {
+    if (this.country === this.countriesEnum.GH) {
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount), 0);
+    }
+    if (this.country === this.countriesEnum.NG) {
+      this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount_ngn), 0);
     } else {
       this.currency = '$';
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount_usd), 0);

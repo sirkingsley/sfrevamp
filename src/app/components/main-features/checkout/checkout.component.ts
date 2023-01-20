@@ -195,9 +195,9 @@ export class CheckoutComponent implements OnInit {
       
     setTimeout(() => {
       this.loader = false;
-      if(this.isLoggedIn && this.deliveryAddress !== null){
-        this.getDeliveryCharge(this.deliveryAddress);
-      }
+      // if(this.isLoggedIn && this.deliveryAddress !== null){
+      //   this.getDeliveryCharge(this.deliveryAddress);
+      // }
     }, 1000);
     this.isLoggedIn = this.authService.isLogedIn;
     this.currentUser = this.authService.currentUser;
@@ -274,7 +274,8 @@ export class CheckoutComponent implements OnInit {
 
     //console.log(this.currentUser);
     this.getActivePromo('kokorko');
-   
+    this.getShopInfo();
+    
     // if (this.getHostname.isShopMall) {
     //   this.getActivePromo(this.getHostname.subDomain);
     // }
@@ -297,19 +298,15 @@ export class CheckoutComponent implements OnInit {
     this.onload()
  
    
-    if(this.isLoggedIn && this.deliveryAddress !== null){
-      this.getCartItems();
-      this.getDeliveryCharge(this.deliveryAddress);
-    }
   }
 
 
 
-  getDCharge(isMeLogIn:Boolean){
-    if(this.isLoggedIn && this.deliveryAddress !== null){
-      this.getDeliveryCharge(this.deliveryAddress);
-    }
-  }
+  // getDCharge(isMeLogIn:Boolean){
+  //   if(this.isLoggedIn && this.deliveryAddress !== null){
+  //     this.getDeliveryCharge(this.deliveryAddress);
+  //   }
+  // }
  
  /**
    * Country code selected
@@ -338,7 +335,6 @@ export class CheckoutComponent implements OnInit {
     this.paymentNetwork = paymentNetwork;
     this.networkName = networkFullName;
     this.payment_option =payment_option;
-  
     if (paymentMethod === PaymentMethods.MOMO && this.constantValues.YOUNG_TEMPLATE_SUBDOMAIN.includes(this.getHostname.subDomain)) {
       this.getShopInfo();
     }
@@ -406,7 +402,7 @@ export class CheckoutComponent implements OnInit {
     this.orderService.updateDeliveryAddress(data, (error, result) => {
       //console.log("orderService.updateDeliveryAddress---");
       if (result !== null) {
-        this.getDeliveryCharge(data);
+        //this.getDeliveryCharge(data);
         this.proceed = true;
         this.loginUpdate.AddressIsUpdated(data);
         this.isDeliveryAddressProvided=true;
@@ -458,9 +454,13 @@ export class CheckoutComponent implements OnInit {
    * Compute sub total of items in cart
    */
   getSubTotal() {
-    if (this.country === this.countriesEnum.GH || this.country === this.countriesEnum.NG || this.country === undefined || this.country === '') {
+    if (this.country === this.countriesEnum.GH) {
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount), 0);
       this.totalSellingPrice = this.cartItems.reduce((acc, value) => acc + parseFloat(value.item.selling_price), 0);
+    }
+    if (this.country === this.countriesEnum.NG ) {
+      this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount_ngn), 0);
+      this.totalSellingPrice = this.cartItems.reduce((acc, value) => acc + parseFloat(value.item.selling_price_ngn), 0);
     } else {
       this.currency = '$';
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount_usd), 0);
@@ -566,7 +566,7 @@ export class CheckoutComponent implements OnInit {
     if(this.payment_option === 'STRIPE'){
       data.checkout_type = 'USD_ONLY';
     }
-   // console.log("Order payload=>"+JSON.stringify(data,null,2));
+    //console.log("Order payload=>"+JSON.stringify(data,null,2));
     this.orderService.placeOrder(data, (error, result) => {
       this.isProcessing = false;
       if (result !== null && result.transaction_id !== '' && result.transaction_id !== undefined) {
@@ -590,6 +590,7 @@ export class CheckoutComponent implements OnInit {
           this.redirectUrl = result.redirect_url;
           const transactionId = result?.transaction_id;
           //console.log("T_ID: "+ result?.transaction_id);
+         
           window.location.href = `${result.redirect_url}`;
           this.router.navigate(['/completed']);
           //window.open(result.redirect_url,'_blank');
@@ -743,11 +744,13 @@ export class CheckoutComponent implements OnInit {
 
   getShopInfo() {
     // const suddomain = (this.getHostname.subDomain === 'localhost') ? environment.pluto : this.getHostname.subDomain;
-    this.shopsApiCalls.getShopByOnlineAddress(this.getHostname.subDomain, (error, result) => {
+    this.shopsApiCalls.getShopByOnlineAddress("kokorko", (error, result) => {
       if (result !== null && result.response_code === '100') {
-        this.exchangeRate = (result.results.exchange_rate !== '' && result.results.exchange_rate !== null && result.results.exchange_rate !== undefined) ? +result.results.exchange_rate : 0;
+        this.exchangeRate = (result.results.exchange_rate !== '' && result.results.exchange_rate !== null && result.results.exchange_rate !== undefined) ? +result.results.exchange_rate : 1;
         this.cediEquivalent = this.exchangeRate * (this.grandTotal - this.discountAmount);
+        //console.log("This.exchange_rate: "+this.exchangeRate);
       }
+      
     });
   }
 
@@ -849,7 +852,7 @@ export class CheckoutComponent implements OnInit {
             this.currency = this.currencies.USD;
           }
           //this.currency = (result.currency === CurrencyEnums.GHS || result.currency === CurrencyEnums.NGN) ? result.currency : CurrencyEnums.USD;
-          console.log("Frontend country: "+ result.country);
+          //console.log("Frontend country: "+ result.country);
           // console.log("result.currency=>"+ result.currency);
         }
       });

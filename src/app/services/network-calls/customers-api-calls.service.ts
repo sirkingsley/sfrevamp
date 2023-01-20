@@ -134,7 +134,7 @@ export class CustomersApiCallsService {
         },
         error: (error) => {
           //this.notificationService.alertError("Error fetching categories");
-          console.log(error);
+          //console.log(error);
         }
       }
       );

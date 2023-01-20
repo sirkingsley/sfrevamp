@@ -80,7 +80,7 @@ export class ConfirmCodeComponent implements OnInit {
    */
   onSubmit(data) {
     if (this.formGroup.valid) {
-      console.log("Data-->"+JSON.stringify(data,null,2));
+      //console.log("Data-->"+JSON.stringify(data,null,2));
       
       this.isProcessing = true;
       this.customersApiCalls.verifyEmail(data, (error, result) => {

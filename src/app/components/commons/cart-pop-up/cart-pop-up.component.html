@@ -49,10 +49,10 @@
               <span class="price_text" *ngIf="item?.country === countriesEnum?.GH">
                 {{item?.currency}} {{item?.item?.selling_price | number: '1.2-2'}}
               </span>
-              <span class="price_text"*ngIf="item?.country === item?.countriesEnum?.NG">
+              <span class="price_text"*ngIf="item?.country === countriesEnum?.NG">
                 {{item?.currency}} {{item?.item?.selling_price_ngn | number: '1.2-2'}}
               </span>
-              <span class="price_text"  *ngIf="item?.country !== countriesEnum?.GH && item?.country !== item?.countriesEnum?.NG && item?.country !== '' && item?.country !== undefined">
+              <span class="price_text"  *ngIf="item?.country !== countriesEnum?.GH && item?.country !== countriesEnum?.NG">
               {{item?.currency}} {{item?.item?.selling_price_usd | number: '1.2-2'}}
               </span>
             </div>
@@ -79,8 +79,8 @@
         </td>
         <td>
           <span class="total_price" *ngIf="item?.country === countriesEnum?.GH"> {{item?.currency}} {{item?.total_amount | number: '1.2-2'}}</span>
-          <span class="total_price" *ngIf="item?.country === countriesEnum?.NG"> {{item?.currency}} {{item?.total_amount_usd | number: '1.2-2'}}</span>
-          <span class="total_price" *ngIf="item?.country !== countriesEnum?.GH && item?.country !== item?.countriesEnum?.NG && item?.country !== '' && item?.country !== undefined"> {{item?.currency}} {{item?.total_amount_usd | number: '1.2-2'}}</span>
+          <span class="total_price" *ngIf="item?.country === countriesEnum?.NG"> {{item?.currency}} {{item?.total_amount_ngn | number: '1.2-2'}}</span>
+          <span class="total_price" *ngIf="item?.country !== countriesEnum?.GH && item?.country !== countriesEnum?.NG"> {{item?.currency}} {{item?.total_amount_usd | number: '1.2-2'}}</span>
         </td>
       </tr>
 

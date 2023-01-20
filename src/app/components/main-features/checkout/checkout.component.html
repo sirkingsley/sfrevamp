@@ -46,19 +46,14 @@
                                         </div>
                                         <div class="col-sm-6 col-md-6 col-lg-6 prices my-2">
                                             <p *ngIf="
-                                            item?.country === countriesEnum?.GH ||
-                                            item?.country === item?.countriesEnum?.NG ||
-                                            item?.country === '' ||
-                                            item?.country === undefined
-                                          ">
+                                            item?.country === countriesEnum?.GH">
                                                 {{ currency }}
                                                 {{ item?.total_amount | number: "1.2-2" }}</p>
-                                            <p *ngIf="
-                                            item?.country !== countriesEnum?.GH &&
-                                            item?.country !== item?.countriesEnum?.NG &&
-                                            item?.country !== '' &&
-                                            item?.country !== undefined
-                                          ">
+                                            <p *ngIf="item?.country === countriesEnum?.NG">
+                                                {{ currency }}
+                                                {{ item?.total_amount_ngn | number: "1.2-2" }}</p>
+                                            <p *ngIf="item?.country !== countriesEnum?.GH &&
+                                                item?.country !== countriesEnum?.NG">
                                                 {{currency}} {{ item?.total_amount_usd | number: "1.2-2" }}
                                             </p>
                                             <!-- <p class="old-price"> {{ item?.item?.currency }}
@@ -255,8 +250,13 @@
                         </div>
                         <div class="shop-discount">
                             <!-- <p>Shop discount <span class="old-price">(20% off)</span></p> -->
-                            <p>Shop discount (<span class="text-danger" *ngIf="discountRateType=== 'PERCENTAGE'">{{discountRateValue}}%</span> <span class="text-danger" *ngIf="discountRateType=== 'FLAT'">{{currency}}{{discountRateValue}}</span>
-                                <span class="text-danger" *ngIf="discountRateType !== 'PERCENTAGE' && discountRateType !== 'FLAT'">{{discountRateValue}}</span>)</p>
+                            <p>Shop discount (<span class="text-danger"
+                                    *ngIf="discountRateType=== 'PERCENTAGE'">{{discountRateValue}}%</span> <span
+                                    class="text-danger"
+                                    *ngIf="discountRateType=== 'FLAT'">{{currency}}{{discountRateValue}}</span>
+                                <span class="text-danger"
+                                    *ngIf="discountRateType !== 'PERCENTAGE' && discountRateType !== 'FLAT'">{{discountRateValue}}</span>)
+                            </p>
                             <p>-{{currency}} {{discountAmount | number: "1.2-2"}}</p>
                         </div>
 
@@ -276,33 +276,20 @@
 
 
                     <div class="delivery-option-wrapper">
-                        <mat-form-field appearance="fill" [formGroup]="deliveryMethod" >
-                            <mat-label >Choose delivery option</mat-label>
-                            <mat-select [(value)]="selectedDelivery" (click)="getDCharge(isLoggedIn)" >
-                                <mat-option [value]="deliveryOptions?.PICKUP" *ngIf="
-                          currency === currencies.GHS ||
-                          currency === currencies.NGN || country == countriesEnum.NG || country == countriesEnum.GH
-                        ">Pick Up</mat-option>
+                        <mat-form-field appearance="fill" [formGroup]="deliveryMethod">
+                            <mat-label>Choose delivery option</mat-label>
+                            <mat-select [(value)]="selectedDelivery">
+                                <mat-option [value]="deliveryOptions?.PICKUP" *ngIf="country == countriesEnum.GH">Pick Up</mat-option>
                                 <mat-option [value]="deliveryOptions?.UBER_DELIVERY"
-                                    *ngIf="currency == currencies.GHS || country == countriesEnum.NG || country == countriesEnum.GH">
+                                    *ngIf="country == countriesEnum.GH">
                                     Uber</mat-option>
-                                <mat-option [value]="deliveryOptions?.BOLT_DELIVERY" *ngIf="
-                          currency == currencies.GHS ||
-                          currency == currencies.NGN ||
-                            country == countriesEnum.NG || country == countriesEnum.GH
-                        ">Bolt</mat-option>
-                                <mat-option [value]="deliveryOptions?.DHL_DELIVERY" *ngIf="
-                          currency !== currencies.GHS &&
-                          currency !== currencies.NGN &&
-                          currency !== undefined &&
-                          currency !== null &&
-                          currency !== ''
-                        ">DHL delivery</mat-option>
-                                <mat-option [value]="deliveryOptions?.NG_BIKE_DELIVERY"
+                                <mat-option [value]="deliveryOptions?.BOLT_DELIVERY" *ngIf="country === countriesEnum.GH">Bolt</mat-option>
+                                <mat-option [value]="deliveryOptions?.DHL_DELIVERY" *ngIf=" country !== countriesEnum.GH">DHL delivery</mat-option>
+                                <!-- <mat-option [value]="deliveryOptions?.NG_BIKE_DELIVERY"
                                     *ngIf="currency == currencies.NGN || country == countriesEnum.NG">NG Bike
-                                    Delivery</mat-option>
+                                    Delivery</mat-option> -->
                                 <mat-option [value]="deliveryOptions?.GH_BIKE_DELIVERY"
-                                    *ngIf="currency == currencies.GHS || country == countriesEnum.GH">GH Bike
+                                    *ngIf="country === countriesEnum.GH">GH Bike
                                     Delivery</mat-option>
                             </mat-select>
                         </mat-form-field>

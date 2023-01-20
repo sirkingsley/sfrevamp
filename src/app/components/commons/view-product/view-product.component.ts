@@ -35,6 +35,7 @@ export class ViewProductComponent implements OnInit {
   formGroup: any;
   isSearching: boolean;
   ProductsTitle: string;
+  sellingPrice: any;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data,
     private productsApiCalls: ProductsApiCallsService,
@@ -87,8 +88,10 @@ export class ViewProductComponent implements OnInit {
     this.route.queryParams.subscribe(param => {
       if(param['slug']){
         const product_slug = param['slug'];
+        const selling_price = param['price'];
         //console.log(param['slug']);
         this.product_slug=product_slug;
+        this.sellingPrice = selling_price;
         this.getProductBySlug(param['slug']);
       }else{
         //console.log("no slug");
@@ -152,6 +155,9 @@ export class ViewProductComponent implements OnInit {
         this.isProcessing = false;
         if (result !== null && result.response_code === '100') {
           this.productDetail = result.results;
+          this.productDetail.selling_price = this.sellingPrice[0];
+          this.productDetail.selling_price_ngn = this.sellingPrice[1];
+          this.productDetail.selling_price_usd = this.sellingPrice[2];
           //console.log("Product-Details" + JSON.stringify(this.productDetail,null,2));
           this.extraImages = this.productDetail.extra_images;
           this.compressedImage = this.productDetail.compressed_image;
@@ -329,9 +335,13 @@ export class ViewProductComponent implements OnInit {
       });
     }
     getSubTotal() {
-      if (this.country === this.countriesEnum.GH || this.country === this.countriesEnum.NG || this.country === undefined || this.country === '') {
+      if (this.country === this.countriesEnum.GH) {
         this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount), 0);
         this.totalSellingPrice = this.cartItems.reduce((acc, value) => acc + parseFloat(value.item.selling_price), 0);
+      } else 
+      if (this.country === this.countriesEnum.NG) {
+        this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount_ngn), 0);
+        this.totalSellingPrice = this.cartItems.reduce((acc, value) => acc + parseFloat(value.item.selling_price_ngn), 0);
       } else {
         this.currency = '$';
         this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount_usd), 0);

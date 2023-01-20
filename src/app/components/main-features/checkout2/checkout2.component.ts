@@ -567,9 +567,13 @@ export class Checkout2Component implements OnInit {
    */
   getSubTotal() {
 
-    if (this.country === this.countriesEnum.GH || this.country === this.countriesEnum.NG || this.country === undefined || this.country === '') {
+    if (this.country === this.countriesEnum.GH) {
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount), 0);
       this.totalSellingPrice = this.cartItems.reduce((acc, value) => acc + parseFloat(value.item.selling_price), 0);
+    } else 
+    if (this.country === this.countriesEnum.NG) {
+      this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount_ngn), 0);
+      this.totalSellingPrice = this.cartItems.reduce((acc, value) => acc + parseFloat(value.item.selling_price_ngn), 0);
     } else {
       this.currency = '$';
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount_usd), 0);
@@ -1047,8 +1051,8 @@ export class Checkout2Component implements OnInit {
         if (result !== null) {
           this.country = result.country;
           this.currency = (result.currency === CurrencyEnums.GHS || result.currency === CurrencyEnums.NGN) ? result.currency : CurrencyEnums.USD;
-          console.log("result.country=>"+ result.country);
-          console.log("result.currency=>"+ result.currency);
+          // console.log("result.country=>"+ result.country);
+          // console.log("result.currency=>"+ result.currency);
         }
       });
       
