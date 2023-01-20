@@ -130,7 +130,7 @@ export class CustomersApiCallsService {
           callback(response);
         },
         complete: () => {
-          //console.log('complete fetch categories');
+          
         },
         error: (error) => {
           //this.notificationService.alertError("Error fetching categories");
