@@ -297,7 +297,7 @@ getProducts(filterParams: ProductsFilterParams) {
       this.product_groups = result.product_groups;
       this.constantValues.COUNTRY = this.country;
       //console.log("this.products-->"+JSON.stringify(this.products,null,2));
-      //console.log(this.country);
+      console.log("Backend Country: "+this.country);
       //console.log(this.product_groups);
       if(this.country === this.countriesEnum.GH){
         this.currency = CurrencyEnums.GHS;
@@ -321,13 +321,13 @@ getShopInfo() {
     //console.log("this.shopInfo " +this.shopInfo);
   });
 }
-filterCategory(category: string,el: HTMLElement) {
-  this.selectedCategory = category;
-  this.ProductsTitle=category +" Products";
+filterCategory(category_id: string,el: HTMLElement) {
+  this.selectedCategory = category_id;
+  this.ProductsTitle="Products";
 
-  this.getProducts({storefrontmall_name:"kokorko" , sorting: this.selectedPriceSorting, product_group_id: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
+  this.getProducts({storefrontmall_name:"kokorko" , sorting: this.selectedPriceSorting, product_group_id: category_id, search_text: this.searchQuery, tag: this.tag });
 
-      el.scrollIntoView({behavior: 'smooth'});
+      //el.scrollIntoView({behavior: 'smooth'});
   }
 
 filterByCategory(category: string) {
@@ -336,7 +336,7 @@ filterByCategory(category: string) {
     this.selectedCategory = category;
 
     this.getProducts({ storefrontmall_name:"kokorko" , sorting: this.selectedPriceSorting, product_group_id: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
-    this.target.nativeElement.scrollIntoView({behavior: 'smooth'});
+    //this.target.nativeElement.scrollIntoView({behavior: 'smooth'});
   }
 
   scrollTo(target:HTMLElement){

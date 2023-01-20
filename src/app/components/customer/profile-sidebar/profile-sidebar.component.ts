@@ -122,6 +122,7 @@ export class ProfileSidebarComponent implements OnInit {
       if (result !== null && result.response_code === '100') {
         this.orderDetail = result.results;
         this.orderItems = result.results.customer_mall_items;
+        console.log("This.orderDetail=>"+JSON.stringify(this.orderDetail,null,2))
       }
     });
 

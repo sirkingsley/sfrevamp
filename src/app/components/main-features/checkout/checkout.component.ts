@@ -555,7 +555,7 @@ export class CheckoutComponent implements OnInit {
 
     data.checkout_origin = this.checkoutSoure;
     data.delivery_option = this.selectedDelivery;
-    data.currency=this.cartItems[0].item.currency;
+    data.currency=this.currency;
     if (this.selectedDelivery === this.deliveryOptions.GIFT) {
       // tslint:disable-next-line: max-line-length
       data = JSON.parse('{' + this.appUtils.removeBraceBrackets(JSON.stringify(data) + ',' + JSON.stringify(this.giftRecipientAddressFormGroup.value)) + '}');
@@ -563,6 +563,9 @@ export class CheckoutComponent implements OnInit {
     data.order_items = this.getOrderItems;
     data.checkout_type = '';
     data.product_variants = '';   
+    if(this.payment_option === 'STRIPE'){
+      data.checkout_type = 'USD_ONLY';
+    }
    // console.log("Order payload=>"+JSON.stringify(data,null,2));
     this.orderService.placeOrder(data, (error, result) => {
       this.isProcessing = false;
@@ -846,7 +849,7 @@ export class CheckoutComponent implements OnInit {
             this.currency = this.currencies.USD;
           }
           //this.currency = (result.currency === CurrencyEnums.GHS || result.currency === CurrencyEnums.NGN) ? result.currency : CurrencyEnums.USD;
-          //console.log("result.country=>"+ result.country);
+          console.log("Frontend country: "+ result.country);
           // console.log("result.currency=>"+ result.currency);
         }
       });

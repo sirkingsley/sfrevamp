@@ -19,7 +19,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Date Placed</th>
                 <th scope="col">Status</th>
-                <th scope="col">Amount (Ghc)</th>
+                <th scope="col">Amount</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
@@ -28,7 +28,7 @@
                 <th scope="row">{{order?.id}}</th>
                 <td>{{order?.date_placed | date:'dd/MM/yyyy'}}</td>
                 <td>{{order?.status}}</td>
-                <td>{{order?.gross_total}}</td>
+                <td>{{order?.currency}}{{order?.gross_total}}</td>
                 <td> <span class="view-order-details"
                     [routerLink]="['/profile-view/orders/details',order?.id]"><mat-icon>remove_red_eye</mat-icon></span>
                 </td>
@@ -97,7 +97,7 @@
 
       </mat-tab>
 
-      <mat-tab label="Referal Points">
+      <!-- <mat-tab label="Referal Points">
       <div class="referal-wraaper">
         <div class=" alert alert-info">
           <p>Referal Points. Share <b>{{this.referalCodeDetails?.code}}</b> to love ones and earn more!</p>
@@ -123,7 +123,7 @@
         </div>
 
       </div>
-      </mat-tab>
+      </mat-tab> -->
 
     </mat-tab-group>
 

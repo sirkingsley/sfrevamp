@@ -40,7 +40,7 @@
 							<li class="large-screen-cat-nav ms-0"><button [class.active]="selectedCategory === ''"
 									(click)="filterCategory('',target)">All</button></li>
 							<li class="large-screen-cat-nav" *ngFor="let category of pGroups | slice:0:3"><button
-									(click)="filterCategory(category?.name,target)"
+									(click)="filterCategory(category?.id,target)"
 									[class.active]="selectedCategory === category?.name"
 									*ngIf="pGroups.length">{{category?.name}}</button></li>
 

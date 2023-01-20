@@ -14,7 +14,7 @@
       <h3> {{orderItems?.length}} Item(s) in your Order</h3>
       <p>Order #: <b>{{orderDetail?.order_code}}</b> </p>
       <p>Placed on <b>{{orderDetail?.date_placed | date : 'medium'}}</b></p>
-      <p><span class="total-amount-span"><b>{{orderItems[0]?.my_product?.currency}} {{orderDetail?.total_amount | number:
+      <p><span class="total-amount-span"><b>{{orderDetail?.currency}} {{orderDetail?.total_amount | number:
             '1.2-2'}}</b></span> </p>
     </div>
 
@@ -75,10 +75,10 @@
 
     </mat-card-content>
     <div class="sub-order-sub-head"><b>Payment Details</b></div>
-    <p class="">Items total: {{orderItems[0]?.my_product?.currency}} {{orderDetail?.total_amount | number: '1.2-2'}}</p>
-    <p class="">Discount: {{orderItems[0]?.my_product?.currency}} {{orderDetail?.discount | number: '1.2-2'}}</p>
-    <p class="">Delivery Fees: {{orderItems[0]?.my_product?.currency}} {{orderDetail?.delivery_fee | number: '1.2-2'}}</p>
-    <p class="order-footer">Grand Total: {{orderItems[0]?.my_product?.currency}} {{orderDetail?.total_amount_with_delivery | number:
+    <p class="">Items total: {{orderDetail?.currency}} {{orderDetail?.total_amount | number: '1.2-2'}}</p>
+    <p class="">Discount: {{orderDetail?.currency}} {{orderDetail?.discount | number: '1.2-2'}}</p>
+    <p class="">Delivery Fees: {{orderDetail?.currency}} {{orderDetail?.delivery_fee | number: '1.2-2'}}</p>
+    <p class="order-footer">Grand Total: {{orderDetail?.currency}} {{orderDetail?.total_amount_with_delivery | number:
       '1.2-2'}}</p>
   </mat-card>
   <div class="back-btn-wrapper">
