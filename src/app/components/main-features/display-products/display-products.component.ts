@@ -237,7 +237,7 @@ export class DisplayProductsComponent implements OnInit {
 
     this.getIndustries()
     this.getFeaturedShops({});
-
+    
     // $('#flip').on("click",function(){
     //   $("#panel").slideToggle("slow");
     // });
@@ -307,6 +307,7 @@ getProducts(filterParams: ProductsFilterParams) {
       }else{
         this.currency = CurrencyEnums.USD;
       }
+      
     }
   });
 }
@@ -379,7 +380,7 @@ filterByCategory(category: string) {
       }else{
         data.total_amount =total_amount_usd;
       }
-
+      
     //console.log("Started adding-->"+data.total_amount);
     await this.productsService.addProductToCart(data, (error, result) => {
       //console.log("adding ing service-->");
@@ -430,10 +431,10 @@ filterByCategory(category: string) {
     if (this.country === this.countriesEnum.GH) {
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount), 0);
     }
-    if (this.country === this.countriesEnum.NG) {
+    else if (this.country === this.countriesEnum.NG) {
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount_ngn), 0);
     } else {
-      this.currency = '$';
+      //this.currency = '$';
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount_usd), 0);
     }
   }

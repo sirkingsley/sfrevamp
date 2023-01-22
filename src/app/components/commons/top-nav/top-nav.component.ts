@@ -44,7 +44,7 @@ export class TopNavComponent implements OnInit {
   products = [];
   isProcessing = false;
   totalPage = 0;
-  @Input() target:any;
+  @Input() target: any;
   productSearchFormControl = new FormControl('');
   // tslint:disable-next-line: no-output-on-prefix
   @Output() categoryChange = new EventEmitter();
@@ -64,14 +64,14 @@ export class TopNavComponent implements OnInit {
   toggleYoungSideBar = false;
   toggleYoungCart = false;
   toggleYoungSearch = false;
-//  featuredShops = [];
-//  industries = [];
-  ProductsTitle="Popular Products";
+  //  featuredShops = [];
+  //  industries = [];
+  ProductsTitle = "Popular Products";
   selectedPriceSorting: string;
   searchQuery: string;
   tag: string;
   isProcessingFeaturedShops: boolean;
-  istest=false;
+  istest = false;
   constructor(
     private shopsApiCalls: ShopApiCallsService,
     private getHostname: GetHostnameService,
@@ -84,17 +84,17 @@ export class TopNavComponent implements OnInit {
     private productsApiCalls: ProductsApiCallsService,
     private loginUpdateSerivice: LoginUpdateService,
   ) { }
- //Call JavaScript functions onload
-//  onload(){
-//   custom();
-//   main();
-//   parallaxie();
+  //Call JavaScript functions onload
+  //  onload(){
+  //   custom();
+  //   main();
+  //   parallaxie();
 
   subscription: Subscription;
 
   async ngOnInit(): Promise<void> {
-    this.subscription=this.loginUpdateSerivice.updateStatus().subscribe(login=>{
-     // console.log("ISLogin: "+ login);
+    this.subscription = this.loginUpdateSerivice.updateStatus().subscribe(login => {
+      // console.log("ISLogin: "+ login);
       this.isLoggedIn = this.authService.isLogedIn;
       this.currentUser = this.authService.currentUser;
       //this.isLoggedIn=login;
@@ -102,15 +102,15 @@ export class TopNavComponent implements OnInit {
     this.getFeaturedShops({});
     this.getIndustries();
     // console.log("Products: ->");
-    $('.user_btn').on("click",function(){
+    $('.user_btn').on("click", function () {
       $("#panel").slideToggle("slow");
     });
 
-    $('.search_btn').on("click",function(){
+    $('.search_btn').on("click", function () {
       $("#search_body_collapse").slideToggle("slow");
     });
     // this.onload();
-    $('#close-panel').on("click",function(){
+    $('#close-panel').on("click", function () {
       $("#panel").slideToggle("slow");
     });
     this.subdomain = this.getHostname.subDomain;
@@ -153,7 +153,7 @@ export class TopNavComponent implements OnInit {
     });
   }
   onSignup() {
-    this.dialog.open(SignUpComponent,{panelClass: 'custom-dialog-container'});
+    this.dialog.open(SignUpComponent, { panelClass: 'custom-dialog-container' });
     //this.router.navigate(['/sign-up']);
 
   }
@@ -166,7 +166,7 @@ export class TopNavComponent implements OnInit {
   onSignIn() {
     //this.router.navigate(['/login']);
 
-    this.dialog.open(LoginMainComponent,{panelClass: 'custom-dialog-container'}).afterClosed().subscribe((isSuccefull: boolean) => {
+    this.dialog.open(LoginMainComponent, { panelClass: 'custom-dialog-container' }).afterClosed().subscribe((isSuccefull: boolean) => {
       if (isSuccefull) {
         this.isLoggedIn = this.authService.isLogedIn;
         this.currentUser = this.authService.currentUser;
@@ -200,8 +200,8 @@ export class TopNavComponent implements OnInit {
   getSubTotal() {
     if (this.country === this.countriesEnum.GH) {
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount), 0);
-    } 
-    if (this.country === this.countriesEnum.NG) {
+    }
+    else if (this.country === this.countriesEnum.NG) {
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount_ngn), 0);
     } else {
       this.currency = '$';
@@ -219,7 +219,7 @@ export class TopNavComponent implements OnInit {
   }
   getProductGroups() {
     // TODO:
-    this.productsApiCalls.getProducts({storefrontmall_name: "kokorko"}, (error, result) => {
+    this.productsApiCalls.getProducts({ storefrontmall_name: "kokorko" }, (error, result) => {
       if (result !== null && result.response_code === '100' && result.product_groups.length > 0) {
         this.pGroups = result.product_groups;
       }
@@ -232,7 +232,7 @@ export class TopNavComponent implements OnInit {
     // tslint:disable-next-line: max-line-length
     if (this.searchControl.value !== null && this.searchControl.value !== undefined && this.searchControl.value !== '') {
       this.isSearching = false;
-      this.router.navigate(['/display-products'], {queryParams: {q: this.searchControl.value}});
+      this.router.navigate(['/display-products'], { queryParams: { q: this.searchControl.value } });
     }
   }
   showSearchDropdown() {
@@ -275,26 +275,26 @@ export class TopNavComponent implements OnInit {
     });
   }
 
-  scrollTo(el: HTMLElement){
-    el.scrollIntoView({behavior: 'smooth'});
+  scrollTo(el: HTMLElement) {
+    el.scrollIntoView({ behavior: 'smooth' });
   }
-  filterCategory(category,el: HTMLElement) {
+  filterCategory(category, el: HTMLElement) {
     this.htmlTarget.emit(category);
     this.selectedCategory = category;
-    this.ProductsTitle=category +" Products";
+    this.ProductsTitle = category + " Products";
 
     this.getProducts({ sorting: this.selectedPriceSorting, product_group_id: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
 
-        el.scrollIntoView({behavior: 'smooth'});
-    }
+    el.scrollIntoView({ behavior: 'smooth' });
+  }
 
-  filterByCategory(category,el: HTMLElement) {
-      this.isSearching=true;
-      this.ProductsTitle=category +" Products";
-      this.selectedCategory = category;
+  filterByCategory(category, el: HTMLElement) {
+    this.isSearching = true;
+    this.ProductsTitle = category + " Products";
+    this.selectedCategory = category;
 
-      this.getProducts({ sorting: this.selectedPriceSorting, product_group_id: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
-      el.scrollIntoView({behavior: 'smooth'});
-    }
+    this.getProducts({ sorting: this.selectedPriceSorting, product_group_id: this.selectedCategory, search_text: this.searchQuery, tag: this.tag });
+    el.scrollIntoView({ behavior: 'smooth' });
+  }
 
 }

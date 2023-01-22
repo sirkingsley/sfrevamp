@@ -400,6 +400,7 @@ export class CheckoutComponent implements OnInit {
     this.isProcessing = true;
     //console.log("Items in Cart");
     this.orderService.updateDeliveryAddress(data, (error, result) => {
+      this.isProcessing = false;
       //console.log("orderService.updateDeliveryAddress---");
       if (result !== null) {
         //this.getDeliveryCharge(data);
@@ -454,15 +455,16 @@ export class CheckoutComponent implements OnInit {
    * Compute sub total of items in cart
    */
   getSubTotal() {
+    
     if (this.country === this.countriesEnum.GH) {
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount), 0);
       this.totalSellingPrice = this.cartItems.reduce((acc, value) => acc + parseFloat(value.item.selling_price), 0);
     }
-    if (this.country === this.countriesEnum.NG ) {
+    else if (this.country === this.countriesEnum.NG ) {
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount_ngn), 0);
       this.totalSellingPrice = this.cartItems.reduce((acc, value) => acc + parseFloat(value.item.selling_price_ngn), 0);
     } else {
-      this.currency = '$';
+      //this.currency = '$';
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount_usd), 0);
       this.totalSellingPrice = this.cartItems.reduce((acc, value) => acc + parseFloat(value.item.selling_price_usd), 0);
     }

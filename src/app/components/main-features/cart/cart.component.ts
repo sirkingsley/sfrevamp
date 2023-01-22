@@ -107,7 +107,7 @@ export class CartComponent implements OnInit {
         this.cartItems = result.sort(this.compare);
         //console.log("Cart-->"+ JSON.stringify(this.cartItems,null,2));
         if (this.cartItems.length > 0) {
-          this.currency = this.cartItems[0].item.currency;
+          this.currency = this.cartItems[0].currency;
           this.country = this.cartItems[0].country;
         }
         this.getSubTotal();
@@ -132,11 +132,10 @@ export class CartComponent implements OnInit {
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount), 0);
       this.totalSellingPrice = this.cartItems.reduce((acc, value) => acc + parseFloat(value.item.selling_price), 0);
     } 
-    if (this.country === this.countriesEnum.NG) {
+    else if (this.country === this.countriesEnum.NG) {
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount_ngn), 0);
       this.totalSellingPrice = this.cartItems.reduce((acc, value) => acc + parseFloat(value.item.selling_price_ngn), 0);
     } else {
-      this.currency = '$';
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount_usd), 0);
       this.totalSellingPrice = this.cartItems.reduce((acc, value) => acc + parseFloat(value.item.selling_price_usd), 0);
     }

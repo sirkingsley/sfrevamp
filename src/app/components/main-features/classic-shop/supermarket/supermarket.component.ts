@@ -491,7 +491,7 @@ filterByCategory(category: string,el: HTMLElement) {
     if (this.country === this.countriesEnum.GH) {
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount), 0);
     }
-    if (this.country === this.countriesEnum.NG) {
+   else if (this.country === this.countriesEnum.NG) {
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount_ngn), 0);
     } else {
       this.currency = '$';

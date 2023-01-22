@@ -327,7 +327,7 @@ export class DeliveryAddressComponent implements OnInit {
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount), 0);
       this.totalSellingPrice = this.cartItems.reduce((acc, value) => acc + parseFloat(value.item.selling_price), 0);
     }
-    if (this.country === this.countriesEnum.NG) {
+    else if (this.country === this.countriesEnum.NG) {
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount_ngn), 0);
       this.totalSellingPrice = this.cartItems.reduce((acc, value) => acc + parseFloat(value.item.selling_price_ngn), 0);
     } else {
