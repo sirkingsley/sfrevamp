@@ -133,6 +133,8 @@ export class CheckoutComponent implements OnInit {
   transactionId;
   orderId;
   pendingCountr = 0;
+  isFetchingDiscount: Boolean =false;
+  referalApplied: boolean = false;
 
   
   constructor(   
@@ -574,6 +576,7 @@ export class CheckoutComponent implements OnInit {
       if (result !== null && result.transaction_id !== '' && result.transaction_id !== undefined) {
         //console.log("Results=>"+JSON.stringify(result,null,2));
         this.orderCode = result.order_code;
+
         // this.productsApiCalls.clearCartItem((clearCartError, clearCartResult) => {
         //   if (clearCartResult !== null) {
         //     this.getCartItems();
@@ -587,14 +590,26 @@ export class CheckoutComponent implements OnInit {
         //   }
         // });
         // if (this.paymentMethod === PaymentMethods.CARD) {
-       
           this.notificationsService.success(this.constantValues.APP_NAME, 'Order successfully placed. Kindly proceed to make Payment');
+          if(this.payment_option === 'STRIPE'){
+            const payload = {
+              cart_items: this.cartItems,
+              order_code: this.orderCode
+            }
+
+            this.orderService.payWithStripe(payload,(stripe_result=>{
+              //console.log("Stripe Payload=>"+JSON.stringify(payload,null,2));
+              console.log('stripe_result'+stripe_result)
+            }))
+          }else{
+          
           this.redirectUrl = result.redirect_url;
           const transactionId = result?.transaction_id;
           //console.log("T_ID: "+ result?.transaction_id);
          
           window.location.href = `${result.redirect_url}`;
           this.router.navigate(['/completed']);
+          }
           //window.open(result.redirect_url,'_blank');
           //console.log("Results"+ JSON.stringify(result,null,2))
           // setTimeout(() => {
@@ -812,12 +827,11 @@ export class CheckoutComponent implements OnInit {
     // console.log("promos=>"+JSON.stringify(this.promos,null,2))
     const found = this.promosList.find(
       (element: any) => element.code === this.promoCodeFormCtrl.value
-      
     );
 
     if (found !== null && found !== undefined && found !== '') {
       this.getPromoCodeValue(found?.code);
-      this.notificationsService.success('','Promo Successfuly applied');
+      this.notificationsService.success('',`${this.discountRateValue}% Promo Successfuly applied`);
       
     } else {
       //console.log("Not Found")
@@ -1005,6 +1019,38 @@ export class CheckoutComponent implements OnInit {
 test(){
   this.dialog.open(OrderCompletedDialogComponent)
 }
+
+getReferalDiscount(){
+
+  const code_details= {
+      code: this.promoCodeFormCtrl.value,
+      user_detail: "test21"
+  }
+  this.isFetchingDiscount =true;
+  this.customersApiCalls.getReferalDiscount(code_details,((error, result)=>{
+    this.isFetchingDiscount =false;
+    if (result !== null) {
+      const percentage = +result.discount_percent;
+      this.discountRateType = 'PERCENTAGE';
+      this.discountRateValue = percentage * 100;
+
+        this.discountAmount = (percentage) * this.subTotal; 
+
+      this.getSubTotal();
+      this.panelOpenState2 =false;
+      this.referalApplied =true;
+      this.notificationsService.success('',`${this.discountRateValue}% discount successfuly applied`);
+
+    }
+  }))
+}
+
+panelOpenState2: boolean = false;
+
+togglePanel() {
+    this.panelOpenState2 = !this.panelOpenState2
+}
+
   get phone_number() { return this.formGroup.get('phone_number'); }
   get password() { return this.formGroup.get('password'); }
   get customer_name() { return this.formGroup.get('customer_name'); }

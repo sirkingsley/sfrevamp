@@ -192,4 +192,13 @@ export class OrderApiCallsService {
     });
   }
 
+  payWithStripe(resource:any,callback: ICallback){
+    this.dataProvider.createNoTokenStripePayment(this.constantValues.STRIPE_URL_ENDPOINT,resource).subscribe(result=>{
+      callback(null, result);
+    }, error => {
+      callback(error, null);
+      this.notificationService.error(this.constantValues.APP_NAME, error.detail);
+    })
+  }
+
 }

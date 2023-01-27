@@ -98,7 +98,7 @@ export class ProfileSidebarComponent implements OnInit {
     this.user = this.authService.currentUser;
     this.onload();
     this.user=this.authService.currentUser;
-    this.getReferalCodeDetails('YYB536');
+   // this.getReferalCodeDetails('YYB536');
   }
 
   getReferalCodeDetails(code){

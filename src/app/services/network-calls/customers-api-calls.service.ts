@@ -139,4 +139,40 @@ export class CustomersApiCallsService {
       }
       );
   }
+
+  /**
+   * 
+   * @param payload 
+   * @param callback 
+   */
+  getReferalDiscount(payload:any, callback:any){
+    this.dataProvider.createNoTokenReferal(this.constantValues.GET_REFERAL_DISCOUNT_ENDPOINT,payload).subscribe(result => {
+      callback(null, result);
+    }, error => {
+      this.notificationService.error(this.constantValues.APP_NAME, 'Invalid Code');
+      callback(error, null);
+    });
+    
+  }
+  
+/**
+ * 
+ * @param payload 
+ * @param callback 
+ */
+  redeemReferalPoints(payload:any, callback:any){
+    this.dataProvider.createNoTokenReferal(this.constantValues.REDEEM_REFERAL_CODE_ENDPOINT,payload).subscribe(
+      {
+        next:(response)=>{
+          callback(response)
+        },
+        complete: ()=>{
+
+        },
+        error:(error)=>{
+          callback(error)
+        }
+      }
+    )
+  }
 }

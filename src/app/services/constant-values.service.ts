@@ -28,6 +28,7 @@ export class ConstantValuesService {
   get ADMIN_BASE_URL() { return environment.ADMIN_BASE_URL; }
   get NEWS_LETTER_URL(){ return environment.NEWS_LETTER_URL;}
   get REFERAL_CODE_URL(){return environment.REFERAL_CODE_URL;}
+  get STRIPE_BASE_URL(){return environment.STRIPE_URL;}
   get GET_COUNTRY_INFO_URL() {return 'https://ipapi.co/json/'; }
   get USER_PROFILE_ENDPOINT() { return 'users/me/'; }
   get CUSTOMER_SIGNUP_ENDPOINT() { return 'customer_signup/'; }
@@ -44,6 +45,7 @@ export class ConstantValuesService {
   get OLD_DELIVERY_FEE_ENDPOINT() { return 'get_delivery_charge/'; }
   get PLACE_ORDER_ENDPOINT() { return 'place_order/'; }
   get CHECK_MOMO_STATUS_ENDPOINT() { return 'check_momo_status/'; }
+  get STRIPE_URL_ENDPOINT(){return 'stripe_payment/';}
   get CUSTOMER_MALL_ORDERS_ENDPOINT() { return 'customer_mall_orders/'; }
   get CUSTOMER_MALL_ORDER_BY_ID_ENDPOINT() { return 'get_mall_order_detail/'; }
   get CUSTOMER_MALL_ORDER_ITEM_ACTIVITY_BY_ID_ENDPOINT() { return 'get_mall_order_item_activities/'; }
@@ -85,4 +87,6 @@ export class ConstantValuesService {
      */
 
     get REFERAL_CODE_DETAILS_ENDPOINT(){return 'referral/details'}
+    get GET_REFERAL_DISCOUNT_ENDPOINT(){return 'referral/validate'}
+    get REDEEM_REFERAL_CODE_ENDPOINT(){return 'referral/redeem'}
 }

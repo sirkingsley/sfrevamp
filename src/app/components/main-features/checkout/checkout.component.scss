@@ -471,3 +471,32 @@ Address Modal Styling
      padding: 20px !important;
     }
    }
+
+   .wrap_heade {
+    img{
+        max-width: 100px;
+        transform: rotate(-48deg);
+        animation: referal-discount-img 4s infinite;
+
+        
+    }
+   }
+
+   .animate-wrapper{
+    height: 70px;
+   }
+   .collapse_form_wrap{
+    border: 1px solid rgba(146, 145, 145,0.5);
+   }
+   @keyframes referal-discount-img {
+    from{
+        opacity: 0;
+        width: 30px;
+        transform: rotate(48deg);
+    }
+    to{
+        opacity: 1;
+        width: 80px;
+        transform: rotate(-30deg);
+    }
+   }

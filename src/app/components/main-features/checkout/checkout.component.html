@@ -107,8 +107,49 @@
 
                     </div>
                 </div>
+                <!-- <span (click)="togglePanel()"><mat-icon> clear </mat-icon></span> -->                
+                
                 <!--Shimmer End-->
 
+                  
+                <div class="animate-wrapper" *ngIf="!referalApplied">
+                    <div class="wrap_heade" style="width: 100%; display: flex; justify-content: space-between; ">
+                        <p class="mb-0 d-flex align-items-center">
+                            <!-- <mat-icon> card_giftcard </mat-icon> -->
+                            <span style="width: 90px; height: 90px;" *ngIf="!panelOpenState2">
+                                <img src="/assets/icons/five_off.png" alt="">
+                            </span>
+                          
+                            
+                            <span class="collapsed">Have a referal code from a friend? <b (click)="togglePanel()" style="cursor: pointer; color: #0071bc;"> Apply here</b></span>
+                        </p>
+    
+                        <span class="pe-5" *ngIf="panelOpenState2" (click)="togglePanel()" style="cursor: pointer;" ><mat-icon> clear </mat-icon></span>
+    
+                    </div>
+                </div>
+              
+                <mat-accordion>
+                    <mat-expansion-panel hideToggle [expanded]="panelOpenState2" class="py-3">
+                       
+                        <div id="coupon_collapse" class="collapse_form_wrap">
+                            <div class="card-body">
+                                <form [formGroup]="promoCodeFormGroup" (ngSubmit)="getReferalDiscount()">
+                                    <div class="form_item">
+                                        <input type="text" name="coupon" placeholder="Enter Code Here"
+                                            formControlName="promoCode" />
+                                    </div>
+                                    <button type="submit" class="custom_btn bg_default_red">
+                                        <div class="spinner-border text-light" role="status" *ngIf="isFetchingDiscount">
+                                            <span class="visually-hidden">Loading...</span>
+                                          </div> <span *ngIf="!isFetchingDiscount">Apply</span> 
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+                
                 <div class="delivery-address-container">
                     <h3>Your Delivery Address</h3>
                     <div class="row"
@@ -218,7 +259,7 @@
                                     </label>
                                 </div>
                                 <div class="label-inline"
-                                    *ngIf="country !==countriesEnum.NG && country !==countriesEnum.GH">
+                                *ngIf="country !==countriesEnum.NG && country !==countriesEnum.GH" >
                                     <input id="inlineRadio3" type="radio" [value]="'STRIPE'"
                                         (click)="selectPaymentMethod('CARD', '', '','STRIPE')"
                                         formControlName="payment_option">
@@ -250,7 +291,7 @@
                         </div>
                         <div class="shop-discount">
                             <!-- <p>Shop discount <span class="old-price">(20% off)</span></p> -->
-                            <p>Shop discount (<span class="text-danger"
+                            <p>Discount (<span class="text-danger"
                                     *ngIf="discountRateType=== 'PERCENTAGE'">{{discountRateValue}}%</span> <span
                                     class="text-danger"
                                     *ngIf="discountRateType=== 'FLAT'">{{currency}}{{discountRateValue}}</span>
@@ -304,7 +345,11 @@
                     </div>
                     <div class="checkout mb-3">
                         <button class="checkout-btn" (click)="placeOrder(paymentFormGroup.value)">
-                            Proceed to Checkout
+                           
+                            <div class="spinner-border text-light" role="status" *ngIf="isProcessing">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                                 <span *ngIf="!isProcessing">Proceed to Checkout</span> 
                         </button>
                     </div>
                     <mat-accordion>
@@ -314,21 +359,24 @@
                                     <div class="wrap_heade">
                                         <p class="mb-0">
                                             <i class="ti-info-alt"></i>
-                                            Coupon or Referal?
-                                            <a class="collapsed">Enter your code here</a>
-                                        </p>
-                                    </div>
+                                            Have a promo code?
+                                            <a class="collapsed">Click here to apply</a>
+                                      
+                                    </div> 
+                                    
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
                             <div id="coupon_collapse" class="collapse_form_wrap">
                                 <div class="card-body">
-                                    <form [formGroup]="promoCodeFormGroup" (ngSubmit)="applyCoupon()">
+                                    <form [formGroup]="promoCodeFormGroup" (ngSubmit)="getReferalDiscount()">
                                         <div class="form_item">
                                             <input type="text" name="coupon" placeholder="Enter Code"
                                                 formControlName="promoCode" />
                                         </div>
                                         <button type="submit" class="custom_btn bg_default_red">
-                                            Apply
+                                            <div class="spinner-border text-light" role="status" *ngIf="isFetchingDiscount">
+                                                <span class="visually-hidden">Loading...</span>
+                                              </div> <span *ngIf="!isFetchingDiscount">Apply</span> 
                                         </button>
                                     </form>
                                 </div>
@@ -338,6 +386,7 @@
                 </div>
             </div>
         </div>
+        
         <ng-template #template>
             <div class="modal-header">
                 <h4 class="modal-title pull-left">Enter Your Delivery Address</h4>

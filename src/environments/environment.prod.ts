@@ -8,6 +8,7 @@ export const environment = {
   NEW_ACCOUNT_BASE_URL: 'https://testapi.cudigo.com/api/v1.0/',
   NEWS_LETTER_URL: 'https://storefront-features.herokuapp.com/',
   REFERAL_CODE_URL: 'https://kokorko-api.herokuapp.com/',
+  STRIPE_URL: 'https://testapi.cudigo.com/api/v1.0/',
   
   ADMIN_BASE_URL: 'https://testapi.cudigo.com/api/v3.0/dashboard/',
   trackingId: 'UA-127382827-2',

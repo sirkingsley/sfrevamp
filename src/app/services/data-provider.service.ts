@@ -139,6 +139,8 @@ export class DataProviderService {
         map((response) => response)
       );
   }
+
+  
   createNoToken2(endPoint: string, resource?: any): Observable<any> {
     return this.http.post(this.constantValuesService.BASE_URL_KOKORKO + endPoint, JSON.stringify(resource), this.optionsNoToken)
       .pipe(
@@ -160,6 +162,19 @@ export class DataProviderService {
       map((response)=>response),
       catchError(err => err))
   }
+
+    /**
+   * HTTP POST request to submit data
+   * @param endPoint Endpoint
+   * @param resource Request Payload
+   */
+    createNoTokenStripePayment(endPoint: string, resource?: any): Observable<any> {
+      return this.http.post(this.constantValuesService.STRIPE_BASE_URL + endPoint, JSON.stringify(resource), this.optionsNoToken)
+        .pipe(
+          catchError(this.handleNetworkErrorsService.handleError),
+          map((response) => response)
+        );
+    }
   /**
    * HTTP POST request to fetch data
    * @param url URL
