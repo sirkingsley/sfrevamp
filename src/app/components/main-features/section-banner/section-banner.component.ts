@@ -15,13 +15,13 @@ export class SectionBannerComponent implements OnInit {
   intervalId: number;
 
 
-  banners=[
-    {image:'../../assets/images/section_banner1.png'},
-    {image:'../../assets/images/section_banner2.png'},
-    {image:'../../assets/images/section_banner3.jpg'},
+  banners = [
+    { image: '../../assets/images/land-image1.png' },
+    { image: '../../assets/images/land-image2.png' },
+    { image: '../../assets/images/land-image3.png' },
   ];
-sectionOptions=sectionOptions;
-OwlLandingPageOtion=OwlLandingPageOtion;
+  sectionOptions = sectionOptions;
+  OwlLandingPageOtion = OwlLandingPageOtion;
   ngOnInit(): void {
     // This visualizes the banner delay
     const source = interval(10000);

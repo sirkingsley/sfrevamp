@@ -1,79 +1,80 @@
-	<main>
+<main>
   <!-- slider_section - start
 			================================================== -->
   <section class="offer_section sec_ptb_100 pb-0 clearfix">
     <div class="container">
       <div class="medical_offer_carousel">
-  <owl-carousel-o [options]="sectionOptions">
-    <ng-container >
-      <ng-template carouselSlide [id]="banners[2]?.image">
-        <div class="item" style="background: url('../../assets/images/back.gif'); color: #fff !important;">
-          <div class="row align-items-center justify-content-lg-between">
-            <div class="col-lg-6 col-md-6 order-last">
-              <div class="item_image">
-                <img src="{{banners[2]?.image}}" alt="image_not_found">
+        <owl-carousel-o [options]="sectionOptions">
+          <ng-container>
+            <ng-template carouselSlide [id]="banners[2]?.image">
+              <div class="item" style="background: url('../../assets/images/back.gif'); color: #fff !important;">
+                <div class="row align-items-center justify-content-lg-between">
+                  <div class="col-lg-6 col-md-6 order-last">
+                    <div class="item_image">
+                      <img src="{{banners[2]?.image}}" alt="image_not_found">
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6">
+                    <div class="item_content item_content1">
+                      <!-- <strong class="offer_text" style="color: #ffffff;">10%off</strong> -->
+                      <h3 class="item_title mb_15" style="color: #ffffff;">Enjoy 50% discount on all items this month
+                        with code RBM016.</h3>
+                      <p class="mb-2 " style="color: #ffffff;">
+                        Get cash back whenever your referral code is used.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-              <div class="item_content item_content1">
-                <!-- <strong class="offer_text" style="color: #ffffff;">10%off</strong> -->
-                <h3 class="item_title mb_15" style="color: #ffffff;"> Get rewarded while you shop; share the love with everyone.</h3>
-                <p class="mb-2 " style="color: #ffffff;">
-                 Get cash back whenever your referral code is used.
-                </p>
+            </ng-template>
+            <ng-template carouselSlide [id]="banners[0]?.image">
+              <div class="item" style="background: url('../../assets/images/celeb.gif');">
+                <div class="row align-items-center justify-content-lg-between">
+                  <div class="col-lg-6 col-md-6 order-last">
+                    <div class="item_image">
+                      <img src="{{banners[0]?.image}}" alt="image_not_found">
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6">
+                    <div class="item_content item_content1">
+                      <!-- <strong class="offer_text">10%off</strong> -->
+                      <h3 class="item_title mb_15"> For a limited time, enjoy 50% off all items with code RBM016.</h3>
+                      <p class="mb-2">
+                        There is Something For Everyone
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </ng-template>
-      <ng-template carouselSlide [id]="banners[0]?.image">
-        <div class="item" style="background: url('../../assets/images/celeb.gif');">
-          <div class="row align-items-center justify-content-lg-between">
-            <div class="col-lg-6 col-md-6 order-last">
-              <div class="item_image">
-                <img src="{{banners[0]?.image}}" alt="image_not_found">
+            </ng-template>
+            <ng-template carouselSlide [id]="banners[1]?.image">
+              <div class="item">
+                <div class="row align-items-center justify-content-lg-between">
+                  <div class="col-lg-6 col-md-6 order-last">
+                    <div class="item_image">
+                      <img src="{{banners[1]?.image}}" alt="image_not_found">
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6">
+                    <div class="item_content item_content1">
+                      <!-- <strong class="offer_text">10%off</strong> -->
+                      <h3 class="item_title mb_15">Kokorko! We're giving you a 50% DISCOUNT with this magic code RBM016
+                      </h3>
+                      <p class="mb-2">
+                        Tailored In Africa With Love
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-              <div class="item_content item_content1">
-                <!-- <strong class="offer_text">10%off</strong> -->
-                <h3 class="item_title mb_15"> Step Out in Style With African Swag; </h3>
-                <p class="mb-2">
-                  There is Something For Everyone
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ng-template>
-      <ng-template carouselSlide [id]="banners[1]?.image">
-        <div class="item" >
-          <div class="row align-items-center justify-content-lg-between">
-            <div class="col-lg-6 col-md-6 order-last">
-              <div class="item_image">
-                <img src="{{banners[1]?.image}}" alt="image_not_found">
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-              <div class="item_content item_content1">
-                <!-- <strong class="offer_text">10%off</strong> -->
-                <h3 class="item_title mb_15">Shirts For Him, Shirts For Her, No one gets left behind;
-                 </h3>
-                <p class="mb-2">
-                  Tailored In Africa With Love
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ng-template>
-      
-    </ng-container>
+            </ng-template>
 
-  </owl-carousel-o>
+          </ng-container>
+
+        </owl-carousel-o>
       </div>
-  </div>
-  <!-- <div class="container">
+    </div>
+    <!-- <div class="container">
     <mat-progress-bar
      color="Primary"
      mode="determinate"
@@ -82,7 +83,7 @@
   </div> -->
   </section>
 
-			<!-- slider_section - end
+  <!-- slider_section - end
 			================================================== -->
 
-  </main>
+</main>

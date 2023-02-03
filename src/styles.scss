@@ -27,10 +27,18 @@
 @import 'swiper/scss/pagination';
 
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-.addclass{
-  color:$secondary-color;
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Poppins, "Helvetica Neue", sans-serif !important;
+}
+
+.addclass {
+  color: $secondary-color;
 }
 
 // .mat-stepper-horizontal {
@@ -62,10 +70,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 /* Importing Datepicker SCSS file. */
 @import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
 
-.form-group input[type=tel]{
+.form-group input[type=tel] {
   width: 100%;
 }
-.ngx-tel-custom{
+
+.ngx-tel-custom {
   appearance: none;
   background: #FFFFFF;
   box-shadow: 0 1px 4px 0 rgb(34 34 34 / 10%) inset;
@@ -86,47 +95,47 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   padding-right: 12px;
   width: 17.5em !important;
   margin: 0 !important;
-  
-  
+
+
 }
 
 @media screen and (max-width: 700px) {
-  .ngx-tel-custom{
+  .ngx-tel-custom {
     width: 16.5em !important;
-     
+
   }
 }
 
 
 .product-image-wrapper {
   img {
-      width: 80%;
-      height: auto;
-      //border: 1px solid blue;
+    width: 80%;
+    height: auto;
+    //border: 1px solid blue;
   }
 }
 
-.item_content{
+.item_content {
   display: flex;
   flex-direction: column;
-  
+
   //align-items: center;
 
-  h2{
+  h2 {
     margin: 0 !important;
-    
+
   }
 }
 
-.item_price{
+.item_price {
   font-size: 20px;
 }
 
-.view-product{
+.view-product {
   min-height: 100vh !important;
 }
 
-.view_grid{
+.view_grid {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -140,13 +149,14 @@ SHIMMER LOADING STYLES
 **/
 
 .br {
-  border-radius: 8px;  
-}
-.w80 {
-   width: 80%;
+  border-radius: 8px;
 }
 
-.codeSentSpan{
+.w80 {
+  width: 80%;
+}
+
+.codeSentSpan {
   font-size: 9px !important;
 }
 
@@ -157,7 +167,7 @@ SHIMMER LOADING STYLES
 }
 
 .animate {
-  animation : shimmer 2s infinite;
+  animation: shimmer 2s infinite;
   background: linear-gradient(to right, #eff1f3 4%, #e2e2e2 25%, #eff1f3 36%);
   background-size: 1000px 100%;
 }
@@ -166,14 +176,16 @@ SHIMMER LOADING STYLES
   0% {
     background-position: -1000px 0;
   }
+
   100% {
     background-position: 1000px 0;
   }
 }
 
-.item_content_shimmer{
+.item_content_shimmer {
   height: 300px !important;
-  .mb_30_shimmer{
+
+  .mb_30_shimmer {
     height: 150px !important;
   }
 }
