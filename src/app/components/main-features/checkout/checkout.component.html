@@ -324,7 +324,7 @@
                                 [ngClass]="(this.selectedDelivery === '' || this.selectedDelivery === undefined || this.selectedDelivery === null)? 'invalid-form-fill' : 'my_class2'">Choose
                                 delivery
                                 option</mat-label>
-                            <mat-select [(value)]="selectedDelivery">
+                            <mat-select [(value)]="selectedDelivery" [disabled]="!isLoggedIn">
                                 <mat-option [value]="deliveryOptions?.PICKUP" *ngIf="country == countriesEnum.GH"
                                     (click)="getDeliveryCharge(deliveryChargeForm.value)">Pick
                                     Up</mat-option>
