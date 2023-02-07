@@ -435,12 +435,7 @@ export class CheckoutComponent implements OnInit {
     // this.cartItems.forEach(el => {
     //   shops.push(el.item.myshop.storefrontmall_name);
     // });
-    if (!this.isLoggedIn) {
-      this.notificationsService.info(this.constantValues.APP_NAME, 'Please login to continue');
-      this.deliveryMethod.get('delivery_method').setValue('')
-      this.selectedDelivery = null;
-      return;
-    }
+
     this.isProcessing = true;
     data.delivery_option = this.selectedDelivery;
     //data.shops = shops.join(',');
