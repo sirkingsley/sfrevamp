@@ -1,91 +1,139 @@
-
-<app-top-nav ></app-top-nav>
+<app-top-nav></app-top-nav>
 <!-- product quick view - start -->
 <div class="pt-5"></div>
 <main class="container view-product pt-5">
-<!--Shimmer start-->
+  <!--Shimmer start-->
   <div class="row" *ngIf="isProcessing">
     <div class="col-sm-5 animate">
       <div class="product_images bg-white">
-     
-      <div class="item_image view-popup-image animate" >
-      
-      </div>
+
+        <div class="item_image view-popup-image animate">
+
+        </div>
       </div>
     </div>
 
-   <div class="col-sm">
-    <div class="item_content_shimmer">
-      <h2 class="item_title"> </h2>
+    <div class="col-sm">
+      <div class="item_content_shimmer">
+        <h2 class="item_title"> </h2>
 
-      <p class="mb_30_shimmer my-2 animate">
-      
-      </p>
-      <p  class="mb_30 animate">
-      
-      </p>
-      <span class="item_price my-3"></span>
+        <p class="mb_30_shimmer my-2 animate">
 
-      <ul class="btns_group ul_li mb_30 clearfix" style="display:flex; justify-content: flex-start !important;">
-        <li><a></a></li>
-      </ul>
+        </p>
+        <p class="mb_30 animate">
 
+        </p>
+        <span class="item_price my-3"></span>
+
+        <ul class="btns_group ul_li mb_30 clearfix" style="display:flex; justify-content: flex-start !important;">
+          <li><a></a></li>
+        </ul>
+
+      </div>
     </div>
-   </div>
-    
+
   </div>
   <!--Shimmer end-->
-   
-      <div class="row" *ngIf="!isProcessing">
-        <div class="col-sm-5">
-          <div class="product_images">
-          <swiper class="" [config]="config4" *ngIf="productDetail?.extra_images.length">
-            <ng-template swiperSlide *ngFor="let image of productDetail?.extra_images">
-              <div class="product-image-wrapper">
-                <img src="{{image?.image}}" alt="image_not_found">
-              </div>
-            </ng-template>
-            <ng-template swiperSlide *ngFor="let image of productDetail?.extra_images">
-              <div class="product-image-wrapper">
-                <img src="{{image?.image}}" alt="image_not_found">
-              </div>
-            </ng-template>
-          </swiper>
-          <div class="item_image view-popup-image" *ngIf="!productDetail?.extra_images?.length">
-            <img src="{{productDetail?.image}}"
-              alt="image_not_found">
-          </div>
-          </div>
+
+  <div class="row" *ngIf="!isProcessing">
+    <div class="col-sm-5">
+      <div class="product_images">
+        <swiper class="" [config]="config4" *ngIf="productDetail?.extra_images.length">
+          <ng-template swiperSlide *ngFor="let image of productDetail?.extra_images">
+            <div class="product-image-wrapper">
+              <img src="{{image?.image}}" alt="image_not_found">
+            </div>
+          </ng-template>
+          <ng-template swiperSlide *ngFor="let image of productDetail?.extra_images">
+            <div class="product-image-wrapper">
+              <img src="{{image?.image}}" alt="image_not_found">
+            </div>
+          </ng-template>
+        </swiper>
+        <div class="item_image view-popup-image" *ngIf="!productDetail?.extra_images?.length">
+          <img src="{{productDetail?.image}}" alt="image_not_found">
         </div>
-
-       <div class="col-sm view_grid">
-        <div class="item_content">
-          <h2 class="item_title"> {{productDetail?.name}}</h2>
-
-          <p class="mb_30 my-2">
-            {{productDetail?.description}}
-          </p>
-          <p *ngIf="!productDetail?.description" class="mb_30">
-            No description!
-          </p>
-          <span class="item_price my-3" *ngIf="country===countriesEnum.GH">{{currency}} {{ sellingPrice[0] | number:
-            '1.2-2'}}</span>
-            <span class="item_price my-3" *ngIf="country===countriesEnum.NG">{{currency}} {{sellingPrice[1] | number:
-              '1.2-2'}}</span>
-          <span class="item_price my-3" *ngIf="country!==countriesEnum.GH && country !==countriesEnum.NG">{{currency}} {{sellingPrice[2] | number:
-            '1.2-2'}}</span>
-
-          <ul class="btns_group ul_li mb_30 clearfix" style="display:flex; justify-content: flex-start !important;">
-            <li><a class="custom_btn bg_carparts_red" (click)="addProductToCart(productDetail)">Add to
-                Cart</a></li>
-          </ul>
-
-        </div>
-       </div>
-        
       </div>
-  
+    </div>
 
-    </main>
+    <div class="col-sm view_grid">
+      <div class="item_content">
+        <h2 class="item_title"> {{productDetail?.name}}</h2>
+
+        <p class="mb_30 my-2">
+          {{productDetail?.description}}
+        </p>
+        <p *ngIf="!productDetail?.description" class="mb_30">
+          No description!
+        </p>
+        <span class="item_price my-3" *ngIf="country===countriesEnum.GH">{{currency}} {{ sellingPrice[0] | number:
+          '1.2-2'}}</span>
+        <span class="item_price my-3" *ngIf="country===countriesEnum.NG">{{currency}} {{sellingPrice[1] | number:
+          '1.2-2'}}</span>
+        <span class="item_price my-3" *ngIf="country!==countriesEnum.GH && country !==countriesEnum.NG">{{currency}}
+          {{sellingPrice[2] | number:
+          '1.2-2'}}</span>
+
+        <ul class="btns_group ul_li mb_30 clearfix" style="display:flex; justify-content: flex-start !important;">
+          <li><a class="custom_btn bg_carparts_red" (click)="addProductToCart(productDetail)">Add to
+              Cart</a></li>
+        </ul>
+
+      </div>
+    </div>
+
+  </div>
+
+  <h1 class="related_products_title">Related Products</h1>
+  <div class="related_products">
+
+    <swiper class="" [config]="retlatedProductsConfig" *ngIf="relatedProducts.length">
+      <ng-template swiperSlide *ngFor="let item of relatedProducts" class="me-3">
+        <div class="element-item mb-5">
+          <!-- <div class="ecommerce_product_grid" data-aos="zoom-in-down"> -->
+          <div class="">
+            <div class="tab-content">
+              <div id="ptab1_1" class="tab-pane fade active" [routerLink]="['/product-details']"
+                [queryParams]=" {slug: item.slug,price:[item.selling_price,item.selling_price_ngn,item.selling_price_usd]}"
+                style="cursor: pointer;">
+                <div class="item_image">
+                  <img src="{{item.image}}" onerror="this.src='../../assets/images/ghana-rice.png'"
+                    alt="image_not_found">
+                </div>
+              </div>
+            </div>
+            <div class="item_content">
+              <h3 class="mb-0 pb-0" [routerLink]="['/product-details']"
+                [queryParams]=" {slug: item.slug,price:[item.selling_price,item.selling_price_ngn,item.selling_price_usd]}">
+                <!-- <a >{{item.name | truncate:2}}</a> -->
+                <a>{{item.name | truncate: 2}}</a>
+              </h3>
+
+              <span class="" *ngIf="country!==countriesEnum.GH && country!==countriesEnum.NG"><strong>{{currency}}
+                  {{item?.selling_price_usd}}
+                </strong>
+              </span>
+              <span class="" *ngIf="country===countriesEnum.GH"><strong>{{currency}} {{item?.selling_price}}
+                </strong>
+              </span>
+
+              <span class="" *ngIf="country===countriesEnum.NG"><strong>{{currency}}
+                  {{item?.selling_price_ngn}}
+                </strong>
+              </span>
+
+              <div class="">
+                <button class="" (click)="addProductToCart(item)">ADD
+                  TO CART</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </swiper>
+  </div>
+
+</main>
 <!-- product quick view - end -->
 <app-footer></app-footer>

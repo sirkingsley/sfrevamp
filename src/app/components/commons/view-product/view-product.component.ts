@@ -14,7 +14,7 @@ import { NotificationsService } from 'src/app/services/notifications.service';
 import { SEOService } from 'src/app/services/seo.service';
 import { CountryEnum, CurrencyEnums } from 'src/app/utils/enums';
 import { CartPopUpComponent } from '../cart-pop-up/cart-pop-up.component';
-import { config, config2, config3, config4 } from 'src/app/utils/swiper-configs';
+import { config, config2, config3, config4, retlatedProductsConfig } from 'src/app/utils/swiper-configs';
 // import Swiper core and required modules
 import SwiperCore, { A11y, EffectFade, Navigation, Pagination, Scrollbar } from 'swiper';
 declare const custom: any;
@@ -75,6 +75,7 @@ export class ViewProductComponent implements OnInit {
   config3 = config3;
   config2 = config2;
   config4 = config4;
+  retlatedProductsConfig = retlatedProductsConfig;
 
   ngOnInit() {
     SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, EffectFade]);
@@ -100,7 +101,7 @@ export class ViewProductComponent implements OnInit {
 
     });
 
-
+    this.getRelatedProducts(this.product_slug, "kokorko")
     // this.route.params.subscribe(param => {
     //   this.currentUrl = this.getHostname.url;
     //   this.slug = param['slug'];
@@ -339,13 +340,13 @@ export class ViewProductComponent implements OnInit {
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount), 0);
       this.totalSellingPrice = this.cartItems.reduce((acc, value) => acc + parseFloat(value.item.selling_price), 0);
     } else if (this.country === this.countriesEnum.NG) {
-        this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount_ngn), 0);
-        this.totalSellingPrice = this.cartItems.reduce((acc, value) => acc + parseFloat(value.item.selling_price_ngn), 0);
-      } else {
-        this.currency = '$';
-        this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount_usd), 0);
-        this.totalSellingPrice = this.cartItems.reduce((acc, value) => acc + parseFloat(value.item.selling_price_usd), 0);
-      }
+      this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount_ngn), 0);
+      this.totalSellingPrice = this.cartItems.reduce((acc, value) => acc + parseFloat(value.item.selling_price_ngn), 0);
+    } else {
+      this.currency = '$';
+      this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount_usd), 0);
+      this.totalSellingPrice = this.cartItems.reduce((acc, value) => acc + parseFloat(value.item.selling_price_usd), 0);
+    }
   }
   onQuantityChanged(data, id) {
     const subTotal = +data.item.selling_price * +data.quantity;

@@ -40,9 +40,9 @@ declare const $;
 
 
 export class CheckoutComponent implements OnInit {
-  
+
   modalRef?: BsModalRef;
-  selected ="";
+  selected = "";
   panelOpenState = false;
   selectedDelivery: string;
   selectedPayment: string;
@@ -61,6 +61,7 @@ export class CheckoutComponent implements OnInit {
   //promoCodeFormCtrl = new FormControl('', [Validators.required]);
   deliveryMethod: FormGroup;
   addressFormGroup: FormGroup;
+  deliveryChargeForm: FormGroup;
   deliveryAddressFormGroup: FormGroup;
   giftRecipientAddressFormGroup: FormGroup;
   paymentFormGroup: FormGroup;
@@ -69,7 +70,7 @@ export class CheckoutComponent implements OnInit {
   zoom: number;
   countryCode = '';
   paymentMethod = '';
-  payment_option='';
+  payment_option = '';
   paymentNetwork = '';
   networkName = '';
   redirectUrl = '';
@@ -80,9 +81,9 @@ export class CheckoutComponent implements OnInit {
   transactionFee = 0;
   deliveryChargeAmount = 0;
   private geoCoder;
-  
+
   cartItems = [];
-  cartItemsShimmer=[1,2,3,4];
+  cartItemsShimmer = [1, 2, 3, 4];
   currency = '';
   subTotal = 0;
   totalSellingPrice = 0;
@@ -121,9 +122,11 @@ export class CheckoutComponent implements OnInit {
   promos: any = [];
   promosList: any = [];
   rate: number = 0;
+  submittedInvalid: Boolean = false;
+
 
   pollingCount = 0;
-  user1:any;
+  user1: any;
   isProcessingTransaction = false;
   momoTransactionStatusObservable: Observable<any>;
   refreshInterval;
@@ -133,11 +136,11 @@ export class CheckoutComponent implements OnInit {
   transactionId;
   orderId;
   pendingCountr = 0;
-  isFetchingDiscount: Boolean =false;
+  isFetchingDiscount: Boolean = false;
   referalApplied: boolean = false;
 
-  
-  constructor(   
+
+  constructor(
     private formBuilder: FormBuilder,
     private orderService: OrderApiCallsService,
     private authService: AuthService,
@@ -164,8 +167,8 @@ export class CheckoutComponent implements OnInit {
   isDeliveryAddressProvided = false;
 
   openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template,{
-      class: 'modal-dialog-centered', 
+    this.modalRef = this.modalService.show(template, {
+      class: 'modal-dialog-centered',
     });
   }
 
@@ -183,18 +186,18 @@ export class CheckoutComponent implements OnInit {
 
     this.deliveryAddress = JSON.parse(localStorage.getItem('delivery_address'));
 
-    this.subscription=this.loginUpdate.addressUpdated.subscribe(address =>{
+    this.subscription = this.loginUpdate.addressUpdated.subscribe(address => {
       this.deliveryAddress = address;
-      this.isDeliveryAddressProvided=true; 
+      this.isDeliveryAddressProvided = true;
       //console.log(this.deliveryAddress);    
     })
     this.getCountry();
-   //console.log(this.deliveryAddress); 
+    //console.log(this.deliveryAddress); 
     //this.getActivePromo("gtpstore");
     AOS.init();
     //Loader variable set false after page load
-   
-      
+
+
     setTimeout(() => {
       this.loader = false;
       // if(this.isLoggedIn && this.deliveryAddress !== null){
@@ -210,23 +213,23 @@ export class CheckoutComponent implements OnInit {
     this.promoCodeFormGroup = this.formBuilder.group({
       promoCode: ['', Validators.required]
     })
-    
+
     //Check if user is not login and alert user
     if (!this.isLoggedIn) {
-      this.dialog.open(LoginMainComponent,{panelClass: 'custom-dialog-container'}).afterClosed().subscribe((isSuccefull: boolean) => {
+      this.dialog.open(LoginMainComponent, { panelClass: 'custom-dialog-container' }).afterClosed().subscribe((isSuccefull: boolean) => {
         if (isSuccefull) {
           this.isLoggedIn = this.authService.isLogedIn;
           this.currentUser = this.authService.currentUser;
           this.loginUpdate.isUpdated(true);
-          
+
           //window.location.reload();
-        
+
         }
       });
       //login popup end
     }
 
-   
+
     this.addressFormGroup = this.formBuilder.group({
       address: ['', Validators.required],
       city: ['', Validators.required],
@@ -235,8 +238,8 @@ export class CheckoutComponent implements OnInit {
       delivery_option: [this.selectedDelivery],
       delivery_mode: [DeliveryModeEnum.INSTANT],
       latitude: [''],
-      postal_code:[''],
-      country:[''],
+      postal_code: [''],
+      country: [''],
       full_name: [''],
       longitude: [''],
       order_items: [[this.order_items]],
@@ -256,7 +259,7 @@ export class CheckoutComponent implements OnInit {
     this.deliveryMethod = this.formBuilder.group({
       bolt_delivery: [''],
       delivery_method: new FormControl(this.selectedDelivery, [Validators.required]),
-      isLogedIn: new FormControl(this.isLoggedIn, [Validators.required,Validators.requiredTrue]),
+      isLogedIn: new FormControl(this.isLoggedIn, [Validators.required, Validators.requiredTrue]),
     });
     this.paymentFormGroup = this.formBuilder.group({
       payment_method: [''],
@@ -274,10 +277,15 @@ export class CheckoutComponent implements OnInit {
       order_items: [[]]
     });
 
+    this.deliveryChargeForm = this.formBuilder.group({
+      delivery_option: [],
+      shop_name: ['kokorko'],
+      order_items: [[this.getOrderItems]]
+    })
     //console.log(this.currentUser);
     this.getActivePromo('kokorko');
     this.getShopInfo();
-    
+
     // if (this.getHostname.isShopMall) {
     //   this.getActivePromo(this.getHostname.subDomain);
     // }
@@ -298,8 +306,8 @@ export class CheckoutComponent implements OnInit {
     // }
 
     this.onload()
- 
-   
+
+
   }
 
 
@@ -309,12 +317,12 @@ export class CheckoutComponent implements OnInit {
   //     this.getDeliveryCharge(this.deliveryAddress);
   //   }
   // }
- 
- /**
-   * Country code selected
-   * @param countryInfo country info
-   */
- getIndustries() {
+
+  /**
+    * Country code selected
+    * @param countryInfo country info
+    */
+  getIndustries() {
     this.shopsApiCalls.getIndustries((error, result) => {
       this.industries = result;
       //console.log("this.industries "+ JSON.stringify(this.industries) );
@@ -329,19 +337,19 @@ export class CheckoutComponent implements OnInit {
    * @param paymentNetwork payment network when method is MOMO
    * @param networkFullName payment network full name
    */
-  selectPaymentMethod(paymentMethod, paymentNetwork, networkFullName,payment_option) {
+  selectPaymentMethod(paymentMethod, paymentNetwork, networkFullName, payment_option) {
     this.paymentMethod = '';
     this.paymentNetwork = '';
     this.networkName = '';
     this.paymentMethod = paymentMethod;
     this.paymentNetwork = paymentNetwork;
     this.networkName = networkFullName;
-    this.payment_option =payment_option;
+    this.payment_option = payment_option;
     if (paymentMethod === PaymentMethods.MOMO && this.constantValues.YOUNG_TEMPLATE_SUBDOMAIN.includes(this.getHostname.subDomain)) {
       this.getShopInfo();
     }
   }
- 
+
   /**
    * Get road name (address) of a location by latitude and longitude
    * @param latitude latitude
@@ -408,14 +416,14 @@ export class CheckoutComponent implements OnInit {
         //this.getDeliveryCharge(data);
         this.proceed = true;
         this.loginUpdate.AddressIsUpdated(data);
-        this.isDeliveryAddressProvided=true;
+        this.isDeliveryAddressProvided = true;
         this.notificationsService.success("", "Address Saved");
-        localStorage.setItem('delivery_address',JSON.stringify(data));
+        localStorage.setItem('delivery_address', JSON.stringify(data));
       }
     });
   }
-  
- 
+
+
 
 
   /**
@@ -423,19 +431,20 @@ export class CheckoutComponent implements OnInit {
    * @param data request payload
    */
   getDeliveryCharge(data) {
-    const shops = [];
-    this.cartItems.forEach(el => {
-      shops.push(el.item.myshop.storefrontmall_name);
-    });
+    // const shops = [];
+    // this.cartItems.forEach(el => {
+    //   shops.push(el.item.myshop.storefrontmall_name);
+    // });
     this.isProcessing = true;
     data.delivery_option = this.selectedDelivery;
-    data.shops = shops.join(',');
+    //data.shops = shops.join(',');
+    data.shop_name = "kokorko";
     data.order_items = this.getOrderItems;
     this.orderService.getDeliveryCharge(data, (error, result) => {
       this.isProcessing = false;
       if (result !== null) {
         this.delieryCharge = result;
-    
+
         // tslint:disable-next-line: max-line-length
         let deliveryCharge = (this.delieryCharge !== null && this.delieryCharge !== '' && this.delieryCharge !== undefined) ? +this.delieryCharge.delivery_fee : 0;
         let serviceCharge = (this.delieryCharge !== null && this.delieryCharge !== '' && this.delieryCharge !== undefined) ? +this.delieryCharge.service_charge : 0;
@@ -457,12 +466,12 @@ export class CheckoutComponent implements OnInit {
    * Compute sub total of items in cart
    */
   getSubTotal() {
-    
+
     if (this.country === this.countriesEnum.GH) {
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount), 0);
       this.totalSellingPrice = this.cartItems.reduce((acc, value) => acc + parseFloat(value.item.selling_price), 0);
     }
-    else if (this.country === this.countriesEnum.NG ) {
+    else if (this.country === this.countriesEnum.NG) {
       this.subTotal = this.cartItems.reduce((acc, value) => acc + parseFloat(value.total_amount_ngn), 0);
       this.totalSellingPrice = this.cartItems.reduce((acc, value) => acc + parseFloat(value.item.selling_price_ngn), 0);
     } else {
@@ -478,7 +487,7 @@ export class CheckoutComponent implements OnInit {
       this.discountAmount = (percentage / 100) * this.subTotal;
     }
     //this.grandTotal = this.subTotal - this.discountAmount;
-    this.grandTotal = (+this.subTotal + this.deliveryChargeAmount + this.serviceCharge + this.transactionFee) - this.discountAmount ;
+    this.grandTotal = (+this.subTotal + this.deliveryChargeAmount + this.serviceCharge + this.transactionFee) - this.discountAmount;
   }
   /**
    * Get Items in cart
@@ -491,7 +500,7 @@ export class CheckoutComponent implements OnInit {
         if (this.cartItems.length > 0) {
           this.currency = this.cartItems[0].item.currency;
           this.country = this.cartItems[0].country;
-          this.cartItems=this.cartItems.sort(this.compare);
+          this.cartItems = this.cartItems.sort(this.compare);
           // tslint:disable-next-line: max-line-length
           // const deliveryCharge = this.deliveryChargeAmount;
           // const serviceCharge = this.serviceCharge;
@@ -512,9 +521,9 @@ export class CheckoutComponent implements OnInit {
       this.notificationsService.info(this.constantValues.APP_NAME, 'Please login to continue');
       return;
     }
-    
 
-    if (this.selectedDelivery !== this.deliveryOptions.PICKUP && this.deliveryAddress ===null || this.deliveryAddress ===true || this.deliveryAddress ===false) {
+
+    if (this.selectedDelivery !== this.deliveryOptions.PICKUP && this.deliveryAddress === null || this.deliveryAddress === true || this.deliveryAddress === false) {
       this.notificationsService.info(this.constantValues.APP_NAME, 'Please provide delivery address to continue');
       return;
     }
@@ -530,10 +539,12 @@ export class CheckoutComponent implements OnInit {
     }
     if (this.selectedDelivery === '' || this.selectedDelivery === undefined || this.selectedDelivery === null) {
       this.notificationsService.info(this.constantValues.APP_NAME, 'Please add a delivery option to continue');
+
+      this.submittedInvalid = true;
       return;
     }
-    
-     else {
+
+    else {
       this.processOrder(data);
     }
 
@@ -559,22 +570,22 @@ export class CheckoutComponent implements OnInit {
 
     data.checkout_origin = this.checkoutSoure;
     data.delivery_option = this.selectedDelivery;
-    data.currency=this.currency;
+    data.currency = this.currency;
     if (this.selectedDelivery === this.deliveryOptions.GIFT) {
       // tslint:disable-next-line: max-line-length
       data = JSON.parse('{' + this.appUtils.removeBraceBrackets(JSON.stringify(data) + ',' + JSON.stringify(this.giftRecipientAddressFormGroup.value)) + '}');
     }
     data.order_items = this.getOrderItems;
     data.checkout_type = '';
-    data.product_variants = '';   
-    if(this.payment_option === 'STRIPE'){
+    data.product_variants = '';
+    if (this.payment_option === 'STRIPE') {
       data.checkout_type = 'USD_ONLY';
     }
-    //console.log("Order payload=>"+JSON.stringify(data,null,2));
+    //console.log("Order payload=>" + JSON.stringify(data, null, 2));
     this.orderService.placeOrder(data, (error, result) => {
       this.isProcessing = false;
       if (result !== null && result.transaction_id !== '' && result.transaction_id !== undefined) {
-        //console.log("Results=>"+JSON.stringify(result,null,2));
+        //console.log("Results=>" + JSON.stringify(result, null, 2));
         this.orderCode = result.order_code;
 
         // this.productsApiCalls.clearCartItem((clearCartError, clearCartResult) => {
@@ -590,57 +601,57 @@ export class CheckoutComponent implements OnInit {
         //   }
         // });
         // if (this.paymentMethod === PaymentMethods.CARD) {
-          this.notificationsService.success(this.constantValues.APP_NAME, 'Order successfully placed. Kindly proceed to make Payment');
-          if(this.payment_option === 'STRIPE'){
-            const payload = {
-              cart_items: this.cartItems,
-              order_code: this.orderCode
-            }
+        this.notificationsService.success(this.constantValues.APP_NAME, 'Order successfully placed. Kindly proceed to make Payment');
+        if (this.payment_option === 'STRIPE') {
+          const payload = {
+            cart_items: this.cartItems,
+            order_code: this.orderCode
+          }
 
-            this.orderService.payWithStripe(payload,(stripe_result=>{
-              //console.log("Stripe Payload=>"+JSON.stringify(payload,null,2));
-              console.log('stripe_result'+stripe_result)
-            }))
-          }else{
-          
+          this.orderService.payWithStripe(payload, (stripe_result => {
+            //console.log("Stripe Payload=>"+JSON.stringify(payload,null,2));
+            console.log('stripe_result' + stripe_result)
+          }))
+        } else {
+
           this.redirectUrl = result.redirect_url;
           const transactionId = result?.transaction_id;
           //console.log("T_ID: "+ result?.transaction_id);
-         
+
           window.location.href = `${result.redirect_url}`;
           this.router.navigate(['/completed']);
-          }
-          //window.open(result.redirect_url,'_blank');
-          //console.log("Results"+ JSON.stringify(result,null,2))
-          // setTimeout(() => {
-          //   this.router.navigate(['/profile-view/orders']);
-          // }, 2000);
+        }
+        //window.open(result.redirect_url,'_blank');
+        //console.log("Results"+ JSON.stringify(result,null,2))
+        // setTimeout(() => {
+        //   this.router.navigate(['/profile-view/orders']);
+        // }, 2000);
 
-          // if(this.paymentMethod ==='MOMO'){
-          // this.dialog.open(ConfirmOrderPaymentDialogComponent,
-          //   // tslint:disable-next-line: max-line-length
-          //   { data: { payment_method: this.paymentMethod, payment_network: this.paymentNetwork, network_name: this.networkName, transaction_id: transactionId, payment_option: this.paymentMethod }, disableClose: true })
-          //   .afterClosed().subscribe((isCompleted: boolean) => {
-      
-          //   });
-          // }else{
-          //   setTimeout(() => {
-          //   this.router.navigate(['/profile-view/orders']);
-          // }, 2000);
-          // }
-          //console.log("result.redirect_url==>"+result.redirect_url);
-          //window.open(`${result.redirect_url}`, `_blank`);
-          //console.log("result.redirect_url==>"+result.redirect_url);
-          //this.router.navigate(['/profile-view/orders']);
-          // setTimeout(() => {
-          //   this.router.navigate(['/profile-view/orders']);
-          //   // if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
-          //   //   this.router.navigate(['/profile-view/orders']);
-          //   // } else  if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
-          //   //   this.router.navigate(['/profile-view/orders']);
-          //   // }
-          // }, 5000);
-      
+        // if(this.paymentMethod ==='MOMO'){
+        // this.dialog.open(ConfirmOrderPaymentDialogComponent,
+        //   // tslint:disable-next-line: max-line-length
+        //   { data: { payment_method: this.paymentMethod, payment_network: this.paymentNetwork, network_name: this.networkName, transaction_id: transactionId, payment_option: this.paymentMethod }, disableClose: true })
+        //   .afterClosed().subscribe((isCompleted: boolean) => {
+
+        //   });
+        // }else{
+        //   setTimeout(() => {
+        //   this.router.navigate(['/profile-view/orders']);
+        // }, 2000);
+        // }
+        //console.log("result.redirect_url==>"+result.redirect_url);
+        //window.open(`${result.redirect_url}`, `_blank`);
+        //console.log("result.redirect_url==>"+result.redirect_url);
+        //this.router.navigate(['/profile-view/orders']);
+        // setTimeout(() => {
+        //   this.router.navigate(['/profile-view/orders']);
+        //   // if (this.checkoutSoure === CheckoutSourceEnums.SF_MARKET_PLACE) {
+        //   //   this.router.navigate(['/profile-view/orders']);
+        //   // } else  if (this.checkoutSoure === CheckoutSourceEnums.SHOP_MALL) {
+        //   //   this.router.navigate(['/profile-view/orders']);
+        //   // }
+        // }, 5000);
+
         //  else if (this.paymentMethod === PaymentMethods.MOMO) {
         //   this.dialog.open(ConfirmOrderPaymentDialogComponent,
         //     // tslint:disable-next-line: max-line-length
@@ -690,7 +701,7 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
- 
+
   /**
    * Get order items in cart, this will added place_order payload as order_items
    */
@@ -719,7 +730,7 @@ export class CheckoutComponent implements OnInit {
       }
     });
   }
- 
+
   getActivePromo(onlineAddress) {
     this.shopApiCalls.checkActivePromo(onlineAddress, (error, result) => {
       //console.log("shopHas->"+result)
@@ -767,7 +778,7 @@ export class CheckoutComponent implements OnInit {
         this.cediEquivalent = this.exchangeRate * (this.grandTotal - this.discountAmount);
         //console.log("This.exchange_rate: "+this.exchangeRate);
       }
-      
+
     });
   }
 
@@ -815,11 +826,11 @@ export class CheckoutComponent implements OnInit {
       });
     });
 
-    
+
   }
 
   async applyCoupon() {
-    if (this.selectedDelivery !== this.deliveryOptions.PICKUP && this.deliveryAddress ===null || this.deliveryAddress ===true || this.deliveryAddress ===false) {
+    if (this.selectedDelivery !== this.deliveryOptions.PICKUP && this.deliveryAddress === null || this.deliveryAddress === true || this.deliveryAddress === false) {
       this.notificationsService.info(this.constantValues.APP_NAME, 'Please provide delivery address to continue');
       return;
     }
@@ -831,15 +842,15 @@ export class CheckoutComponent implements OnInit {
 
     if (found !== null && found !== undefined && found !== '') {
       this.getPromoCodeValue(found?.code);
-      this.notificationsService.success('',`${this.discountRateValue}% Promo Successfuly applied`);
-      
+      this.notificationsService.success('', `${this.discountRateValue}% Promo Successfuly applied`);
+
     } else {
       //console.log("Not Found")
       this.notificationsService.info('', 'Invalid Promo Code');
     }
   }
 
-  
+
   compare(a: any, b: any) {
     if (a.item.name < b.item.name) {
       return -1;
@@ -850,29 +861,29 @@ export class CheckoutComponent implements OnInit {
     return 0;
   }
 
-/**
- * Get the Country User is located
- */
-  getCountry(){
+  /**
+   * Get the Country User is located
+   */
+  getCountry() {
     this.isProcessing = true;
-      this.productsApiCalls.getCountryInfo((error, result) => {
-        this.isProcessing = false;
-        if (result !== null) {
-          this.country = result.country;
-          if(this.country ===this.countriesEnum.GH){
-            this.currency = this.currencies.GHS;
-          }
-          else if(this.country ===this.countriesEnum.NG){
-            this.currency = this.currencies.NGN;
-          }else{
-            this.currency = this.currencies.USD;
-          }
-          //this.currency = (result.currency === CurrencyEnums.GHS || result.currency === CurrencyEnums.NGN) ? result.currency : CurrencyEnums.USD;
-          //console.log("Frontend country: "+ result.country);
-          // console.log("result.currency=>"+ result.currency);
+    this.productsApiCalls.getCountryInfo((error, result) => {
+      this.isProcessing = false;
+      if (result !== null) {
+        this.country = result.country;
+        if (this.country === this.countriesEnum.GH) {
+          this.currency = this.currencies.GHS;
         }
-      });
-      
+        else if (this.country === this.countriesEnum.NG) {
+          this.currency = this.currencies.NGN;
+        } else {
+          this.currency = this.currencies.USD;
+        }
+        //this.currency = (result.currency === CurrencyEnums.GHS || result.currency === CurrencyEnums.NGN) ? result.currency : CurrencyEnums.USD;
+        //console.log("Frontend country: "+ result.country);
+        // console.log("result.currency=>"+ result.currency);
+      }
+    });
+
   }
 
   async addQty(product: any) {
@@ -889,7 +900,7 @@ export class CheckoutComponent implements OnInit {
     const total_amount = +product.total_amount;
     const total_amount_ngn = +product.total_amount_ngn;
     const total_amount_usd = +product.total_amount_usd;
-    const quantity= +product.quantity;
+    const quantity = +product.quantity;
     // tslint:disable-next-line: max-line-length
     const data = {
       item: product.item,
@@ -899,47 +910,47 @@ export class CheckoutComponent implements OnInit {
       total_amount_usd: total_amount_usd,
       date_added: product.date_added,
       country: this.country,
-      currency:this.currency,
+      currency: this.currency,
     };
-    if(this.country ===this.countriesEnum.GH){
-      data.total_amount =total_amount;
+    if (this.country === this.countriesEnum.GH) {
+      data.total_amount = total_amount;
     }
-    else if(this.country ===this.countriesEnum.NG){
-      data.total_amount =total_amount_ngn;
-    }else{
-      data.total_amount =total_amount_usd;
+    else if (this.country === this.countriesEnum.NG) {
+      data.total_amount = total_amount_ngn;
+    } else {
+      data.total_amount = total_amount_usd;
     }
-      const exists = this.cartItems.find(
-        (element: any) => element.item.id ===data.item.id
-        );
-      if (exists !== null && exists !== undefined && exists !== '') {
-        //console.log(this.cartItems[0].item.id);
-        const newQuantity = +exists.quantity + 1;
-        const newSubtotal = +exists.total_amount + +selling_price;
-        const newSubtotal_ngn = +exists.total_amount_ngn + +selling_price_ngn;
-        const newSubtotal_usd = +exists.total_amount_usd + +selling_price_usd;
-        data.total_amount = newSubtotal;
-        data.total_amount_ngn = newSubtotal_ngn;
-        data.total_amount_usd = newSubtotal_usd;
-        data.quantity = newQuantity;
-        this.productsApiCalls.removeAndAddProductToCart(
-          data,
-          async (error: any, result: any) => {
-            if (result !== null) {
-              this.dbaseUpdate.dbaseUpdated(true);
-              await this.getCartItems();
-              await this.getSubTotal();
-            }
+    const exists = this.cartItems.find(
+      (element: any) => element.item.id === data.item.id
+    );
+    if (exists !== null && exists !== undefined && exists !== '') {
+      //console.log(this.cartItems[0].item.id);
+      const newQuantity = +exists.quantity + 1;
+      const newSubtotal = +exists.total_amount + +selling_price;
+      const newSubtotal_ngn = +exists.total_amount_ngn + +selling_price_ngn;
+      const newSubtotal_usd = +exists.total_amount_usd + +selling_price_usd;
+      data.total_amount = newSubtotal;
+      data.total_amount_ngn = newSubtotal_ngn;
+      data.total_amount_usd = newSubtotal_usd;
+      data.quantity = newQuantity;
+      this.productsApiCalls.removeAndAddProductToCart(
+        data,
+        async (error: any, result: any) => {
+          if (result !== null) {
+            this.dbaseUpdate.dbaseUpdated(true);
+            await this.getCartItems();
+            await this.getSubTotal();
           }
-        );
-      }
-  
+        }
+      );
+    }
+
   }
-  
+
   async reduceQty(product: any) {
     const stockQty = +product.quantity;
     if (stockQty <= 1) {
-      this.notificationsService.error( "",
+      this.notificationsService.error("",
         product.item.name + ' Cannot further be reduced'
       );
       return;
@@ -950,9 +961,9 @@ export class CheckoutComponent implements OnInit {
     const selling_price_usd = +product.item.selling_price_usd;
     // tslint:disable-next-line: variable-name
     const total_amount = selling_price * 1;
-    const total_amount_ngn = selling_price_ngn *1;
-    const total_amount_usd =selling_price_usd * 1;
-    const quantity= +product.quantity;
+    const total_amount_ngn = selling_price_ngn * 1;
+    const total_amount_usd = selling_price_usd * 1;
+    const quantity = +product.quantity;
     // tslint:disable-next-line: max-line-length
     const data = {
       item: product.item,
@@ -962,94 +973,94 @@ export class CheckoutComponent implements OnInit {
       total_amount_usd: total_amount_usd,
       date_added: product.date_added,
       country: this.country,
-      currency:this.currency,
+      currency: this.currency,
     };
-    if(this.country ===this.countriesEnum.GH){
-      data.total_amount =total_amount;
+    if (this.country === this.countriesEnum.GH) {
+      data.total_amount = total_amount;
     }
-    else if(this.country ===this.countriesEnum.NG){
-      data.total_amount =total_amount_ngn;
-    }else{
-      data.total_amount =total_amount_usd;
+    else if (this.country === this.countriesEnum.NG) {
+      data.total_amount = total_amount_ngn;
+    } else {
+      data.total_amount = total_amount_usd;
     }
-      const exists = this.cartItems.find(
-        (element: any) => element.item.id ===data.item.id
-        );
-      if (exists !== null && exists !== undefined && exists !== '') {
-        const newQuantity = +exists.quantity - 1;
-        const newSubtotal = +exists.total_amount - data.total_amount;
-        const newSubtotal_ngn = +exists.total_amount_ngn - data.total_amount_ngn;
-        const newSubtotal_usd = +exists.total_amount_usd - data.total_amount_usd;
-        data.total_amount = newSubtotal;
-        data.total_amount_ngn = newSubtotal_ngn;
-        data.total_amount_usd = newSubtotal_usd;
-        data.quantity = newQuantity;
-        this.productsApiCalls.removeAndAddProductToCart(
-          data,
-          async (error: any, result: any) => {
-            if (result !== null) {
-              this.dbaseUpdate.dbaseUpdated(true);
-              await this.getCartItems();
-              await this.getSubTotal();
-            }
+    const exists = this.cartItems.find(
+      (element: any) => element.item.id === data.item.id
+    );
+    if (exists !== null && exists !== undefined && exists !== '') {
+      const newQuantity = +exists.quantity - 1;
+      const newSubtotal = +exists.total_amount - data.total_amount;
+      const newSubtotal_ngn = +exists.total_amount_ngn - data.total_amount_ngn;
+      const newSubtotal_usd = +exists.total_amount_usd - data.total_amount_usd;
+      data.total_amount = newSubtotal;
+      data.total_amount_ngn = newSubtotal_ngn;
+      data.total_amount_usd = newSubtotal_usd;
+      data.quantity = newQuantity;
+      this.productsApiCalls.removeAndAddProductToCart(
+        data,
+        async (error: any, result: any) => {
+          if (result !== null) {
+            this.dbaseUpdate.dbaseUpdated(true);
+            await this.getCartItems();
+            await this.getSubTotal();
           }
-        );
-      }
-  
+        }
+      );
+    }
+
   }
-  
-  saveUserChoice(){
-    if (this.paymentMethod ==='' || this.paymentMethod===null || this.paymentMethod===undefined){
-      this.notificationsService.info("","Please choose payment option");
+
+  saveUserChoice() {
+    if (this.paymentMethod === '' || this.paymentMethod === null || this.paymentMethod === undefined) {
+      this.notificationsService.info("", "Please choose payment option");
       return;
     }
-    if (this.selectedDelivery ==='' || this.selectedDelivery===null || this.selectedDelivery===undefined){
-      this.notificationsService.info("","Please choose a delivery option");
+    if (this.selectedDelivery === '' || this.selectedDelivery === null || this.selectedDelivery === undefined) {
+      this.notificationsService.info("", "Please choose a delivery option");
       return;
     }
-    else{
-      const user_choice={
+    else {
+      const user_choice = {
         payment_option: this.paymentMethod,
         delivery_option: this.selectedDelivery
       }
-      localStorage.setItem('user_choice',JSON.stringify(user_choice));
+      localStorage.setItem('user_choice', JSON.stringify(user_choice));
       this.router.navigate(['/delivery-info']);
     }
-  }  
-test(){
-  this.dialog.open(OrderCompletedDialogComponent)
-}
+  }
+  test() {
+    this.dialog.open(OrderCompletedDialogComponent)
+  }
 
-getReferalDiscount(){
+  getReferalDiscount() {
 
-  const code_details= {
+    const code_details = {
       code: this.promoCodeFormCtrl.value,
       user_detail: "test21"
-  }
-  this.isFetchingDiscount =true;
-  this.customersApiCalls.getReferalDiscount(code_details,((error, result)=>{
-    this.isFetchingDiscount =false;
-    if (result !== null) {
-      const percentage = +result.discount_percent;
-      this.discountRateType = 'PERCENTAGE';
-      this.discountRateValue = percentage * 100;
-
-        this.discountAmount = (percentage) * this.subTotal; 
-
-      this.getSubTotal();
-      this.panelOpenState2 =false;
-      this.referalApplied =true;
-      this.notificationsService.success('',`${this.discountRateValue}% discount successfuly applied`);
-
     }
-  }))
-}
+    this.isFetchingDiscount = true;
+    this.customersApiCalls.getReferalDiscount(code_details, ((error, result) => {
+      this.isFetchingDiscount = false;
+      if (result !== null) {
+        const percentage = +result.discount_percent;
+        this.discountRateType = 'PERCENTAGE';
+        this.discountRateValue = percentage * 100;
 
-panelOpenState2: boolean = false;
+        this.discountAmount = (percentage) * this.subTotal;
 
-togglePanel() {
+        this.getSubTotal();
+        this.panelOpenState2 = false;
+        this.referalApplied = true;
+        this.notificationsService.success('', `${this.discountRateValue}% discount successfuly applied`);
+
+      }
+    }))
+  }
+
+  panelOpenState2: boolean = false;
+
+  togglePanel() {
     this.panelOpenState2 = !this.panelOpenState2
-}
+  }
 
   get phone_number() { return this.formGroup.get('phone_number'); }
   get password() { return this.formGroup.get('password'); }

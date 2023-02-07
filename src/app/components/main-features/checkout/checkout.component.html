@@ -320,22 +320,29 @@
 
                     <div class="delivery-option-wrapper">
                         <mat-form-field appearance="fill" [formGroup]="deliveryMethod">
-                            <mat-label>Choose delivery option</mat-label>
+                            <mat-label
+                                [ngClass]="(this.selectedDelivery === '' || this.selectedDelivery === undefined || this.selectedDelivery === null)? 'invalid-form-fill' : 'my_class2'">Choose
+                                delivery
+                                option</mat-label>
                             <mat-select [(value)]="selectedDelivery">
-                                <mat-option [value]="deliveryOptions?.PICKUP" *ngIf="country == countriesEnum.GH">Pick
+                                <mat-option [value]="deliveryOptions?.PICKUP" *ngIf="country == countriesEnum.GH"
+                                    (click)="getDeliveryCharge(deliveryChargeForm.value)">Pick
                                     Up</mat-option>
-                                <mat-option [value]="deliveryOptions?.UBER_DELIVERY"
-                                    *ngIf="country == countriesEnum.GH">
+                                <mat-option [value]="deliveryOptions?.UBER_DELIVERY" *ngIf="country == countriesEnum.GH"
+                                    (click)="getDeliveryCharge(deliveryChargeForm.value)">
                                     Uber</mat-option>
                                 <mat-option [value]="deliveryOptions?.BOLT_DELIVERY"
-                                    *ngIf="country === countriesEnum.GH">Bolt</mat-option>
+                                    *ngIf="country === countriesEnum.GH"
+                                    (click)="getDeliveryCharge(deliveryChargeForm.value)">Bolt</mat-option>
                                 <mat-option [value]="deliveryOptions?.DHL_DELIVERY"
-                                    *ngIf=" country !== countriesEnum.GH">DHL delivery</mat-option>
+                                    *ngIf=" country !== countriesEnum.GH"
+                                    (click)="getDeliveryCharge(deliveryChargeForm.value)">DHL delivery</mat-option>
                                 <!-- <mat-option [value]="deliveryOptions?.NG_BIKE_DELIVERY"
                                     *ngIf="currency == currencies.NGN || country == countriesEnum.NG">NG Bike
                                     Delivery</mat-option> -->
                                 <mat-option [value]="deliveryOptions?.GH_BIKE_DELIVERY"
-                                    *ngIf="country === countriesEnum.GH">GH Bike
+                                    *ngIf="country === countriesEnum.GH"
+                                    (click)="getDeliveryCharge(deliveryChargeForm.value)">GH Bike
                                     Delivery</mat-option>
                             </mat-select>
                         </mat-form-field>

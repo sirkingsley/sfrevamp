@@ -18,22 +18,19 @@ import { AuthInterceptor } from './classes/auth-interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SupermarketComponent } from './components/main-features/classic-shop/supermarket/supermarket.component';
+
 import { ShopDetailsComponent } from './components/main-features/shop-details/shop-details.component';
 import { HttpClientModule } from '@angular/common/http';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatButtonModule} from '@angular/material/button';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 
 import { SignUpComponent } from './components/commons/sign-up/sign-up.component';
 import { LoginComponent } from './components/commons/login/login.component';
-import { DressesComponent } from './components/main-features/classic-shop/supermarket/dresses/dresses.component';
-import { FallComponent } from './components/main-features/classic-shop/supermarket/fall/fall.component';
-import { BlouseComponent } from './components/main-features/classic-shop/supermarket/blouse/blouse.component';
 import { ViewProductComponent } from './components/commons/view-product/view-product.component';
-import {MatDialogModule, MatDialog,MatDialogRef, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
-import { Checkout2Component } from './components/main-features/checkout2/checkout2.component';
+import { MatDialogModule, MatDialog, MatDialogRef, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+
 import { Checkout3Component } from './components/main-features/checkout3/checkout3.component';
 import { CartComponent } from './components/main-features/cart/cart.component';
 import { AuthService } from './services/auth.service';
@@ -56,12 +53,12 @@ import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { NgxIndexedDBModule } from 'ngx-indexed-db';
 import { dbConfig } from './interfaces/local-db-config';
 import { ToastrModule } from 'ngx-toastr';
-import {MatRadioModule} from '@angular/material/radio';
-import {MatSelectModule} from '@angular/material/select';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatTabsModule} from '@angular/material/tabs';
- 
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatTabsModule } from '@angular/material/tabs';
+
 
 import { ConfirmOrderPaymentDialogComponent } from './components/commons/confirm-order-payment-dialog/confirm-order-payment-dialog.component';
 import { OrderCompletedDialogComponent } from './components/commons/order-completed-dialog/order-completed-dialog.component';
@@ -70,16 +67,16 @@ import { GuestUserComponent } from './components/commons/guest-user/guest-user.c
 import { OrderHistoryComponent } from './components/customer/order-history/order-history.component';
 import { ProfileSidebarComponent } from './components/customer/profile-sidebar/profile-sidebar.component';
 import { OrderDetailsComponent } from './components/customer/order-details/order-details.component';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { PaymentDialogComponent } from './components/commons/payment-dialog/payment-dialog.component';
 import { PackageStatusHistoryComponent } from './components/commons/package-status-history/package-status-history.component';
 import { AccountComponent } from './components/customer/account/account.component';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatListModule} from '@angular/material/list';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { PaginationComponent } from './components/commons/pagination/pagination.component';
 import { LandingPageComponent } from './components/main-features/landing-page/landing-page.component';
 import { SectionBannerComponent } from './components/main-features/section-banner/section-banner.component';
@@ -108,15 +105,11 @@ import { StripePaymentComponent } from './components/commons/stripe-payment/stri
 @NgModule({
   declarations: [
     AppComponent,
-    SupermarketComponent,
+
     ShopDetailsComponent,
     SignUpComponent,
     LoginComponent,
-    DressesComponent,
-    FallComponent,
-    BlouseComponent,
     ViewProductComponent,
-    Checkout2Component,
     Checkout3Component,
     CartComponent,
     FooterComponent,
@@ -185,43 +178,43 @@ import { StripePaymentComponent } from './components/commons/stripe-payment/stri
     //LacMatTelInputModule,
     NgxIntlTelInputModule,
     SwiperModule,
-    
+
   ],
   providers:
-  [
-    AuthService,
-    AppUtilsService,
-    ConstantValuesService,
-    DataProviderService,
-    DbaseUpdateService,
-    GetHostnameService,
-    LocalStorageDataProviderService,
-    LoginUpdateService,
-    MarketingService,
-    NetworkErrorHandlerService,
-    NotificationsService,
-    SentryErrorHandlerService,
-    SEOService,
-    CustomersApiCallsService,
-    OrderApiCallsService,
-    ProductsApiCallsService,
-    SharedDataApiCallsService,
-    ShopApiCallsService,
-    NgxIndexedDBService,
-    
-    Title,
-    { provide: ErrorHandler, useClass: SentryErrorHandlerService },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    WINDOW_PROVIDERS,
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue:{hasBackdrop: true}},
-    {
-      provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: {displayDefaultIndicatorType: false},
-    },
+    [
+      AuthService,
+      AppUtilsService,
+      ConstantValuesService,
+      DataProviderService,
+      DbaseUpdateService,
+      GetHostnameService,
+      LocalStorageDataProviderService,
+      LoginUpdateService,
+      MarketingService,
+      NetworkErrorHandlerService,
+      NotificationsService,
+      SentryErrorHandlerService,
+      SEOService,
+      CustomersApiCallsService,
+      OrderApiCallsService,
+      ProductsApiCallsService,
+      SharedDataApiCallsService,
+      ShopApiCallsService,
+      NgxIndexedDBService,
 
-    { provide: MAT_DIALOG_DATA,  useValue:{hasBackdrop: true} },
-    { provide: MatDialogRef,  useValue:{hasBackdrop: true} }
-  ],
+      Title,
+      { provide: ErrorHandler, useClass: SentryErrorHandlerService },
+      { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+      WINDOW_PROVIDERS,
+      { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },
+      {
+        provide: STEPPER_GLOBAL_OPTIONS,
+        useValue: { displayDefaultIndicatorType: false },
+      },
+
+      { provide: MAT_DIALOG_DATA, useValue: { hasBackdrop: true } },
+      { provide: MatDialogRef, useValue: { hasBackdrop: true } }
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

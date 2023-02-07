@@ -11,7 +11,7 @@ export const config: SwiperOptions = {
 export const config2: SwiperOptions = {
   slidesPerView: 1,
   //spaceBetween: 100,
- // navigation: true,
+  // navigation: true,
   pagination: { clickable: true },
   scrollbar: { draggable: true },
 };
@@ -19,7 +19,7 @@ export const config2: SwiperOptions = {
 export const config3: SwiperOptions = {
   slidesPerView: 1,
   //spaceBetween: 100,
- navigation: true,
+  navigation: true,
   pagination: { clickable: true },
   scrollbar: { draggable: true },
 };
@@ -27,7 +27,20 @@ export const config3: SwiperOptions = {
 export const config4: SwiperOptions = {
   slidesPerView: 1,
   //spaceBetween: 100,
- navigation: true,
-  pagination: { clickable: true },
+  navigation: true,
+  pagination: false,
   scrollbar: { draggable: true },
 };
+
+export const retlatedProductsConfig: SwiperOptions = {
+  slidesPerView: 3,
+  // spaceBetween: 5,
+  //navigation: true,
+  pagination: { clickable: true },
+  scrollbar: { draggable: true },
+  autoplay: {
+    delay: 5000,
+  },
+
+};
+
